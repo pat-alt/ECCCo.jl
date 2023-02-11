@@ -1,0 +1,10 @@
+project:
+  output-dir: build
+
+bibliography: bib.bib
+
+format: 
+  julia-html: default
+
+
+

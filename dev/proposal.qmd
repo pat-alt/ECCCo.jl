@@ -1,0 +1,63 @@
+---
+title: Conformal Counterfactual Explanations
+subtitle: Research Proposal
+abstract: |
+    We propose Conformal Counterfactual Explanations: an effortless and rigorous way to produce realistic and faithful Counterfactual Explanations using Conformal Prediction. To address the need for realistic counterfactuals, existing work has primarily relied on separate generative models to learn the data generating process. While this an effective way to produce plausible and model-agnostic counterfactual explanations, it not only introduces an significant engineering overhead, but also reallocates the task of creating realistic model explanations from the model itsel to the generative model. Recent work has shown that there is no need for any of this when working with probabilistic models that explicitly quantify their own uncertainty. Unfortunately, most models used in practice still do not fulfil that basic requirement, in which case we would like to have a way to quantify predictive uncertainty in a post-hoc fashion.
+---
+
+## Motivation
+
+Counterfactual Explanations are a powerful, flexible and intuitive way to not only explain black-box models, but also enable affected individuals to challenge them though the means of Algorithmic Recourse. 
+
+### From Adversarial Examples to Counterfactual Explanations
+
+Most state-of-the-art approaches to generating Counterfactual Explanations (CE) rely on gradient descent in the feature space. The key idea is to perturb inputs $x\in\mathcal{X}$ into a black-box model $f: \mathcal{X} \mapsto \mathcal{Y}$ in order to change the model output $f(x)$ to some pre-specified target value $t\in\mathcal{Y}$. Formally, this boils down to defining some loss function $\ell(f(x),t)$ and taking gradient steps in the minimizing direction. The so generated counterfactuals are considered valid as soon as the predicted label matches the target label. A stripped down counterfactual is therefore little different from Adversarial Examples [@goodfellow2014explaining].
+
+> You may not like it, but this is what counterfactuals look like
+
+- Show DiCE for weak MLP
+- Show Latent for same weak MLP
+- Latent can be manipulated: 
+    - train biased model
+    - train VAE with biased variable removed/attacked (use Boston housing dataset)
+    - hypothesis: will generate bias-free explanations
+
+## Introduction to Conformal Prediction
+
+- distribution-free, model-agnostic and scalable approach to predictive uncertainty quantification
+
+### Post-hoc
+
+- Take any fitted model and turn it into a conformal model using calibration data.
+
+### Intrinsic --- Conformal Training [MAYBE]
+
+- Model explicitly trained for conformal prediction.
+
+## Conformal Counterfactuals
+
+- Realistic counterfactuals by minimizing predictive uncertainty [@schut2021generating].
+- Problem: restricted to Bayesian models.
+- Solution: post-hoc predictive uncertainty quantification. 
+- Conformal prediction is instance-based. So is CE. 
+- Does the coverage guarantee carry over to counterfactuals?
+
+### Research Questions
+
+- Is CP alone enough to ensure realistic counterfactuals?
+- Do counterfactuals improve further as the models get better?
+- Do counterfactuals get more realistic as coverage
+- What happens as we vary coverage and setsize?
+- What happens as we improve the model robustness?
+- What happens as we improve the model's ability to incorporate predictive uncertainty (deep ensemble, laplace)?
+
+## Experiments
+
+- Maybe: conformalised Laplace
+- Benchmarking:
+    - add PROBE into the mix
+    - compare travel costs to domain shits.
+
+## References
+
+
