@@ -6,5 +6,10 @@ bibliography: bib.bib
 format: 
   julia-html: default
 
+execute: 
+  echo: false
+  eval: false
+  output: false
+
 
 
