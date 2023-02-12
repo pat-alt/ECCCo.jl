@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Proposal</title>
+<title>Conformal Counterfactual Explanations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -53,6 +53,7 @@ div.csl-indent {
 <link href="proposal_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="proposal_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -64,7 +65,10 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#you-may-not-like-it-but-this-is-what-counterfactuals-look-like" id="toc-you-may-not-like-it-but-this-is-what-counterfactuals-look-like" class="nav-link active" data-scroll-target="#you-may-not-like-it-but-this-is-what-counterfactuals-look-like">You may not like it, but this is what counterfactuals look like</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a>
+  <ul class="collapse">
+  <li><a href="#from-adversarial-examples-to-counterfactual-explanations" id="toc-from-adversarial-examples-to-counterfactual-explanations" class="nav-link" data-scroll-target="#from-adversarial-examples-to-counterfactual-explanations">From Adversarial Examples to Counterfactual Explanations</a></li>
+  </ul></li>
   <li><a href="#introduction-to-conformal-prediction" id="toc-introduction-to-conformal-prediction" class="nav-link" data-scroll-target="#introduction-to-conformal-prediction">Introduction to Conformal Prediction</a>
   <ul class="collapse">
   <li><a href="#post-hoc" id="toc-post-hoc" class="nav-link" data-scroll-target="#post-hoc">Post-hoc</a></li>
@@ -83,7 +87,8 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Research Proposal</h1>
+<h1 class="title">Conformal Counterfactual Explanations</h1>
+<p class="subtitle lead">Research Proposal</p>
 </div>
 
 
@@ -95,11 +100,25 @@ div.csl-indent {
     
   </div>
   
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    <p>We propose Conformal Counterfactual Explanations: an effortless and rigorous way to produce realistic and faithful Counterfactual Explanations using Conformal Prediction. To address the need for realistic counterfactuals, existing work has primarily relied on separate generative models to learn the data generating process. While this an effective way to produce plausible and model-agnostic counterfactual explanations, it not only introduces an significant engineering overhead, but also reallocates the task of creating realistic model explanations from the model itsel to the generative model. Recent work has shown that there is no need for any of this when working with probabilistic models that explicitly quantify their own uncertainty. Unfortunately, most models used in practice still do not fulfil that basic requirement, in which case we would like to have a way to quantify predictive uncertainty in a post-hoc fashion.</p>
+  </div>
+</div>
 
 </header>
 
-<section id="you-may-not-like-it-but-this-is-what-counterfactuals-look-like" class="level2">
-<h2 class="anchored" data-anchor-id="you-may-not-like-it-but-this-is-what-counterfactuals-look-like">You may not like it, but this is what counterfactuals look like</h2>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>Counterfactual Explanations are a powerful, flexible and intuitive way to not only explain black-box models, but also enable affected individuals to challenge them though the means of Algorithmic Recourse.</p>
+<section id="from-adversarial-examples-to-counterfactual-explanations" class="level3">
+<h3 class="anchored" data-anchor-id="from-adversarial-examples-to-counterfactual-explanations">From Adversarial Examples to Counterfactual Explanations</h3>
+<p>Most state-of-the-art approaches to generating Counterfactual Explanations (CE) rely on gradient descent in the feature space. The key idea is to perturb inputs <span class="math inline">\(x\in\mathcal{X}\)</span> into a black-box model <span class="math inline">\(f: \mathcal{X} \mapsto \mathcal{Y}\)</span> in order to change the model output <span class="math inline">\(f(x)\)</span> to some pre-specified target value <span class="math inline">\(t\in\mathcal{Y}\)</span>. Formally, this boils down to defining some loss function <span class="math inline">\(\ell(f(x),t)\)</span> and taking gradient steps in the minimizing direction. The so generated counterfactuals are considered valid as soon as the predicted label matches the target label. A stripped down counterfactual explanation is therefore little different from an adversarial example.</p>
+<blockquote class="blockquote">
+<p>You may not like it, but this is what counterfactuals look like</p>
+</blockquote>
+<p>The crucial difference between adversarial examples and counterfactuals is one of intent. While adversarial examples are typically intened to go unnoticed, counterfactuals in the context of Explainable AI are generally sought to be “plausible” or “realistic”. To fulfill this latter goal, researchers have come up with a myriad of ways. <span class="citation" data-cites="joshi2019realistic">Joshi et al. (<a href="#ref-joshi2019realistic" role="doc-biblioref">2019</a>)</span> were among the first to suggest that instead of searching counterfactuals in the feature space, we can instead traverse a latent embedding learned by a surrogate generative model. This ensures that the generated counterfactuals comply with the (learned) data-generating process (DGB). Similarly, <span class="citation" data-cites="poyiadzi2020face">Poyiadzi et al. (<a href="#ref-poyiadzi2020face" role="doc-biblioref">2020</a>)</span> use density …</p>
 <ul>
 <li>Show DiCE for weak MLP</li>
 <li>Show Latent for same weak MLP</li>
@@ -110,6 +129,10 @@ div.csl-indent {
 <li>hypothesis: will generate bias-free explanations</li>
 </ul></li>
 </ul>
+<div id="prp-surrogate" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 1 (Avoid Surrogates) </strong></span>Since we are in the business of explaining a black-box model, the task of learning realistic representations of the data should not be reallocated from the model itself to some surrogate model.</p>
+</div>
+</section>
 </section>
 <section id="introduction-to-conformal-prediction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-to-conformal-prediction">Introduction to Conformal Prediction</h2>
@@ -167,6 +190,12 @@ div.csl-indent {
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-joshi2019realistic" class="csl-entry" role="doc-biblioentry">
+Joshi, Shalmali, Oluwasanmi Koyejo, Warut Vijitbenjaronk, Been Kim, and Joydeep Ghosh. 2019. <span>“Towards Realistic Individual Recourse and Actionable Explanations in Black-Box Decision Making Systems.”</span> <a href="https://arxiv.org/abs/1907.09615">https://arxiv.org/abs/1907.09615</a>.
+</div>
+<div id="ref-poyiadzi2020face" class="csl-entry" role="doc-biblioentry">
+Poyiadzi, Rafael, Kacper Sokol, Raul Santos-Rodriguez, Tijl De Bie, and Peter Flach. 2020. <span>“<span>FACE</span>: <span>Feasible</span> and Actionable Counterfactual Explanations.”</span> In <em>Proceedings of the <span>AAAI</span>/<span>ACM Conference</span> on <span>AI</span>, <span>Ethics</span>, and <span>Society</span></em>, 344–50.
+</div>
 <div id="ref-schut2021generating" class="csl-entry" role="doc-biblioentry">
 Schut, Lisa, Oscar Key, Rory Mc Grath, Luca Costabello, Bogdan Sacaleanu, Yarin Gal, et al. 2021. <span>“Generating <span>Interpretable Counterfactual Explanations By Implicit Minimisation</span> of <span>Epistemic</span> and <span>Aleatoric Uncertainties</span>.”</span> In <em>International <span>Conference</span> on <span>Artificial Intelligence</span> and <span>Statistics</span></em>, 1756–64. <span>PMLR</span>.
 </div>
