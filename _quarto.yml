@@ -10,6 +10,9 @@ execute:
   echo: false
   eval: false
   output: false
+  freeze: auto
+
+jupyter: julia-1.8
 
 
 
