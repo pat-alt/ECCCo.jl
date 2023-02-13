@@ -2403,4 +2403,26 @@
   shorttitle   = {Probabilistically {Robust} {Recourse}},
 }
 
+@InProceedings{stutz2022learning,
+  author   = {Stutz, David and Dvijotham, Krishnamurthy Dj and Cemgil, Ali Taylan and Doucet, Arnaud},
+  date     = {2022-05},
+  title    = {Learning {Optimal} {Conformal} {Classifiers}},
+  language = {en},
+  url      = {https://openreview.net/forum?id=t8O-4LKFVx},
+  urldate  = {2023-02-13},
+  abstract = {Modern deep learning based classifiers show very high accuracy on test data but this does not provide sufficient guarantees for safe deployment, especially in high-stake AI applications such as medical diagnosis. Usually, predictions are obtained without a reliable uncertainty estimate or a formal guarantee. Conformal prediction (CP) addresses these issues by using the classifier's predictions, e.g., its probability estimates, to predict confidence sets containing the true class with a user-specified probability. However, using CP as a separate processing step after training prevents the underlying model from adapting to the prediction of confidence sets. Thus, this paper explores strategies to differentiate through CP during training with the goal of training model with the conformal wrapper end-to-end. In our approach, conformal training (ConfTr), we specifically "simulate" conformalization on mini-batches during training. Compared to standard training, ConfTr reduces the average confidence set size (inefficiency) of state-of-the-art CP methods applied after training. Moreover, it allows to "shape" the confidence sets predicted at test time, which is difficult for standard CP. On experiments with several datasets, we show ConfTr can influence how inefficiency is distributed across classes, or guide the composition of confidence sets in terms of the included classes, while retaining the guarantees offered by CP.},
+  file     = {:stutz2022learning - Learning Optimal Conformal Classifiers.pdf:PDF},
+}
+
+@InProceedings{grathwohl2020your,
+  author   = {Grathwohl, Will and Wang, Kuan-Chieh and Jacobsen, Joern-Henrik and Duvenaud, David and Norouzi, Mohammad and Swersky, Kevin},
+  date     = {2020-03},
+  title    = {Your classifier is secretly an energy based model and you should treat it like one},
+  language = {en},
+  url      = {https://openreview.net/forum?id=Hkxzx0NtDB},
+  urldate  = {2023-02-13},
+  abstract = {We propose to reinterpret a standard discriminative classifier of p(y{\textbar}x) as an energy based model for the joint distribution p(x, y). In this setting, the standard class probabilities can be easily computed as well as unnormalized values of p(x) and p(x{\textbar}y). Within this framework, standard discriminative architectures may be used and the model can also be trained on unlabeled data. We demonstrate that energy based training of the joint distribution improves calibration, robustness, and out-of-distribution detection while also enabling our models to generate samples rivaling the quality of recent GAN approaches. We improve upon recently proposed techniques for scaling up the training of energy based models and present an approach which adds little overhead compared to standard classification training. Our approach is the first to achieve performance rivaling the state-of-the-art in both generative and discriminative learning within one hybrid model.},
+  file     = {:grathwohl2020your - Your Classifier Is Secretly an Energy Based Model and You Should Treat It like One.pdf:PDF},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}
