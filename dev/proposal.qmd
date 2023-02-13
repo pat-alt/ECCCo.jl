@@ -5,70 +5,29 @@ abstract: |
     We propose Conformal Counterfactual Explanations: an effortless and rigorous way to produce realistic and faithful Counterfactual Explanations using Conformal Prediction. To address the need for realistic counterfactuals, existing work has primarily relied on separate generative models to learn the data generating process. While this an effective way to produce plausible and model-agnostic counterfactual explanations, it not only introduces an significant engineering overhead, but also reallocates the task of creating realistic model explanations from the model itsel to the generative model. Recent work has shown that there is no need for any of this when working with probabilistic models that explicitly quantify their own uncertainty. Unfortunately, most models used in practice still do not fulfil that basic requirement, in which case we would like to have a way to quantify predictive uncertainty in a post-hoc fashion.
 ---
 
-```{julia}
-using CounterfactualExplanations
-using CounterfactualExplanations.Data: load_mnist
-using CounterfactualExplanations.Models: load_mnist_mlp
-using Images
-using MLDatasets
-using MLDatasets: convert2image
-using Plots
-```
-
 ## Motivation
 
 Counterfactual Explanations are a powerful, flexible and intuitive way to not only explain black-box models, but also enable affected individuals to challenge them though the means of Algorithmic Recourse. 
 
-### From Adversarial Examples to Counterfactual Explanations
+### Counterfactual Explanations or Adversarial Examples?
 
 Most state-of-the-art approaches to generating Counterfactual Explanations (CE) rely on gradient descent in the feature space. The key idea is to perturb inputs $x\in\mathcal{X}$ into a black-box model $f: \mathcal{X} \mapsto \mathcal{Y}$ in order to change the model output $f(x)$ to some pre-specified target value $t\in\mathcal{Y}$. Formally, this boils down to defining some loss function $\ell(f(x),t)$ and taking gradient steps in the minimizing direction. The so generated counterfactuals are considered valid as soon as the predicted label matches the target label. A stripped down counterfactual explanation is therefore little different from an adversarial example.
 
-> You may not like it, but this is what counterfactuals look like
+> You may not like it, but this is what counterfactuals look like ...
 
-```{julia}
-# Data:
-counterfactual_data = load_mnist()
-X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
-input_dim, n_obs = size(counterfactual_data.X)
-M = load_mnist_mlp()
+The crucial difference between adversarial examples and counterfactuals is one of intent. While adversarial examples are typically intened to go unnoticed, counterfactuals in the context of Explainable AI are generally sought to be "plausible", "realistic" or "feasible". To fulfill this latter goal, researchers have come up with a myriad of ways. @joshi2019realistic were among the first to suggest that instead of searching counterfactuals in the feature space, we can instead traverse a latent embedding learned by a surrogate generative model. Similarly, @poyiadzi2020face use density ... Finally, @karimi2021algorithmic argue that counterfactuals should comply with the causal model that generates them [CHECK IF WE CAN PHASE THIS LIKE THIS]. Other related approaches include ... All of these different approaches have a common goal: they aim to ensure that the generated counterfactuals comply with the (learned) data-generating process (DGB). 
 
-# Target:
-factual_label = 8
-x = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target = 3
-factual = predict_label(M, counterfactual_data, x)[1]
+::: {#def-plausible}
 
-# Search:
-n_ce = 3
-generator = GenericGenerator()
-ces = generate_counterfactual(x, target, counterfactual_data, M, generator; num_counterfactuals=n_ce)
-```
+## Plausible Counterfactuals
 
-```{julia}
-image_size = 300
-p1 = plot(
-    convert2image(MNIST, reshape(x,28,28)),
-    axis=nothing, 
-    size=(image_size, image_size),
-    title="Factual"
-)
-plts = [p1]
+Since we are in the business of explaining a black-box model, the task of learning realistic representations of the data should not be reallocated from the model itself to some surrogate model.
 
-for i in eachindex(ces)
-    ce = ces[i]
-    plt = plot(
-        convert2image(MNIST, reshape(CounterfactualExplanations.counterfactual(ce),28,28)),
-        axis=nothing, 
-        size=(image_size, image_size),
-        title="Counterfactual $i"
-    )
-    plts = [plts..., plt]
-end
+:::
 
-plt = plot(plts...; size=(image_size * (n_ce + 1),image_size), layout=(1,(n_ce + 1)))
-```
+Formally, if $x \sim \mathcal{X}$ and for the corresponding counterfactual we have $x^{\prime}\sim\mathcal{X}x^{\prime}$, then 
 
-The crucial difference between adversarial examples and counterfactuals is one of intent. While adversarial examples are typically intened to go unnoticed, counterfactuals in the context of Explainable AI are generally sought to be "plausible" or "realistic". To fulfill this latter goal, researchers have come up with a myriad of ways. @joshi2019realistic were among the first to suggest that instead of searching counterfactuals in the feature space, we can instead traverse a latent embedding learned by a surrogate generative model. This ensures that the generated counterfactuals comply with the (learned) data-generating process (DGB). Similarly, @poyiadzi2020face use density ...
+![](www/mnist_9to4_latent.png)
 
 - Show DiCE for weak MLP
 - Show Latent for same weak MLP
