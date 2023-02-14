@@ -1,5 +1,6 @@
 module CCE
 
-# Write your package code here.
+include("model.jl")
+include("ConformalGenerator.jl")
 
 end
