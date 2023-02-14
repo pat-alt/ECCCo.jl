@@ -49,14 +49,14 @@ function ConformalGenerator(;
 end
 
 """
-    gradient_penalty(
+    set_size_penalty(
         generator::ConformalGenerator,
         counterfactual_explanation::AbstractCounterfactualExplanation,
     )
 
 Additional penalty for ConformalGenerator.
 """
-function gradient_penalty(
+function set_size_penalty(
     generator::ConformalGenerator,
     counterfactual_explanation::AbstractCounterfactualExplanation,
 )
