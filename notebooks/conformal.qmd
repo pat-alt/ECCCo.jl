@@ -1,0 +1,25 @@
+
+```{julia}
+using CCE
+using ConformalPrediction
+using CounterfactualExplanations
+using CounterfactualExplanations.Data
+using MLJFlux
+```
+
+```{julia}
+counterfactual_data = load_linearly_separable()
+```
+
+```{julia}
+clf = NeuralNetworkClassifier()
+```
+
+
+```{julia}
+X = table(permutedims(counterfactual_data.X))
+y =  counterfactual_data.output_encoder.labels
+conf_model = conformal_model(clf; method=:simple_inductive)
+mach = machine(conf_model, X, y)
+fit!(mach)
+```
