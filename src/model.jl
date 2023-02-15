@@ -59,18 +59,22 @@ function Models.logits(M::ConformalModel, X::AbstractArray)
     yhat = SliceMap.slicemap(X, dims=(1, 2)) do x
         conf_model = M.model
         fitresult = M.fitresult
-        x = MLJBase.table(permutedims(x))
-        p̂ = MMI.predict(conf_model.model, fitresult, MMI.reformat(conf_model.model, x)...)
-        p̂ = map(p̂) do pp
-            L = p̂.decoder.classes
-            probas = pdf.(pp, L)
-            return probas
+        # x = MLJBase.table(permutedims(x))
+        # p̂ = MMI.predict(conf_model.model, fitresult, MMI.reformat(conf_model.model, x)...)
+        # p̂ = map(p̂) do pp
+        #     L = p̂.decoder.classes
+        #     probas = pdf.(pp, L)
+        #     return probas
+        # end
+        p̂ = fitresult[1](x)
+        if size(p̂, 2) > 1
+            p̂ = reduce(hcat, p̂)
         end
-        p̂ = reduce(hcat, p̂)
         ŷ = reduce(hcat, (map(p -> log.(p) .+ log(sum(exp.(p))), eachcol(p̂))))
         if M.likelihood == :classification_binary
             ŷ = reduce(hcat, (map(y -> y[2] - y[1], eachcol(ŷ))))
         end
+        ŷ = ndims(ŷ) > 1 ? ŷ : permutedims([ŷ])
         return ŷ
     end
     return yhat

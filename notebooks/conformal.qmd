@@ -48,3 +48,7 @@ x = select_factual(counterfactual_data,rand(1:size(counterfactual_data.X,2)))
 y = predict_label(M, counterfactual_data, x)[1]
 target = counterfactual_data.y_levels[counterfactual_data.y_levels .!= y][1]
 ```
+
+```{julia}
+ce = generate_counterfactual(x, target, counterfactual_data, M, generator)
+```
