@@ -18,6 +18,8 @@ end
 @with_kw struct ConformalGeneratorParams
     opt::Flux.Optimise.AbstractOptimiser = Descent()
     τ::AbstractFloat = 1e-3
+    κ::Real = 1.0
+    Τ::Real = 0.5
 end
 
 """
