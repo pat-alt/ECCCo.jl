@@ -4,7 +4,10 @@ using CCE
 using ConformalPrediction
 using CounterfactualExplanations
 using CounterfactualExplanations.Data
+using Flux
+using MLJBase
 using MLJFlux
+using Plots
 ```
 
 ```{julia}
@@ -12,7 +15,11 @@ counterfactual_data = load_linearly_separable()
 ```
 
 ```{julia}
-clf = NeuralNetworkClassifier()
+builder = MLJFlux.@builder Chain(
+    Dense(n_in, 32, relu),
+    Dense(32, n_out)
+)
+clf = NeuralNetworkClassifier(builder=builder, epochs=100)
 ```
 
 
@@ -23,3 +30,8 @@ conf_model = conformal_model(clf; method=:simple_inductive)
 mach = machine(conf_model, X, y)
 fit!(mach)
 ```
+
+```{julia}
+M = CCE.ConformalModel(conf_model, mach.fitresult)
+```
+

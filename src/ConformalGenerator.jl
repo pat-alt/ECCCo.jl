@@ -48,6 +48,31 @@ function ConformalGenerator(;
     ConformalGenerator(loss, complexity, λ, decision_threshold, params.opt, params.τ)
 end
 
+# Loss:
+# """
+#     ℓ(generator::ConformalGenerator, counterfactual_explanation::AbstractCounterfactualExplanation)
+
+# The default method to apply the generator loss function to the current counterfactual state for any generator.
+# """
+# function ℓ(
+#     generator::ConformalGenerator,
+#     counterfactual_explanation::AbstractCounterfactualExplanation,
+# )
+
+#     loss_fun =
+#         !isnothing(generator.loss) ? getfield(Losses, generator.loss) :
+#         CounterfactualExplanations.guess_loss(counterfactual_explanation)
+#     @assert !isnothing(loss_fun) "No loss function provided and loss function could not be guessed based on model."
+#     loss = loss_fun(
+#         getfield(Models, :logits)(
+#             counterfactual_explanation.M,
+#             CounterfactualExplanations.decode_state(counterfactual_explanation),
+#         ),
+#         counterfactual_explanation.target_encoded,
+#     )
+#     return loss
+# end
+
 """
     set_size_penalty(
         generator::ConformalGenerator,
@@ -61,21 +86,7 @@ function set_size_penalty(
     counterfactual_explanation::AbstractCounterfactualExplanation,
 )
 
-    x_ = CounterfactualExplanations.decode_state(counterfactual_explanation)
-    M = counterfactual_explanation.M
-    model = isa(M.model, Vector) ? M.model : [M.model]
-    y_ = counterfactual_explanation.target_encoded
 
-    if M.likelihood == :classification_binary
-        loss_type = :logitbinarycrossentropy
-    else
-        loss_type = :logitcrossentropy
-    end
-
-    loss(x, y) =
-        sum([getfield(Flux.Losses, loss_type)(nn(x), y) for nn in model]) / length(model)
-
-    return loss(x_, y_)
 end
 
 # Complexity:
