@@ -31,12 +31,7 @@ mach = machine(conf_model, X, y)
 fit!(mach)
 ```
 
-```{julia}
-contourf(mach.model, mach.fitresult, X, y; plot_set_size=true)
-```
-
 ## Counterfactual Explanation
-
 
 ```{julia}
 M = CCE.ConformalModel(conf_model, mach.fitresult)
@@ -45,8 +40,14 @@ generator = CCE.ConformalGenerator()
 
 ```{julia}
 x = select_factual(counterfactual_data,rand(1:size(counterfactual_data.X,2)))
-y = predict_label(M, counterfactual_data, x)[1]
-target = counterfactual_data.y_levels[counterfactual_data.y_levels .!= y][1]
+y_factual = predict_label(M, counterfactual_data, x)[1]
+target = counterfactual_data.y_levels[counterfactual_data.y_levels .!= y_factual][1]
+```
+
+```{julia}
+p1 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, target=target, zoom=0)
+p2 = contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=0)
+plot(p1, p2, size=(800,320))
 ```
 
 ```{julia}
