@@ -52,22 +52,33 @@ plot(p1, p2, size=(800,320))
 ```{julia}
 #| output: true
 #| echo: false
+
+ordered_names = [
+    "Generic (γ=0.5)",
+    "Generic (γ=0.9)",
+    "Conformal (λ₂=1)",
+    "Conformal (λ₂=10)"
+]
+
 # Generators:
 generators = Dict(
-    "Generic (γ=0.5)" => GenericGenerator(opt = opt, decision_threshold=0.5),
-    "Generic (γ=0.9)" => GenericGenerator(opt = opt, decision_threshold=0.9),
-    "Conformal (λ₂=1)" => CCE.ConformalGenerator(opt=opt, λ=[0.1,1]),
-    "Conformal (λ₂=10)" => CCE.ConformalGenerator(opt=opt, λ=[0.1,10]),
+    ordered_names[1] => GenericGenerator(opt = opt, decision_threshold=0.5),
+    ordered_names[2] => GenericGenerator(opt = opt, decision_threshold=0.9),
+    ordered_names[3] => CCE.ConformalGenerator(opt=opt, λ=[0.1,1]),
+    ordered_names[4] => CCE.ConformalGenerator(opt=opt, λ=[0.1,10]),
 )
 
 
-counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactual_data, M, gen;) for (name, gen) in generators])
+counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactual_data, M, gen; initialization=:identity) for (name, gen) in generators])
+
 # Plots:
 plts = []
-for (name,ce) ∈ counterfactuals
+for name ∈ ordered_names
+    ce = counterfactuals[name]
     plt = plot(ce; title=name, colorbar=false, ticks = false, legend=false, zoom=0)
     plts = vcat(plts..., plt)
 end
 _n = length(generators)
-plot(plts..., size=(_n * 185,200), layout=(1,_n))
+img_size = 300
+plot(plts..., size=(_n * img_size,1.05*img_size), layout=(1,_n))
 ```
