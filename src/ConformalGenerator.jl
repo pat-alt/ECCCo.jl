@@ -43,11 +43,11 @@ generator = ConformalGenerator()
 ```
 """
 function ConformalGenerator(;
-    loss::Union{Nothing,Symbol} = nothing,
-    complexity::Function = norm,
-    λ::Union{AbstractFloat,AbstractVector} = [0.1, 1.0],
-    decision_threshold = nothing,
-    kwargs...,
+    loss::Union{Nothing,Symbol}=nothing,
+    complexity::Function=norm,
+    λ::Union{AbstractFloat,AbstractVector}=[0.1, 1.0],
+    decision_threshold=nothing,
+    kwargs...
 )
     params = ConformalGeneratorParams(; kwargs...)
     ConformalGenerator(loss, complexity, λ, decision_threshold, params.opt, params.τ, params.κ, params.temp)
@@ -69,12 +69,12 @@ function set_size_penalty(
     conf_model = counterfactual_explanation.M.model
     fitresult = counterfactual_explanation.M.fitresult
     X = CounterfactualExplanations.decode_state(counterfactual_explanation)
-    loss = SliceMap.slicemap(X, dims=(1,2)) do x
+    loss = SliceMap.slicemap(X, dims=(1, 2)) do x
         x = Matrix(x)
         ConformalPrediction.smooth_size_loss(
             conf_model, fitresult, x;
-            κ = generator.κ,
-            temp = generator.temp
+            κ=generator.κ,
+            temp=generator.temp
         )
     end
     loss = mean(loss)
@@ -107,7 +107,7 @@ function Generators.h(
     else
         Ω = 0
     end
-    
+
     if length(generator.λ) == 1
         penalty = generator.λ * (dist_ .+ Ω)
     else
