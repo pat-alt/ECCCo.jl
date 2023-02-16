@@ -110,6 +110,8 @@ plot(p1, p2, size=(800,320))
 ```{julia}
 #| output: true
 #| echo: false
+#| label: fig-ce
+#| fig-cap: "Comparison of counterfactuals produced using different generators."
 
 ordered_names = [
     "Generic (γ=0.5)",
