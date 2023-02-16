@@ -13,6 +13,8 @@ mutable struct ConformalGenerator <: AbstractGradientBasedGenerator
     decision_threshold::Union{Nothing,AbstractFloat}
     opt::Flux.Optimise.AbstractOptimiser # optimizer
     τ::AbstractFloat # tolerance for convergence
+    κ::Real
+    temp::Real
 end
 
 # API streamlining:
@@ -48,7 +50,7 @@ function ConformalGenerator(;
     kwargs...,
 )
     params = ConformalGeneratorParams(; kwargs...)
-    ConformalGenerator(loss, complexity, λ, decision_threshold, params.opt, params.τ)
+    ConformalGenerator(loss, complexity, λ, decision_threshold, params.opt, params.τ, params.κ, params.temp)
 end
 
 """
@@ -68,6 +70,7 @@ function set_size_penalty(
     fitresult = counterfactual_explanation.M.fitresult
     X = CounterfactualExplanations.decode_state(counterfactual_explanation)
     loss = SliceMap.slicemap(X, dims=(1,2)) do x
+        x = Matrix(x)
         ConformalPrediction.smooth_size_loss(
             conf_model, fitresult, x;
             κ = generator.κ,
@@ -97,13 +100,19 @@ function Generators.h(
         CounterfactualExplanations.decode_state(counterfactual_explanation),
     )
 
-    # Euclidean norm of gradient:
-    Ω = set_size_penalty(generator, counterfactual_explanation)
-
+    # Set size penalty:
+    in_target_domain = all(target_probs(counterfactual_explanation) .>= 0.5)
+    if in_target_domain
+        Ω = set_size_penalty(generator, counterfactual_explanation)
+    else
+        Ω = 0
+    end
+    
     if length(generator.λ) == 1
         penalty = generator.λ * (dist_ .+ Ω)
     else
         penalty = generator.λ[1] * dist_ .+ generator.λ[2] * Ω
     end
+
     return penalty
 end

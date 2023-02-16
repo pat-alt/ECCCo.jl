@@ -35,7 +35,6 @@ fit!(mach)
 
 ```{julia}
 M = CCE.ConformalModel(conf_model, mach.fitresult)
-generator = CCE.ConformalGenerator()
 ```
 
 ```{julia}
@@ -51,5 +50,24 @@ plot(p1, p2, size=(800,320))
 ```
 
 ```{julia}
-ce = generate_counterfactual(x, target, counterfactual_data, M, generator)
+#| output: true
+#| echo: false
+# Generators:
+generators = Dict(
+    "Generic (γ=0.5)" => GenericGenerator(opt = opt, decision_threshold=0.5),
+    "Generic (γ=0.9)" => GenericGenerator(opt = opt, decision_threshold=0.9),
+    "Conformal (λ₂=1)" => CCE.ConformalGenerator(opt=opt, λ=[0.1,1]),
+    "Conformal (λ₂=10)" => CCE.ConformalGenerator(opt=opt, λ=[0.1,10]),
+)
+
+
+counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactual_data, M, gen;) for (name, gen) in generators])
+# Plots:
+plts = []
+for (name,ce) ∈ counterfactuals
+    plt = plot(ce; title=name, colorbar=false, ticks = false, legend=false, zoom=0)
+    plts = vcat(plts..., plt)
+end
+_n = length(generators)
+plot(plts..., size=(_n * 185,200), layout=(1,_n))
 ```
