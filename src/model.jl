@@ -67,9 +67,10 @@ function Models.logits(M::ConformalModel, X::AbstractArray)
         #     return probas
         # end
         p̂ = fitresult[1](x)
-        if size(p̂, 2) > 1
-            p̂ = reduce(hcat, p̂)
+        if ndims(p̂) == 2
+            p̂ = [p̂]
         end
+        p̂ = reduce(hcat, p̂)
         ŷ = reduce(hcat, (map(p -> log.(p) .+ log(sum(exp.(p))), eachcol(p̂))))
         if M.likelihood == :classification_binary
             ŷ = reduce(hcat, (map(y -> y[2] - y[1], eachcol(ŷ))))
