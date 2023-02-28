@@ -63,18 +63,21 @@ A configurable classification loss function for Conformal Predictors.
 function conformal_training_loss(counterfactual_explanation::AbstractCounterfactualExplanation; kwargs...)
     conf_model = counterfactual_explanation.M.model
     fitresult = counterfactual_explanation.M.fitresult
+    generator = counterfactual_explanation.generator
+    temp = hasfield(typeof(generator), :temp) ? generator.temp : nothing
+    K = length(counterfactual_explanation.data.y_levels)
     X = CounterfactualExplanations.decode_state(counterfactual_explanation)
     y = counterfactual_explanation.target_encoded[:,:,1]
     if counterfactual_explanation.M.likelihood == :classification_binary
         y = binary_to_onehot(y)
     end
     y = permutedims(y)
-    generator = counterfactual_explanation.generator
     loss = SliceMap.slicemap(X, dims=(1, 2)) do x
-        x = Matrix(x)
+        x = Matrix(x) 
         ConformalPrediction.classification_loss(
             conf_model, fitresult, x, y;
-            temp=generator.temp
+            temp=temp,
+            loss_matrix=Float32.(ones(K,K))
         )
     end
     loss = mean(loss)
