@@ -3,6 +3,7 @@ using CCE
 using ConformalPrediction
 using CounterfactualExplanations
 using CounterfactualExplanations.Data
+using CounterfactualExplanations.Objectives
 using Flux
 using MLJBase
 using MLJFlux
@@ -107,18 +108,62 @@ p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, t
 plot(p1, p2, size=(800,320))
 ```
 
+### Penalizing Size
+
 ```{julia}
 #| output: true
 #| echo: false
 #| label: fig-ce
 #| fig-cap: "Comparison of counterfactuals produced using different generators."
 
+opt = Descent(0.01)
 ordered_names = [
     "Generic (γ=0.5)",
     "Generic (γ=0.9)",
     "Conformal (λ₂=1)",
     "Conformal (λ₂=10)"
 ]
+loss_fun = Objectives.logitbinarycrossentropy
+
+# Generators:
+generators = Dict(
+    ordered_names[1] => GenericGenerator(opt = opt, decision_threshold=0.5),
+    ordered_names[2] => GenericGenerator(opt = opt, decision_threshold=0.9),
+    ordered_names[3] => CCE.ConformalGenerator(loss=loss_fun, opt=opt, λ=[0.1,1]),
+    ordered_names[4] => CCE.ConformalGenerator(loss=loss_fun, opt=opt, λ=[0.1,10]),
+)
+
+counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactual_data, M, gen; initialization=:identity) for (name, gen) in generators])
+
+# Plots:
+plts = []
+for name ∈ ordered_names
+    ce = counterfactuals[name]
+    plt = plot(ce; title=name, colorbar=false, ticks = false, legend=false, zoom=0)
+    plts = vcat(plts..., plt)
+end
+_n = length(generators)
+img_size = 300
+plot(plts..., size=(_n * img_size,1.05*img_size), layout=(1,_n))
+```
+
+
+### Configurable Classification Loss
+
+```{julia}
+#| output: true
+#| echo: false
+#| label: fig-ce
+#| fig-cap: "Comparison of counterfactuals produced using different generators."
+
+opt = Descent(0.01)
+ordered_names = [
+    "Generic (γ=0.5)",
+    "Generic (γ=0.9)",
+    "Conformal (λ₂=1)",
+    "Conformal (λ₂=10)"
+]
+loss_fun = Objectives.logitbinarycrossentropy
 
 # Generators:
 generators = Dict(
