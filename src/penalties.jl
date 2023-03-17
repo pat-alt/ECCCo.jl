@@ -1,3 +1,5 @@
+using ChainRules: ignore_derivatives
+using LinearAlgebra: norm
 using Statistics: mean
 
 """
@@ -33,11 +35,28 @@ function set_size_penalty(
 end
 
 function distance_from_energy(
-    counterfactual_explanation::AbstractCounterfactualExplanation; 
-    n::Int=100, retrain=false, kwargs...
+    counterfactual_explanation::AbstractCounterfactualExplanation;
+    n::Int=100, retrain=false, agg=mean, kwargs...
 )
-    sampler = get!(counterfactual_explanation.params, :energy_sampler) do 
-        CCE.EnergySampler(counterfactual_explanation; kwargs...)
+    conditional_samples = []
+    ignore_derivatives() do
+        _dict = counterfactual_explanation.params
+        if !(:energy_sampler ∈ collect(keys(_dict)))
+            _dict[:energy_sampler] = CCE.EnergySampler(counterfactual_explanation; kwargs...)
+        end
+        sampler = _dict[:energy_sampler]
+        push!(conditional_samples, rand(sampler, n; retrain=retrain))
     end
-    conditional_samples = 
+    x′ = CounterfactualExplanations.counterfactual(counterfactual_explanation)
+    loss = map(eachslice(x′, dims=3)) do x
+        x = Matrix(x)
+        Δ = map(eachcol(conditional_samples[1])) do xsample
+            norm(x - xsample)
+        end
+        return mean(Δ)
+    end
+    loss = agg(loss)
+
+    return loss
+
 end
