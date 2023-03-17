@@ -120,21 +120,20 @@ plot(p1, p2, size=(800,320))
 opt = Descent(0.01)
 ordered_names = [
     "Generic (γ=0.5)",
-    "Generic (γ=0.9)",
     "Conformal (λ₂=1)",
     "Conformal (λ₂=10)"
 ]
 loss_fun = Objectives.logitbinarycrossentropy
+generator = GenericGenerator(opt = opt)
 
 # Generators:
 generators = Dict(
-    ordered_names[1] => GenericGenerator(opt = opt, decision_threshold=0.5),
-    ordered_names[2] => GenericGenerator(opt = opt, decision_threshold=0.9),
-    ordered_names[3] => CCE.ConformalGenerator(loss=loss_fun, opt=opt, λ=[0.1,1]),
-    ordered_names[4] => CCE.ConformalGenerator(loss=loss_fun, opt=opt, λ=[0.1,10]),
+    ordered_names[1] => generator,
+    ordered_names[2] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance_l2 + 1.0set_size_penalty),
+    ordered_names[3] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance_l2 + 10.0set_size_penalty),
 )
 
-counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactual_data, M, gen; initialization=:identity) for (name, gen) in generators])
+counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactual_data, M, gen; initialization=:identity, converge_when=:generator_conditions, gradient_tol=1e-3) for (name, gen) in generators])
 
 # Plots:
 plts = []
