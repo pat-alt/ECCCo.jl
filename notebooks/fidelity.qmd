@@ -20,25 +20,32 @@ using Plots
 counterfactual_data = load_multi_class()
 M = fit_model(counterfactual_data, :MLP)
 target = 4
-factual = 1
+factual = 2
 chosen = rand(findall(predict_label(M, counterfactual_data) .== factual))
 x = select_factual(counterfactual_data, chosen)
+
+# Search:
+generator = GenericGenerator(opt=Descent(0.01))
+ce = generate_counterfactual(x, target, counterfactual_data, M, generator)
+```
+
+```{julia}
+niter = 100
+nsamples = 100
+
+sampler = CCE.EnergySampler(ce;niter=niter, nsamples=100)
+Xgen = rand(sampler, nsamples)
+plt = plot(M, counterfactual_data, target=ce.target, xlims=(-5,5),ylims=(-5,5),cbar=false)
+scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
+```
+
+```{julia}
+p1 = plot(ce)
 ```
 
 
 ```{julia}
-niter = 10000
-nsamples = 100
-plts = []
-for target in ce.data.y_levels
-    # Search:
-    generator = GenericGenerator()
-    ce = generate_counterfactual(x, target, counterfactual_data, M, generator)
-    sampler = CCE.EnergySampler(ce;niter=niter, nsamples=100)
-    Xgen = rand(sampler, nsamples)
-    plt = plot(M, counterfactual_data, target=ce.target, xlims=(-5,5),ylims=(-5,5),cbar=false)
-    scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
-    push!(plts, plt)
-end
-plot(plts..., layout=(1,length(ce.data.y_levels)), size=(length(ce.data.y_levels)*300,300))
+@objective(generator, _ + 0.1distance_l2 + 100.0distance_from_energy)
+ce = generate_counterfactual(x, target, counterfactual_data, M, generator)
+p2 = plot(ce)
 ```

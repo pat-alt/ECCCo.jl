@@ -13,7 +13,7 @@ end
 
 function EnergySampler(
     ce::CounterfactualExplanation;
-    opt::JointEnergyModels.AbstractSamplingRule=SGLD(),
+    opt::JointEnergyModels.AbstractSamplingRule=ImproperSGLD(),
     niter::Int=100,
     nsamples::Int=1000
 )
