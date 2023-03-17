@@ -27,7 +27,7 @@ x = select_factual(counterfactual_data, chosen)
 
 
 ```{julia}
-niter = 10
+niter = 10000
 nsamples = 100
 plts = []
 for target in ce.data.y_levels
