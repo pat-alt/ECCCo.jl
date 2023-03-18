@@ -38,7 +38,7 @@ function EnergySampler(
     y::Any;
     opt::JointEnergyModels.AbstractSamplingRule=ImproperSGLD(),
     niter::Int=100,
-    nsamples::Int=1000
+    nsamples::Int=100
 )
 
     @assert y ∈ data.y_levels || y ∈ 1:length(data.y_levels)
@@ -64,6 +64,7 @@ Generates `n` samples from `EnergySampler` for conditioning value `y`.
 """
 function generate_samples(e::EnergySampler, n::Int, y::Int; niter::Int=100)
     X = e.sampler(e.model, e.opt, (size(e.data.X, 1), n); niter=niter, y=y)
+    X = X[:,map(x -> !any(isnan.(x)), eachcol(X))]
     return X
 end
 
