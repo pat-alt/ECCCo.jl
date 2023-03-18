@@ -60,3 +60,24 @@ function distance_from_energy(
     return loss
 
 end
+
+function distance_from_targets(
+    counterfactual_explanation::AbstractCounterfactualExplanation;
+    n::Int=100, agg=mean
+)
+    target_samples = counterfactual_explanation.data.X |>
+        X -> X[:,rand(1:end,n)]
+    x′ = CounterfactualExplanations.counterfactual(counterfactual_explanation)
+    loss = map(eachslice(x′, dims=3)) do x
+        x = Matrix(x)
+        Δ = map(eachcol(target_samples)) do xsample
+            norm(x - xsample)
+        end
+        return mean(Δ)
+    end
+    loss = agg(loss)
+
+    return loss
+
+end
+
