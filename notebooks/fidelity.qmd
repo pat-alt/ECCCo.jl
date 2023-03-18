@@ -212,7 +212,11 @@ counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactua
 plts = []
 for name ∈ ordered_names
     ce = counterfactuals[name]
-    plt = plot(ce; title=name, colorbar=false, ticks = false, legend=false, zoom=0)
+    plt = plot(ce; title=name, colorbar=false, ticks = false, legend=false, zoom=-0.5)
+    if :energy_sampler ∈ collect(keys(ce.params))
+        Xgen = ce.params[:energy_sampler].buffer
+        scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
+    end
     plts = vcat(plts..., plt)
 end
 _n = length(generators)
