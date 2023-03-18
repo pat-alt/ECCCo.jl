@@ -36,7 +36,7 @@ end
 
 function distance_from_energy(
     counterfactual_explanation::AbstractCounterfactualExplanation;
-    n::Int=100, retrain=false, agg=mean, kwargs...
+    n::Int=100, from_buffer=true, agg=mean, kwargs...
 )
     conditional_samples = []
     ignore_derivatives() do
@@ -45,7 +45,7 @@ function distance_from_energy(
             _dict[:energy_sampler] = CCE.EnergySampler(counterfactual_explanation; kwargs...)
         end
         sampler = _dict[:energy_sampler]
-        push!(conditional_samples, rand(sampler, n; retrain=retrain))
+        push!(conditional_samples, rand(sampler, n; from_buffer=from_buffer))
     end
     x′ = CounterfactualExplanations.counterfactual(counterfactual_explanation)
     loss = map(eachslice(x′, dims=3)) do x
