@@ -1,8 +1,9 @@
 using CounterfactualExplanations
 using Distributions
+using Flux
 using JointEnergyModels
 
-(model::AbstractFittedModel)(x) = logits(model, x)
+(model::AbstractFittedModel)(x) = log.(CounterfactualExplanations.predict_proba(model, nothing, x))
 
 mutable struct EnergySampler
     ce::CounterfactualExplanation
@@ -28,7 +29,7 @@ function EnergySampler(
 
     # Fit:
     i = get_target_index(data.y_levels, ce.target)
-    buffer = sampler(model.model, opt, (size(data.X, 1), nsamples); niter=niter, y=i)
+    buffer = sampler(model, opt, (size(data.X, 1), nsamples); niter=niter, y=i)
 
     return EnergySampler(ce, sampler, opt, buffer)
 end
