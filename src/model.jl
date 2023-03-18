@@ -56,16 +56,16 @@ In the binary case logits are fed through the sigmoid function instead of softma
 which follows from the derivation here: https://stats.stackexchange.com/questions/233658/softmax-vs-sigmoid-function-in-logistic-classifier
 """
 function Models.logits(M::ConformalModel, X::AbstractArray)
-    yhat = SliceMap.slicemap(X, dims=(1, 2)) do x
-        conf_model = M.model
-        fitresult = M.fitresult
-        # x = MLJBase.table(permutedims(x))
-        # p̂ = MMI.predict(conf_model.model, fitresult, MMI.reformat(conf_model.model, x)...)
-        # p̂ = map(p̂) do pp
-        #     L = p̂.decoder.classes
-        #     probas = pdf.(pp, L)
-        #     return probas
-        # end
+    conf_model = M.model
+    fitresult = M.fitresult
+    # x = MLJBase.table(permutedims(x))
+    # p̂ = MMI.predict(conf_model.model, fitresult, MMI.reformat(conf_model.model, x)...)
+    # p̂ = map(p̂) do pp
+    #     L = p̂.decoder.classes
+    #     probas = pdf.(pp, L)
+    #     return probas
+    # end
+    function predict_logits(fitresult, x)
         p̂ = fitresult[1](x)
         if ndims(p̂) == 2
             p̂ = [p̂]
@@ -77,6 +77,13 @@ function Models.logits(M::ConformalModel, X::AbstractArray)
         end
         ŷ = ndims(ŷ) > 1 ? ŷ : permutedims([ŷ])
         return ŷ
+    end
+    if ndims(X) > 2
+        yhat = map(eachslice(X, dims=ndims(X))) do x
+            predict_logits(fitresult, x)
+        end
+    else
+        yhat = predict_logits(fitresult, X)
     end
     return yhat
 end
