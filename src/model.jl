@@ -82,6 +82,7 @@ function Models.logits(M::ConformalModel, X::AbstractArray)
         yhat = map(eachslice(X, dims=ndims(X))) do x
             predict_logits(fitresult, x)
         end
+        yhat = MLUtils.stack(yhat)
     else
         yhat = predict_logits(fitresult, X)
     end

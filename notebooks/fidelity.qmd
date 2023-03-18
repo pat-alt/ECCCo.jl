@@ -107,7 +107,7 @@ The right panel of @fig-losses shows the configurable classification loss in the
 
 temp = 0.5
 p1 = contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=0, temp=temp)
-p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, target=target, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(2,2))
+p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, target=1, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(2,2))
 plot(p1, p2, size=(800,320))
 ```
 
@@ -186,11 +186,14 @@ $$ {#eq-solution}
 #| label: fig-ce
 #| fig-cap: "Comparison of counterfactuals produced using different generators."
 
+λ = 10.0
+
 opt = Descent(0.01)
 ordered_names = [
-    "Generic (γ=0.5)",
-    "Conformal (λ₂=1)",
-    "Conformal (λ₂=10)"
+    "Distance x",
+    "Set Size",
+    "Distance X_θ|t",
+    "Distance X|t"
 ]
 loss_fun = Objectives.logitbinarycrossentropy
 generator = GenericGenerator(opt = opt)
@@ -198,8 +201,9 @@ generator = GenericGenerator(opt = opt)
 # Generators:
 generators = Dict(
     ordered_names[1] => generator,
-    ordered_names[2] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance_l2 + 1.0set_size_penalty),
-    ordered_names[3] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance_l2 + 10.0set_size_penalty),
+    ordered_names[2] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance + 10.0set_size_penalty),
+    ordered_names[3] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance + 10.0distance_from_energy),
+    ordered_names[4] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance + 10.0distance_from_targets),
 )
 
 counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactual_data, M, gen; initialization=:identity, converge_when=:generator_conditions, gradient_tol=1e-3) for (name, gen) in generators])
@@ -212,8 +216,7 @@ for name ∈ ordered_names
     plts = vcat(plts..., plt)
 end
 _n = length(generators)
-img_size = 300
-plot(plts..., size=(_n * img_size,1.05*img_size), layout=(1,_n))
+plot(plts..., size=(_n * img_height,1.05*img_height), layout=(1,_n))
 ```
 
 ## Multi-Class
