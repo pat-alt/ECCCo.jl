@@ -223,52 +223,107 @@ _n = length(generators)
 plot(plts..., size=(_n * img_height,1.05*img_height), layout=(1,_n))
 ```
 
+### Benchmark
+
+```{julia}
+#| output: false
+
+# Data:
+datasets = Dict(
+    :linearly_separable => load_linearly_separable(),
+    :overlapping => load_overlapping(),
+    :moons => load_moons(),
+    :circles => load_circles(),
+)
+
+# Models:
+models = Dict(
+    :MLP => M,
+)
+```
+
+Then we can simply loop over the datasets and eventually concatenate the results like so:
+
+```{julia}
+#| output: false
+
+measure = 
+using CounterfactualExplanations.Evaluation: benchmark
+bmks = []
+for (dataname, dataset) in datasets
+    bmk = benchmark(dataset; models=models, generators=generators, suppress_training=true, data_name=dataname)
+    push!(bmks, bmk)
+end
+bmk = reduce(vcat, bmks)
+```
+
 ## Multi-Class
 
 ```{julia}
-# Setup
 counterfactual_data = load_multi_class()
-M = fit_model(counterfactual_data, :DeepEnsemble)
-target = 4
-factual = 2
-chosen = rand(findall(predict_label(M, counterfactual_data) .== factual))
-x = select_factual(counterfactual_data, chosen)
-
-# Search:
-generator = GenericGenerator(opt=Descent(0.01))
-ce = generate_counterfactual(x, target, counterfactual_data, M, generator)
 ```
 
 ```{julia}
+X = table(permutedims(counterfactual_data.X))
+y =  counterfactual_data.output_encoder.labels
+conf_model = conformal_model(clf; method=:simple_inductive)
+mach = machine(conf_model, X, y)
+fit!(mach)
+```
+
+```{julia}
+#| output: true
+#| echo: false
+#| label: fig-losses-multi
+#| fig-cap: "Illustration of the smooth size loss and the configurable classification loss."
+
+temp = 0.5
+p1 = contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=0, temp=temp)
+p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, target=1, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(4,4))
+plot(p1, p2, size=(800,320))
+```
+
+```{julia}
+#| fig-cap: "Energy-based conditional samples."
+#| label: fig-energy-multi
+
 niter = 100
 nsamples = 100
 
-sampler = CCE.EnergySampler(ce;niter=niter, nsamples=100)
-Xgen = rand(sampler, nsamples)
-plt = plot(M, counterfactual_data, target=ce.target, xlims=(-5,5),ylims=(-5,5),cbar=false)
-scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
+plts = []
+for target ∈ counterfactual_data.y_levels
+    sampler = CCE.EnergySampler(M, counterfactual_data, target; niter=niter, nsamples=100)
+    Xgen = rand(sampler, nsamples)
+    plt = plot(M, counterfactual_data; target=target, zoom=-3,cbar=false)
+    scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
+    push!(plts, plt)
+end
+plot(plts..., layout=(1,length(plts)), size=(img_height*length(plts),img_height))
 ```
 
 ```{julia}
-p1 = plot(ce)
+M = CCE.ConformalModel(conf_model, mach.fitresult; likelihood=:classification_multi)
+x = select_factual(counterfactual_data,rand(1:size(counterfactual_data.X,2)))
+y_factual = predict_label(M, counterfactual_data, x)[1]
+target = counterfactual_data.y_levels[counterfactual_data.y_levels .!= y_factual][1]
 ```
 
 
 ```{julia}
-using CCE: distance_from_energy
-@objective(generator, _ + 0.1distance_l2 + 10.0distance_from_energy)
-ce = generate_counterfactual(x, target, counterfactual_data, M, generator)
-p2 = plot(ce)
-```
+counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactual_data, M, gen; initialization=:identity, converge_when=:generator_conditions, gradient_tol=1e-3) for (name, gen) in generators])
 
-
-```{julia}
-using CCE: distance_from_targets
-@objective(
-    generator, 
-    _ + 0.1distance_l2 + 1.0distance_from_energy + 10.0distance_from_targets
-)
-ce = generate_counterfactual(x, target, counterfactual_data, M, generator)
-p3 = plot(ce)
+# Plots:
+plts = []
+for name ∈ ordered_names
+    ce = counterfactuals[name]
+    plt = plot(ce; title=name, colorbar=false, ticks = false, legend=false, zoom=-0.5)
+    if :energy_sampler ∈ collect(keys(ce.params))
+        Xgen = ce.params[:energy_sampler].buffer
+        scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
+    end
+    plts = vcat(plts..., plt)
+end
+_n = length(generators)
+plot(plts..., size=(_n * img_height,1.05*img_height), layout=(1,_n))
 ```
 
