@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-99.9.9">
+<head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-99.9.9" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
 
-<title>High-Fidelity Counterfactual Explanations through Conformal Prediction</title>
+<title>Conformal Counterfactual Explanations – 1  High-Fidelity Counterfactual Explanations through Conformal Prediction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,11 +22,12 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -38,20 +41,28 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
-
-<script src="proposal_files/libs/clipboard/clipboard.min.js"></script>
-<script src="proposal_files/libs/quarto-html/quarto.js"></script>
-<script src="proposal_files/libs/quarto-html/popper.min.js"></script>
-<script src="proposal_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="proposal_files/libs/quarto-html/anchor.min.js"></script>
-<link href="proposal_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="proposal_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="proposal_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="proposal_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="proposal_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<!-- htmldependencies:E3FAD763 -->
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -59,36 +70,79 @@ div.csl-indent {
 
 <body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a>
-  <ul class="collapse">
-  <li><a href="#counterfactual-explanations-or-adversarial-examples" id="toc-counterfactual-explanations-or-adversarial-examples" class="nav-link" data-scroll-target="#counterfactual-explanations-or-adversarial-examples">Counterfactual Explanations or Adversarial Examples?</a></li>
-  <li><a href="#sec-fidelity" id="toc-sec-fidelity" class="nav-link" data-scroll-target="#sec-fidelity">From Plausible to High-Fidelity Counterfactuals</a></li>
-  </ul></li>
-  <li><a href="#conformal-counterfactual-explanations" id="toc-conformal-counterfactual-explanations" class="nav-link" data-scroll-target="#conformal-counterfactual-explanations">Conformal Counterfactual Explanations</a>
-  <ul class="collapse">
-  <li><a href="#minimizing-predictive-uncertainty" id="toc-minimizing-predictive-uncertainty" class="nav-link" data-scroll-target="#minimizing-predictive-uncertainty">Minimizing Predictive Uncertainty</a></li>
-  <li><a href="#background-on-conformal-prediction" id="toc-background-on-conformal-prediction" class="nav-link" data-scroll-target="#background-on-conformal-prediction">Background on Conformal Prediction</a></li>
-  <li><a href="#generating-conformal-counterfactuals" id="toc-generating-conformal-counterfactuals" class="nav-link" data-scroll-target="#generating-conformal-counterfactuals">Generating Conformal Counterfactuals</a></li>
-  </ul></li>
-  <li><a href="#experiments" id="toc-experiments" class="nav-link" data-scroll-target="#experiments">Experiments</a>
-  <ul class="collapse">
-  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Questions</a></li>
-  </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn"
+      data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="/">
+      Conformal Counterfactual Explanations
+      </a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/notebooks/proposal.html" class="sidebar-item-text sidebar-link active"><span class='chapter-number'>1</span>  <span class='chapter-title'>High-Fidelity Counterfactual Explanations through Conformal Prediction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/notebooks/intro.html" class="sidebar-item-text sidebar-link"><span class='chapter-number'>2</span>  <span class='chapter-title'>`ConformalGenerator`</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/notebooks/references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
 </nav>
-</div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" ></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <div id="quarto-toc-target"></div>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">High-Fidelity Counterfactual Explanations through Conformal Prediction</h1>
+<h1 class="title"><span class="chapter-number">1</span>  <span class="chapter-title">High-Fidelity Counterfactual Explanations through Conformal Prediction</span></h1>
 <p class="subtitle lead">Research Proposal</p>
 </div>
 
@@ -109,32 +163,53 @@ div.csl-indent {
 </div>
 
 </header>
-
-<section id="motivation" class="level2">
-<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation"><span class="header-section-number">1.1</span> Motivation</a>
+  <ul>
+  <li><a href="#counterfactual-explanations-or-adversarial-examples" id="toc-counterfactual-explanations-or-adversarial-examples"><span class="header-section-number">1.1.1</span> Counterfactual Explanations or Adversarial Examples?</a></li>
+  <li><a href="#sec-fidelity" id="toc-sec-fidelity"><span class="header-section-number">1.1.2</span> From Plausible to High-Fidelity Counterfactuals</a></li>
+  </ul></li>
+  <li><a href="#conformal-counterfactual-explanations" id="toc-conformal-counterfactual-explanations"><span class="header-section-number">1.2</span> Conformal Counterfactual Explanations</a>
+  <ul>
+  <li><a href="#minimizing-predictive-uncertainty" id="toc-minimizing-predictive-uncertainty"><span class="header-section-number">1.2.1</span> Minimizing Predictive Uncertainty</a></li>
+  <li><a href="#background-on-conformal-prediction" id="toc-background-on-conformal-prediction"><span class="header-section-number">1.2.2</span> Background on Conformal Prediction</a></li>
+  <li><a href="#generating-conformal-counterfactuals" id="toc-generating-conformal-counterfactuals"><span class="header-section-number">1.2.3</span> Generating Conformal Counterfactuals</a></li>
+  </ul></li>
+  <li><a href="#experiments" id="toc-experiments"><span class="header-section-number">1.3</span> Experiments</a>
+  <ul>
+  <li><a href="#research-questions" id="toc-research-questions"><span class="header-section-number">1.3.1</span> Research Questions</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references"><span class="header-section-number">1.4</span> References</a></li>
+  </ul>
+</nav>
+<section id="motivation" class="level2" data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span> Motivation</h2>
 <p>Counterfactual Explanations are a powerful, flexible and intuitive way to not only explain black-box models but also enable affected individuals to challenge them through the means of Algorithmic Recourse.</p>
-<section id="counterfactual-explanations-or-adversarial-examples" class="level3">
-<h3 class="anchored" data-anchor-id="counterfactual-explanations-or-adversarial-examples">Counterfactual Explanations or Adversarial Examples?</h3>
-<p>Most state-of-the-art approaches to generating Counterfactual Explanations (CE) rely on gradient descent in the feature space. The key idea is to perturb inputs <span class="math inline">\(x\in\mathcal{X}\)</span> into a black-box model <span class="math inline">\(f: \mathcal{X} \mapsto \mathcal{Y}\)</span> in order to change the model output <span class="math inline">\(f(x)\)</span> to some pre-specified target value <span class="math inline">\(t\in\mathcal{Y}\)</span>. Formally, this boils down to defining some loss function <span class="math inline">\(\ell(f(x),t)\)</span> and taking gradient steps in the minimizing direction. The so-generated counterfactuals are considered valid as soon as the predicted label matches the target label. A stripped-down counterfactual explanation is therefore little different from an adversarial example. In <a href="#fig-adv">Figure&nbsp;1</a>, for example, generic counterfactual search as in <span class="citation" data-cites="wachter2017counterfactual">Wachter, Mittelstadt, and Russell (<a href="#ref-wachter2017counterfactual" role="doc-biblioref">2017</a>)</span> has been applied to MNIST data.</p>
-<div id="fig-adv" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="www/you_may_not_like_it.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: You may not like it, but this is what stripped-down counterfactuals look like. Here we have used <span class="citation" data-cites="wachter2017counterfactual">Wachter, Mittelstadt, and Russell (<a href="#ref-wachter2017counterfactual" role="doc-biblioref">2017</a>)</span> to generate multiple counterfactuals for turning an 8 (eight) into a 3 (three).</figcaption><p></p>
+<section id="counterfactual-explanations-or-adversarial-examples" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1"><span class="header-section-number">1.1.1</span> Counterfactual Explanations or Adversarial Examples?</h3>
+<p>Most state-of-the-art approaches to generating Counterfactual Explanations (CE) rely on gradient descent in the feature space. The key idea is to perturb inputs <span class="math inline">\(x\in\mathcal{X}\)</span> into a black-box model <span class="math inline">\(f: \mathcal{X} \mapsto \mathcal{Y}\)</span> in order to change the model output <span class="math inline">\(f(x)\)</span> to some pre-specified target value <span class="math inline">\(t\in\mathcal{Y}\)</span>. Formally, this boils down to defining some loss function <span class="math inline">\(\ell(f(x),t)\)</span> and taking gradient steps in the minimizing direction. The so-generated counterfactuals are considered valid as soon as the predicted label matches the target label. A stripped-down counterfactual explanation is therefore little different from an adversarial example. In <a href="#fig-adv">Figure <span class="quarto-unresolved-ref">fig-adv</span></a>, for example, generic counterfactual search as in <span class="citation" data-cites="wachter2017counterfactual">Wachter, Mittelstadt, and Russell (<a href="#ref-wachter2017counterfactual" role="doc-biblioref">2017</a>)</span> has been applied to MNIST data.</p>
+<div id="fig-adv" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="www/you_may_not_like_it.png" class="img-fluid" /></p>
+<p><figcaption>Figure 1.1: You may not like it, but this is what stripped-down counterfactuals look like. Here we have used <span class="citation" data-cites="wachter2017counterfactual">Wachter, Mittelstadt, and Russell (<a href="#ref-wachter2017counterfactual" role="doc-biblioref">2017</a>)</span> to generate multiple counterfactuals for turning an 8 (eight) into a 3 (three).</figcaption></p>
 </figure>
 </div>
 <p>The crucial difference between adversarial examples and counterfactuals is one of intent. While adversarial examples are typically intended to go unnoticed, counterfactuals in the context of Explainable AI are generally sought to be “plausible”, “realistic” or “feasible”. To fulfil this latter goal, researchers have come up with a myriad of ways. <span class="citation" data-cites="joshi2019realistic">Joshi et al. (<a href="#ref-joshi2019realistic" role="doc-biblioref">2019</a>)</span> were among the first to suggest that instead of searching counterfactuals in the feature space, we can instead traverse a latent embedding learned by a surrogate generative model. Similarly, <span class="citation" data-cites="poyiadzi2020face">Poyiadzi et al. (<a href="#ref-poyiadzi2020face" role="doc-biblioref">2020</a>)</span> use density … Finally, <span class="citation" data-cites="karimi2021algorithmic">Karimi, Schölkopf, and Valera (<a href="#ref-karimi2021algorithmic" role="doc-biblioref">2021</a>)</span> argues that counterfactuals should comply with the causal model that generates them [CHECK IF WE CAN PHASE THIS LIKE THIS]. Other related approaches include … All of these different approaches have a common goal: they aim to ensure that the generated counterfactuals comply with the (learned) data-generating process (DGB).</p>
 <div id="def-plausible" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1 (Plausible Counterfactuals) </strong></span>Formally, if <span class="math inline">\(x \sim \mathcal{X}\)</span> and for the corresponding counterfactual we have <span class="math inline">\(x^{\prime}\sim\mathcal{X}^{\prime}\)</span>, then for <span class="math inline">\(x^{\prime}\)</span> to be considered a plausible counterfactual, we need: <span class="math inline">\(\mathcal{X} \approxeq \mathcal{X}^{\prime}\)</span>.</p>
+<p><span class="theorem-title"><strong>Definition 1.1 (Plausible Counterfactuals) </strong></span>Formally, if <span class="math inline">\(x \sim \mathcal{X}\)</span> and for the corresponding counterfactual we have <span class="math inline">\(x^{\prime}\sim\mathcal{X}^{\prime}\)</span>, then for <span class="math inline">\(x^{\prime}\)</span> to be considered a plausible counterfactual, we need: <span class="math inline">\(\mathcal{X} \approxeq \mathcal{X}^{\prime}\)</span>.</p>
 </div>
-<p>In the context of Algorithmic Recourse, it makes sense to strive for plausible counterfactuals, since anything else would essentially require individuals to move to out-of-distribution states. But it is worth noting that our ambition to meet this goal, may have implications on our ability to faithfully explain the behaviour of the underlying black-box model (arguably our principal goal). By essentially decoupling the task of learning plausible representations of the data from the model itself, we open ourselves up to vulnerabilities. Using a separate generative model to learn <span class="math inline">\(\mathcal{X}\)</span>, for example, has very serious implications for the generated counterfactuals. <a href="#fig-latent">Figure&nbsp;2</a> compares the results of applying REVISE <span class="citation" data-cites="joshi2019realistic">(<a href="#ref-joshi2019realistic" role="doc-biblioref">Joshi et al. 2019</a>)</span> to MNIST data using two different Variational Auto-Encoders: while the counterfactual generated using an expressive (strong) VAE is compelling, the result relying on a less expressive (weak) VAE is not even valid. In this latter case, the decoder step of the VAE fails to yield values in <span class="math inline">\(\mathcal{X}\)</span> and hence the counterfactual search in the learned latent space is doomed.</p>
-<div id="fig-latent" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="www/mnist_9to4_latent.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2: Counterfactual explanations for MNIST using a Latent Space generator: turning a nine (9) into a four (4).</figcaption><p></p>
+<p>In the context of Algorithmic Recourse, it makes sense to strive for plausible counterfactuals, since anything else would essentially require individuals to move to out-of-distribution states. But it is worth noting that our ambition to meet this goal, may have implications on our ability to faithfully explain the behaviour of the underlying black-box model (arguably our principal goal). By essentially decoupling the task of learning plausible representations of the data from the model itself, we open ourselves up to vulnerabilities. Using a separate generative model to learn <span class="math inline">\(\mathcal{X}\)</span>, for example, has very serious implications for the generated counterfactuals. <a href="#fig-latent">Figure <span class="quarto-unresolved-ref">fig-latent</span></a> compares the results of applying REVISE <span class="citation" data-cites="joshi2019realistic">(<a href="#ref-joshi2019realistic" role="doc-biblioref">Joshi et al. 2019</a>)</span> to MNIST data using two different Variational Auto-Encoders: while the counterfactual generated using an expressive (strong) VAE is compelling, the result relying on a less expressive (weak) VAE is not even valid. In this latter case, the decoder step of the VAE fails to yield values in <span class="math inline">\(\mathcal{X}\)</span> and hence the counterfactual search in the learned latent space is doomed.</p>
+<div id="fig-latent" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="www/mnist_9to4_latent.png" class="img-fluid" /></p>
+<p><figcaption>Figure 1.2: Counterfactual explanations for MNIST using a Latent Space generator: turning a nine (9) into a four (4).</figcaption></p>
 </figure>
 </div>
-<blockquote class="blockquote">
-<p>Here it would be nice to have another example where we poison the data going into the generative model to hide biases present in the data (e.g.&nbsp;Boston housing).</p>
+<blockquote>
+<p>Here it would be nice to have another example where we poison the data going into the generative model to hide biases present in the data (e.g. Boston housing).</p>
 </blockquote>
 <ul>
 <li>Latent can be manipulated:
@@ -145,17 +220,17 @@ div.csl-indent {
 </ul></li>
 </ul>
 </section>
-<section id="sec-fidelity" class="level3">
-<h3 class="anchored" data-anchor-id="sec-fidelity">From Plausible to High-Fidelity Counterfactuals</h3>
+<section id="sec-fidelity" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2"><span class="header-section-number">1.1.2</span> From Plausible to High-Fidelity Counterfactuals</h3>
 <p>In light of the findings, we propose to generally avoid using surrogate models to learn <span class="math inline">\(\mathcal{X}\)</span> in the context of Counterfactual Explanations.</p>
 <div id="prp-surrogate" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 1 (Avoid Surrogates) </strong></span>Since we are in the business of explaining a black-box model, the task of learning realistic representations of the data should not be reallocated from the model itself to some surrogate model.</p>
+<p><span class="theorem-title"><strong>Proposition 1.1 (Avoid Surrogates) </strong></span>Since we are in the business of explaining a black-box model, the task of learning realistic representations of the data should not be reallocated from the model itself to some surrogate model.</p>
 </div>
 <p>In cases where the use of surrogate models cannot be avoided, we propose to weigh the plausibility of counterfactuals against their fidelity to the black-box model. In the context of Explainable AI, fidelity is defined as describing how an explanation approximates the prediction of the black-box model <span class="citation" data-cites="molnar2020interpretable">(<a href="#ref-molnar2020interpretable" role="doc-biblioref">Molnar 2020</a>)</span>. Fidelity has become the default metric for evaluating Local Model-Agnostic Models, since they often involve local surrogate models whose predictions need not always match those of the black-box model.</p>
 <p>In the case of Counterfactual Explanations, the concept of fidelity has so far been ignored. This is not altogether surprising, since by construction and design, Counterfactual Explanations work with the predictions of the black-box model directly: as stated above, a counterfactual <span class="math inline">\(x^{\prime}\)</span> is considered valid if and only if <span class="math inline">\(f(x^{\prime})=t\)</span>, where <span class="math inline">\(t\)</span> denote some target outcome.</p>
 <p>Does fidelity even make sense in the context of CE, and if so, how can we define it? In light of the examples in the previous section, we think it is urgent to introduce a notion of fidelity in this context, that relates to the distributional properties of the generated counterfactuals. In particular, we propose that a high-fidelity counterfactual <span class="math inline">\(x^{\prime}\)</span> complies with the class-conditional distribution <span class="math inline">\(\mathcal{X}_{\theta} = p_{\theta}(X|y)\)</span> where <span class="math inline">\(\theta\)</span> denote the black-box model parameters.</p>
 <div id="def-fidele" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2 (High-Fidelity Counterfactuals) </strong></span>Let <span class="math inline">\(\mathcal{X}_{\theta}|y = p_{\theta}(X|y)\)</span> denote the class-conditional distribution of <span class="math inline">\(X\)</span> defined by <span class="math inline">\(\theta\)</span>. Then for <span class="math inline">\(x^{\prime}\)</span> to be considered a high-fidelity counterfactual, we need: <span class="math inline">\(\mathcal{X}_{\theta}|t \approxeq \mathcal{X}^{\prime}\)</span> where <span class="math inline">\(t\)</span> denotes the target outcome.</p>
+<p><span class="theorem-title"><strong>Definition 1.2 (High-Fidelity Counterfactuals) </strong></span>Let <span class="math inline">\(\mathcal{X}_{\theta}|y = p_{\theta}(X|y)\)</span> denote the class-conditional distribution of <span class="math inline">\(X\)</span> defined by <span class="math inline">\(\theta\)</span>. Then for <span class="math inline">\(x^{\prime}\)</span> to be considered a high-fidelity counterfactual, we need: <span class="math inline">\(\mathcal{X}_{\theta}|t \approxeq \mathcal{X}^{\prime}\)</span> where <span class="math inline">\(t\)</span> denotes the target outcome.</p>
 </div>
 <p>In order to assess the fidelity of counterfactuals, we propose the following two-step procedure:</p>
 <ol type="1">
@@ -163,46 +238,46 @@ div.csl-indent {
 <li>Compute the Maximum Mean Discrepancy (MMD) between <span class="math inline">\(X_{\theta}|y\)</span> and <span class="math inline">\(X^{\prime}\)</span>.</li>
 </ol>
 <p>If the computed value is different from zero, we can reject the null-hypothesis of fidelity.</p>
-<blockquote class="blockquote">
+<blockquote>
 <p>Two challenges here: 1) implementing the sampling procedure in <span class="citation" data-cites="grathwohl2020your">Grathwohl et al. (<a href="#ref-grathwohl2020your" role="doc-biblioref">2020</a>)</span>; 2) it is unclear if MMD is really the right way to measure this.</p>
 </blockquote>
 </section>
 </section>
-<section id="conformal-counterfactual-explanations" class="level2">
-<h2 class="anchored" data-anchor-id="conformal-counterfactual-explanations">Conformal Counterfactual Explanations</h2>
-<p>In <a href="#sec-fidelity">Section&nbsp;1.2</a>, we have advocated for avoiding surrogate models in the context of Counterfactual Explanations. In this section, we introduce an alternative way to generate high-fidelity Counterfactual Explanations. In particular, we propose Conformal Counterfactual Explanations (CCE), that is Counterfactual Explanations that minimize the predictive uncertainty of conformal models.</p>
-<section id="minimizing-predictive-uncertainty" class="level3">
-<h3 class="anchored" data-anchor-id="minimizing-predictive-uncertainty">Minimizing Predictive Uncertainty</h3>
+<section id="conformal-counterfactual-explanations" class="level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Conformal Counterfactual Explanations</h2>
+<p>In <a href="#sec-fidelity"><span class="quarto-unresolved-ref">sec-fidelity</span></a>, we have advocated for avoiding surrogate models in the context of Counterfactual Explanations. In this section, we introduce an alternative way to generate high-fidelity Counterfactual Explanations. In particular, we propose Conformal Counterfactual Explanations (CCE), that is Counterfactual Explanations that minimize the predictive uncertainty of conformal models.</p>
+<section id="minimizing-predictive-uncertainty" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span> Minimizing Predictive Uncertainty</h3>
 <p><span class="citation" data-cites="schut2021generating">Schut et al. (<a href="#ref-schut2021generating" role="doc-biblioref">2021</a>)</span> demonstrated that the goal of generating realistic (plausible) counterfactuals can also be achieved by seeking counterfactuals that minimize the predictive uncertainty of the underlying black-box model. Similarly, <span class="citation" data-cites="antoran2020getting">Antorán et al. (<a href="#ref-antoran2020getting" role="doc-biblioref">2020</a>)</span> …</p>
 <ul>
 <li>Problem: restricted to Bayesian models.</li>
 <li>Solution: post-hoc predictive uncertainty quantification. In particular, Conformal Prediction.</li>
 </ul>
 </section>
-<section id="background-on-conformal-prediction" class="level3">
-<h3 class="anchored" data-anchor-id="background-on-conformal-prediction">Background on Conformal Prediction</h3>
+<section id="background-on-conformal-prediction" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span> Background on Conformal Prediction</h3>
 <ul>
 <li>Distribution-free, model-agnostic and scalable approach to predictive uncertainty quantification.</li>
 <li>Conformal prediction is instance-based. So is CE.</li>
 <li>Take any fitted model and turn it into a conformal model using calibration data.</li>
 <li>Our approach, therefore, relaxes the restriction on the family of black-box models, at the cost of relying on a subset of the data. Arguably, data is often abundant and in most applications practitioners tend to hold out a test data set anyway.</li>
 </ul>
-<blockquote class="blockquote">
+<blockquote>
 <p>Does the coverage guarantee carry over to counterfactuals?</p>
 </blockquote>
 </section>
-<section id="generating-conformal-counterfactuals" class="level3">
-<h3 class="anchored" data-anchor-id="generating-conformal-counterfactuals">Generating Conformal Counterfactuals</h3>
+<section id="generating-conformal-counterfactuals" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3"><span class="header-section-number">1.2.3</span> Generating Conformal Counterfactuals</h3>
 <p>While Conformal Prediction has recently grown in popularity, it does introduce a challenge in the context of classification: the predictions of Conformal Classifiers are set-valued and therefore difficult to work with, since they are, for example, non-differentiable. Fortunately, <span class="citation" data-cites="stutz2022learning">Stutz et al. (<a href="#ref-stutz2022learning" role="doc-biblioref">2022</a>)</span> introduced carefully designed differentiable loss functions that make it possible to evaluate the performance of conformal predictions in training. We can leverage these recent advances in the context of gradient-based counterfactual search …</p>
-<blockquote class="blockquote">
+<blockquote>
 <p>Challenge: still need to implement these loss functions.</p>
 </blockquote>
 </section>
 </section>
-<section id="experiments" class="level2">
-<h2 class="anchored" data-anchor-id="experiments">Experiments</h2>
-<section id="research-questions" class="level3">
-<h3 class="anchored" data-anchor-id="research-questions">Research Questions</h3>
+<section id="experiments" class="level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Experiments</h2>
+<section id="research-questions" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span> Research Questions</h3>
 <ul>
 <li><p>Is CP alone enough to ensure realistic counterfactuals?</p></li>
 <li><p>Do counterfactuals improve further as the models get better?</p></li>
@@ -218,53 +293,58 @@ div.csl-indent {
 <li>compare travel costs to domain shits.</li>
 </ul></li>
 </ul>
-<blockquote class="blockquote">
+<blockquote>
 <p>Nice to have: What about using Laplace Approximation, then Conformal Prediction? What about using Conformalised Laplace?</p>
 </blockquote>
 </section>
 </section>
-<section id="references" class="level2 unnumbered">
-
-
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-altmeyer2023endogenous" class="csl-entry" role="doc-biblioentry">
+<section id="references" class="level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> References</h2>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden" data-render-id="quarto-int-sidebar-title">Conformal Counterfactual Explanations</span> <span class="hidden" data-render-id="quarto-int-navbar-title">Conformal Counterfactual Explanations</span> <span class="hidden" data-render-id="quarto-int-next"><span class="chapter-number">2</span>  <span class="chapter-title"><code>ConformalGenerator</code></span></span> <span class="hidden" data-render-id="quarto-int-prev">Preface</span> <span class="hidden" data-render-id="quarto-int-sidebar:/index.html">Preface</span> <span class="hidden" data-render-id="quarto-int-sidebar:/notebooks/proposal.html"><span class="chapter-number">1</span>  <span class="chapter-title">High-Fidelity Counterfactual Explanations through Conformal Prediction</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/notebooks/intro.html"><span class="chapter-number">2</span>  <span class="chapter-title"><code>ConformalGenerator</code></span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/notebooks/references.html">References</span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden" data-render-id="quarto-metatitle">Conformal Counterfactual Explanations - <span class="chapter-number">1</span>  <span class="chapter-title">High-Fidelity Counterfactual Explanations through Conformal Prediction</span></span> <span class="hidden" data-render-id="quarto-twittercardtitle">Conformal Counterfactual Explanations - <span class="chapter-number">1</span>  <span class="chapter-title">High-Fidelity Counterfactual Explanations through Conformal Prediction</span></span> <span class="hidden" data-render-id="quarto-ogcardtitle">Conformal Counterfactual Explanations - <span class="chapter-number">1</span>  <span class="chapter-title">High-Fidelity Counterfactual Explanations through Conformal Prediction</span></span> <span class="hidden" data-render-id="quarto-metasitename">Conformal Counterfactual Explanations</span> <span class="hidden" data-render-id="quarto-twittercarddesc">We propose Conformal Counterfactual Explanations: an effortless and rigorous way to produce realistic and faithful Counterfactual Explanations using Conformal Prediction. To address the need for realistic counterfactuals, existing work has primarily relied on separate generative models to learn the data-generating process. While this is an effective way to produce plausible and model-agnostic counterfactual explanations, it not only introduces a significant engineering overhead but also reallocates the task of creating realistic model explanations from the model itself to the generative model. Recent work has shown that there is no need for any of this when working with probabilistic models that explicitly quantify their own uncertainty. Unfortunately, most models used in practice still do not fulfil that basic requirement, in which case we would like to have a way to quantify predictive uncertainty in a post-hoc fashion.</span> <span class="hidden" data-render-id="quarto-ogcardddesc">We propose Conformal Counterfactual Explanations: an effortless and rigorous way to produce realistic and faithful Counterfactual Explanations using Conformal Prediction. To address the need for realistic counterfactuals, existing work has primarily relied on separate generative models to learn the data-generating process. While this is an effective way to produce plausible and model-agnostic counterfactual explanations, it not only introduces a significant engineering overhead but also reallocates the task of creating realistic model explanations from the model itself to the generative model. Recent work has shown that there is no need for any of this when working with probabilistic models that explicitly quantify their own uncertainty. Unfortunately, most models used in practice still do not fulfil that basic requirement, in which case we would like to have a way to quantify predictive uncertainty in a post-hoc fashion.</span></p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-altmeyer2023endogenous" class="csl-entry" role="listitem">
 Altmeyer, Patrick, Giovan Angela, Aleksander Buszydlik, Karol Dobiczek, Arie van Deursen, and Cynthia Liem. 2023. <span>“Endogenous <span>Macrodynamics</span> in <span>Algorithmic</span> <span>Recourse</span>.”</span> In <em>First <span>IEEE</span> <span>Conference</span> on <span>Secure</span> and <span>Trustworthy</span> <span>Machine</span> <span>Learning</span></em>.
 </div>
-<div id="ref-antoran2020getting" class="csl-entry" role="doc-biblioentry">
+<div id="ref-antoran2020getting" class="csl-entry" role="listitem">
 Antorán, Javier, Umang Bhatt, Tameem Adel, Adrian Weller, and José Miguel Hernández-Lobato. 2020. <span>“Getting a Clue: <span>A</span> Method for Explaining Uncertainty Estimates.”</span> <a href="https://arxiv.org/abs/2006.06848">https://arxiv.org/abs/2006.06848</a>.
 </div>
-<div id="ref-grathwohl2020your" class="csl-entry" role="doc-biblioentry">
+<div id="ref-grathwohl2020your" class="csl-entry" role="listitem">
 Grathwohl, Will, Kuan-Chieh Wang, Joern-Henrik Jacobsen, David Duvenaud, Mohammad Norouzi, and Kevin Swersky. 2020. <span>“Your Classifier Is Secretly an Energy Based Model and You Should Treat It Like One.”</span> In. <a href="https://openreview.net/forum?id=Hkxzx0NtDB">https://openreview.net/forum?id=Hkxzx0NtDB</a>.
 </div>
-<div id="ref-joshi2019realistic" class="csl-entry" role="doc-biblioentry">
+<div id="ref-joshi2019realistic" class="csl-entry" role="listitem">
 Joshi, Shalmali, Oluwasanmi Koyejo, Warut Vijitbenjaronk, Been Kim, and Joydeep Ghosh. 2019. <span>“Towards Realistic Individual Recourse and Actionable Explanations in Black-Box Decision Making Systems.”</span> <a href="https://arxiv.org/abs/1907.09615">https://arxiv.org/abs/1907.09615</a>.
 </div>
-<div id="ref-karimi2021algorithmic" class="csl-entry" role="doc-biblioentry">
+<div id="ref-karimi2021algorithmic" class="csl-entry" role="listitem">
 Karimi, Amir-Hossein, Bernhard Schölkopf, and Isabel Valera. 2021. <span>“Algorithmic Recourse: From Counterfactual Explanations to Interventions.”</span> In <em>Proceedings of the 2021 <span>ACM Conference</span> on <span>Fairness</span>, <span>Accountability</span>, and <span>Transparency</span></em>, 353–62.
 </div>
-<div id="ref-molnar2020interpretable" class="csl-entry" role="doc-biblioentry">
+<div id="ref-molnar2020interpretable" class="csl-entry" role="listitem">
 Molnar, Christoph. 2020. <em>Interpretable Machine Learning</em>. <span>Lulu. com</span>.
 </div>
-<div id="ref-pawelczyk2022probabilistically" class="csl-entry" role="doc-biblioentry">
+<div id="ref-pawelczyk2022probabilistically" class="csl-entry" role="listitem">
 Pawelczyk, Martin, Teresa Datta, Johannes van-den-Heuvel, Gjergji Kasneci, and Himabindu Lakkaraju. 2022. <span>“Probabilistically <span>Robust</span> <span>Recourse</span>: <span>Navigating</span> the <span>Trade</span>-Offs Between <span>Costs</span> and <span>Robustness</span> in <span>Algorithmic</span> <span>Recourse</span>.”</span> <em>arXiv Preprint arXiv:2203.06768</em>.
 </div>
-<div id="ref-poyiadzi2020face" class="csl-entry" role="doc-biblioentry">
+<div id="ref-poyiadzi2020face" class="csl-entry" role="listitem">
 Poyiadzi, Rafael, Kacper Sokol, Raul Santos-Rodriguez, Tijl De Bie, and Peter Flach. 2020. <span>“<span>FACE</span>: <span>Feasible</span> and Actionable Counterfactual Explanations.”</span> In <em>Proceedings of the <span>AAAI</span>/<span>ACM Conference</span> on <span>AI</span>, <span>Ethics</span>, and <span>Society</span></em>, 344–50.
 </div>
-<div id="ref-schut2021generating" class="csl-entry" role="doc-biblioentry">
+<div id="ref-schut2021generating" class="csl-entry" role="listitem">
 Schut, Lisa, Oscar Key, Rory Mc Grath, Luca Costabello, Bogdan Sacaleanu, Yarin Gal, et al. 2021. <span>“Generating <span>Interpretable Counterfactual Explanations By Implicit Minimisation</span> of <span>Epistemic</span> and <span>Aleatoric Uncertainties</span>.”</span> In <em>International <span>Conference</span> on <span>Artificial Intelligence</span> and <span>Statistics</span></em>, 1756–64. <span>PMLR</span>.
 </div>
-<div id="ref-stutz2022learning" class="csl-entry" role="doc-biblioentry">
+<div id="ref-stutz2022learning" class="csl-entry" role="listitem">
 Stutz, David, Krishnamurthy Dj Dvijotham, Ali Taylan Cemgil, and Arnaud Doucet. 2022. <span>“Learning <span>Optimal</span> <span>Conformal</span> <span>Classifiers</span>.”</span> In. <a href="https://openreview.net/forum?id=t8O-4LKFVx">https://openreview.net/forum?id=t8O-4LKFVx</a>.
 </div>
-<div id="ref-wachter2017counterfactual" class="csl-entry" role="doc-biblioentry">
+<div id="ref-wachter2017counterfactual" class="csl-entry" role="listitem">
 Wachter, Sandra, Brent Mittelstadt, and Chris Russell. 2017. <span>“Counterfactual Explanations Without Opening the Black Box: <span>Automated</span> Decisions and the <span>GDPR</span>.”</span> <em>Harv. JL &amp; Tech.</em> 31: 841.
 </div>
-</div></section></div></main>
-<!-- /main column -->
-<script id="quarto-html-after-body" type="application/javascript">
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -483,8 +563,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a  href="/index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a  href="/notebooks/intro.html" class="pagination-link">
+        <span class="nav-page-text"><span class='chapter-number'>2</span>  <span class='chapter-title'>`ConformalGenerator`</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
+</body>
 
-
-</body></html>
+</html>

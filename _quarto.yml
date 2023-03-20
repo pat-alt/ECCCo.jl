@@ -1,14 +1,30 @@
 project:
-  output-dir: build
+  type: book
+  output-dir: docs
+  execute-dir: project
+
+book:
+  title: "Conformal Counterfactual Explanations"
+  subtitle: "Online Companion"
+  author: "Patrick Altmeyer"
+  date: today
+  chapters:
+    - index.qmd
+    - notebooks/proposal.qmd
+    - notebooks/intro.qmd
+    - notebooks/references.qmd
 
 bibliography: bib.bib
 
-format: 
-  julia-html: default
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
 
 execute: 
   echo: false
-  eval: false
+  eval: true
   output: false
   freeze: auto
 

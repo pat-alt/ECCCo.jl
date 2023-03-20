@@ -6,14 +6,8 @@ abstract: |
 ---
 
 ```{julia}
-using CounterfactualExplanations
-using CounterfactualExplanations.Data: load_mnist
-using CounterfactualExplanations.Models: load_mnist_mlp
-using Images
-using MLDatasets
-using MLDatasets: convert2image
-using Plots
-www_path = "dev/www"
+include("notebooks/setup.jl")
+eval(setup_notebooks)
 ```
 
 ## Motivation
