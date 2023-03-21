@@ -240,7 +240,7 @@ measure =
 using CounterfactualExplanations.Evaluation: benchmark
 bmks = []
 for (dataname, dataset) in datasets
-    bmk = benchmark(dataset; models=models, generators=generators, suppress_training=true, data_name=dataname)
+    bmk = benchmark(dataset; models=models, generators=generators, suppress_training=true, dataname=dataname)
     push!(bmks, bmk)
 end
 bmk = reduce(vcat, bmks)
