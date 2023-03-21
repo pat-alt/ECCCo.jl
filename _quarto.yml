@@ -10,7 +10,7 @@ book:
   date: today
   chapters:
     - index.qmd
-    - notebooks/proposal.qmd
+    # - notebooks/proposal.qmd
     - notebooks/intro.qmd
     - notebooks/references.qmd
 
