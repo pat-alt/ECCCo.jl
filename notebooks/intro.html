@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-99.9.9" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+
+<title>Conformal Counterfactual Explanations – 1  ConformalGenerator</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<!-- htmldependencies:E3FAD763 -->
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn"
+      data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="/">
+      Conformal Counterfactual Explanations
+      </a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/notebooks/intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">&lt;span class=&#39;chapter-number&#39;&gt;1&lt;/span&gt;  &lt;span class=&#39;chapter-title&#39;&gt;`ConformalGenerator`&lt;/span&gt;</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/notebooks/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" ></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <div id="quarto-toc-target"></div>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>  <span class="chapter-title"><code>ConformalGenerator</code></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#black-box-model" id="toc-black-box-model"><span class="header-section-number">1.1</span> Black-box Model</a></li>
+  <li><a href="#conformal-prediction" id="toc-conformal-prediction"><span class="header-section-number">1.2</span> Conformal Prediction</a></li>
+  <li><a href="#differentiable-cp" id="toc-differentiable-cp"><span class="header-section-number">1.3</span> Differentiable CP</a>
+  <ul>
+  <li><a href="#smooth-set-size-penalty" id="toc-smooth-set-size-penalty"><span class="header-section-number">1.3.1</span> Smooth Set Size Penalty</a></li>
+  <li><a href="#configurable-classification-loss" id="toc-configurable-classification-loss"><span class="header-section-number">1.3.2</span> Configurable Classification Loss</a></li>
+  </ul></li>
+  <li><a href="#fidelity-and-plausibility" id="toc-fidelity-and-plausibility"><span class="header-section-number">1.4</span> Fidelity and Plausibility</a>
+  <ul>
+  <li><a href="#fidelity" id="toc-fidelity"><span class="header-section-number">1.4.1</span> Fidelity</a></li>
+  <li><a href="#plausibility" id="toc-plausibility"><span class="header-section-number">1.4.2</span> Plausibility</a></li>
+  </ul></li>
+  <li><a href="#counterfactual-explanations" id="toc-counterfactual-explanations"><span class="header-section-number">1.5</span> Counterfactual Explanations</a>
+  <ul>
+  <li><a href="#benchmark" id="toc-benchmark"><span class="header-section-number">1.5.1</span> Benchmark</a></li>
+  </ul></li>
+  <li><a href="#multi-class" id="toc-multi-class"><span class="header-section-number">1.6</span> Multi-Class</a></li>
+  </ul>
+</nav>
+<p>In this section, we will look at a simple example involving synthetic data, a black-box model and a generic Conformal Counterfactual Generator.</p>
+<section id="black-box-model" class="level2" data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span> Black-box Model</h2>
+<p>We consider a simple binary classification problem. Let <span class="math inline">\((X_i, Y_i), \ i=1,...,n\)</span> denote our feature-label pairs and let <span class="math inline">\(\mu: \mathcal{X} \mapsto \mathcal{Y}\)</span> denote the mapping from features to labels. For illustration purposes, we will use linearly separable data.</p>
+<p>While we could use a linear classifier in this case, let’s pretend we need a black-box model for this task and rely on a small Multi-Layer Perceptron (MLP):</p>
+<p>We can fit this model to data to produce plug-in predictions.</p>
+</section>
+<section id="conformal-prediction" class="level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> Conformal Prediction</h2>
+<p>Here we will instead use a specific case of CP called <em>split conformal prediction</em> which can then be summarized as follows:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<ol type="1">
+<li>Partition the training into a proper training set and a separate calibration set: <span class="math inline">\(\mathcal{D}_n=\mathcal{D}^{\text{train}} \cup \mathcal{D}^{\text{cali}}\)</span>.</li>
+<li>Train the machine learning model on the proper training set: <span class="math inline">\(\hat\mu_{i \in \mathcal{D}^{\text{train}}}(X_i,Y_i)\)</span>.</li>
+</ol>
+<p>The model <span class="math inline">\(\hat\mu_{i \in \mathcal{D}^{\text{train}}}\)</span> can now produce plug-in predictions.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+Starting Point
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that this represents the starting point in applications of Algorithmic Recourse: we have some pre-trained classifier <span class="math inline">\(M\)</span> for which we would like to generate plausible Counterfactual Explanations. Next, we turn to the calibration step.</p>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Compute nonconformity scores, <span class="math inline">\(\mathcal{S}\)</span>, using the calibration data <span class="math inline">\(\mathcal{D}^{\text{cali}}\)</span> and the fitted model <span class="math inline">\(\hat\mu_{i \in \mathcal{D}^{\text{train}}}\)</span>.</li>
+<li>For a user-specified desired coverage ratio <span class="math inline">\((1-\alpha)\)</span> compute the corresponding quantile, <span class="math inline">\(\hat{q}\)</span>, of the empirical distribution of nonconformity scores, <span class="math inline">\(\mathcal{S}\)</span>.</li>
+<li>For the given quantile and test sample <span class="math inline">\(X_{\text{test}}\)</span>, form the corresponding conformal prediction set:</li>
+</ol>
+<p><span id="eq-set"><span class="math display">\[
+C(X_{\text{test}})=\{y:s(X_{\text{test}},y) \le \hat{q}\}
+\tag{1.1}\]</span></span></p>
+<p>This is the default procedure used for classification and regression in <a href="https://github.com/pat-alt/ConformalPrediction.jl"><code>ConformalPrediction.jl</code></a>.</p>
+<p>Using the package, we can apply Split Conformal Prediction as follows:</p>
+<p>To be clear, all of the calibration steps (3 to 5) are post hoc, and yet none of them involved any changes to the model parameters. These are two important characteristics of Split Conformal Prediction (SCP) that make it particularly useful in the context of Algorithmic Recourse. Firstly, the fact that SCP involves posthoc calibration steps that happen after training, ensures that we need not place any restrictions on the black-box model itself. This stands in contrast to the approach proposed by <span class="citation" data-cites="schut2021generating">Schut et al. (<a href="#ref-schut2021generating" role="doc-biblioref">2021</a>)</span> in which they essentially restrict the class of models to Bayesian models. Secondly, the fact that the model itself is kept entirely intact ensures that the generated counterfactuals maintain fidelity to the model. Finally, note that we also have not resorted to a surrogate model to learn more about <span class="math inline">\(X \sim \mathcal{X}\)</span>. Instead, we have used the fitted model itself and a calibration data set to learn about the model’s predictive uncertainty.</p>
+</section>
+<section id="differentiable-cp" class="level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span> Differentiable CP</h2>
+<p>In order to use CP in the context of gradient-based counterfactual search, we need it to be differentiable. <span class="citation" data-cites="stutz2022learning">Stutz et al. (<a href="#ref-stutz2022learning" role="doc-biblioref">2022</a>)</span> introduce a framework for training differentiable conformal predictors. They introduce a configurable loss function as well as smooth set size penalty.</p>
+<section id="smooth-set-size-penalty" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span> Smooth Set Size Penalty</h3>
+<p>Starting with the former, <span class="citation" data-cites="stutz2022learning">Stutz et al. (<a href="#ref-stutz2022learning" role="doc-biblioref">2022</a>)</span> propose the following:</p>
+<p><span id="eq-size-loss"><span class="math display">\[
+\Omega(C_{\theta}(x;\tau)) = = \max (0, \sum_k C_{\theta,k}(x;\tau) - \kappa)
+\tag{1.2}\]</span></span></p>
+<p>Here, <span class="math inline">\(C_{\theta,k}(x;\tau)\)</span> is loosely defined as the probability that class <span class="math inline">\(k\)</span> is assigned to the conformal prediction set <span class="math inline">\(C\)</span>. In the context of Conformal Training, this penalty reduces the <strong>inefficiency</strong> of the conformal predictor.</p>
+<p>In our context, we are not interested in improving the model itself, but rather in producing <strong>plausible</strong> counterfactuals. Provided that our counterfactual <span class="math inline">\(x^\prime\)</span> is already inside the target domain (<span class="math inline">\(\mathbb{I}_{y^\prime = t}=1\)</span>), penalizing <span class="math inline">\(\Omega(C_{\theta}(x;\tau))\)</span> corresponds to guiding counterfactuals into regions of the target domain that are characterized by low ambiguity: for <span class="math inline">\(\kappa=1\)</span> the conformal prediction set includes only the target label <span class="math inline">\(t\)</span> as <span class="math inline">\(\Omega(C_{\theta}(x;\tau))\)</span>. Arguably, less ambiguous counterfactuals are more <strong>plausible</strong>. Since the search is guided purely by properties of the model itself and (exchangeable) calibration data, counterfactuals also maintain <strong>high fidelity</strong>.</p>
+<p>The left panel of <a href="#fig-losses">Figure <span class="quarto-unresolved-ref">fig-losses</span></a> shows the smooth size penalty in the two-dimensional feature space of our synthetic data.</p>
+</section>
+<section id="configurable-classification-loss" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2"><span class="header-section-number">1.3.2</span> Configurable Classification Loss</h3>
+<p>The right panel of <a href="#fig-losses">Figure <span class="quarto-unresolved-ref">fig-losses</span></a> shows the configurable classification loss in the two-dimensional feature space of our synthetic data.</p>
+<div class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div id="fig-losses" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="intro_files/figure-html/fig-losses-output-1.svg" class="quarto-discovered-preview-image img-fluid" /></p>
+<p><figcaption>Figure 1.1: Illustration of the smooth size loss and the configurable classification loss.</figcaption></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="fidelity-and-plausibility" class="level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> Fidelity and Plausibility</h2>
+<p>The main evaluation criteria we are interested in are <em>fidelity</em> and <em>plausibility</em>. Interestingly, we could also consider using these measures as penalties in the counterfactual search.</p>
+<section id="fidelity" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1"><span class="header-section-number">1.4.1</span> Fidelity</h3>
+<p>We propose to define fidelity as follows:</p>
+<div id="def-fidelity" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.1 (High-Fidelity Counterfactuals) </strong></span>Let <span class="math inline">\(\mathcal{X}_{\theta}|y = p_{\theta}(X|y)\)</span> denote the class-conditional distribution of <span class="math inline">\(X\)</span> defined by <span class="math inline">\(\theta\)</span>. Then for <span class="math inline">\(x^{\prime}\)</span> to be considered a high-fidelity counterfactual, we need: <span class="math inline">\(\mathcal{X}_{\theta}|t \approxeq \mathcal{X}^{\prime}\)</span> where <span class="math inline">\(t\)</span> denotes the target outcome.</p>
+</div>
+<p>We can generate samples from <span class="math inline">\(p_{\theta}(X|y)\)</span> following <span class="citation" data-cites="grathwohl2020your">Grathwohl et al. (<a href="#ref-grathwohl2020your" role="doc-biblioref">2020</a>)</span>. In <a href="#fig-energy">Figure <span class="quarto-unresolved-ref">fig-energy</span></a>, I have applied the methodology to our synthetic data.</p>
+<p>As an evaluation metric and penalty, we could use the average distance of the counterfactual <span class="math inline">\(x^{\prime}\)</span> from these generated samples, for example.</p>
+</section>
+<section id="plausibility" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2"><span class="header-section-number">1.4.2</span> Plausibility</h3>
+<p>We propose to define plausibility as follows:</p>
+<div id="def-plausible" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.2 (Plausible Counterfactuals) </strong></span>Formally, let <span class="math inline">\(\mathcal{X}|t\)</span> denote the conditional distribution of samples in the target class. As before, we have <span class="math inline">\(x^{\prime}\sim\mathcal{X}^{\prime}\)</span>, then for <span class="math inline">\(x^{\prime}\)</span> to be considered a plausible counterfactual, we need: <span class="math inline">\(\mathcal{X}|t \approxeq \mathcal{X}^{\prime}\)</span>.</p>
+</div>
+<p>As an evaluation metric and penalty, we could use the average distance of the counterfactual <span class="math inline">\(x^{\prime}\)</span> from (potentially bootstrapped) training samples in the target class, for example.</p>
+</section>
+</section>
+<section id="counterfactual-explanations" class="level2" data-number="1.5">
+<h2 data-number="1.5"><span class="header-section-number">1.5</span> Counterfactual Explanations</h2>
+<p>Next, let’s generate counterfactual explanations for our synthetic data. We first wrap our model in a container that makes it compatible with <code>CounterfactualExplanations.jl</code>. Then we draw a random sample, determine its predicted label <span class="math inline">\(\hat{y}\)</span> and choose the opposite label as our target.</p>
+<p>The generic Conformal Counterfactual Generator penalises the only the set size only:</p>
+<p><span id="eq-solution"><span class="math display">\[
+x^\prime = \arg \min_{x^\prime}  \ell(M(x^\prime),t) + \lambda \mathbb{I}_{y^\prime = t} \Omega(C_{\theta}(x;\tau))
+\tag{1.3}\]</span></span></p>
+<div class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div id="fig-ce" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="intro_files/figure-html/fig-ce-output-1.svg" class="img-fluid" /></p>
+<p><figcaption>Figure 1.2: Comparison of counterfactuals produced using different generators.</figcaption></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="benchmark" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1"><span class="header-section-number">1.5.1</span> Benchmark</h3>
+<p>Then we can simply loop over the datasets and eventually concatenate the results like so:</p>
+</section>
+</section>
+<section id="multi-class" class="level2" data-number="1.6">
+<h2 data-number="1.6"><span class="header-section-number">1.6</span> Multi-Class</h2>
+<div class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div id="fig-losses-multi" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="intro_files/figure-html/fig-losses-multi-output-1.svg" class="img-fluid" /></p>
+<p><figcaption>Figure 1.3: Illustration of the smooth size loss and the configurable classification loss.</figcaption></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden" data-render-id="quarto-int-sidebar-title">Conformal Counterfactual Explanations</span> <span class="hidden" data-render-id="quarto-int-navbar-title">Conformal Counterfactual Explanations</span> <span class="hidden" data-render-id="quarto-int-next">References</span> <span class="hidden" data-render-id="quarto-int-prev">Preface</span> <span class="hidden" data-render-id="quarto-int-sidebar:/index.html">Preface</span> <span class="hidden" data-render-id="quarto-int-sidebar:/notebooks/intro.html"><span class="chapter-number">1</span>  <span class="chapter-title"><code>ConformalGenerator</code></span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/notebooks/references.html">References</span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden" data-render-id="quarto-metatitle">Conformal Counterfactual Explanations - <span class="chapter-number">1</span>  <span class="chapter-title"><code>ConformalGenerator</code></span></span> <span class="hidden" data-render-id="quarto-twittercardtitle">Conformal Counterfactual Explanations - <span class="chapter-number">1</span>  <span class="chapter-title"><code>ConformalGenerator</code></span></span> <span class="hidden" data-render-id="quarto-ogcardtitle">Conformal Counterfactual Explanations - <span class="chapter-number">1</span>  <span class="chapter-title"><code>ConformalGenerator</code></span></span> <span class="hidden" data-render-id="quarto-metasitename">Conformal Counterfactual Explanations</span> <span class="hidden" data-render-id="quarto-twittercarddesc"></span> <span class="hidden" data-render-id="quarto-ogcardddesc"></span></p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-grathwohl2020your" class="csl-entry" role="listitem">
+Grathwohl, Will, Kuan-Chieh Wang, Joern-Henrik Jacobsen, David Duvenaud, Mohammad Norouzi, and Kevin Swersky. 2020. <span>“Your Classifier Is Secretly an Energy Based Model and You Should Treat It Like One.”</span> In. <a href="https://openreview.net/forum?id=Hkxzx0NtDB">https://openreview.net/forum?id=Hkxzx0NtDB</a>.
+</div>
+<div id="ref-schut2021generating" class="csl-entry" role="listitem">
+Schut, Lisa, Oscar Key, Rory Mc Grath, Luca Costabello, Bogdan Sacaleanu, Yarin Gal, et al. 2021. <span>“Generating <span>Interpretable Counterfactual Explanations By Implicit Minimisation</span> of <span>Epistemic</span> and <span>Aleatoric Uncertainties</span>.”</span> In <em>International <span>Conference</span> on <span>Artificial Intelligence</span> and <span>Statistics</span></em>, 1756–64. <span>PMLR</span>.
+</div>
+<div id="ref-stutz2022learning" class="csl-entry" role="listitem">
+Stutz, David, Krishnamurthy Dj Dvijotham, Ali Taylan Cemgil, and Arnaud Doucet. 2022. <span>“Learning <span>Optimal</span> <span>Conformal</span> <span>Classifiers</span>.”</span> In. <a href="https://openreview.net/forum?id=t8O-4LKFVx">https://openreview.net/forum?id=t8O-4LKFVx</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>In other places split conformal prediction is sometimes referred to as <em>inductive</em> conformal prediction.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a  href="/index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a  href="/notebooks/references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+</body>
+
+</html>

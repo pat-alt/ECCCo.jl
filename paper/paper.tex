@@ -80,10 +80,29 @@
 
 \maketitle
 
-
 \begin{abstract}
-  We propose Conformal Counterfactual Explanations: an effortless and rigorous way to produce realistic and faithful Counterfactual Explanations for Black-Box models using Conformal Prediction. To address the need for realistic counterfactuals, existing work has primarily relied on surrogate models to learn the data-generating process. While this is an effective way to produce plausible counterfactual explanations, it effectively reallocates the task of learning realistic representations of the data from the model itself to the surrogate. Consequently, the generated explanations may look compelling to human inspectors but not necessarily accurately reflect the behaviour of the Black-Box model. Recent work has shown that instead of relying on surrogate models to generate plausible explanations, we can leverage predictive uncertainty for this task. Unfortunately, this approach works under the assumption that models can produce predictive uncertainty estimates. By leveraging a novel approach to differentiable Conformal Prediction we show that it is possible to relax that assumption.
+  We propose Conformal Counterfactual Explanations: an effortless and rigorous way to produce plausible and conformal Counterfactual Explanations for Black Box Models using Conformal Prediction. To address the need for plausible explanations, existing work has primarily relied on surrogate models to learn the data-generating process. This effectively reallocates the task of learning realistic representations of the data from the model itself to the surrogate. Consequently, the generated explanations may look plausible to humans but not necessarily conform with the behaviour of the Black Box Model. We formalise this notion through the introduction of new evaluation measures. In order to still address the need for plausibility, we build on a recent approach that works by minimizing predictive model uncertainty. Using differentiable Conformal Prediction, we relax the previous assumption that the Black Box Model can produce predictive uncertainty estimates.
 \end{abstract}
+
+\section{Introduction}\label{intro}
+
+Counterfactual Explanations are a powerful, flexible and intuitive way to not only explain Black Box Models but also enable affected individuals to challenge them through the means of Algorithmic Recourse. Instead of opening the black box, Counterfactual Explanations work under the premise of strategically perturbing model inputs to understand model behaviour \cite{wachter2017counterfactual}. Intuitively speaking, we generate explanations in this context by asking simple what-if questions of the following nature: `Our credit risk model currently predicts that this individual's credit profile is too risky to offer them a loan. What if they reduced their monthly expenditures by 10\%? Will our model then predict that the individual is credit-worthy'? 
+
+This is typically implemented by defining a target outcome $t \in \mathcal{Y}$ for some individual $x \in \mathcal{X}$, for which the model $f: \mathcal{X} \mapsto \mathcal{Y}$ initially predicts a different outcome: $f(x)\ne t$. Counterfactuals are then searched by minimizing a loss function that compares the predicted model output to the target outcome: $\ell(f(x),t)$. Since Counterfactual Explanations (CE) work directly with the Black Box Model, they always have full local fidelity by construction. Fidelity is defined as the degree to which explanations approximate the predictions of the Black Box Model. This arguably one of the most important evaluation metrics for model explanations, since any explanation that explains a prediction not actually made by the model is useless \cite{molnar2020interpretable}. 
+
+In situations where full fidelity is a requirement, CE therefore offers a more appropriate solution to Explainable Artificial Intelligence (XAI) than other popular approaches like LIME \cite{ribeiro2016why} and SHAP \cite{lundberg2017unified}, which involve local surrogate models. But even full fidelity is not a sufficient condition for ensuring that an explanation adequately describes the behaviour of a model. That is because two very distinct explanations can both lead to the same model prediction, especially when dealing with heavily parameterized models:
+
+\begin{quotation}
+  […] deep neural networks are typically very underspecified by the available data, and […] parameters [therefore] correspond to a diverse variety of compelling explanations for the data.
+  --- \cite[Wilson 2020]{wilson2020case}
+\end{quotation}
+
+When people talk about Black Box Models, this is usually the type of model they have in mind. 
+
+In the context of CE, the idea that no two explanations are the same arises almost naturally. Even the baseline approach proposed by \cite[Wachter et al.]{wachter2017counterfactual} can yield a diverse set of explanations if counterfactuals are intialised randomly. This multiplicity of explanations has not only been acknowledged in the literature but positively embraced: since individuals seeking Algorithmic Recourse (AR) have unique preferences,~\cite[Mothilal et al.]{mothilal2020explaining}, for example, have prescribed \textit{diversity} as an explicit goal for counterfactuals. More generally, the literature on CE and AR has brought forward a myriad of desiderata for explanations, which we will discuss in more detail in the following section.
+
+\section{Adversarial Example or Plausible Explanation?}\label{background}
+
 
 
 \section{Submission of papers to NeurIPS 2022}
