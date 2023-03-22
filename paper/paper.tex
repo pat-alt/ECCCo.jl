@@ -127,7 +127,7 @@ Solutions to Equation~\ref{eq:general} are considered valid as soon as the predi
 
 The crucial difference between Adversarial Examples (AE) and Counterfactual Explanations is one of intent. While an AE is intended to go unnoticed, a CE should have certain desirable properties. The literature has made this explicit by introducing various so-called \textit{desiderata}. To properly serve both AI practitioners and individuals affected by AI decision-making systems, counterfactuals should be sparse, proximate~\citep{wachter2017counterfactual}, actionable~\citep{ustun2019actionable}, diverse~\citep{mothilal2020explaining}, plausible~\citep{joshi2019realistic,poyiadzi2020face,schut2021generating}, robust~\citep{upadhyay2021robust,pawelczyk2022probabilistically,altmeyer2023endogenous} and causal~\citep{karimi2021algorithmic} among other things. Researchers have come up with various ways to meet these desiderata, which have been surveyed in~\citep{verma2020counterfactual} and~\citep{karimi2020survey}. 
 
-Finding ways to generate \textit{plausible} counterfactuals has been one of the primary concerns. To this end, \citet{joshi2019realistic} were among the first to suggest that instead of searching counterfactuals in the feature space $\mathcal{X}$, we can instead traverse a latent embedding $\mathcal{Z}$ that implicitly codifies the data generating process (DGP) of $x\sim\mathcal{X}$. To learn the latent embedding, they introduce a surrogate model. In particular, they propose to use the latent embedding of a Variational Autoencoder (VAE) trained to generate samples $x^*\sim \mathcal{G}(z)$ where $\mathcal{G}$ denotes the decoder part of the VAE. Provided the surrogate model is well-trained, their proposed approach can yield compelling counterfactual explanations like the one in the centre panel of Figure~ref{fig:vae}. 
+Finding ways to generate \textit{plausible} counterfactuals has been one of the primary concerns. To this end, \citet{joshi2019realistic} were among the first to suggest that instead of searching counterfactuals in the feature space $\mathcal{X}$, we can instead traverse a latent embedding $\mathcal{Z}$ that implicitly codifies the data generating process (DGP) of $x\sim\mathcal{X}$. To learn the latent embedding, they introduce a surrogate model. In particular, they propose to use the latent embedding of a Variational Autoencoder (VAE) trained to generate samples $x^* \leftarrow \mathcal{G}(z)$ where $\mathcal{G}$ denotes the decoder part of the VAE. Provided the surrogate model is well-trained, their proposed approach ---REVISE--- can yield compelling counterfactual explanations like the one in the centre panel of Figure~\ref{fig:vae}. 
 
 Others have proposed similar approaches. \citet{dombrowski2021diffeomorphic} traverse the base space of a normalizing flow to solve Equation~\ref{eq:general}, essentially relying on a different surrogate model for the generative task. \citet{poyiadzi2020face} use density estimators ($\hat{p}: \mathcal{X} \mapsto [0,1]$) to constrain the counterfactual paths. \citet{karimi2021algorithmic} argue that counterfactuals should comply with the causal model that generates the data. All of these different approaches share a common goal: ensuring that the generated counterfactuals comply with the true and unobserved DGP. To summarize this broad objective, we propose the following definition:
 
@@ -136,7 +136,9 @@ Others have proposed similar approaches. \citet{dombrowski2021diffeomorphic} tra
   Let $\mathcal{X}|t$ denote the true conditional distribution of samples in the target class. Then for $x^{\prime}$ to be considered a plausible counterfactual, we need: $x^{\prime} \sim \mathcal{X}|t$.
 \end{definition}
 
-Note that Definition~\ref{def:plausible} subsumes the notion of plausible counterfactual paths, since we can simply apply it to each counterfactual state along the path.
+Note that Definition~\ref{def:plausible} is consistent with the notion of plausible counterfactual paths, since we can simply apply it to each counterfactual state along the path.
+
+Surrogate models offer an obvious solution to achieve this objective. Unfortunately, surrogates also introduce a dependency: the generated explanations no longer depend exclusively on the Black Box Model itself, but also on the surrogate model. This is not necessarily problematic if the primary objective is not to explain the behaviour of the model but to offer recourse to individuals affected by it. It may become problematic even in this context if the dependency turns into a vulnerability. To illustrate this point, we have used REVISE \citep{joshi2019realistic} with an underfitted VAE to generate the counterfactual in the right panel of Figure~\ref{fig:vae}: in this case, the decoder step of the VAE fails to yield plausible values ($\{x^{\prime} \leftarrow \mathcal{G}(z)\} \not\sim \mathcal{X}|t$) and hence the counterfactual search in the learned latent space is doomed.
 
 \begin{figure}
   \centering
@@ -151,6 +153,8 @@ Note that Definition~\ref{def:plausible} subsumes the notion of plausible counte
     \caption{Using surrogates can improve plausibility, but also increases vulnerability. Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); counterfactual produced using REVISE \citep{joshi2019realistic} with a well-specified surrogate (centre); and a counterfactual produced using REVISE \citep{joshi2019realistic} with a poorly specified surrogate (right).}\label{fig:vae}
   \end{minipage}
 \end{figure}
+
+\section{A Framework for Conformal Counterfactual Explanations}\label{cce}
 
 \medskip
 
