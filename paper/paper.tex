@@ -31,10 +31,11 @@
 \usepackage{microtype}      % microtypography
 \usepackage{xcolor}         % colors
 \usepackage{amsmath}
+\usepackage{graphicx}
 
 % Bibliography
 \bibliographystyle{plainnat}
-\setcitestyle{authoryear, round, comma}
+\setcitestyle{numbers,square,comma}
 
 
 \title{Conformal Counterfactual Explanations}
@@ -118,25 +119,23 @@ Most state-of-the-art approaches to generating Counterfactual Explanations (CE) 
 
 where $\text{yloss}$ denotes the primary loss function already introduced above and $\text{cost}$ is either a single penalty or a collection of penalties that are used to impose constraints through regularization. Following the convention in \citet{altmeyer2023endogenous} we use $\mathbf{s}^\prime=\{ s_k\}_K$ to denote the vector $K$-dimensional array of counterfactual states. This is to explicitly account for the fact that we can generate multiple counterfactuals, as with DiCE \citep{mothilal2020explaining}, and may choose to traverse a latent representation $\mathcal{Z}$ of the feature space $\mathcal{X}$, as we will discuss further below. 
 
-Solutions to Equation~\ref{eq:general} are considered valid as soon as the predicted label matches the target label. A stripped-down counterfactual explanation is therefore little different from an adversarial example. In, for example, generic counterfactual search as in \citet{wachter2017counterfactual} has been applied to MNIST data.
-
-\begin{figure}
-  \centering
-  \fbox{\rule[-.5cm]{0cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
-  \caption{Sample figure caption.}
-\end{figure}
+Solutions to Equation~\ref{eq:general} are considered valid as soon as the predicted label matches the target label. A stripped-down counterfactual explanation is therefore little different from an adversarial example. In Figure~\ref{fig:adv}, for example, generic counterfactual search as in \citet{wachter2017counterfactual} has been applied to MNIST data.
 
 To properly serve both AI practitioners and individuals affected by AI decision-making systems, Counterfactual Explanations should have certain desirable properties, sometimes referred to as \textit{desiderata}. Besides diversity, which we already introduced above, some of the most prominent desiderata include sparsity, proximity \citep{wachter2017counterfactual}, actionability~\citep{ustun2019actionable}, plausibility \citep{joshi2019realistic,poyiadzi2020face,schut2021generating}, robustness \citep{upadhyay2021robust,pawelczyk2022probabilistically,altmeyer2023endogenous} and causality~\citep{karimi2021algorithmic}. Researchers have come up with various ways to meet these desiderata, which have been surveyed in~\citep{verma2020counterfactual} and~\citep{karimi2020survey}. 
 
-
-\section*{References}
-
-
-References follow the acknowledgments. Use unnumbered first-level heading for
-the references. Any choice of citation style is acceptable as long as you are
-consistent. It is permissible to reduce the font size to \verb+small+ (9 point)
-when listing the references.
-Note that the Reference section does not count towards the page limit.
+\begin{figure}
+  \centering
+  \begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{www/you_may_not_like_it.png}
+    \caption{You may not like it, but this is what stripped-down counterfactuals look like. Counterfactuals for turning an 8 (eight) into a 3 (three) using different methodologies. Left: Using the generic approach proposed in \citet{wachter2017counterfactual}. Center: Using REVISE \citep{joshi2019realistic} with a well-specified surrogate. Right: Using REVISE \citep{joshi2019realistic} with a poorly specified surrogate.}\label{fig:adv}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{www/mnist_9to4_latent.png}
+    \caption{Using surrogates introduces a dependency. Counterfactuals for turning a 9 (nine) into a 4 (four) using REVISE: original image (left); counterfactual using a well-specified surrogate (center); and counterfactual using a poorly specified surrogate (right).}\label{fig:vae}
+  \end{minipage}
+\end{figure}
 
 \medskip
 
@@ -499,6 +498,14 @@ More information about this disclosure can be found at: \url{https://neurips.cc/
 Do {\bf not} include this section in the anonymized submission, only in the final paper. You can use the \texttt{ack} environment provided in the style file to autmoatically hide this section in the anonymized submission.
 \end{ack}
 
+\section*{References}
+
+
+References follow the acknowledgments. Use unnumbered first-level heading for
+the references. Any choice of citation style is acceptable as long as you are
+consistent. It is permissible to reduce the font size to \verb+small+ (9 point)
+when listing the references.
+Note that the Reference section does not count towards the page limit.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Checklist}
