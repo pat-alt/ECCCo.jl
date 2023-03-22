@@ -32,6 +32,10 @@
 \usepackage{xcolor}         % colors
 \usepackage{amsmath}
 
+% Bibliography
+\bibliographystyle{plainnat}
+\setcitestyle{authoryear, round, comma}
+
 
 \title{Conformal Counterfactual Explanations}
 
@@ -124,6 +128,19 @@ Solutions to Equation~\ref{eq:general} are considered valid as soon as the predi
 
 To properly serve both AI practitioners and individuals affected by AI decision-making systems, Counterfactual Explanations should have certain desirable properties, sometimes referred to as \textit{desiderata}. Besides diversity, which we already introduced above, some of the most prominent desiderata include sparsity, proximity \citep{wachter2017counterfactual}, actionability~\citep{ustun2019actionable}, plausibility \citep{joshi2019realistic,poyiadzi2020face,schut2021generating}, robustness \citep{upadhyay2021robust,pawelczyk2022probabilistically,altmeyer2023endogenous} and causality~\citep{karimi2021algorithmic}. Researchers have come up with various ways to meet these desiderata, which have been surveyed in~\citep{verma2020counterfactual} and~\citep{karimi2020survey}. 
 
+
+\section*{References}
+
+
+References follow the acknowledgments. Use unnumbered first-level heading for
+the references. Any choice of citation style is acceptable as long as you are
+consistent. It is permissible to reduce the font size to \verb+small+ (9 point)
+when listing the references.
+Note that the Reference section does not count towards the page limit.
+
+\medskip
+
+\bibliography{../bib}
 
 
 \section{Submission of papers to NeurIPS 2022}
@@ -481,21 +498,6 @@ More information about this disclosure can be found at: \url{https://neurips.cc/
 
 Do {\bf not} include this section in the anonymized submission, only in the final paper. You can use the \texttt{ack} environment provided in the style file to autmoatically hide this section in the anonymized submission.
 \end{ack}
-
-
-\section*{References}
-
-
-References follow the acknowledgments. Use unnumbered first-level heading for
-the references. Any choice of citation style is acceptable as long as you are
-consistent. It is permissible to reduce the font size to \verb+small+ (9 point)
-when listing the references.
-Note that the Reference section does not count towards the page limit.
-
-\medskip
-
-\bibliographystyle{plainnat}
-\bibliography{../bib}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
