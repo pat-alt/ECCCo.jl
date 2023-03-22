@@ -127,13 +127,13 @@ To properly serve both AI practitioners and individuals affected by AI decision-
   \centering
   \begin{minipage}[t]{0.45\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{www/you_may_not_like_it.png}
-    \caption{You may not like it, but this is what stripped-down counterfactuals look like. Counterfactuals for turning an 8 (eight) into a 3 (three) using different methodologies. Left: Using the generic approach proposed in \citet{wachter2017counterfactual}. Center: Using REVISE \citep{joshi2019realistic} with a well-specified surrogate. Right: Using REVISE \citep{joshi2019realistic} with a poorly specified surrogate.}\label{fig:adv}
+    \includegraphics[width=\textwidth]{../www/you_may_not_like_it.png}
+    \caption{You may not like it, but this is what stripped-down counterfactuals look like. Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); counterfactual produced using \citet{wachter2017counterfactual} (center); and a counterfactual produced using JSMA-based approach introduced by \citep{schut2021generating}.}\label{fig:adv}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.45\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{www/mnist_9to4_latent.png}
-    \caption{Using surrogates introduces a dependency. Counterfactuals for turning a 9 (nine) into a 4 (four) using REVISE: original image (left); counterfactual using a well-specified surrogate (center); and counterfactual using a poorly specified surrogate (right).}\label{fig:vae}
+    \includegraphics[width=\textwidth]{../www/surrogate_gone_wrong.png}
+    \caption{Using surrogates can improve plausibility, but also increases vulnerability. Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); counterfactual produced using REVISE \citep{joshi2019realistic} with a well-specified surrogate (center); and a counterfactual produced using REVISE \citep{joshi2019realistic} with a poorly specified surrogate (right).}\label{fig:vae}
   \end{minipage}
 \end{figure}
 

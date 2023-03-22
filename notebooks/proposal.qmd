@@ -24,41 +24,56 @@ counterfactual_data = load_mnist()
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 input_dim, n_obs = size(counterfactual_data.X)
 M = load_mnist_mlp()
+
 # Target:
 factual_label = 8
 x = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
 target = 3
 factual = predict_label(M, counterfactual_data, x)[1]
-# Search:
-n_ce = 3
-generator = GenericGenerator()
-ces = generate_counterfactual(x, target, counterfactual_data, M, generator; num_counterfactuals=n_ce)
+γ = 0.9
+T = 50
 ```
 
 ```{julia}
-image_size = 200
+# Search:
+generator = GenericGenerator()
+ce_wachter = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+)
+generator = GreedyGenerator(η=5.0)
+ce_jsma = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+)
+```
+
+```{julia}
 p1 = plot(
     convert2image(MNIST, reshape(x,28,28)),
     axis=nothing, 
-    size=(image_size, image_size),
+    size=(img_height, img_height),
     title="Factual"
 )
 plts = [p1]
 
-counterfactuals = CounterfactualExplanations.counterfactual(ces)
-phat = target_probs(ces)
+ces = zip([ce_wachter,ce_jsma])
+counterfactuals = reduce((x,y)->cat(x,y,dims=3),map(ce -> CounterfactualExplanations.counterfactual(ce[1]), ces))
+phat = reduce((x,y) -> cat(x,y,dims=3), map(ce -> target_probs(ce[1]), ces))
 for x in zip(eachslice(counterfactuals; dims=3), eachslice(phat; dims=3))
     ce, _phat = (x[1],x[2])
     _title = "p(y=$(target)|x′)=$(round(_phat[1]; digits=3))"
     plt = plot(
         convert2image(MNIST, reshape(ce,28,28)),
         axis=nothing, 
-        size=(image_size, image_size),
+        size=(img_height, img_height),
         title=_title
     )
     plts = [plts..., plt]
 end
-plt = plot(plts...; size=(image_size * (n_ce + 1),image_size), layout=(1,(n_ce + 1)))
+plt = plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
 savefig(plt, joinpath(www_path, "you_may_not_like_it.png"))
 ```
 
@@ -75,6 +90,57 @@ Formally, if $x \sim \mathcal{X}$ and for the corresponding counterfactual we ha
 :::
 
 In the context of Algorithmic Recourse, it makes sense to strive for plausible counterfactuals, since anything else would essentially require individuals to move to out-of-distribution states. But it is worth noting that our ambition to meet this goal, may have implications on our ability to faithfully explain the behaviour of the underlying black-box model (arguably our principal goal). By essentially decoupling the task of learning plausible representations of the data from the model itself, we open ourselves up to vulnerabilities. Using a separate generative model to learn $\mathcal{X}$, for example, has very serious implications for the generated counterfactuals. @fig-latent compares the results of applying REVISE [@joshi2019realistic] to MNIST data using two different Variational Auto-Encoders: while the counterfactual generated using an expressive (strong) VAE is compelling, the result relying on a less expressive (weak) VAE is not even valid. In this latter case, the decoder step of the VAE fails to yield values in $\mathcal{X}$ and hence the counterfactual search in the learned latent space is doomed. 
+
+```{julia}
+using CounterfactualExplanations.Models: load_mnist_vae
+vae = load_mnist_vae()
+vae_weak = load_mnist_vae(;strong=false)
+Serialization.serialize(joinpath(output_path,"mnist_classifier.jls"), M)
+Serialization.serialize(joinpath(output_path,"mnist_vae.jls"), vae)
+Serialization.serialize(joinpath(output_path,"mnist_vae_weak.jls"), vae_weak)
+```
+
+```{julia}
+# Define generator:
+generator = REVISEGenerator(
+  opt = Descent(0.1),
+  λ=0.01
+)
+# Generate recourse:
+counterfactual_data.generative_model = vae # assign generative model
+ce = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+)
+counterfactual_data = deepcopy(counterfactual_data)
+counterfactual_data.generative_model = vae_weak
+ce_weak = generate_counterfactual(
+    x, target, counterfactual_data, M, generator;
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+)
+```
+
+```{julia}
+ces = zip([ce,ce_weak])
+counterfactuals = reduce((x,y)->cat(x,y,dims=3),map(ce -> CounterfactualExplanations.counterfactual(ce[1]), ces))
+phat = reduce((x,y) -> cat(x,y,dims=3), map(ce -> target_probs(ce[1]), ces))
+plts = [p1]
+for x in zip(eachslice(counterfactuals; dims=3), eachslice(phat; dims=3))
+    ce, _phat = (x[1],x[2])
+    _title = "p(y=$(target)|x′)=$(round(_phat[1]; digits=3))"
+    plt = plot(
+        convert2image(MNIST, reshape(ce,28,28)),
+        axis=nothing, 
+        size=(img_height, img_height),
+        title=_title
+    )
+    plts = [plts..., plt]
+end
+plt = plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
+savefig(plt, joinpath(www_path, "surrogate_gone_wrong.png"))
+```
 
 ![Counterfactual explanations for MNIST using a Latent Space generator: turning a nine (9) into a four (4).](www/mnist_9to4_latent.png){#fig-latent}
 

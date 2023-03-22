@@ -19,13 +19,16 @@ setup_notebooks = quote
     using MLDatasets: convert2image
     using MLJBase
     using MLJFlux
+    using MLUtils
     using Plots
     using Random
+    using Serialization
 
     # Setup:
     theme(:wong)
     Random.seed!(2023)
-    www_path = "notebooks/www"
+    www_path = "www"
+    output_path = "artifacts"
     img_height = 300
 
 end;
