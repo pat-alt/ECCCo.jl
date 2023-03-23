@@ -113,7 +113,7 @@ In the context of CE, the idea that no two explanations are the same arises almo
 
 \section{From Adversarial Examples to Plausible Explanations}\label{background}
 
-Most state-of-the-art approaches to generating Counterfactual Explanations (CE) rely on gradient descent to optimize different flavours of the same counterfactual search objective,
+Most state-of-the-art approaches to generating Counterfactual Explanations rely on gradient descent to optimize different flavours of the same counterfactual search objective,
 
 \begin{equation} \label{eq:general}
 \begin{aligned}
@@ -133,12 +133,12 @@ Others have proposed similar approaches. \citet{dombrowski2021diffeomorphic} tra
 
 \begin{definition}[Plausible Counterfactuals]
   \label{def:plausible}
-  Let $\mathcal{X}|t$ denote the true conditional distribution of samples in the target class. Then for $x^{\prime}$ to be considered a plausible counterfactual, we need: $x^{\prime} \sim \mathcal{X}|t$.
+  Let $\mathcal{X}|y=t$ denote the true conditional distribution of samples in the target class $t$. Then for $x^{\prime}$ to be considered a plausible counterfactual, we need: $x^{\prime} \sim \mathcal{X}|y=t$.
 \end{definition}
 
 Note that Definition~\ref{def:plausible} is consistent with the notion of plausible counterfactual paths, since we can simply apply it to each counterfactual state along the path.
 
-Surrogate models offer an obvious solution to achieve this objective. Unfortunately, surrogates also introduce a dependency: the generated explanations no longer depend exclusively on the Black Box Model itself, but also on the surrogate model. This is not necessarily problematic if the primary objective is not to explain the behaviour of the model but to offer recourse to individuals affected by it. It may become problematic even in this context if the dependency turns into a vulnerability. To illustrate this point, we have used REVISE \citep{joshi2019realistic} with an underfitted VAE to generate the counterfactual in the right panel of Figure~\ref{fig:vae}: in this case, the decoder step of the VAE fails to yield plausible values ($\{x^{\prime} \leftarrow \mathcal{G}(z)\} \not\sim \mathcal{X}|t$) and hence the counterfactual search in the learned latent space is doomed.
+Surrogate models offer an obvious solution to achieve this objective. Unfortunately, surrogates also introduce a dependency: the generated explanations no longer depend exclusively on the Black Box Model itself, but also on the surrogate model. This is not necessarily problematic if the primary objective is not to explain the behaviour of the model but to offer recourse to individuals affected by it. It may become problematic even in this context if the dependency turns into a vulnerability. To illustrate this point, we have used REVISE \citep{joshi2019realistic} with an underfitted VAE to generate the counterfactual in the right panel of Figure~\ref{fig:vae}: in this case, the decoder step of the VAE fails to yield plausible values ($\{x^{\prime} \leftarrow \mathcal{G}(z)\} \not\sim \mathcal{X}|y=t$) and hence the counterfactual search in the learned latent space is doomed.
 
 \begin{figure}
   \centering
@@ -155,6 +155,24 @@ Surrogate models offer an obvious solution to achieve this objective. Unfortunat
 \end{figure}
 
 \section{A Framework for Conformal Counterfactual Explanations}\label{cce}
+
+In Section~\ref{background} we explained that Counterfactual Explanations work directly with Black Box Model, so fidelity is not a concern. This may explain why research has primarily focused on other desiderata, most notably plausibility (Definition~\ref{def:plausible}). Enquiring about the plausibility of a counterfactual essentially boils down to the following question: `Is this counterfactual consistent with the underlying data'? To introduce this section, we posit a related, slightly more nuanced question: `Is this counterfactual consistent with what the model has learned about the underlying data'? We will argue that fidelity is not a sufficient evaluation measure to answer this question and propose a novel way to assess if explanations conform with model behaviour. Finally, we will introduce a framework for Conformal Counterfactual Explanations, that reconciles the notions of plausibility and model conformity. 
+
+\subsection{From Fidelity to Model Conformity}
+
+The word \textit{fidelity} stems from the Latin word `fidelis', which means `faithful, loyal, trustworthy' \citep{mw2023fidelity}. As we explained in Section~\ref{background}, model explanations are considered faithful if their corresponding predictions coincide with the predictions made by the model itself. Since this definition of faithfulness is not useful in the context of Counterfactual Explanations, we propose an adapted version: 
+
+\begin{definition}[Conformal Counterfactuals]
+  \label{def:conformal}
+  Let $\mathcal{X}_{\theta}|y=t = p_{\theta}(x|y=t)$ denote the conditional distribution of $x$ in the target class $t$, where $theta$ denotes the parameters of model $M$. Then for $x^{\prime}$ to be considered a conformal counterfactual, we need: $x^{\prime} \sim \mathcal{X}_{\theta}|y=t$.
+\end{definition}
+
+In words, conformal counterfactuals conform with what the predictive model has learned about the input data $x$. Since this definition works with distributional properties, it explicitly accounts for the multiplicity of explanations we discussed earlier. Except for the posterior conditional distribution $p_{\theta}(x|y=t)$, we already have access to all the ingredients in Definition~\ref{def:conformal}.
+
+How can we quantify $p_{\theta}(x|y=t)$? After all, the predictive model $M$ was trained to discriminate outputs conditional on inputs, which is a different conditional distribution: $p_{\theta}(y|x)$. Learning the distribution over inputs $p_{\theta}(x|y=t)$ is a generative task that $M$ was not explicitly trained for. In the context of Counterfactual Explanations, it is the task that existing approaches have reallocated from the model itself to a surrogate. 
+
+Fortunately, recent work by \citet{grathwohl2020your} on Energy Based Models (EBM) has pointed out that there is a generative model hidden within every discriminative model. \citet{schut2021generating} were the first to notice and leverage this in the context of CE. 
+
 
 \medskip
 
