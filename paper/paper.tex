@@ -164,7 +164,7 @@ The word \textit{fidelity} stems from the Latin word `fidelis', which means `fai
 
 \begin{definition}[Conformal Counterfactuals]
   \label{def:conformal}
-  Let $\mathcal{X}_{\theta}|y=t = p_{\theta}(x|y=t)$ denote the conditional distribution of $x$ in the target class $t$, where $theta$ denotes the parameters of model $M$. Then for $x^{\prime}$ to be considered a conformal counterfactual, we need: $x^{\prime} \sim \mathcal{X}_{\theta}|y=t$.
+  Let $\mathcal{X}_{\theta}|t = p_{\theta}(x|y=t)$ denote the conditional distribution of $x$ in the target class $t$, where $theta$ denotes the parameters of model $M$. Then for $x^{\prime}$ to be considered a conformal counterfactual, we need: $x^{\prime} \sim \mathcal{X}_{\theta}|t$.
 \end{definition}
 
 In words, conformal counterfactuals conform with what the predictive model has learned about the input data $x$. Since this definition works with distributional properties, it explicitly accounts for the multiplicity of explanations we discussed earlier. Except for the posterior conditional distribution $p_{\theta}(x|y=t)$, we already have access to all the ingredients in Definition~\ref{def:conformal}.
@@ -173,6 +173,9 @@ How can we quantify $p_{\theta}(x|y=t)$? After all, the predictive model $M$ was
 
 Fortunately, recent work by \citet{grathwohl2020your} on Energy Based Models (EBM) has pointed out that there is a generative model hidden within every discriminative model. \citet{schut2021generating} were the first to notice and leverage this in the context of CE. 
 
+\subsection{Conformal Training meets Counterfactual Explanations}
+
+\section{Experiments}
 
 \medskip
 
