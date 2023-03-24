@@ -125,9 +125,11 @@ where $\text{yloss}$ denotes the primary loss function already introduced above 
 
 Solutions to Equation~\ref{eq:general} are considered valid as soon as the predicted label matches the target label. A stripped-down counterfactual explanation is therefore little different from an adversarial example. In Figure~\ref{fig:adv}, for example, we have the baseline approach proposed in \citet{wachter2017counterfactual} to MNIST data (centre panel). This approach solves Equation~\ref{eq:general} through gradient-descent in the feature space with a penalty for the distance between the factual $x$ and the counterfactual $x^{\prime}$. The underlying classifier $M_{\theta}$ is a simple Multi-Layer Perceptron (MLP) with good test accuracy. For the generated counterfactual $x^{\prime}$ the model predicts the target label with high confidence (centre panel in Figure~\ref{fig:adv}). The explanation is valid by definition, even though it looks a lot like an Adversarial Example \citep{goodfellow2014explaining}. \citet{schut2021generating} make the connection between Adversarial Examples and Counterfactual Explanations explicit and propose using a Jacobian-Based Saliency Map Attack to solve Equation~\ref{eq:general}. They demonstrate that this approach yields realistic and sparse counterfactuals for Bayesian, adversarially robust classifiers. Applying their approach to our simple MNIST classifier does not yield a realistic counterfactual but this one, too, is valid (right panel in Figure~\ref{fig:adv}). 
 
-The crucial difference between Adversarial Examples (AE) and Counterfactual Explanations is one of intent. While an AE is intended to go unnoticed, a CE should have certain desirable properties. The literature has made this explicit by introducing various so-called \textit{desiderata}. To properly serve both AI practitioners and individuals affected by AI decision-making systems, counterfactuals should be sparse, proximate~\citep{wachter2017counterfactual}, actionable~\citep{ustun2019actionable}, diverse~\citep{mothilal2020explaining}, plausible~\citep{joshi2019realistic,poyiadzi2020face,schut2021generating}, robust~\citep{upadhyay2021robust,pawelczyk2022probabilistically,altmeyer2023endogenous} and causal~\citep{karimi2021algorithmic} among other things. Researchers have come up with various ways to meet these desiderata, which have been surveyed in~\citep{verma2020counterfactual} and~\citep{karimi2020survey}. 
+The crucial difference between Adversarial Examples (AE) and Counterfactual Explanations is one of intent. While an AE is intended to go unnoticed, a CE should have certain desirable properties. The literature has made this explicit by introducing various so-called \textit{desiderata}. To properly serve both AI practitioners and individuals affected by AI decision-making systems, counterfactuals should be sparse, proximate~\citep{wachter2017counterfactual}, actionable~\citep{ustun2019actionable}, diverse~\citep{mothilal2020explaining}, plausible~\citep{joshi2019realistic,poyiadzi2020face,schut2021generating}, robust~\citep{upadhyay2021robust,pawelczyk2022probabilistically,altmeyer2023endogenous} and causal~\citep{karimi2021algorithmic} among other things. 
 
-Finding ways to generate \textit{plausible} counterfactuals has been one of the primary concerns. To this end, \citet{joshi2019realistic} were among the first to suggest that instead of searching counterfactuals in the feature space $\mathcal{X}$, we can instead traverse a latent embedding $\mathcal{Z}$ that implicitly codifies the data generating process (DGP) of $x\sim\mathcal{X}$. To learn the latent embedding, they introduce a surrogate model. In particular, they propose to use the latent embedding of a Variational Autoencoder (VAE) trained to generate samples $x^* \leftarrow \mathcal{G}(z)$ where $\mathcal{G}$ denotes the decoder part of the VAE. Provided the surrogate model is well-trained, their proposed approach ---REVISE--- can yield compelling counterfactual explanations like the one in the centre panel of Figure~\ref{fig:vae}. 
+Researchers have come up with various ways to meet these desiderata, which have been extensively surveyed and evaluated in various studies~\citep{verma2020counterfactual,karimi2020survey,pawelczyk2021carla,artelt2021evaluating,guidotti2022counterfactual}. Perhaps unsurprisingly, the different desiderata are often positively correlated. For example, \citet{artelt2021evaluating} find that plausibility typically also leads to improved robustness. Similarly, plausibility has also been connected to causality in the sense that plausible counterfactuals respect causal relationships \citep{mahajan2020preserving}. 
+
+Arguably, the plausibility of counterfactuals has been among the primary concerns and some have focused explicitly on this goal. \citet{joshi2019realistic}, for example, were among the first to suggest that instead of searching counterfactuals in the feature space $\mathcal{X}$, we can instead traverse a latent embedding $\mathcal{Z}$ that implicitly codifies the data generating process (DGP) of $x\sim\mathcal{X}$. To learn the latent embedding, they introduce a surrogate model. In particular, they propose to use the latent embedding of a Variational Autoencoder (VAE) trained to generate samples $x^* \leftarrow \mathcal{G}(z)$ where $\mathcal{G}$ denotes the decoder part of the VAE. Provided the surrogate model is well-trained, their proposed approach ---REVISE--- can yield compelling counterfactual explanations like the one in the centre panel of Figure~\ref{fig:vae}. 
 
 Others have proposed similar approaches. \citet{dombrowski2021diffeomorphic} traverse the base space of a normalizing flow to solve Equation~\ref{eq:general}, essentially relying on a different surrogate model for the generative task. \citet{poyiadzi2020face} use density estimators ($\hat{p}: \mathcal{X} \mapsto [0,1]$) to constrain the counterfactual paths. \citet{karimi2021algorithmic} argue that counterfactuals should comply with the causal model that generates the data. All of these different approaches share a common goal: ensuring that the generated counterfactuals comply with the true and unobserved DGP. To summarize this broad objective, we propose the following definition:
 
@@ -192,15 +194,41 @@ While $\mathbf{x}_K$ is only guaranteed to distribute as $p_{\theta}(\mathbf{x}|
   \item How exactly do we plan to quantify plausibility and conformity? Elaborate on measures.
 \end{itemize}
 
+\subsection{Evaluation Measures}\label{evaluation}
+
+Above we have defined plausibility (\ref{def:plausible}) and conformity (\ref{def:conformal}) for Counterfactual Explanations. In this subsection, we introduce evaluation measures that facilitate a quantitative evaluation of counterfactuals for these objectives. 
+
+Firstly, in order to assess the plausibility of counterfactuals we adapt the implausibility metric proposed in \citet{guidotti2022counterfactual}. The authors propose to evaluate plausibility in terms of the distance of the counterfactual $x^{\prime}$ from its nearest neighbour in the target class $t$: the smaller this distance, the more plausible the counterfactual. Instead of focusing only on the nearest neighbour of $x^{\prime}$, we suggest computing the average over distances from multiple (possibly all) observed instances in the target class. Formally, for a single counterfactual, we have:
+
+\begin{equation}\label{eq:impl}
+  \begin{aligned}
+    \text{impl} = \frac{1}{|x \in \mathcal{X}|t|} \sum_{x \in \mathcal{X}|t} \text{dist}(x^{\prime},x)
+  \end{aligned}
+\end{equation}
+
+This measure is straightforward to compute and should be less sensitive to outliers in the target class than the one based on the nearest neighbour. It also gives rise to a very similar evaluation measure for conformity. We merely swap out the subsample of individuals in the target class for the empirical distribution of generated conditional samples:
+
+\begin{equation}\label{eq:conf}
+  \begin{aligned}
+    \text{conf} = \frac{1}{|x \in \mathcal{X}_{\theta}|t|} \sum_{x \in \mathcal{X}_{\theta}|t} \text{dist}(x^{\prime},x)
+  \end{aligned}
+\end{equation}
+
+As noted by \citet{guidotti2022counterfactual}, these distance-based measures are simplistic and more complex alternative measures may ultimately be more appropriate for the task. For example, we considered using statistical divergence measures instead. This would involve generating not one but many counterfactuals and comparing the generated empirical distribution to the target distributions in Definitions~\ref{def:plausible} and~\ref{def:conformal}. While this approach is potentially more rigorous, generating enough counterfactuals is not always practical. 
+
 \subsection{Conformal Training meets Counterfactual Explanations}
 
 Now that we have a way of evaluating Counterfactual Explanations in terms of their plausibility and conformity, we are interested in finding a way to generate counterfactuals that are as plausible and conformal as possible. We hypothesize that a narrow focus on plausibility may come at the cost of reduced conformity. Using a surrogate model for the generative task, for example, may improve plausibility but inadvertently yield counterfactuals that are more consistent with the surrogate than the Black Box Model itself. 
 
-One way to ensure model conformity is to rely strictly on the model itself.~\citet{schut2021generating} demonstrate that this restriction need not impede plausibility, since we can rely on predictive uncertainty estimates to guide our counterfactual search. By avoiding counterfactual paths that are associated with high predictive uncertainty, we end up generating counterfactuals for which the model $M_{\theta}$ predicts the target label $t$ with high confidence. Provided the model is well-calibrated, these counterfactuals are plausible. 
+One way to ensure model conformity is to rely strictly on the model itself.~\citet{schut2021generating} demonstrate that this restriction need not impede plausibility, since we can rely on predictive uncertainty estimates to guide our counterfactual search. By avoiding counterfactual paths that are associated with high predictive uncertainty, we end up generating counterfactuals for which the model $M_{\theta}$ predicts the target label $t$ with high confidence. Provided the model is well-calibrated, these counterfactuals are plausible. The authors demonstrate this empirically by evaluating 
 
 Interestingly, \citet{schut2021generating} point to this connection between the generative task and predictive uncertainty quantification
 
 \section{Experiments}
+
+
+
+
 
 \medskip
 
