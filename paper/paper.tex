@@ -218,16 +218,17 @@ As noted by \citet{guidotti2022counterfactual}, these distance-based measures ar
 
 \subsection{Conformal Training meets Counterfactual Explanations}
 
-Now that we have a way of evaluating Counterfactual Explanations in terms of their plausibility and conformity, we are interested in finding a way to generate counterfactuals that are as plausible and conformal as possible. We hypothesize that a narrow focus on plausibility may come at the cost of reduced conformity. Using a surrogate model for the generative task, for example, may improve plausibility but inadvertently yield counterfactuals that are more consistent with the surrogate than the Black Box Model itself. 
+Now that we have a framework for evaluating Counterfactual Explanations in terms of their plausibility and conformity, we are interested in finding a way to generate counterfactuals that are as plausible and conformal as possible. We hypothesize that a narrow focus on plausibility may come at the cost of reduced conformity. Using a surrogate model for the generative task, for example, may improve plausibility but inadvertently yield counterfactuals that are more consistent with the surrogate than the Black Box Model itself. 
 
-One way to ensure model conformity is to rely strictly on the model itself.~\citet{schut2021generating} demonstrate that this restriction need not impede plausibility, since we can rely on predictive uncertainty estimates to guide our counterfactual search. By avoiding counterfactual paths that are associated with high predictive uncertainty, we end up generating counterfactuals for which the model $M_{\theta}$ predicts the target label $t$ with high confidence. Provided the model is well-calibrated, these counterfactuals are plausible. The authors demonstrate this empirically by evaluating 
+While we do not want seek to discourage the use of surrogate models, we suggest that one way to ensure model conformity is to rely strictly on the model itself.~\citet{schut2021generating} demonstrate that this restriction need not impede plausibility, since we can rely on predictive uncertainty estimates to guide our counterfactual search. By avoiding counterfactual paths that are associated with high predictive uncertainty, we end up generating counterfactuals for which the model $M_{\theta}$ predicts the target label $t$ with high confidence. Provided the model is well-calibrated, these counterfactuals are plausible which the authors demonstrate empirically through benchmarks.
 
-Interestingly, \citet{schut2021generating} point to this connection between the generative task and predictive uncertainty quantification
+This idea hinges on ... 
 
 \section{Experiments}
 
+\section{Discussion}
 
-
+Consistent with the findings in \citet{schut2021generating}, we have demonstrated that predictive uncertainty estimates can be leveraged to generate plausible counterfactuals. Interestingly, \citet{schut2021generating} point out that this finding --- as intuitive as it is --- may be linked to a positive connection between the generative task and predictive uncertainty quantification. In particular, \citet{grathwohl2020your} demonstrate that their proposed method for integrating the generative objective in training yields models that have improved predictive uncertainty quantification. Since neither \citet{schut2021generating} nor we have employed any surrogate generative models, our findings seem to indicate that the positive connection found in \citet{grathwohl2020your} is bidirectional.
 
 
 \medskip
