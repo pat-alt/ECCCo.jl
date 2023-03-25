@@ -98,7 +98,7 @@
 
 Counterfactual Explanations are a powerful, flexible and intuitive way to not only explain Black Box Models but also enable affected individuals to challenge them through the means of Algorithmic Recourse. Instead of opening the black box, Counterfactual Explanations work under the premise of strategically perturbing model inputs to understand model behaviour \citep{wachter2017counterfactual}. Intuitively speaking, we generate explanations in this context by asking simple what-if questions of the following nature: `Our credit risk model currently predicts that this individual's credit profile is too risky to offer them a loan. What if they reduced their monthly expenditures by 10\%? Will our model then predict that the individual is credit-worthy'? 
 
-This is typically implemented by defining a target outcome $t \in \mathcal{Y}$ for some individual $x \in \mathcal{X}$, for which the model $M_{\theta}:\mathcal{X}\mapsto\mathcal{Y}$ initially predicts a different outcome: $M_{\theta}(x)\ne t$. Counterfactuals are then searched by minimizing a loss function that compares the predicted model output to the target outcome: $\text{yloss}(M_{\theta}(x),t)$. Since Counterfactual Explanations (CE) work directly with the Black Box Model, they always have full local fidelity by construction. Fidelity is defined as the degree to which explanations approximate the predictions of the Black Box Model. This arguably one of the most important evaluation metrics for model explanations, since any explanation that explains a prediction not actually made by the model is useless \citep{molnar2020interpretable}. 
+This is typically implemented by defining a target outcome $t \in \mathcal{Y}$ for some individual $x \in \mathcal{X}$, for which the model $M_{\theta}:\mathcal{X}\mapsto\mathcal{Y}$ initially predicts a different outcome: $M_{\theta}(x)\ne t$. Counterfactuals are then searched by minimizing a loss function that compares the predicted model output to the target outcome: $\text{yloss}(M_{\theta}(x),t)$. Since Counterfactual Explanations (CE) work directly with the Black Box Model, valid counterfactuals always have full local fidelity by construction \citep{mothilal2020explaining}. Fidelity is defined as the degree to which explanations approximate the predictions of the Black Box Model. This is arguably one of the most important evaluation metrics for model explanations, since any explanation that explains a prediction not actually made by the model is useless \citep{molnar2020interpretable}. 
 
 In situations where full fidelity is a requirement, CE therefore offers a more appropriate solution to Explainable Artificial Intelligence (XAI) than other popular approaches like LIME \citep{ribeiro2016why} and SHAP \citep{lundberg2017unified}, which involve local surrogate models. But even full fidelity is not a sufficient condition for ensuring that an explanation adequately describes the behaviour of a model. That is because two very distinct explanations can both lead to the same model prediction, especially when dealing with heavily parameterized models:
 
@@ -156,7 +156,7 @@ Surrogate models offer an obvious solution to achieve this objective. Unfortunat
   \end{minipage}
 \end{figure}
 
-\section{A Framework for Conformal Counterfactual Explanations}\label{cce}
+\section{Evaluating the Faithfulness of Counterfactuals}\label{conformity}
 
 In Section~\ref{background} we explained that Counterfactual Explanations work directly with Black Box Model, so fidelity is not a concern. This may explain why research has primarily focused on other desiderata, most notably plausibility (Definition~\ref{def:plausible}). Enquiring about the plausibility of a counterfactual essentially boils down to the following question: `Is this counterfactual consistent with the underlying data'? To introduce this section, we posit a related, slightly more nuanced question: `Is this counterfactual consistent with what the model has learned about the underlying data'? We will argue that fidelity is not a sufficient evaluation measure to answer this question and propose a novel way to assess if explanations conform with model behaviour. Finally, we will introduce a framework for Conformal Counterfactual Explanations, that reconciles the notions of plausibility and model conformity. 
 
@@ -191,7 +191,6 @@ While $\mathbf{x}_K$ is only guaranteed to distribute as $p_{\theta}(\mathbf{x}|
 
 \begin{itemize}
   \item What exact sampler do we use? ImproperSGLD as in \citet{grathwohl2020your} seems to work best.
-  \item How exactly do we plan to quantify plausibility and conformity? Elaborate on measures.
 \end{itemize}
 
 \subsection{Evaluation Measures}\label{evaluation}
@@ -216,13 +215,27 @@ This measure is straightforward to compute and should be less sensitive to outli
 
 As noted by \citet{guidotti2022counterfactual}, these distance-based measures are simplistic and more complex alternative measures may ultimately be more appropriate for the task. For example, we considered using statistical divergence measures instead. This would involve generating not one but many counterfactuals and comparing the generated empirical distribution to the target distributions in Definitions~\ref{def:plausible} and~\ref{def:conformal}. While this approach is potentially more rigorous, generating enough counterfactuals is not always practical. 
 
-\subsection{Conformal Training meets Counterfactual Explanations}
+\section{A Framework for Conformal Counterfactual Explanations}\label{cce}
 
-Now that we have a framework for evaluating Counterfactual Explanations in terms of their plausibility and conformity, we are interested in finding a way to generate counterfactuals that are as plausible and conformal as possible. We hypothesize that a narrow focus on plausibility may come at the cost of reduced conformity. Using a surrogate model for the generative task, for example, may improve plausibility but inadvertently yield counterfactuals that are more consistent with the surrogate than the Black Box Model itself. 
+Now that we have a framework for evaluating Counterfactual Explanations in terms of their plausibility and conformity, we are interested in finding a way to generate counterfactuals that are as plausible and conformal as possible. We hypothesize that a narrow focus on plausibility may come at the cost of reduced conformity. Using a surrogate model for the generative task, for example, may improve plausibility but inadvertently yield counterfactuals that are more consistent with the surrogate than the Black Box Model itself. We suggest that one way to ensure model conformity is to rely strictly on the model itself. In this section, we introduce a novel framework that meets this requirement, works under minimal assumptions and does not impede the plausibility objective: Conformal Counterfactual Explanations.
 
-While we do not want seek to discourage the use of surrogate models, we suggest that one way to ensure model conformity is to rely strictly on the model itself.~\citet{schut2021generating} demonstrate that this restriction need not impede plausibility, since we can rely on predictive uncertainty estimates to guide our counterfactual search. By avoiding counterfactual paths that are associated with high predictive uncertainty, we end up generating counterfactuals for which the model $M_{\theta}$ predicts the target label $t$ with high confidence. Provided the model is well-calibrated, these counterfactuals are plausible which the authors demonstrate empirically through benchmarks.
+\subsection{Predictive Uncertainty Quantification for Counterfactual Explanations}
 
-This idea hinges on ... 
+Our proposed methodolgy is built off of the findings presented in ~\citet{schut2021generating}. The authors demonstrate that it is not only possible but remarkably easy to generate plausible counterfactuals for Black Box Models that provide predictive uncertainty estimates. By avoiding counterfactual paths that are associated with high predictive uncertainty, we end up generating counterfactuals for which the model $M_{\theta}$ predicts the target label $t$ with high confidence. Provided the model is well-calibrated, these counterfactuals are plausible which the authors demonstrate empirically through benchmarks.
+
+\textbf{TBD}: maximizing predicted probability is equivalent to minimizing uncertainty ... 
+
+The approach proposed by \citet{schut2021generating} hinges on the crucial assumption that the Black Box Model provides predictive uncertainty estimates. The authors argue that in light of rapid advances in Bayesian Deep Learning (DL), this assumption is overall less costly than the engineering overhead induced by using surrogate models. This is even more true today, as recent work has put Laplace Approximation back on the map for truly effortless Bayesian DL \citep{immer2020improving,daxberger2021laplace,antoran2023sampling}. Nonetheless, the need for Bayesian methods may be too restrictive in some cases. 
+
+Fortunately, there is a promising alternative approach to predictive uncertainty quantification (UQ) that we will turn to next: Conformal Prediction. 
+
+\subsection{Conformal Prediction}
+
+Conformal Prediction (CP): a scalable and statistically rigorous  Not only is CP statistically rigorous and works under minimal distributional assumptions, it is also model-agnostic and can be applied at test time. That last part is critical since it allows us to relax the assumption that the Black Box Model needs to learn to generate predictive uncertainty estimates during training. In other words, CP promises to provide a way to generate plausible counterfactuals for any model without the need for surrogate models. 
+
+\subsection{Conformal Counterfactual Explanations}
+
+
 
 \section{Experiments}
 
