@@ -249,7 +249,18 @@ Observe from Equation~\ref{eq:scp} that Conformal Prediction works on an instanc
 
 \subsection{Conformal Counterfactual Explanations}
 
-The fact that conformal classifiers produce set-valued predictions introduces a challenge: it is not immediately obvious how to use such classifiers in the context of gradient-based counterfactual search. Put differently, it is not clear how to use prediction sets in Equation~\ref{eq:general}. Fortunately, \citet{stutz2022learning} have recently proposed a framework for Conformal Training that also hinges on differentiability. To evaluate the performance of conformal classifiers during training, they introduce a custom loss function as well as a smooth set size penalty. Their key idea lies in forming soft assignment scores for each class to be included in the prediction set: $C_{\theta,y}(X_i;\alpha):=\sigma\left((s(X_i,y)-\alpha) T^{-1}\right)$ for $y\in\{1,...,K\}$ where $\sigma$ is the sigmoid function and $T$ is a temperature hyper-parameter. 
+The fact that conformal classifiers produce set-valued predictions introduces a challenge: it is not immediately obvious how to use such classifiers in the context of gradient-based counterfactual search. Put differently, it is not clear how to use prediction sets in Equation~\ref{eq:general}. Fortunately, \citet{stutz2022learning} have recently proposed a framework for Conformal Training that also hinges on differentiability. Specifically, they show how Stochastic Gradient Descent can be used to train classifiers not only for the discriminative task but also for additional objectives related to Conformal Prediction. One such objective is \textit{efficiency}: for a given target error rate $alpha$, the efficiency of a conformal classifier improves as its average prediction set size decreases. To this end, the authors introduce a smooth set size penalty,
+
+\begin{equation}\label{eq:setsize}
+  \begin{aligned}
+    \Omega(C_{\theta}(x;\alpha))&=\max \left(0, \sum_{y\in\mathcal{Y}}C_{\theta,y}(X_i;\alpha) - \kappa \right)
+  \end{aligned}
+\end{equation}
+
+where $\kappa \in \{0,1\}$ is a hyper-parameter and $C_{\theta,y}(X_i;\alpha)$ can be interpreted as the probability of label $y$ being included in the prediction set. Formally, it is defined as $C_{\theta,y}(X_i;\alpha):=\sigma\left((s(X_i,y)-\alpha) T^{-1}\right)$ for $y\in\{1,...,K\}$ where $\sigma$ is the sigmoid function and $T$ is a hyper-parameter used for temperature scaling \citep{stutz2022learning}.
+
+We propose to include this penalty in the counterfactual search objective (Equation~\ref{eq:general}) 
+
 
 
 \section{Experiments}
