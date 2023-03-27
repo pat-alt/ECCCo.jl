@@ -259,9 +259,17 @@ The fact that conformal classifiers produce set-valued predictions introduces a 
 
 where $\kappa \in \{0,1\}$ is a hyper-parameter and $C_{\theta,y}(X_i;\alpha)$ can be interpreted as the probability of label $y$ being included in the prediction set. Formally, it is defined as $C_{\theta,y}(X_i;\alpha):=\sigma\left((s(X_i,y)-\alpha) T^{-1}\right)$ for $y\in\{1,...,K\}$ where $\sigma$ is the sigmoid function and $T$ is a hyper-parameter used for temperature scaling \citep{stutz2022learning}.
 
-We propose to include this penalty in the counterfactual search objective (Equation~\ref{eq:general}) 
+Penalizing the set size in this way is in principal enough to train efficient conformal classifiers \citep{stutz2022learning}. As we explained above, the set size is also closely linked to predictive uncertainty at the local level. This makes the smooth penalty defined in Equation~\ref{eq:setsize} useful in the context of meeting our objective of generating plausible counterfactuals. In particular, we adapt Equation~\ref{eq:general} to define the baseline objective for Conformal Counterfactual Explanations (CCE):
 
+\begin{equation}\label{eq:cce}
+  \begin{aligned}
+    \mathbf{s}^\prime &= \arg \min_{\mathbf{s}^\prime \in \mathcal{S}} \left\{  {\text{yloss}(M_{\theta}(f(\mathbf{s}^\prime)),y^*)}+ \lambda \Omega(C_{\theta}(f(\mathbf{s}^\prime);\alpha)) \right\} 
+  \end{aligned}
+\end{equation}
 
+Since we can still retrieve unperturbed logits from our conformal classifier $M_{\theta}$, we are still free work with any loss function of our choice. For example, we could use standard cross-entropy for $\text{yloss}$.
+
+In order to generate prediction sets $C_{\theta}(f(\mathbf{s}^\prime);\alpha)$ for any Black Box Model we merely need to perform a single calibration pass through a holdout set $\mathcal{D}_{\text{cal}}$. Arguably, data is typically abundant and in most applications practitioners tend to hold out a test data set anyway. Our proposed approach for CCE therefore removes the restriction on the family of predictive models, at the small cost of reserving a subset of the available data for calibration. 
 
 \section{Experiments}
 
