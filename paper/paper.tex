@@ -231,13 +231,26 @@ In looking for ways to lift that restriction, we found a promising alternative c
 
 Conformal Prediction (CP) is a scalable and statistically rigorous approach to predictive UQ that works under minimal distributional assumptions \citep{angelopoulos2021gentle}. It has recently gained popularity in the Machine Learning community \citep{angelopoulos2021gentle,manokhin2022awesome}. Crucially for our intended application, CP is model-agnostic and can be applied at test time. This allows us to relax the assumption that the Black Box Model needs to learn to generate predictive uncertainty estimates during training. In other words, CP promises to provide a way to generate plausible counterfactuals for any standard discriminative model without the need for surrogate models. 
 
-...
+Intuitively, CP works under the premise of turning heuristic notions of uncertainty into rigorous uncertainty estimates by repeatedly sifting through the data. It can be used to generate prediction intervals for regression models and prediction sets for classification models \citep{altmeyer2022conformal}. Since the literature on CE and AR is typically concerned with classification problems, we focus on the latter. A particular variant of CP called Split Conformal Prediction (SCP) is well-suited for our purposes because it imposes only minimal restrictions on model training. 
+
+Specifically, SCP involves splitting the data $\mathcal{D}_n=\{(X_i,Y_i)\}_{i=1,...,n}$ into a proper training set $\mathcal{D}_{\text{train}}$ and a calibration set $\mathcal{D}_{\text{cal}}$. The former is used to train the classifier in any conventional fashion: $\widehat{M}_{\theta}(X_i,Y_i)$, $i\in\mathcal{D}_{\text{train}}$. The latter is then used to compute so-called nonconformity scores: $\mathcal{S}=\{s(X_i,Y_i)\}_{i \in \mathcal{D}_{\text{cal}}}$ where $s: (\mathcal{X},\mathcal{Y}) \mapsto \mathbb{R}$ is referred to as \textit{score function}. In the context of classification, a common choice for the score function is just $s_i=1-\widehat{M}_{\theta}(X_i)[Y_i]$, that is one minus the logit corresponding to the observed label $Y_i$ \citep{angelopoulos2021gentle}. 
+
+Finally, classification sets are formed as follows,
+
+\begin{equation}\label{eq:scp}
+  \begin{aligned}
+    C_{\theta}(X_i;\alpha)=\{y: s(X_i,y) \le \hat{q}\}
+  \end{aligned}
+\end{equation}
+
+where $\hat{q}$ denotes the $(1-\alpha)$-quantile of $\mathcal{S}$ and $\alpha$ is a predetermined error rate. As the size of the calibration set increases, the probability that the classification set $C(X_{\text{test}})$ for a newly arrived sample $X_i$ does not cover the true test label $Y_i$ approaches $\alpha$ \citep{angelopoulos2021gentle}. 
+
+Observe from Equation~\ref{eq:scp} that Conformal Prediction works on an instance-level basis, much like Counterfactual Explanations are local. The prediction set for an individual instance $X_i$ depends only on the characteristics of that sample and the specified error rate. Intuitively, the set is more likely to include multiple labels for samples that are difficult to classify, so the set size is indicative of predictive uncertainty. To see why this effect is exacerbated by small choices for $\alpha$ consider the case of $\alpha=0$, which requires that the true label is covered by the prediction set with probability equal to one.
 
 \subsection{Conformal Counterfactual Explanations}
 
-The fact that conformal classifiers produce set-valued predictions introduces a challenge: it is not immediately obvious how to use such classifiers in the context of gradient-based counterfactual search. Put differently, it is not clear how to use set-valued outputs $M_{\theta}(x)$ in Equation~\ref{eq:general}. Fortunately, \citet{stutz2022learning} have recently proposed a framework for Conformal Training that also hinges on differentiability. To evaluate the performance of conformal classifiers during training, they introduce a custom loss function as well as a smooth set size penalty. 
+The fact that conformal classifiers produce set-valued predictions introduces a challenge: it is not immediately obvious how to use such classifiers in the context of gradient-based counterfactual search. Put differently, it is not clear how to use prediction sets in Equation~\ref{eq:general}. Fortunately, \citet{stutz2022learning} have recently proposed a framework for Conformal Training that also hinges on differentiability. To evaluate the performance of conformal classifiers during training, they introduce a custom loss function as well as a smooth set size penalty. Their key idea lies in forming soft assignment scores for each class to be included in the prediction set: $C_{\theta,y}(X_i;\alpha):=\sigma\left((s(X_i,y)-\alpha) T^{-1}\right)$ for $y\in\{1,...,K\}$ where $\sigma$ is the sigmoid function and $T$ is a temperature hyper-parameter. 
 
-...
 
 \section{Experiments}
 
