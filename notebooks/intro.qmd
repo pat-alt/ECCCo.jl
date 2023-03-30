@@ -235,8 +235,6 @@ Then we can simply loop over the datasets and eventually concatenate the results
 
 ```{julia}
 #| output: false
-
-measure = 
 using CounterfactualExplanations.Evaluation: benchmark
 bmks = []
 for (dataname, dataset) in datasets
@@ -255,7 +253,7 @@ counterfactual_data = load_multi_class()
 ```{julia}
 X = table(permutedims(counterfactual_data.X))
 y =  counterfactual_data.output_encoder.labels
-conf_model = conformal_model(clf; method=:simple_inductive)
+conf_model = conformal_model(clf; method=:simple_inductive, coverage=0.99)
 mach = machine(conf_model, X, y)
 fit!(mach)
 ```
@@ -266,13 +264,15 @@ fit!(mach)
 #| label: fig-losses-multi
 #| fig-cap: "Illustration of the smooth size loss and the configurable classification loss."
 
-temp = 0.5
-p1 = contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=0, temp=temp)
-p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, target=1, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(4,4))
+temp = 0.05
+p1 = contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=-1, temp=temp)
+p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, zoom=-1, temp=temp, clim=nothing, loss_matrix=ones(4,4))
 plot(p1, p2, size=(800,320))
 ```
 
 ```{julia}
+#| output: true
+#| echo: false
 #| fig-cap: "Energy-based conditional samples."
 #| label: fig-energy-multi
 
@@ -300,6 +300,11 @@ target = counterfactual_data.y_levels[counterfactual_data.y_levels .!= y_factual
 
 
 ```{julia}
+#| output: true
+#| echo: false
+#| fig-cap: "Comparison of counterfactuals produced using different generators."
+#| label: fig-ce-multi
+
 counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactual_data, M, gen; initialization=:identity, converge_when=:generator_conditions, gradient_tol=1e-3) for (name, gen) in generators])
 
 # Plots:
