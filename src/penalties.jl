@@ -19,7 +19,7 @@ function set_size_penalty(
         x = Matrix(x)
         if target_probs(counterfactual_explanation, x)[1] >= 0.5
             l = ConformalPrediction.smooth_size_loss(
-                conf_model, fitresult, x;
+                conf_model, fitresult, x';
                 κ=κ,
                 temp=temp
             )[1]
