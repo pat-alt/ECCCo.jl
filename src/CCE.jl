@@ -10,4 +10,7 @@ include("generator.jl")
 include("sampling.jl")
 # include("ConformalGenerator.jl")
 
+using MLJFlux
+MLJFlux.reformat(X, ::Type{<:AbstractMatrix}) = permutedims(X)
+
 end

@@ -58,7 +58,7 @@ Using the package, we can apply Split Conformal Prediction as follows:
 ```{julia}
 X = table(permutedims(counterfactual_data.X))
 y =  counterfactual_data.output_encoder.labels
-conf_model = conformal_model(clf; method=:simple_inductive)
+conf_model = conformal_model(clf; method=:trainable_simple_inductive)
 mach = machine(conf_model, X, y)
 fit!(mach)
 ```
@@ -95,7 +95,7 @@ The right panel of @fig-losses shows the configurable classification loss in the
 
 temp = 0.5
 p1 = contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=0, temp=temp)
-p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, target=1, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(2,2))
+p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(2,2))
 plot(p1, p2, size=(800,320))
 ```
 
@@ -127,11 +127,11 @@ niter = 100
 nsamples = 100
 
 plts = []
-for target ∈ counterfactual_data.y_levels
+for (i,target) ∈ enumerate(counterfactual_data.y_levels)
     sampler = CCE.EnergySampler(M, counterfactual_data, target; niter=niter, nsamples=100)
     Xgen = rand(sampler, nsamples)
     plt = plot(M, counterfactual_data; target=target, zoom=-3,cbar=false)
-    scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
+    scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=i,shape=:star,label="X|y=$target")
     push!(plts, plt)
 end
 plot(plts..., layout=(1,length(plts)), size=(img_height*length(plts),img_height))
@@ -264,8 +264,8 @@ fit!(mach)
 #| label: fig-losses-multi
 #| fig-cap: "Illustration of the smooth size loss and the configurable classification loss."
 
-temp = 0.05
-p1 = contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=-1, temp=temp)
+temp = 0.5
+p1 = contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=-1, temp=temp, clim=nothing)
 p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, zoom=-1, temp=temp, clim=nothing, loss_matrix=ones(4,4))
 plot(p1, p2, size=(800,320))
 ```
