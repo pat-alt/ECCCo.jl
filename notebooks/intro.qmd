@@ -58,7 +58,7 @@ Using the package, we can apply Split Conformal Prediction as follows:
 ```{julia}
 X = table(permutedims(counterfactual_data.X))
 y =  counterfactual_data.output_encoder.labels
-conf_model = conformal_model(clf; method=:trainable_simple_inductive)
+conf_model = conformal_model(clf; method=:simple_inductive)
 mach = machine(conf_model, X, y)
 fit!(mach)
 ```
