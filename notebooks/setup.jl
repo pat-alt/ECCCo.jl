@@ -3,6 +3,9 @@ setup_notebooks = quote
     using Pkg
     Pkg.activate("notebooks")
 
+    using AlgebraOfGraphics
+    using AlgebraOfGraphics: Violin, BoxPlot
+    using CairoMakie
     using CCE
     using CCE: set_size_penalty, distance_from_energy, distance_from_targets
     using ConformalPrediction

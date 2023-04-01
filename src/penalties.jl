@@ -55,7 +55,7 @@ function distance_from_energy(
         end
         return mean(Δ)
     end
-    loss = agg(loss)
+    loss = agg(loss)[1]
 
     return loss
 
@@ -75,7 +75,7 @@ function distance_from_targets(
         end
         return mean(Δ)
     end
-    loss = agg(loss)
+    loss = agg(loss)[1]
 
     return loss
 
