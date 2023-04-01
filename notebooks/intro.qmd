@@ -212,38 +212,6 @@ _n = length(generators)
 plot(plts..., size=(_n * img_height,1.05*img_height), layout=(1,_n))
 ```
 
-### Benchmark
-
-```{julia}
-#| output: false
-
-# Data:
-datasets = Dict(
-    :linearly_separable => load_linearly_separable(),
-    :overlapping => load_overlapping(),
-    :moons => load_moons(),
-    :circles => load_circles(),
-)
-
-# Models:
-models = Dict(
-    :MLP => M,
-)
-```
-
-Then we can simply loop over the datasets and eventually concatenate the results like so:
-
-```{julia}
-#| output: false
-using CounterfactualExplanations.Evaluation: benchmark
-bmks = []
-for (dataname, dataset) in datasets
-    bmk = benchmark(dataset; models=models, generators=generators, suppress_training=true, dataname=dataname)
-    push!(bmks, bmk)
-end
-bmk = reduce(vcat, bmks)
-```
-
 ## Multi-Class
 
 ```{julia}
@@ -320,5 +288,60 @@ for name ∈ ordered_names
 end
 _n = length(generators)
 plot(plts..., size=(_n * img_height,1.05*img_height), layout=(1,_n))
+```
+
+## Benchmarks
+
+```{julia}
+#| output: false
+
+# Data:
+datasets = Dict(
+    :linearly_separable => load_linearly_separable(),
+    :overlapping => load_overlapping(),
+    :moons => load_moons(),
+    :circles => load_circles(),
+)
+
+# Models:
+models = Dict(
+    :MLP => M,
+)
+```
+
+Then we can simply loop over the datasets and eventually concatenate the results like so:
+
+```{julia}
+#| output: false
+using CounterfactualExplanations.Evaluation: benchmark
+bmks = []
+measures = [
+    CounterfactualExplanations.distance,
+    CCE.distance_from_energy,
+    CCE.distance_from_targets
+]
+for (dataname, dataset) in datasets
+    bmk = benchmark(
+        dataset; 
+        models=models, generators=generators, 
+        measure=measures,
+        suppress_training=true, dataname=dataname,
+        n_individuals=10
+    )
+    push!(bmks, bmk)
+end
+bmk = reduce(vcat, bmks)
+```
+
+```{julia}
+#| output: true
+#| echo: false
+#| label: fig-benchmark
+#| fig-cap: "Benchmark results for the different generators."
+
+df = bmk()
+plt = data(df) * visual(BoxPlot) * 
+    mapping(:generator, :value, row=:variable, col=:dataname, color=:generator)
+draw(plt, axis=(xlabel="", xticksvisible=false, xticklabelsvisible=false, width=200, height=180))
 ```
 
