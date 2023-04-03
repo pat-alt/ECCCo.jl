@@ -94,9 +94,9 @@ The right panel of @fig-losses shows the configurable classification loss in the
 #| fig-cap: "Illustration of the smooth size loss and the configurable classification loss."
 
 temp = 0.5
-p1 = contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=0, temp=temp)
-p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(2,2))
-plot(p1, p2, size=(800,320))
+p1 = Plots.contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=0, temp=temp)
+p2 = Plots.contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(2,2))
+Plots.plot(p1, p2, size=(800,320))
 ```
 
 ## Fidelity and Plausibility
@@ -130,11 +130,11 @@ plts = []
 for (i,target) ∈ enumerate(counterfactual_data.y_levels)
     sampler = CCE.EnergySampler(M, counterfactual_data, target; niter=niter, nsamples=100)
     Xgen = rand(sampler, nsamples)
-    plt = plot(M, counterfactual_data; target=target, zoom=-3,cbar=false)
-    scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=i,shape=:star,label="X|y=$target")
+    plt = Plots.plot(M, counterfactual_data; target=target, zoom=-3,cbar=false)
+    Plots.scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=i,shape=:star,label="X|y=$target")
     push!(plts, plt)
 end
-plot(plts..., layout=(1,length(plts)), size=(img_height*length(plts),img_height))
+Plots.plot(plts..., layout=(1,length(plts)), size=(img_height*length(plts),img_height))
 ```
 
 As an evaluation metric and penalty, we could use the average distance of the counterfactual $x^{\prime}$ from these generated samples, for example.
@@ -189,7 +189,7 @@ generator = GenericGenerator(opt = opt)
 
 # Generators:
 generators = Dict(
-    ordered_names[1] => generator,
+    ordered_names[1] => generator |> gen -> @objective(gen, _ + 1.0distance),
     ordered_names[2] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance + 10.0set_size_penalty),
     ordered_names[3] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance + 10.0distance_from_energy),
     ordered_names[4] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance + 10.0distance_from_targets),
@@ -201,15 +201,15 @@ counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactua
 plts = []
 for name ∈ ordered_names
     ce = counterfactuals[name]
-    plt = plot(ce; title=name, colorbar=false, ticks = false, legend=false, zoom=-0.5)
+    plt = Plots.plot(ce; title=name, colorbar=false, ticks = false, legend=false, zoom=-0.5)
     if :energy_sampler ∈ collect(keys(ce.params))
         Xgen = ce.params[:energy_sampler].buffer
-        scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
+        Plots.scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
     end
     plts = vcat(plts..., plt)
 end
 _n = length(generators)
-plot(plts..., size=(_n * img_height,1.05*img_height), layout=(1,_n))
+Plots.plot(plts..., size=(_n * img_height,1.05*img_height), layout=(1,_n))
 ```
 
 ## Multi-Class
@@ -233,9 +233,9 @@ fit!(mach)
 #| fig-cap: "Illustration of the smooth size loss and the configurable classification loss."
 
 temp = 0.5
-p1 = contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=-1, temp=temp, clim=nothing)
-p2 = contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, zoom=-1, temp=temp, clim=nothing, loss_matrix=ones(4,4))
-plot(p1, p2, size=(800,320))
+p1 = Plots.contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=-1, temp=temp, clim=nothing)
+p2 = Plots.contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, zoom=-1, temp=temp, clim=nothing, loss_matrix=ones(4,4))
+Plots.plot(p1, p2, size=(800,320))
 ```
 
 ```{julia}
@@ -252,11 +252,11 @@ plts = []
 for target ∈ counterfactual_data.y_levels
     sampler = CCE.EnergySampler(M, counterfactual_data, target; niter=niter, nsamples=100)
     Xgen = rand(sampler, nsamples)
-    plt = plot(M, counterfactual_data; target=target, zoom=-0.5,cbar=false)
-    scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
+    plt = Plots.plot(M, counterfactual_data; target=target, zoom=-0.5,cbar=false)
+    Plots.scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
     push!(plts, plt)
 end
-plot(plts..., layout=(1,length(plts)), size=(img_height*length(plts),img_height))
+Plots.plot(plts..., layout=(1,length(plts)), size=(img_height*length(plts),img_height))
 ```
 
 ```{julia}
@@ -279,15 +279,15 @@ counterfactuals = Dict([name => generate_counterfactual(x, target, counterfactua
 plts = []
 for name ∈ ordered_names
     ce = counterfactuals[name]
-    plt = plot(ce; title=name, colorbar=false, ticks = false, legend=false, zoom=-0.5)
+    plt = Plots.plot(ce; title=name, colorbar=false, ticks = false, legend=false, zoom=-0.5)
     if :energy_sampler ∈ collect(keys(ce.params))
         Xgen = ce.params[:energy_sampler].buffer
-        scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
+        Plots.scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
     end
     plts = vcat(plts..., plt)
 end
 _n = length(generators)
-plot(plts..., size=(_n * img_height,1.05*img_height), layout=(1,_n))
+Plots.plot(plts..., size=(_n * img_height,1.05*img_height), layout=(1,_n))
 ```
 
 ## Benchmarks
@@ -301,11 +301,15 @@ datasets = Dict(
     :overlapping => load_overlapping(),
     :moons => load_moons(),
     :circles => load_circles(),
+    :multi_class => load_multi_class(),
 )
 
-# Models:
+# Untrained Models:
 models = Dict(
-    :MLP => M,
+    :cov75 => CCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.75)),
+    :cov80 => CCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.80)),
+    :cov90 => CCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.90)),
+    :cov99 => CCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.99)),
 )
 ```
 
@@ -323,9 +327,10 @@ measures = [
 for (dataname, dataset) in datasets
     bmk = benchmark(
         dataset; 
-        models=models, generators=generators, 
+        models=deepcopy(models), 
+        generators=generators, 
         measure=measures,
-        suppress_training=true, dataname=dataname,
+        suppress_training=false, dataname=dataname,
         n_individuals=10
     )
     push!(bmks, bmk)
@@ -334,14 +339,37 @@ bmk = reduce(vcat, bmks)
 ```
 
 ```{julia}
+@chain bmk() begin
+    @group_by(model, dataname)
+    @select(model, dataname, ce)
+    @mutate(performace = CounterfactualExplanations.model_evaluation(ce.M, ce.data))
+    @summarize(model=unique(model), dataname=unique(dataname), performace=unique(performance))
+    @ungroup
+end
+```
+
+```{julia}
 #| output: true
 #| echo: false
 #| label: fig-benchmark
 #| fig-cap: "Benchmark results for the different generators."
+#| fig-subcap: 
+#|  - "Circles."
+#|  - "Linearly Separable."
+#|  - "Moons."
+#|  - "Multi-class."
+#|  - "Overlapping."
 
 df = bmk()
-plt = data(df) * visual(BoxPlot) * 
-    mapping(:generator, :value, row=:variable, col=:dataname, color=:generator)
-draw(plt, axis=(xlabel="", xticksvisible=false, xticklabelsvisible=false, width=200, height=180))
+for dataname ∈ sort(unique(df.dataname))
+    df_ = df[df.dataname .== dataname, :]
+    plt = data(df_) * visual(BoxPlot) * 
+        mapping(:generator, :value, row=:variable, col=:model, color=:generator)
+    plt = draw(
+        plt, axis=(xlabel="", xticksvisible=false, xticklabelsvisible=false, width=200, height=180), 
+        # facet=(; linkyaxes=:none)
+    )   
+    display(plt)
+end
 ```
 

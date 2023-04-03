@@ -8,6 +8,7 @@ setup_notebooks = quote
     using CairoMakie
     using CCE
     using CCE: set_size_penalty, distance_from_energy, distance_from_targets
+    using Chain: @chain
     using ConformalPrediction
     using CounterfactualExplanations
     using CounterfactualExplanations.Data
@@ -26,9 +27,10 @@ setup_notebooks = quote
     using Plots
     using Random
     using Serialization
+    using Tidier
 
     # Setup:
-    theme(:wong)
+    Plots.theme(:wong)
     Random.seed!(2023)
     www_path = "www"
     output_path = "artifacts"
