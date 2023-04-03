@@ -14,14 +14,14 @@ Constructor for models trained in `Flux.jl`.
 struct ConformalModel <: Models.AbstractDifferentiableJuliaModel
     model::ConformalPrediction.ConformalProbabilisticSet
     fitresult::Any
-    likelihood::Symbol
+    likelihood::Union{Nothing,Symbol}
     function ConformalModel(model, fitresult, likelihood)
-        if likelihood ∈ [:classification_binary, :classification_multi]
+        if likelihood ∈ [:classification_binary, :classification_multi] || isnothing(likelihood)
             new(model, fitresult, likelihood)
         else
             throw(
                 ArgumentError(
-                    "`type` should be in `[:classification_binary,:classification_multi]`",
+                    "`likelihood` should either be `nothing` or in `[:classification_binary,:classification_multi]`",
                 ),
             )
         end
@@ -29,8 +29,16 @@ struct ConformalModel <: Models.AbstractDifferentiableJuliaModel
 end
 
 # Outer constructor method:
-function ConformalModel(model, fitresult; likelihood::Symbol=:classification_binary)
-    ConformalModel(model, fitresult, likelihood)
+function ConformalModel(model, fitresult=nothing; likelihood::Union{Nothing,Symbol}=nothing)
+    if isnothing(fitresult)
+        @info "Conformal Model is not fitted."
+    end
+    if isnothing(likelihood)
+        likelihood = :classification_binary
+        @info "Likelihood not specified. Defaulting to $likelihood."
+    end
+    M = ConformalModel(model, fitresult, likelihood)
+    return M
 end
 
 # Methods
@@ -81,6 +89,11 @@ function Models.logits(M::ConformalModel, X::AbstractArray)
     return yhat
 end
 
+"""
+    Models.probs(M::ConformalModel, X::AbstractArray)
+
+Returns the estimated probabilities for a Conformal Classifier.
+"""
 function Models.probs(M::ConformalModel, X::AbstractArray)
     if M.likelihood == :classification_binary
         output = σ.(Models.logits(M, X))
@@ -88,4 +101,19 @@ function Models.probs(M::ConformalModel, X::AbstractArray)
         output = softmax(Models.logits(M, X))
     end
     return output
+end
+
+"""
+    train(M::ConformalModel, data::CounterfactualData; kwrgs...)
+
+Trains a Conformal Classifier `M` on `data`. 
+"""
+function Models.train(M::ConformalModel, data::CounterfactualData; kwrgs...)
+    X, y = data.X, data.output_encoder.labels
+    X = table(permutedims(X))
+    conf_model = M.model
+    mach = machine(conf_model, X, y)
+    fit!(mach; kwrgs...)
+    likelihood, _ = CounterfactualExplanations.guess_likelihood(data.output_encoder.y)
+    return ConformalModel(mach.model, mach.fitresult, likelihood)
 end
