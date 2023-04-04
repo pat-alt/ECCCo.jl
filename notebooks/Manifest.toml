@@ -2,7 +2,7 @@
 
 julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "02c72169614894a0688a0f1373776f46a8df1f33"
+project_hash = "fcc7af85fdd632057c2b8e76e581f46c71876dbf"
 
 [[deps.AbstractFFTs]]
 deps = ["ChainRulesCore", "LinearAlgebra"]
@@ -1284,6 +1284,12 @@ deps = ["CategoricalArrays", "CategoricalDistributions", "ComputationalResources
 git-tree-sha1 = "37a311b0cd581764fc460f6632e6219dc32f9427"
 uuid = "a7f614a8-145f-11e9-1d2a-a57a1082229d"
 version = "0.21.8"
+
+[[deps.MLJEnsembles]]
+deps = ["CategoricalArrays", "CategoricalDistributions", "ComputationalResources", "Distributed", "Distributions", "MLJBase", "MLJModelInterface", "ProgressMeter", "Random", "ScientificTypesBase", "StatsBase"]
+git-tree-sha1 = "bb8a1056b1d8b40f2f27167fc3ef6412a6719fbf"
+uuid = "50ed68f4-41fd-4504-931a-ed422449fee0"
+version = "0.3.2"
 
 [[deps.MLJFlux]]
 deps = ["CategoricalArrays", "ColorTypes", "ComputationalResources", "Flux", "MLJModelInterface", "Metalhead", "ProgressMeter", "Random", "Statistics", "Tables"]

@@ -22,6 +22,7 @@ setup_notebooks = quote
     using MLDatasets
     using MLDatasets: convert2image
     using MLJBase
+    using MLJEnsembles
     using MLJFlux
     using MLUtils
     using Plots
@@ -34,6 +35,6 @@ setup_notebooks = quote
     Random.seed!(2023)
     www_path = "www"
     output_path = "artifacts"
-    img_height = 300;
+    img_height = 300
 
 end;
