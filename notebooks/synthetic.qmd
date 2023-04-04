@@ -29,7 +29,7 @@ logreg = NeuralNetworkClassifier(builder=MLJFlux.Linear(σ=link_fun), epochs=epo
 mlp = NeuralNetworkClassifier(builder=MLJFlux.MLP(hidden=(32,), σ=link_fun), epochs=epochs)
 ensmbl = EnsembleModel(model=mlp, n=5)
 classifiers = Dict(
-    :logreg => logreg,
+    # :logreg => logreg,
     :mlp => mlp,
     # :ensmbl => ensmbl,
 )
@@ -70,6 +70,7 @@ for (dataname, data) in datasets
                 generate_counterfactual(
                     x, target_label, data, M, generator;
                     initialization=:identity,
+                    converge_when=:generator_conditions,
                 )
             catch
                 missing
