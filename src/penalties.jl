@@ -9,7 +9,7 @@ Penalty for smooth conformal set size.
 """
 function set_size_penalty(
     counterfactual_explanation::AbstractCounterfactualExplanation; 
-    κ::Real=1.0, temp::Real=0.5, agg=mean
+    κ::Real=0.0, temp::Real=0.05, agg=mean
 )
 
     conf_model = counterfactual_explanation.M.model
