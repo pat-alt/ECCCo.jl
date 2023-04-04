@@ -12,13 +12,16 @@ setup_notebooks = quote
     using ConformalPrediction
     using CounterfactualExplanations
     using CounterfactualExplanations.Data
+    using CounterfactualExplanations.Evaluation: benchmark
     using CounterfactualExplanations.Models: load_mnist_mlp
     using CounterfactualExplanations.Objectives
+    using CSV
     using Distributions
     using Flux
     using Images
     using JointEnergyModels
     using LinearAlgebra
+    using Markdown
     using MLDatasets
     using MLDatasets: convert2image
     using MLJBase
@@ -34,7 +37,7 @@ setup_notebooks = quote
     Plots.theme(:wong)
     Random.seed!(2023)
     www_path = "www"
-    output_path = "artifacts"
+    output_path = "artifacts/results"
     img_height = 300
 
 end;
