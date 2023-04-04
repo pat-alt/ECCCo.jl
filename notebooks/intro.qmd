@@ -18,7 +18,7 @@ counterfactual_data = load_linearly_separable()
 While we could use a linear classifier in this case, let's pretend we need a black-box model for this task and rely on a small Multi-Layer Perceptron (MLP):
 
 ```{julia}
-builder = MLJFlux.@builder Chain(
+builder = MLJFlux.@builder Flux.Chain(
     Dense(n_in, 32, relu),
     Dense(32, n_out)
 )
@@ -120,6 +120,7 @@ We can generate samples from $p_{\theta}(X|y)$ following @grathwohl2020your. In 
 ```{julia}
 #| fig-cap: "Energy-based conditional samples."
 #| label: fig-energy
+#| output: true
 
 M = CCE.ConformalModel(conf_model, mach.fitresult)
 
@@ -190,7 +191,7 @@ generator = GenericGenerator(opt = opt)
 # Generators:
 generators = Dict(
     ordered_names[1] => generator |> gen -> @objective(gen, _ + 1.0distance),
-    ordered_names[2] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance + 10.0set_size_penalty),
+    ordered_names[2] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance + 1.0set_size_penalty),
     ordered_names[3] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance + 10.0distance_from_energy),
     ordered_names[4] => deepcopy(generator) |> gen -> @objective(gen, _ + 0.1distance + 10.0distance_from_targets),
 )
@@ -221,21 +222,68 @@ counterfactual_data = load_multi_class()
 ```{julia}
 X = table(permutedims(counterfactual_data.X))
 y =  counterfactual_data.output_encoder.labels
-conf_model = conformal_model(clf; method=:simple_inductive, coverage=0.99)
-mach = machine(conf_model, X, y)
-fit!(mach)
+```
+
+```{julia}
+#| output: true
+#| echo: false
+#| label: fig-pen-multi
+#| fig-cap: "Illustration of the smooth size loss."
+
+Plots.gr_cbar_width[] = 0.01
+cvgs = [0.5, 0.75, 0.90, 0.95, 0.99]
+temps = [0.05, 0.1, 0.5, 1.0, 2.0]
+plts = []
+
+for cov in cvgs
+    # Train:
+    conf_model = conformal_model(clf; method=:simple_inductive, coverage=cov)
+    mach = machine(conf_model, X, y)
+    fit!(mach)
+
+    for temp in temps
+        # Plot:
+        plt = Plots.contourf(
+            mach.model, mach.fitresult, X, y; 
+            plot_set_loss=true, zoom=-1, temp=temp, clim=nothing, size=(2img_height,img_height),
+            title="cov=$cov, temp=$temp", cbar=true, ticks=false, legend=false,
+            κ = 0.0,
+        )
+        push!(plts, plt)
+    end
+end
+
+Plots.plot(plts..., layout=(length(cvgs),length(cvgs)), size=(2img_height*length(cvgs), img_height*length(cvgs)))
 ```
 
 ```{julia}
 #| output: true
 #| echo: false
 #| label: fig-losses-multi
-#| fig-cap: "Illustration of the smooth size loss and the configurable classification loss."
+#| fig-cap: "Illustration of the configurable classification loss."
 
-temp = 0.5
-p1 = Plots.contourf(mach.model, mach.fitresult, X, y; plot_set_loss=true, zoom=-1, temp=temp, clim=nothing)
-p2 = Plots.contourf(mach.model, mach.fitresult, X, y; plot_classification_loss=true, zoom=-1, temp=temp, clim=nothing, loss_matrix=ones(4,4))
-Plots.plot(p1, p2, size=(800,320))
+Plots.gr_cbar_width[] = 0.01
+cvgs = [0.5, 0.75, 0.90, 0.95, 0.99]
+temps = [0.05, 0.1, 0.5, 1.0, 2.0]
+plts = []
+
+for cov in cvgs
+    # Train:
+    conf_model = conformal_model(clf; method=:simple_inductive, coverage=cov)
+    mach = machine(conf_model, X, y)
+    fit!(mach)
+
+    for temp in temps
+        # Plot:
+        plt = Plots.contourf(
+            mach.model, mach.fitresult, X, y; 
+            plot_classification_loss=true, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(4,4)
+        )
+        push!(plts, plt)
+    end
+end
+
+Plots.plot(plts..., layout=(length(cvgs),length(cvgs)), size=(2img_height*length(cvgs), img_height*length(cvgs)))
 ```
 
 ```{julia}
@@ -339,12 +387,16 @@ bmk = reduce(vcat, bmks)
 ```
 
 ```{julia}
+f(ce) = CounterfactualExplanations.model_evaluation(ce.M, ce.data)
 @chain bmk() begin
-    @group_by(model, dataname)
-    @select(model, dataname, ce)
-    @mutate(performace = CounterfactualExplanations.model_evaluation(ce.M, ce.data))
-    @summarize(model=unique(model), dataname=unique(dataname), performace=unique(performance))
+    @group_by(model, generator, dataname, variable)
+    @select(model, generator, dataname, ce, value)
+    @mutate(performance = f(ce))
+    @summarize(model=unique(model), generator=unique(generator), dataname=unique(dataname), performace=unique(performance), value=mean(value))
     @ungroup
+    @filter(dataname == :multi_class)
+    @filter(model == :cov99)
+    @filter(variable == "distance")
 end
 ```
 

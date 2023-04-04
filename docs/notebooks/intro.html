@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.299">
+<meta name="generator" content="quarto-99.9.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,10 +17,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -47,19 +46,48 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging-indent div.csl-entry {
+.hanging div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -73,7 +101,8 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}</style>
+}
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -113,8 +142,10 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -123,16 +154,11 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notebooks/intro.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title"><code>ConformalGenerator</code></span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title"><code>ConformalGenerator</code></span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
       </button>
     </div>
   </nav>
@@ -140,68 +166,63 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Conformal Counterfactual Explanations</a> 
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
+      <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-        </div>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/proposal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">High-Fidelity Counterfactual Explanations through Conformal Prediction</span></span></a>
+  <a href="../notebooks/proposal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">High-Fidelity Counterfactual Explanations through Conformal Prediction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/intro.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title"><code>ConformalGenerator</code></span></span></a>
+  <a href="../notebooks/intro.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title"><code>ConformalGenerator</code></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebooks/references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+  <a href="../notebooks/references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#black-box-model" id="toc-black-box-model" class="nav-link active" data-scroll-target="#black-box-model"><span class="header-section-number">2.1</span> Black-box Model</a></li>
-  <li><a href="#conformal-prediction" id="toc-conformal-prediction" class="nav-link" data-scroll-target="#conformal-prediction"><span class="header-section-number">2.2</span> Conformal Prediction</a></li>
-  <li><a href="#differentiable-cp" id="toc-differentiable-cp" class="nav-link" data-scroll-target="#differentiable-cp"><span class="header-section-number">2.3</span> Differentiable CP</a>
+  <li><a href="#black-box-model" id="toc-black-box-model" class="nav-link active" data-scroll-target="#black-box-model"><span class="toc-section-number">2.1</span>  Black-box Model</a></li>
+  <li><a href="#conformal-prediction" id="toc-conformal-prediction" class="nav-link" data-scroll-target="#conformal-prediction"><span class="toc-section-number">2.2</span>  Conformal Prediction</a></li>
+  <li><a href="#differentiable-cp" id="toc-differentiable-cp" class="nav-link" data-scroll-target="#differentiable-cp"><span class="toc-section-number">2.3</span>  Differentiable CP</a>
   <ul class="collapse">
-  <li><a href="#smooth-set-size-penalty" id="toc-smooth-set-size-penalty" class="nav-link" data-scroll-target="#smooth-set-size-penalty"><span class="header-section-number">2.3.1</span> Smooth Set Size Penalty</a></li>
-  <li><a href="#configurable-classification-loss" id="toc-configurable-classification-loss" class="nav-link" data-scroll-target="#configurable-classification-loss"><span class="header-section-number">2.3.2</span> Configurable Classification Loss</a></li>
+  <li><a href="#smooth-set-size-penalty" id="toc-smooth-set-size-penalty" class="nav-link" data-scroll-target="#smooth-set-size-penalty"><span class="toc-section-number">2.3.1</span>  Smooth Set Size Penalty</a></li>
+  <li><a href="#configurable-classification-loss" id="toc-configurable-classification-loss" class="nav-link" data-scroll-target="#configurable-classification-loss"><span class="toc-section-number">2.3.2</span>  Configurable Classification Loss</a></li>
   </ul></li>
-  <li><a href="#fidelity-and-plausibility" id="toc-fidelity-and-plausibility" class="nav-link" data-scroll-target="#fidelity-and-plausibility"><span class="header-section-number">2.4</span> Fidelity and Plausibility</a>
+  <li><a href="#fidelity-and-plausibility" id="toc-fidelity-and-plausibility" class="nav-link" data-scroll-target="#fidelity-and-plausibility"><span class="toc-section-number">2.4</span>  Fidelity and Plausibility</a>
   <ul class="collapse">
-  <li><a href="#fidelity" id="toc-fidelity" class="nav-link" data-scroll-target="#fidelity"><span class="header-section-number">2.4.1</span> Fidelity</a></li>
-  <li><a href="#plausibility" id="toc-plausibility" class="nav-link" data-scroll-target="#plausibility"><span class="header-section-number">2.4.2</span> Plausibility</a></li>
+  <li><a href="#fidelity" id="toc-fidelity" class="nav-link" data-scroll-target="#fidelity"><span class="toc-section-number">2.4.1</span>  Fidelity</a></li>
+  <li><a href="#plausibility" id="toc-plausibility" class="nav-link" data-scroll-target="#plausibility"><span class="toc-section-number">2.4.2</span>  Plausibility</a></li>
   </ul></li>
-  <li><a href="#counterfactual-explanations" id="toc-counterfactual-explanations" class="nav-link" data-scroll-target="#counterfactual-explanations"><span class="header-section-number">2.5</span> Counterfactual Explanations</a></li>
-  <li><a href="#multi-class" id="toc-multi-class" class="nav-link" data-scroll-target="#multi-class"><span class="header-section-number">2.6</span> Multi-Class</a></li>
-  <li><a href="#benchmarks" id="toc-benchmarks" class="nav-link" data-scroll-target="#benchmarks"><span class="header-section-number">2.7</span> Benchmarks</a></li>
+  <li><a href="#counterfactual-explanations" id="toc-counterfactual-explanations" class="nav-link" data-scroll-target="#counterfactual-explanations"><span class="toc-section-number">2.5</span>  Counterfactual Explanations</a></li>
+  <li><a href="#multi-class" id="toc-multi-class" class="nav-link" data-scroll-target="#multi-class"><span class="toc-section-number">2.6</span>  Multi-Class</a></li>
+  <li><a href="#benchmarks" id="toc-benchmarks" class="nav-link" data-scroll-target="#benchmarks"><span class="toc-section-number">2.7</span>  Benchmarks</a></li>
   </ul>
 </nav>
     </div>
@@ -210,7 +231,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title"><code>ConformalGenerator</code></span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title"><code>ConformalGenerator</code></span></h1>
 </div>
 
 
@@ -238,7 +259,7 @@ div.csl-indent {
 </div>
 <p>While we could use a linear classifier in this case, let’s pretend we need a black-box model for this task and rely on a small Multi-Layer Perceptron (MLP):</p>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>builder <span class="op">=</span> MLJFlux.<span class="pp">@builder</span> <span class="fu">Chain</span>(</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>builder <span class="op">=</span> MLJFlux.<span class="pp">@builder</span> Flux.<span class="fu">Chain</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Dense</span>(n_in, <span class="fl">32</span>, relu),</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Dense</span>(<span class="fl">32</span>, n_out)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -254,12 +275,12 @@ div.csl-indent {
 <li>Train the machine learning model on the proper training set: <span class="math inline">\(\hat\mu_{i \in \mathcal{D}^{\text{train}}}(X_i,Y_i)\)</span>.</li>
 </ol>
 <p>The model <span class="math inline">\(\hat\mu_{i \in \mathcal{D}^{\text{train}}}\)</span> can now produce plug-in predictions.</p>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
+<div class="callout-caption-container flex-fill">
 Starting Point
 </div>
 </div>
@@ -384,42 +405,49 @@ x^\prime = \arg \min_{x^\prime}  \ell(M(x^\prime),t) + \lambda \mathbb{I}_{y^\pr
 </div>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="fu">table</span>(<span class="fu">permutedims</span>(counterfactual_data.X))</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span>  counterfactual_data.output_encoder.labels</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>conf_model <span class="op">=</span> <span class="fu">conformal_model</span>(clf; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span><span class="fl">0.99</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>mach <span class="op">=</span> <span class="fu">machine</span>(conf_model, X, y)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fit!</span>(mach)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span>  counterfactual_data.output_encoder.labels</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display" data-execution_count="12">
-<div id="fig-losses-multi" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-pen-multi" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="intro_files/figure-html/fig-losses-multi-output-1.svg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2.4: Illustration of the smooth size loss and the configurable classification loss.</figcaption><p></p>
+<p><img src="intro_files/figure-html/fig-pen-multi-output-1.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.4: Illustration of the smooth size loss.</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display" data-execution_count="13">
-<div id="fig-energy-multi" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-losses-multi" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="intro_files/figure-html/fig-energy-multi-output-1.svg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2.5: Energy-based conditional samples.</figcaption><p></p>
+<p><img src="intro_files/figure-html/fig-losses-multi-output-1.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.5: Illustration of the configurable classification loss.</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div id="fig-energy-multi" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="intro_files/figure-html/fig-energy-multi-output-1.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.6: Energy-based conditional samples.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fu">select_factual</span>(counterfactual_data,<span class="fu">rand</span>(<span class="fl">1</span><span class="op">:</span><span class="fu">size</span>(counterfactual_data.X,<span class="fl">2</span>)))</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>y_factual <span class="op">=</span> <span class="fu">predict_label</span>(M, counterfactual_data, x)[<span class="fl">1</span>]</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> counterfactual_data.y_levels[counterfactual_data.y_levels <span class="op">.!=</span> y_factual][<span class="fl">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div id="fig-ce-multi" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="intro_files/figure-html/fig-ce-multi-output-1.svg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2.6: Comparison of counterfactuals produced using different generators.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.7: Comparison of counterfactuals produced using different generators.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -427,7 +455,7 @@ x^\prime = \arg \min_{x^\prime}  \ell(M(x^\prime),t) + \lambda \mathbb{I}_{y^\pr
 </section>
 <section id="benchmarks" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="benchmarks"><span class="header-section-number">2.7</span> Benchmarks</h2>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>datasets <span class="op">=</span> <span class="fu">Dict</span>(</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span>linearly_separable <span class="op">=&gt;</span> <span class="fu">load_linearly_separable</span>(),</span>
@@ -446,7 +474,7 @@ x^\prime = \arg \min_{x^\prime}  \ell(M(x^\prime),t) + \lambda \mathbb{I}_{y^\pr
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then we can simply loop over the datasets and eventually concatenate the results like so:</p>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CounterfactualExplanations.Evaluation</span>: benchmark</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>bmks <span class="op">=</span> []</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>measures <span class="op">=</span> [</span>
@@ -466,6 +494,19 @@ x^\prime = \arg \min_{x^\prime}  \ell(M(x^\prime),t) + \lambda \mathbb{I}_{y^\pr
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(bmks, bmk)</span>
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>bmk <span class="op">=</span> <span class="fu">reduce</span>(vcat, bmks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(ce) <span class="op">=</span> CounterfactualExplanations.<span class="fu">model_evaluation</span>(ce.M, ce.data)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@chain</span> <span class="fu">bmk</span>() <span class="cf">begin</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@group_by</span>(model, generator, dataname, variable)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@select</span>(model, generator, dataname, ce, value)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@mutate</span>(performance <span class="op">=</span> <span class="fu">f</span>(ce))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@summarize</span>(model<span class="op">=</span><span class="fu">unique</span>(model), generator<span class="op">=</span><span class="fu">unique</span>(generator), dataname<span class="op">=</span><span class="fu">unique</span>(dataname), performace<span class="op">=</span><span class="fu">unique</span>(performance), value<span class="op">=</span><span class="fu">mean</span>(value))</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@ungroup</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@filter</span>(dataname <span class="op">==</span> <span class="op">:</span>multi_class)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@filter</span>(model <span class="op">==</span> <span class="op">:</span>cov99)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@filter</span>(variable <span class="op">==</span> <span class="st">"distance"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="fig-benchmark" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -509,19 +550,19 @@ x^\prime = \arg \min_{x^\prime}  \ell(M(x^\prime),t) + \lambda \mathbb{I}_{y^\pr
 </figure>
 </div>
 </div>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2.7: Benchmark results for the different generators.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.8: Benchmark results for the different generators.</figcaption><p></p>
 </figure>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-grathwohl2020your" class="csl-entry" role="listitem">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-grathwohl2020your" class="csl-entry" role="doc-biblioentry">
 Grathwohl, Will, Kuan-Chieh Wang, Joern-Henrik Jacobsen, David Duvenaud, Mohammad Norouzi, and Kevin Swersky. 2020. <span>“Your Classifier Is Secretly an Energy Based Model and You Should Treat It Like One.”</span> In. <a href="https://openreview.net/forum?id=Hkxzx0NtDB">https://openreview.net/forum?id=Hkxzx0NtDB</a>.
 </div>
-<div id="ref-schut2021generating" class="csl-entry" role="listitem">
+<div id="ref-schut2021generating" class="csl-entry" role="doc-biblioentry">
 Schut, Lisa, Oscar Key, Rory Mc Grath, Luca Costabello, Bogdan Sacaleanu, Yarin Gal, et al. 2021. <span>“Generating <span>Interpretable Counterfactual Explanations By Implicit Minimisation</span> of <span>Epistemic</span> and <span>Aleatoric Uncertainties</span>.”</span> In <em>International <span>Conference</span> on <span>Artificial Intelligence</span> and <span>Statistics</span></em>, 1756–64. <span>PMLR</span>.
 </div>
-<div id="ref-stutz2022learning" class="csl-entry" role="listitem">
+<div id="ref-stutz2022learning" class="csl-entry" role="doc-biblioentry">
 Stutz, David, Krishnamurthy Dj Dvijotham, Ali Taylan Cemgil, and Arnaud Doucet. 2022. <span>“Learning <span>Optimal</span> <span>Conformal</span> <span>Classifiers</span>.”</span> In. <a href="https://openreview.net/forum?id=t8O-4LKFVx">https://openreview.net/forum?id=t8O-4LKFVx</a>.
 </div>
 </div>
@@ -561,23 +602,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
