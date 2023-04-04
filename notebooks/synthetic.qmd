@@ -1,0 +1,99 @@
+```{julia}
+include("notebooks/setup.jl")
+eval(setup_notebooks);
+```
+
+# Synthetic data
+
+```{julia}
+#| output: false
+
+# Data:
+datasets = Dict(
+    :linearly_separable => load_linearly_separable(),
+    :overlapping => load_overlapping(),
+    :moons => load_moons(),
+    :circles => load_circles(),
+    :multi_class => load_multi_class(),
+)
+
+# Hyperparameters:
+cvgs = [0.5, 0.75, 0.90, 0.95, 0.99]
+temps = [0.05, 0.1, 0.5, 1.0, 2.0]
+Λ = [0.1, 1.0, 5.0]
+
+# Classifiers:
+epochs = 100
+link_fun = sigmoid
+logreg = NeuralNetworkClassifier(builder=MLJFlux.Linear(σ=link_fun), epochs=epochs)
+mlp = NeuralNetworkClassifier(builder=MLJFlux.MLP(hidden=(32,), σ=link_fun), epochs=epochs)
+ensmbl = EnsembleModel(model=mlp, n=5)
+classifiers = Dict(
+    :logreg => logreg,
+    :mlp => mlp,
+    # :ensmbl => ensmbl,
+)
+
+# Search parameters:
+target = 2
+factual = 1
+```
+
+```{julia}
+results = DataFrame()
+for (dataname, data) in datasets
+
+    # Data:
+    X = table(permutedims(data.X))
+    y = data.output_encoder.labels
+
+    for (clf_name, clf) in classifiers, cov in cvgs
+
+        # Classifier and coverage:
+        conf_model = conformal_model(clf; method=:simple_inductive, coverage=cov)
+        mach = machine(conf_model, X, y)
+        fit!(mach)
+        M = CCE.ConformalModel(mach.model, mach.fitresult)
+
+        # Set up CCE:
+        yhat = predict_label(M, data)
+        factual_label = data.y_levels[factual]
+        target_label = data.y_levels[target]
+        x = select_factual(data,rand(findall(yhat .== factual_label)))
+
+        for λ in Λ, temp in temps
+
+            # CCE for given classifier, coverage, temperature and λ:
+            generator = CCEGenerator(temp=temp, λ=λ)
+            @assert predict_label(M, data, x) != target_label
+            ce = try
+                generate_counterfactual(
+                    x, target_label, data, M, generator;
+                    initialization=:identity,
+                )
+            catch
+                missing
+            end
+
+            _results = DataFrame(
+                dataset = dataname,
+                classifier = clf_name,
+                coverage = cov,
+                temperature = temp,
+                λ = λ,
+                counterfactual = ce,
+                factual = factual_label,
+                target = target_label,
+            )
+            append!(results, _results)
+
+        end
+
+    end
+
+end
+```
+
+```{julia}
+
+```

@@ -8,9 +8,10 @@ include("penalties.jl")
 include("losses.jl")
 include("generator.jl")
 include("sampling.jl")
-# include("ConformalGenerator.jl")
 
 using MLJFlux
-MLJFlux.reformat(X, ::Type{<:AbstractMatrix}) = permutedims(X)
+MLJFlux.reformat(X, ::Type{<:AbstractMatrix}) = X'
+
+export CCEGenerator, EnergySampler, set_size_penalty, distance_from_energy
 
 end
