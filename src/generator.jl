@@ -9,3 +9,17 @@ function CCEGenerator(; λ::Union{AbstractFloat,Vector{<:AbstractFloat}}=[0.1, 1
     λ = λ isa AbstractFloat ? [0.0, λ] : λ
     return Generator(; penalty=_penalties, λ=λ, kwargs...)
 end
+
+"Constructor for `EnergyDrivenGenerator`."
+function EnergyDrivenGenerator(; λ::Union{AbstractFloat,Vector{<:AbstractFloat}}=[0.1, 1.0], kwargs...)
+    _penalties = [Objectives.distance_l2, CCE.distance_from_energy]
+    λ = λ isa AbstractFloat ? [0.0, λ] : λ
+    return Generator(; penalty=_penalties, λ=λ, kwargs...)
+end
+
+"Constructor for `TargetDrivenGenerator`."
+function TargetDrivenGenerator(; λ::Union{AbstractFloat,Vector{<:AbstractFloat}}=[0.1, 1.0], kwargs...)
+    _penalties = [Objectives.distance_l2, CCE.distance_from_targets]
+    λ = λ isa AbstractFloat ? [0.0, λ] : λ
+    return Generator(; penalty=_penalties, λ=λ, kwargs...)
+end

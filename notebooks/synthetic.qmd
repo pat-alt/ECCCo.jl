@@ -44,6 +44,8 @@ opt = Descent(0.01)
 ```
 
 ```{julia}
+#| echo: false
+
 results = DataFrame()
 for (dataname, data) in datasets
 
@@ -101,6 +103,8 @@ end
 ```
 
 ```{julia}
+#| echo: false
+
 function plot_ce(results; dataset=:multi_class, classifier=:mlp, λ=0.1, img_height=300, zoom=-0.2)
     df_plot = results[results.dataset .== dataset,:] |>
         res -> res[res.classifier .== classifier,:] |>
@@ -126,5 +130,90 @@ end
 ```
 
 ```{julia}
-plot_ce(results; λ=Λ[1], dataset=:moons)
+#| output: true
+#| echo: false
+
+for dataset in keys(datasets)
+    Markdown.parse("""### $dataset""")
+    for classifier in keys(classifiers)
+        Markdown.parse("""#### $classifier""")
+        Markdown.parse("""::: {.panel-tabset}""")
+        for λ in Λ
+            Markdown.parse("""##### λ: $λ""")
+            display(plot_ce(results; dataset=dataset, classifier=classifier, λ=λ))
+        end
+        Markdown.parse(""":::""")
+    end
+end
+```
+
+## Benchmark
+
+```{julia}
+generators = Dict(
+    :wachter => GenericGenerator(opt=opt, λ=l2_λ),
+    :revise => REVISEGenerator(opt=opt, λ=l2_λ),
+    :greedy => GreedyGenerator(opt=opt),
+)
+
+# Untrained Models:
+models = Dict("cov$(cov)" => CCE.ConformalModel(conformal_model(mlp; method=:simple_inductive, coverage=cov)) for cov in cvgs)
+```
+
+```{julia}
+bmks = []
+measures = [
+    CounterfactualExplanations.distance,
+    CCE.distance_from_energy,
+    CCE.distance_from_targets,
+    CounterfactualExplanations.validity,
+]
+for (dataname, dataset) in datasets
+    for λ in Λ, temp in temps
+        _generators = deepcopy(generators)
+        _generators[:cce] = CCEGenerator(temp=temp, λ=[l2_λ,λ], opt=opt)
+        _generators[:energy] = CCE.EnergyDrivenGenerator(λ=[l2_λ,λ], opt=opt)
+        _generators[:target] = CCE.TargetDrivenGenerator(λ=[l2_λ,λ], opt=opt)
+        bmk = benchmark(
+            dataset; 
+            models=deepcopy(models), 
+            generators=_generators, 
+            measure=measures,
+            suppress_training=false, dataname=dataname,
+            n_individuals=5,
+            initialization=:identity,
+        )
+        bmk.evaluation.λ .= λ
+        bmk.evaluation.temperature .= temp
+        push!(bmks, bmk)
+    end
+end
+bmk = reduce(vcat, bmks)
+```
+
+```{julia}
+CSV.write(joinpath(output_path, "synthetic_benchmark.csv"), bmk())
+```
+
+```{julia}
+#| output: true
+#| echo: false
+
+df = bmk()
+for dataname ∈ sort(unique(df.dataname))
+    Markdown.parse("""### $dataset""")
+    df_ = df[df.dataname .== dataname, :]
+    for λ in Λ, temp in temps
+        Markdown.parse("""#### λ: $λ""")
+        df_plot = df_[df_.λ .== λ, :]
+        df_plot = df_plot[df_plot.temperature .== temp, :]
+        plt = AlgebraOfGraphics.data(df_plot) * visual(BoxPlot) * 
+            mapping(:generator, :value, row=:variable, col=:model, color=:generator)
+        plt = draw(
+            plt, axis=(xlabel="", xticksvisible=false, xticklabelsvisible=false, width=200, height=180), 
+            facet=(; linkyaxes=:minimal)
+        )   
+        display(plt)
+    end
+end
 ```

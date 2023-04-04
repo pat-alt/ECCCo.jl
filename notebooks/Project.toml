@@ -1,6 +1,7 @@
 [deps]
 AlgebraOfGraphics = "cbdf2221-f076-402e-a563-3d30da359d67"
 CCE = "0232c203-4013-4b0d-ad96-43e3e11ac3bf"
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 CategoricalDistributions = "af321ab8-2d2e-40a6-b165-3d674595d28e"
 Chain = "8be319e6-bccf-4806-a6f7-6fae938471bc"

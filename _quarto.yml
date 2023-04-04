@@ -12,6 +12,7 @@ book:
     - index.qmd
     - notebooks/proposal.qmd
     - notebooks/intro.qmd
+    - notebooks/synthetic.qmd
     - notebooks/references.qmd
 
 bibliography: bib.bib
