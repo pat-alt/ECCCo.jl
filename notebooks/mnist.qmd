@@ -21,7 +21,7 @@ clf = NeuralNetworkClassifier(
     epochs=epochs,
     batch_size=Int(round(n_obs/10))
 )
-conf_model = conformal_model(clf; method=:simple_inductive)
+conf_model = conformal_model(clf; method=:simple_inductive, coverage=.99)
 mach = machine(conf_model, X, labels)
 fit!(mach)
 ```
@@ -39,7 +39,7 @@ println("F1 score (test): $(round(f1,digits=3))")
 ```{julia}
 using CounterfactualExplanations.DataPreprocessing: undersample
 dt_reduced = undersample(counterfactual_data, 100)
-# dt_reduced = counterfactual_data
+dt_reduced = counterfactual_data
 ```
 
 ```{julia}
