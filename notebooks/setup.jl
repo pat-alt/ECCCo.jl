@@ -4,7 +4,7 @@ setup_notebooks = quote
     Pkg.activate("notebooks")
 
     using AlgebraOfGraphics
-    using AlgebraOfGraphics: Violin, BoxPlot
+    using AlgebraOfGraphics: Violin, BoxPlot, BarPlot
     using CairoMakie
     using CCE
     using CCE: set_size_penalty, distance_from_energy, distance_from_targets
@@ -12,10 +12,11 @@ setup_notebooks = quote
     using ConformalPrediction
     using CounterfactualExplanations
     using CounterfactualExplanations.Data
-    using CounterfactualExplanations.Evaluation: benchmark
-    using CounterfactualExplanations.Models: load_mnist_mlp
+    using CounterfactualExplanations.Evaluation: benchmark, evaluate
+    using CounterfactualExplanations.Models: load_mnist_mlp, train
     using CounterfactualExplanations.Objectives
     using CSV
+    using DataFrames
     using Distributions
     using Flux
     using Images
