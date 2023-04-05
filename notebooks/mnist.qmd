@@ -7,7 +7,7 @@ eval(setup_notebooks)
 
 ```{julia}
 # Data:
-counterfactual_data = load_mnist(1000)
+counterfactual_data = load_mnist()
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
 labels = counterfactual_data.output_encoder.labels
@@ -16,7 +16,11 @@ input_dim, n_obs = size(counterfactual_data.X)
 
 ```{julia}
 epochs = 100
-clf = NeuralNetworkClassifier(builder=MLJFlux.MLP(hidden=(32,), σ=relu), epochs=epochs)
+clf = NeuralNetworkClassifier(
+    builder=MLJFlux.MLP(hidden=(32,), σ=relu), 
+    epochs=epochs,
+    batch_size=Int(round(n_obs/10))
+)
 conf_model = conformal_model(clf; method=:simple_inductive)
 mach = machine(conf_model, X, labels)
 fit!(mach)
@@ -33,10 +37,16 @@ println("F1 score (test): $(round(f1,digits=3))")
 ```
 
 ```{julia}
+using CounterfactualExplanations.DataPreprocessing: undersample
+dt_reduced = undersample(counterfactual_data, 100)
+# dt_reduced = counterfactual_data
+```
+
+```{julia}
 # Set up search:
-factual_label = 8
+factual_label = 9
 x = reshape(counterfactual_data.X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target = 3
+target = 4
 factual = predict_label(M, counterfactual_data, x)[1]
 γ = 0.9
 T = 100
@@ -44,15 +54,19 @@ T = 100
 # Generate counterfactual using generic generator:
 generator = GenericGenerator()
 ce_wachter = generate_counterfactual(
-    x, target, counterfactual_data, M, generator; 
+    x, target, dt_reduced, M, generator; 
     decision_threshold=γ, max_iter=T,
     initialization=:identity,
 )
 
 # Generate counterfactual using CCE generator:
-generator = CCEGenerator(λ=[0.0,10.0], temp=0.01, opt=CounterfactualExplanations.Generators.JSMADescent(η=5.0))
+generator = CCEGenerator(
+    λ=[0.0,10.0], 
+    temp=0.01, 
+    # opt=CounterfactualExplanations.Generators.JSMADescent(η=5.0),
+)
 ce_conformal = generate_counterfactual(
-    x, target, counterfactual_data, M, generator; 
+    x, target, dt_reduced, M, generator; 
     decision_threshold=γ, max_iter=T,
     initialization=:identity,
     converge_when=:generator_conditions,
