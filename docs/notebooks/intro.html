@@ -112,7 +112,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../notebooks/references.html" rel="next">
+<link href="../notebooks/synthetic.html" rel="next">
 <link href="../notebooks/proposal.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -192,6 +192,11 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notebooks/intro.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title"><code>ConformalGenerator</code></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/synthetic.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Synthetic data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -345,8 +350,7 @@ C(X_{\text{test}})=\{y:s(X_{\text{test}},y) \le \hat{q}\}
 <p><span class="theorem-title"><strong>Definition 2.1 (High-Fidelity Counterfactuals) </strong></span>Let <span class="math inline">\(\mathcal{X}_{\theta}|y = p_{\theta}(X|y)\)</span> denote the class-conditional distribution of <span class="math inline">\(X\)</span> defined by <span class="math inline">\(\theta\)</span>. Then for <span class="math inline">\(x^{\prime}\)</span> to be considered a high-fidelity counterfactual, we need: <span class="math inline">\(\mathcal{X}_{\theta}|t \approxeq \mathcal{X}^{\prime}\)</span> where <span class="math inline">\(t\)</span> denotes the target outcome.</p>
 </div>
 <p>We can generate samples from <span class="math inline">\(p_{\theta}(X|y)\)</span> following <span class="citation" data-cites="grathwohl2020your">Grathwohl et al. (<a href="references.html#ref-grathwohl2020your" role="doc-biblioref">2020</a>)</span>. In <a href="#fig-energy">Figure&nbsp;<span>2.2</span></a>, I have applied the methodology to our synthetic data.</p>
-<div id="fig-energy" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> CCE.<span class="fu">ConformalModel</span>(conf_model, mach.fitresult)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>niter <span class="op">=</span> <span class="fl">100</span></span>
@@ -361,8 +365,14 @@ C(X_{\text{test}})=\{y:s(X_{\text{test}},y) \le \hat{q}\}
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(plts, plt)</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>Plots.<span class="fu">plot</span>(plts<span class="op">...</span>, layout<span class="op">=</span>(<span class="fl">1</span>,<span class="fu">length</span>(plts)), size<span class="op">=</span>(<span class="fu">img_height*length</span>(plts),img_height))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2.2: <strong>?(caption)</strong></figcaption><p></p>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div id="fig-energy" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="intro_files/figure-html/fig-energy-output-1.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.2: Energy-based conditional samples.</figcaption><p></p>
 </figure>
+</div>
+</div>
 </div>
 <p>As an evaluation metric and penalty, we could use the average distance of the counterfactual <span class="math inline">\(x^{\prime}\)</span> from these generated samples, for example.</p>
 </section>
@@ -801,8 +811,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../notebooks/references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notebooks/synthetic.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Synthetic data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
