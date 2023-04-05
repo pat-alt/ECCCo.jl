@@ -36,7 +36,7 @@ end
 
 function distance_from_energy(
     counterfactual_explanation::AbstractCounterfactualExplanation;
-    n::Int=100, from_buffer=true, agg=mean, kwargs...
+    n::Int=10000, from_buffer=true, agg=mean, kwargs...
 )
     conditional_samples = []
     ignore_derivatives() do
@@ -63,9 +63,10 @@ end
 
 function distance_from_targets(
     counterfactual_explanation::AbstractCounterfactualExplanation;
-    n::Int=100, agg=mean
+    n::Int=10000, agg=mean
 )
-    target_samples = counterfactual_explanation.data.X |>
+    target_idx = counterfactual_explanation.data.output_encoder.labels .== counterfactual_explanation.target
+    target_samples = counterfactual_explanation.data.X[:,target_idx] |>
         X -> X[:,rand(1:end,n)]
     x′ = CounterfactualExplanations.counterfactual(counterfactual_explanation)
     loss = map(eachslice(x′, dims=3)) do x
