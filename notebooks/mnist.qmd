@@ -14,19 +14,40 @@ labels = counterfactual_data.output_encoder.labels
 input_dim, n_obs = size(counterfactual_data.X)
 ```
 
+First, let's create a couple of image classifier architectures:
+
 ```{julia}
 epochs = 100
-clf = NeuralNetworkClassifier(
+batchsize = Int(round(n_obs/10))
+
+# Simple MLP:
+mlp = NeuralNetworkClassifier(
     builder=MLJFlux.MLP(hidden=(32,), σ=relu), 
     epochs=epochs,
-    batch_size=Int(round(n_obs/10))
+    batch_size=batchsize,
 )
-conf_model = conformal_model(clf; method=:adaptive_inductive, coverage=.99)
-mach = machine(conf_model, X, labels)
-fit!(mach)
+
+# Deep Ensemble:
+mlp_ens = EnsembleModel(model=mlp, n=5)
+
+# ResNet:
+using MLJFlux, Metalhead
+builder = MLJFlux.image_builder(ResNet, 18, pretrain=true)
+resnet = ImageClassifier(
+    builder=builder,
+    epochs=epochs,
+    batch_size=batchsize,
+)
+
+# ResNet Ensemble:
+resnet_ens = EnsembleModel(model=resnet, n=5)
 ```
 
 ```{julia}
+
+conf_model = conformal_model(mlp; method=:adaptive_inductive, coverage=.99)
+mach = machine(conf_model, X, labels)
+fit!(mach)
 M = CCE.ConformalModel(mach.model, mach.fitresult)
 ```
 
@@ -37,16 +58,10 @@ println("F1 score (test): $(round(f1,digits=3))")
 ```
 
 ```{julia}
-using CounterfactualExplanations.DataPreprocessing: undersample
-dt_reduced = undersample(counterfactual_data, 100)
-dt_reduced = counterfactual_data
-```
-
-```{julia}
 # Set up search:
-factual_label = 8
+factual_label = 9
 x = reshape(counterfactual_data.X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target = 3
+target = 4
 factual = predict_label(M, counterfactual_data, x)[1]
 γ = 0.9
 T = 100
@@ -61,9 +76,9 @@ ce_wachter = generate_counterfactual(
 
 # Generate counterfactual using CCE generator:
 generator = CCEGenerator(
-    λ=[0.0,100.0], 
+    λ=[0.0,10.0], 
     temp=0.01, 
-    # opt=CounterfactualExplanations.Generators.JSMADescent(η=5.0),
+    # opt=CounterfactualExplanations.Generators.JSMADescent(η=0.5),
 )
 ce_conformal = generate_counterfactual(
     x, target, dt_reduced, M, generator; 
@@ -98,4 +113,30 @@ end
 plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
 display(plt)
 savefig(plt, joinpath(www_path, "cce_mnist.png"))
+```
+
+
+
+## Benchmark
+
+
+
+```{julia}
+# Benchmark generators:
+generators = Dict(
+    :wachter => GenericGenerator(opt=opt, λ=l2_λ),
+    :revise => REVISEGenerator(opt=opt, λ=l2_λ),
+    :greedy => GreedyGenerator(),
+)
+
+# Conformal Models: 
+
+
+# Measures:
+measures = [
+    CounterfactualExplanations.distance,
+    CCE.distance_from_energy,
+    CCE.distance_from_targets,
+    CounterfactualExplanations.validity,
+]
 ```
