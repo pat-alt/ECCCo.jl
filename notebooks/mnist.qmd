@@ -7,48 +7,78 @@ eval(setup_notebooks)
 
 ```{julia}
 # Data:
-counterfactual_data = load_mnist()
+n_obs = 1000
+counterfactual_data = load_mnist(n_obs)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
 labels = counterfactual_data.output_encoder.labels
 input_dim, n_obs = size(counterfactual_data.X)
+n_digits = Int(sqrt(input_dim))
+output_dim = length(unique(labels))
 ```
 
 First, let's create a couple of image classifier architectures:
 
 ```{julia}
+# Model parameters:
 epochs = 100
-batchsize = Int(round(n_obs/10))
+batch_size = Int(round(n_obs/10))
+n_hidden = 32
+activation = Flux.swish
+builder = MLJFlux.MLP(hidden=(n_hidden,), σ=activation)
+α = [0.33,1.0,1e-1]
 
 # Simple MLP:
 mlp = NeuralNetworkClassifier(
-    builder=MLJFlux.MLP(hidden=(32,), σ=relu), 
+    builder=builder, 
     epochs=epochs,
-    batch_size=batchsize,
+    batch_size=batch_size,
+)
+
+# Joint Energy Model:
+𝒟x = Uniform(-1,1)
+𝒟y = Categorical(ones(output_dim) ./ output_dim)
+sampler = ConditionalSampler(𝒟x, 𝒟y, input_size=(input_dim,), batch_size=batch_size)
+jem = JointEnergyClassifier(
+    sampler;
+    builder=builder,
+    batch_size=batch_size,
+    finaliser=Flux.softmax,
+    loss=Flux.Losses.crossentropy,
+    jem_training_params=(α=α,verbosity=10,),
+    sampling_steps=20,
 )
 
 # Deep Ensemble:
 mlp_ens = EnsembleModel(model=mlp, n=5)
-
-# ResNet:
-using MLJFlux, Metalhead
-builder = MLJFlux.image_builder(ResNet, 18, pretrain=true)
-resnet = ImageClassifier(
-    builder=builder,
-    epochs=epochs,
-    batch_size=batchsize,
-)
-
-# ResNet Ensemble:
-resnet_ens = EnsembleModel(model=resnet, n=5)
 ```
 
 ```{julia}
-
-conf_model = conformal_model(mlp; method=:adaptive_inductive, coverage=.99)
+cov = .9
+conf_model = conformal_model(jem; method=:adaptive_inductive, coverage=cov)
 mach = machine(conf_model, X, labels)
 fit!(mach)
 M = CCE.ConformalModel(mach.model, mach.fitresult)
+```
+
+```{julia}
+jem = mach.model.model.jem
+n_iter = 5000
+_w = 1500
+plts = []
+neach = 10
+for i in 1:10
+    x = jem.sampler(jem.chain, jem.sampling_rule; niter=n_iter, n_samples=neach, y=i)
+    plts_i = []
+    for j in 1:size(x, 2)
+        xj = x[:,j]
+        xj = reshape(xj, (n_digits, n_digits))
+        plts_i = [plts_i..., Plots.heatmap(rotl90(xj), axis=nothing, cb=false)]
+    end
+    plt = Plots.plot(plts_i..., size=(_w,0.10*_w), layout=(1,10))
+    plts = [plts..., plt]
+end
+Plots.plot(plts..., size=(_w,_w), layout=(10,1))
 ```
 
 ```{julia}
@@ -69,7 +99,7 @@ T = 100
 # Generate counterfactual using generic generator:
 generator = GenericGenerator()
 ce_wachter = generate_counterfactual(
-    x, target, dt_reduced, M, generator; 
+    x, target, counterfactual_data, M, generator; 
     decision_threshold=γ, max_iter=T,
     initialization=:identity,
 )
@@ -81,7 +111,7 @@ generator = CCEGenerator(
     # opt=CounterfactualExplanations.Generators.JSMADescent(η=0.5),
 )
 ce_conformal = generate_counterfactual(
-    x, target, dt_reduced, M, generator; 
+    x, target, counterfactual_data, M, generator; 
     decision_threshold=γ, max_iter=T,
     initialization=:identity,
     converge_when=:generator_conditions,
@@ -115,11 +145,7 @@ display(plt)
 savefig(plt, joinpath(www_path, "cce_mnist.png"))
 ```
 
-
-
 ## Benchmark
-
-
 
 ```{julia}
 # Benchmark generators:
