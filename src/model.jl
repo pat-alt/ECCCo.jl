@@ -86,7 +86,11 @@ function Models.logits(M::ConformalModel, X::AbstractArray)
             p̂ = [p̂]
         end
         p̂ = reduce(hcat, p̂)
-        ŷ = reduce(hcat, (map(p -> log.(p) .+ log(sum(exp.(p))), eachcol(p̂))))
+        if all(0.0 .<= vec(p̂) .<= 1.0)
+            ŷ = reduce(hcat, (map(p -> log.(p) .+ log(sum(exp.(p))), eachcol(p̂))))
+        else
+            ŷ = p̂
+        end
         if M.likelihood == :classification_binary
             ŷ = reduce(hcat, (map(y -> y[2] - y[1], eachcol(ŷ))))
         end
