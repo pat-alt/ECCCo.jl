@@ -22,11 +22,13 @@ First, let's create a couple of image classifier architectures:
 ```{julia}
 # Model parameters:
 epochs = 100
-batch_size = minimum([Int(round(n_obs/10)), 100])
-n_hidden = 32
+batch_size = minimum([Int(round(n_obs/10)), 128])
+n_hidden = 200
 activation = Flux.relu
 builder = MLJFlux.@builder Flux.Chain(
     Dense(n_in, n_hidden),
+    BatchNorm(n_hidden, activation),
+    Dense(n_hidden, n_hidden),
     BatchNorm(n_hidden, activation),
     Dense(n_hidden, n_out),
 )
@@ -51,7 +53,11 @@ mlp = NeuralNetworkClassifier(
 # Joint Energy Model:
 𝒟x = Uniform(0,1)
 𝒟y = Categorical(ones(output_dim) ./ output_dim)
-sampler = ConditionalSampler(𝒟x, 𝒟y, input_size=(input_dim,), batch_size=batch_size)
+sampler = ConditionalSampler(
+    𝒟x, 𝒟y, 
+    input_size=(input_dim,), 
+    batch_size=10
+)
 jem = JointEnergyClassifier(
     sampler;
     builder=builder,
@@ -73,31 +79,33 @@ mlp_ens = EnsembleModel(model=mlp, n=5)
 
 ```{julia}
 cov = .90
-conf_model = conformal_model(jem; method=:simple_inductive, coverage=cov)
+conf_model = conformal_model(mlp; method=:adaptive_inductive, coverage=cov)
 mach = machine(conf_model, X, labels)
 fit!(mach)
 M = CCE.ConformalModel(mach.model, mach.fitresult)
 ```
 
 ```{julia}
-jem = mach.model.model.jem
-n_iter = 100
-_w = 1500
-plts = []
-neach = 10
-for i in 1:10
-    x = jem.sampler(jem.chain, jem.sampling_rule; niter=n_iter, n_samples=neach, y=i)
-    plts_i = []
-    for j in 1:size(x, 2)
-        xj = x[:,j]
-        xj = reshape(xj, (n_digits, n_digits))
-        plts_i = [plts_i..., Plots.heatmap(rotl90(xj), axis=nothing, cb=false)]
+if mach.model.model isa JointEnergyModels.JointEnergyClassifier
+    jem = mach.model.model.jem
+    n_iter = 100
+    _w = 1500
+    plts = []
+    neach = 10
+    for i in 1:10
+        x = jem.sampler(jem.chain, jem.sampling_rule; niter=n_iter, n_samples=neach, y=i)
+        plts_i = []
+        for j in 1:size(x, 2)
+            xj = x[:,j]
+            xj = reshape(xj, (n_digits, n_digits))
+            plts_i = [plts_i..., Plots.heatmap(rotl90(xj), axis=nothing, cb=false)]
+        end
+        plt = Plots.plot(plts_i..., size=(_w,0.10*_w), layout=(1,10))
+        plts = [plts..., plt]
     end
-    plt = Plots.plot(plts_i..., size=(_w,0.10*_w), layout=(1,10))
-    plts = [plts..., plt]
+    plt = Plots.plot(plts..., size=(_w,_w), layout=(10,1))
+    display(plt)
 end
-plt = Plots.plot(plts..., size=(_w,_w), layout=(10,1))
-display(plt)
 ```
 
 ```{julia}
@@ -110,12 +118,12 @@ println("F1 score (test): $(round(f1,digits=3))")
 Random.seed!(1234)
 
 # Set up search:
-factual_label = 9
+factual_label = 4
 x = reshape(counterfactual_data.X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target = 4
+target = 9
 factual = predict_label(M, counterfactual_data, x)[1]
 γ = 0.5
-T = 1
+T = 100
 
 # Generate counterfactual using generic generator:
 generator = GenericGenerator()
@@ -125,13 +133,29 @@ ce_wachter = generate_counterfactual(
     initialization=:identity,
 )
 
+# CCE:
+λ=[0.0,1.0]
+temp=0.5
+
 # Generate counterfactual using CCE generator:
 generator = CCEGenerator(
-    λ=[0.0,1.0], 
-    temp=0.5, 
-    # opt=CounterfactualExplanations.Generators.JSMADescent(η=1.0),
+    λ=λ, 
+    temp=temp, 
 )
 ce_conformal = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+    converge_when=:generator_conditions,
+)
+
+# Generate counterfactual using CCE generator:
+generator = CCEGenerator(
+    λ=λ, 
+    temp=temp, 
+    opt=CounterfactualExplanations.Generators.JSMADescent(η=1.0),
+)
+ce_conformal_jsma = generate_counterfactual(
     x, target, counterfactual_data, M, generator; 
     decision_threshold=γ, max_iter=T,
     initialization=:identity,
@@ -147,12 +171,13 @@ p1 = Plots.plot(
 )
 plts = [p1]
 
-ces = zip([ce_wachter,ce_conformal])
+ces = zip([ce_wachter,ce_conformal,ce_conformal_jsma])
+_names = ["Wachter", "CCE", "CCE-JSMA"]
 counterfactuals = reduce((x,y)->cat(x,y,dims=3),map(ce -> CounterfactualExplanations.counterfactual(ce[1]), ces))
 phat = reduce((x,y) -> cat(x,y,dims=3), map(ce -> target_probs(ce[1]), ces))
-for x in zip(eachslice(counterfactuals; dims=3), eachslice(phat; dims=3))
-    ce, _phat = (x[1],x[2])
-    _title = "p(y=$(target)|x′)=$(round(_phat[1]; digits=3))"
+for x in zip(eachslice(counterfactuals; dims=3), _names, eachslice(phat; dims=3))
+    ce, _name, _phat = (x[1],x[2],x[3])
+    _title = "$_name (p̂=$(round(_phat[1]; digits=3)))"
     plt = Plots.plot(
         convert2image(MNIST, reshape(ce,28,28)),
         axis=nothing, 
