@@ -52,6 +52,7 @@ function ConformalModel(model, fitresult=nothing; likelihood::Union{Nothing,Symb
     end
 
     # Construct model:
+    testmode!(fitresult[1])
     M = ConformalModel(model, fitresult, likelihood)
     return M
 end
