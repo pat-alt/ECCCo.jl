@@ -188,7 +188,7 @@ If the computed value is different from zero, we can reject the null-hypothesis 
 
 ## Conformal Counterfactual Explanations
 
-In @sec-fidelity, we have advocated for avoiding surrogate models in the context of Counterfactual Explanations. In this section, we introduce an alternative way to generate high-fidelity Counterfactual Explanations. In particular, we propose Conformal Counterfactual Explanations (CCE), that is Counterfactual Explanations that minimize the predictive uncertainty of conformal models. 
+In @sec-fidelity, we have advocated for avoiding surrogate models in the context of Counterfactual Explanations. In this section, we introduce an alternative way to generate high-fidelity Counterfactual Explanations. In particular, we propose Conformal Counterfactual Explanations (ECCCE), that is Counterfactual Explanations that minimize the predictive uncertainty of conformal models. 
 
 ### Minimizing Predictive Uncertainty
 
