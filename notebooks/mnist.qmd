@@ -6,10 +6,19 @@ eval(setup_notebooks)
 # MNIST
 
 ```{julia}
+function pre_process(x; noise::Float32=0.03f0)
+    ϵ = Float32.(randn(size(x)) * noise)
+    x = @.(2 * x - 1) .+ ϵ
+    return x
+end
+```
+
+```{julia}
 # Data:
 n_obs = 10000
 counterfactual_data = load_mnist(n_obs)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
+X = pre_process.(X)
 X = table(permutedims(X))
 labels = counterfactual_data.output_encoder.labels
 input_dim, n_obs = size(counterfactual_data.X)
@@ -23,16 +32,18 @@ First, let's create a couple of image classifier architectures:
 # Model parameters:
 epochs = 100
 batch_size = minimum([Int(round(n_obs/10)), 128])
-n_hidden = 200
+n_hidden = 32
 activation = Flux.relu
-builder = MLJFlux.@builder Flux.Chain(
-    Dense(n_in, n_hidden),
-    BatchNorm(n_hidden, activation),
-    Dense(n_hidden, n_hidden),
-    BatchNorm(n_hidden, activation),
-    Dense(n_hidden, n_out),
-)
-# builder = MLJFlux.Short(n_hidden=n_hidden, dropout=0.2, σ=activation)
+# builder = MLJFlux.@builder Flux.Chain(
+#     Dense(n_in, n_hidden, activation),
+#     Dense(n_hidden, n_hidden, activation),
+#     Dense(n_hidden, n_hidden, activation),
+#     # BatchNorm(n_hidden, activation),
+#     # Dense(n_hidden, n_hidden),
+#     # BatchNorm(n_hidden, activation),
+#     Dense(n_hidden, n_out),
+# )
+builder = MLJFlux.Short(n_hidden=n_hidden, dropout=0.2, σ=activation)
 # builder = MLJFlux.MLP(
 #     hidden=(
 #         n_hidden,
@@ -51,7 +62,7 @@ mlp = NeuralNetworkClassifier(
 )
 
 # Joint Energy Model:
-𝒟x = Uniform(0,1)
+𝒟x = Uniform(-1,1)
 𝒟y = Categorical(ones(output_dim) ./ output_dim)
 sampler = ConditionalSampler(
     𝒟x, 𝒟y, 
@@ -78,11 +89,11 @@ mlp_ens = EnsembleModel(model=mlp, n=5)
 ```
 
 ```{julia}
-cov = .90
+cov = .95
 conf_model = conformal_model(jem; method=:adaptive_inductive, coverage=cov)
 mach = machine(conf_model, X, labels)
 fit!(mach)
-M = CCE.ConformalModel(mach.model, mach.fitresult)
+M = ECCCE.ConformalModel(mach.model, mach.fitresult)
 ```
 
 ```{julia}
@@ -140,12 +151,12 @@ ce_jsma = generate_counterfactual(
     initialization=:identity,
 )
 
-# CCE:
+# ECCCE:
 λ=[0.0,1.0]
 temp=0.01
 
-# Generate counterfactual using CCE generator:
-generator = CCEGenerator(
+# Generate counterfactual using ECCCE generator:
+generator = ECCCEGenerator(
     λ=λ, 
     temp=temp, 
     opt=Flux.Optimise.Adam(),
@@ -157,8 +168,8 @@ ce_conformal = generate_counterfactual(
     converge_when=:generator_conditions,
 )
 
-# Generate counterfactual using CCE generator:
-generator = CCEGenerator(
+# Generate counterfactual using ECCCE generator:
+generator = ECCCEGenerator(
     λ=λ, 
     temp=temp, 
     opt=CounterfactualExplanations.Generators.JSMADescent(η=1.0),
@@ -180,7 +191,7 @@ p1 = Plots.plot(
 plts = [p1]
 
 ces = [ce_wachter, ce_conformal, ce_jsma, ce_conformal_jsma]
-_names = ["Wachter", "CCE", "JSMA", "CCE-JSMA"]
+_names = ["Wachter", "ECCCE", "JSMA", "ECCCE-JSMA"]
 for x in zip(ces, _names)
     ce, _name = (x[1],x[2])
     x = CounterfactualExplanations.counterfactual(ce)
@@ -215,8 +226,8 @@ generators = Dict(
 # Measures:
 measures = [
     CounterfactualExplanations.distance,
-    CCE.distance_from_energy,
-    CCE.distance_from_targets,
+    ECCCE.distance_from_energy,
+    ECCCE.distance_from_targets,
     CounterfactualExplanations.validity,
 ]
 ```

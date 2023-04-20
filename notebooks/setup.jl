@@ -6,8 +6,8 @@ setup_notebooks = quote
     using AlgebraOfGraphics
     using AlgebraOfGraphics: Violin, BoxPlot, BarPlot
     using CairoMakie
-    using CCE
-    using CCE: set_size_penalty, distance_from_energy, distance_from_targets
+    using ECCCE
+    using ECCCE: set_size_penalty, distance_from_energy, distance_from_targets
     using Chain: @chain
     using ConformalPrediction
     using CounterfactualExplanations

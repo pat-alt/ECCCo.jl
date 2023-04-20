@@ -42,7 +42,7 @@ function distance_from_energy(
     ignore_derivatives() do
         _dict = ce.params
         if !(:energy_sampler ∈ collect(keys(_dict)))
-            _dict[:energy_sampler] = CCE.EnergySampler(ce; kwargs...)
+            _dict[:energy_sampler] = ECCCE.EnergySampler(ce; kwargs...)
         end
         sampler = _dict[:energy_sampler]
         push!(conditional_samples, rand(sampler, n; from_buffer=from_buffer))

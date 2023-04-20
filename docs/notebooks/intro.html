@@ -351,14 +351,14 @@ C(X_{\text{test}})=\{y:s(X_{\text{test}},y) \le \hat{q}\}
 </div>
 <p>We can generate samples from <span class="math inline">\(p_{\theta}(X|y)\)</span> following <span class="citation" data-cites="grathwohl2020your">Grathwohl et al. (<a href="references.html#ref-grathwohl2020your" role="doc-biblioref">2020</a>)</span>. In <a href="#fig-energy">Figure&nbsp;<span>2.2</span></a>, I have applied the methodology to our synthetic data.</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> CCE.<span class="fu">ConformalModel</span>(conf_model, mach.fitresult)</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> ECCCE.<span class="fu">ConformalModel</span>(conf_model, mach.fitresult)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>niter <span class="op">=</span> <span class="fl">100</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>nsamples <span class="op">=</span> <span class="fl">100</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plts <span class="op">=</span> []</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i,target) <span class="op">∈</span> <span class="fu">enumerate</span>(counterfactual_data.y_levels)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    sampler <span class="op">=</span> CCE.<span class="fu">EnergySampler</span>(M, counterfactual_data, target; niter<span class="op">=</span>niter, nsamples<span class="op">=</span><span class="fl">100</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    sampler <span class="op">=</span> ECCCE.<span class="fu">EnergySampler</span>(M, counterfactual_data, target; niter<span class="op">=</span>niter, nsamples<span class="op">=</span><span class="fl">100</span>)</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    Xgen <span class="op">=</span> <span class="fu">rand</span>(sampler, nsamples)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    plt <span class="op">=</span> Plots.<span class="fu">plot</span>(M, counterfactual_data; target<span class="op">=</span>target, zoom<span class="op">=-</span><span class="fl">3</span>,cbar<span class="op">=</span><span class="cn">false</span>)</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    Plots.<span class="fu">scatter!</span>(Xgen[<span class="fl">1</span>,<span class="op">:</span>],Xgen[<span class="fl">2</span>,<span class="op">:</span>],alpha<span class="op">=</span><span class="fl">0.5</span>,color<span class="op">=</span>i,shape<span class="op">=:</span>star,label<span class="op">=</span><span class="st">"X|y=</span><span class="sc">$</span>target<span class="st">"</span>)</span>
@@ -477,10 +477,10 @@ x^\prime = \arg \min_{x^\prime}  \ell(M(x^\prime),t) + \lambda \mathbb{I}_{y^\pr
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Untrained Models:</span></span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> <span class="fu">Dict</span>(</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span>cov75 <span class="op">=&gt;</span> CCE.<span class="fu">ConformalModel</span>(<span class="fu">conformal_model</span>(clf; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span><span class="fl">0.75</span>)),</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span>cov80 <span class="op">=&gt;</span> CCE.<span class="fu">ConformalModel</span>(<span class="fu">conformal_model</span>(clf; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span><span class="fl">0.80</span>)),</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span>cov90 <span class="op">=&gt;</span> CCE.<span class="fu">ConformalModel</span>(<span class="fu">conformal_model</span>(clf; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span><span class="fl">0.90</span>)),</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span>cov99 <span class="op">=&gt;</span> CCE.<span class="fu">ConformalModel</span>(<span class="fu">conformal_model</span>(clf; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span><span class="fl">0.99</span>)),</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span>cov75 <span class="op">=&gt;</span> ECCCE.<span class="fu">ConformalModel</span>(<span class="fu">conformal_model</span>(clf; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span><span class="fl">0.75</span>)),</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span>cov80 <span class="op">=&gt;</span> ECCCE.<span class="fu">ConformalModel</span>(<span class="fu">conformal_model</span>(clf; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span><span class="fl">0.80</span>)),</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span>cov90 <span class="op">=&gt;</span> ECCCE.<span class="fu">ConformalModel</span>(<span class="fu">conformal_model</span>(clf; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span><span class="fl">0.90</span>)),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span>cov99 <span class="op">=&gt;</span> ECCCE.<span class="fu">ConformalModel</span>(<span class="fu">conformal_model</span>(clf; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span><span class="fl">0.99</span>)),</span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then we can simply loop over the datasets and eventually concatenate the results like so:</p>
@@ -489,8 +489,8 @@ x^\prime = \arg \min_{x^\prime}  \ell(M(x^\prime),t) + \lambda \mathbb{I}_{y^\pr
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>bmks <span class="op">=</span> []</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>measures <span class="op">=</span> [</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    CounterfactualExplanations.distance,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    CCE.distance_from_energy,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    CCE.distance_from_targets</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    ECCCE.distance_from_energy,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    ECCCE.distance_from_targets</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (dataname, dataset) <span class="kw">in</span> datasets</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    bmk <span class="op">=</span> <span class="fu">benchmark</span>(</span>

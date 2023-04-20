@@ -1,6 +1,6 @@
-using CCE
+using ECCCE
 using Test
 
-@testset "CCE.jl" begin
+@testset "ECCCE.jl" begin
     # Write your tests here.
 end

@@ -122,14 +122,14 @@ We can generate samples from $p_{\theta}(X|y)$ following @grathwohl2020your. In 
 #| label: fig-energy
 #| output: true
 
-M = CCE.ConformalModel(conf_model, mach.fitresult)
+M = ECCCE.ConformalModel(conf_model, mach.fitresult)
 
 niter = 100
 nsamples = 100
 
 plts = []
 for (i,target) ∈ enumerate(counterfactual_data.y_levels)
-    sampler = CCE.EnergySampler(M, counterfactual_data, target; niter=niter, nsamples=100)
+    sampler = ECCCE.EnergySampler(M, counterfactual_data, target; niter=niter, nsamples=100)
     Xgen = rand(sampler, nsamples)
     plt = Plots.plot(M, counterfactual_data; target=target, zoom=-3,cbar=false)
     Plots.scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=i,shape=:star,label="X|y=$target")
@@ -294,11 +294,11 @@ Plots.plot(plts..., layout=(length(cvgs),length(cvgs)), size=(2img_height*length
 
 niter = 100
 nsamples = 100
-M = CCE.ConformalModel(conf_model, mach.fitresult; likelihood=:classification_multi)
+M = ECCCE.ConformalModel(conf_model, mach.fitresult; likelihood=:classification_multi)
 
 plts = []
 for target ∈ counterfactual_data.y_levels
-    sampler = CCE.EnergySampler(M, counterfactual_data, target; niter=niter, nsamples=100)
+    sampler = ECCCE.EnergySampler(M, counterfactual_data, target; niter=niter, nsamples=100)
     Xgen = rand(sampler, nsamples)
     plt = Plots.plot(M, counterfactual_data; target=target, zoom=-0.5,cbar=false)
     Plots.scatter!(Xgen[1,:],Xgen[2,:],alpha=0.5,color=target,shape=:star,label="X|y=$target")
@@ -354,10 +354,10 @@ datasets = Dict(
 
 # Untrained Models:
 models = Dict(
-    :cov75 => CCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.75)),
-    :cov80 => CCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.80)),
-    :cov90 => CCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.90)),
-    :cov99 => CCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.99)),
+    :cov75 => ECCCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.75)),
+    :cov80 => ECCCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.80)),
+    :cov90 => ECCCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.90)),
+    :cov99 => ECCCE.ConformalModel(conformal_model(clf; method=:simple_inductive, coverage=0.99)),
 )
 ```
 
@@ -369,8 +369,8 @@ using CounterfactualExplanations.Evaluation: benchmark
 bmks = []
 measures = [
     CounterfactualExplanations.distance,
-    CCE.distance_from_energy,
-    CCE.distance_from_targets
+    ECCCE.distance_from_energy,
+    ECCCE.distance_from_targets
 ]
 for (dataname, dataset) in datasets
     bmk = benchmark(
