@@ -60,16 +60,16 @@ for (dataname, data) in datasets
         conf_model = conformal_model(clf; method=:simple_inductive, coverage=cov)
         mach = machine(conf_model, X, y)
         fit!(mach)
-        M = ECCCE.ConformalModel(mach.model, mach.fitresult)
+        M = ECCCo.ConformalModel(mach.model, mach.fitresult)
 
-        # Set up ECCCE:
+        # Set up ECCCo:
         factual_label = predict_label(M, data, x)[1]
         target_label = data.y_levels[data.y_levels .!= factual_label][1]
 
         for λ in Λ, temp in temps
 
-            # ECCCE for given classifier, coverage, temperature and λ:
-            generator = ECCCEGenerator(temp=temp, λ=[l2_λ,λ], opt=opt)
+            # ECCCo for given classifier, coverage, temperature and λ:
+            generator = ECCCoGenerator(temp=temp, λ=[l2_λ,λ], opt=opt)
             @assert predict_label(M, data, x) != target_label
             ce = try
                 generate_counterfactual(
@@ -158,13 +158,13 @@ generators = Dict(
 )
 
 # Untrained Models:
-models = Dict(Symbol("cov$(Int(100*cov))") => ECCCE.ConformalModel(conformal_model(mlp; method=:simple_inductive, coverage=cov)) for cov in cvgs)
+models = Dict(Symbol("cov$(Int(100*cov))") => ECCCo.ConformalModel(conformal_model(mlp; method=:simple_inductive, coverage=cov)) for cov in cvgs)
 
 # Measures:
 measures = [
     CounterfactualExplanations.distance,
-    ECCCE.distance_from_energy,
-    ECCCE.distance_from_targets,
+    ECCCo.distance_from_energy,
+    ECCCo.distance_from_targets,
     CounterfactualExplanations.validity,
 ]
 ```
@@ -187,7 +187,7 @@ for (dataname, data) in datasets
 
         # Model training:
         M = train(M, data)
-        # Set up ECCCE:
+        # Set up ECCCo:
         factual_label = predict_label(M, data, x)[1]
         target_label = data.y_levels[data.y_levels .!= factual_label][1]
     
@@ -195,13 +195,13 @@ for (dataname, data) in datasets
 
             # Generators:
             _generators = deepcopy(generators)
-            _generators[:cce] = ECCCEGenerator(temp=_temp, λ=[l2_λ,λ], opt=opt)
-            _generators[:energy] = ECCCE.EnergyDrivenGenerator(λ=[l2_λ,λ], opt=opt)
-            _generators[:target] = ECCCE.TargetDrivenGenerator(λ=[l2_λ,λ], opt=opt)
+            _generators[:cce] = ECCCoGenerator(temp=_temp, λ=[l2_λ,λ], opt=opt)
+            _generators[:energy] = ECCCo.EnergyDrivenGenerator(λ=[l2_λ,λ], opt=opt)
+            _generators[:target] = ECCCo.TargetDrivenGenerator(λ=[l2_λ,λ], opt=opt)
 
             for (gen_name, gen) in _generators
 
-                # ECCCE for given models, λ and generator:
+                # ECCCo for given models, λ and generator:
                 @assert predict_label(M, data, x) != target_label
                 ce = try
                     generate_counterfactual(
@@ -300,9 +300,9 @@ bmks = []
 for (dataname, dataset) in datasets
     for λ in Λ, temp in temps
         _generators = deepcopy(generators)
-        _generators[:cce] = ECCCEGenerator(temp=temp, λ=[l2_λ,λ], opt=opt)
-        _generators[:energy] = ECCCE.EnergyDrivenGenerator(λ=[l2_λ,λ], opt=opt)
-        _generators[:target] = ECCCE.TargetDrivenGenerator(λ=[l2_λ,λ], opt=opt)
+        _generators[:cce] = ECCCoGenerator(temp=temp, λ=[l2_λ,λ], opt=opt)
+        _generators[:energy] = ECCCo.EnergyDrivenGenerator(λ=[l2_λ,λ], opt=opt)
+        _generators[:target] = ECCCo.TargetDrivenGenerator(λ=[l2_λ,λ], opt=opt)
         bmk = benchmark(
             dataset; 
             models=deepcopy(models), 
