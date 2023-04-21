@@ -42,40 +42,27 @@ function EnergySampler(
 )
 
     @assert y ∈ data.y_levels || y ∈ 1:length(data.y_levels)
-    K = length(data.y_levels)
-    𝒟x = Normal()
-    𝒟y = Categorical(ones(K) ./ K)
-    sampler = ConditionalSampler(𝒟x, 𝒟y)
+
+    if model.model.model isa JointEnergyClassifier
+        sampler = model.model.model.jem.sampler
+    else
+        K = length(data.y_levels)
+        input_size = size(selectdim(data.X, ndims(data.X), 1))
+        𝒟x = Uniform(extrema(data.X)...)
+        𝒟y = Categorical(ones(K) ./ K)
+        sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=input_size)
+    end
     yidx = get_target_index(data.y_levels, y)
 
     # Initiate:
     energy_sampler = EnergySampler(model, data, sampler, opt, nothing, nothing)
 
     # Generate samples:
-    generate_samples!(energy_sampler, nsamples, yidx; niter=niter)
+    chain = model.model.model.jem.chain
+    rule = model.model.model.jem.sampling_rule
+    energy_sampler.sampler(chain, rule; niter=niter, n_samples=nsamples, y=yidx)
 
     return energy_sampler
-end
-
-"""
-    generate_samples(e::EnergySampler, n::Int, y::Int; niter::Int=100)
-
-Generates `n` samples from `EnergySampler` for conditioning value `y`.
-"""
-function generate_samples(e::EnergySampler, n::Int, y::Int; niter::Int=100)
-    X = e.sampler(e.model, e.opt, (size(e.data.X, 1), n); niter=niter, y=y)
-    X = X[:,map(x -> !any(isnan.(x)), eachcol(X))]
-    return X
-end
-
-"""
-    generate_samples!(e::EnergySampler, n::Int, y::Int; niter::Int=100)
-
-Generates `n` samples from `EnergySampler` for conditioning value `y`. Assigns samples and conditioning value to `EnergySampler`.
-"""
-function generate_samples!(e::EnergySampler, n::Int, y::Int; niter::Int=100)
-    e.buffer = generate_samples(e,n,y;niter=niter)
-    e.yidx = y
 end
 
 """
@@ -105,12 +92,13 @@ end
 Overloads the `rand` method to randomly draw `n` samples from `EnergySampler`.
 """
 function Base.rand(sampler::EnergySampler, n::Int=100; from_buffer=true, niter::Int=100)
-    ntotal = size(sampler.buffer, 2)
+    ntotal = size(sampler.sampler.buffer)[end]
     idx = rand(1:ntotal, n)
     if from_buffer
-        X = sampler.buffer[:, idx]
+        X = sampler.sampler.buffer[:, idx]
     else
-        X = generate_samples(sampler, n, sampler.yidx; niter=niter)
+        chain = sampler.model.fitresult[1]
+        X = sampler.sampler(chain, sampler.opt; niter=niter, n_samples=n, y=sampler.yidx)
     end
     return X
 end

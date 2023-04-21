@@ -36,20 +36,19 @@ end
 
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=10000, from_buffer=true, agg=mean, kwargs...
+    n::Int=1, niter=200, from_buffer=true, agg=mean, kwargs...
 )
     conditional_samples = []
     ignore_derivatives() do
         _dict = ce.params
         if !(:energy_sampler ∈ collect(keys(_dict)))
-            _dict[:energy_sampler] = ECCCo.EnergySampler(ce; kwargs...)
+            _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=1000, kwargs...)
         end
         sampler = _dict[:energy_sampler]
         push!(conditional_samples, rand(sampler, n; from_buffer=from_buffer))
     end
     x′ = CounterfactualExplanations.counterfactual(ce)
-    loss = map(eachslice(x′, dims=3)) do x
-        x = Matrix(x)
+    loss = map(eachslice(x′, dims=ndims(x′))) do x
         Δ = map(eachcol(conditional_samples[1])) do xsample
             norm(x - xsample)
         end
@@ -63,7 +62,7 @@ end
 
 function distance_from_targets(
     ce::AbstractCounterfactualExplanation;
-    n::Int=10000, agg=mean
+    n::Int=1000, agg=mean
 )
     target_idx = ce.data.output_encoder.labels .== ce.target
     target_samples = ce.data.X[:,target_idx] |>
