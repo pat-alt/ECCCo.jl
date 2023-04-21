@@ -9,6 +9,7 @@ include("losses.jl")
 include("generator.jl")
 include("sampling.jl")
 
-export ECCCoGenerator, EnergySampler, set_size_penalty, distance_from_energy
+export CCEGenerator, ECCCoGenerator, EnergySampler
+export set_size_penalty, distance_from_energy
 
 end

@@ -1,7 +1,12 @@
 using CounterfactualExplanations.Objectives
 
-"Constructor for `ECCCoGenerator`."
-function ECCCoGenerator(; λ::Union{AbstractFloat,Vector{<:AbstractFloat}}=[0.1, 1.0], κ::Real=1.0, temp::Real=0.05, kwargs...)
+"Constructor for `CCEGenerator`."
+function CCEGenerator(; 
+    λ::Union{AbstractFloat,Vector{<:AbstractFloat}}=[0.1, 1.0], 
+    κ::Real=1.0, 
+    temp::Real=0.5, 
+    kwargs...
+)
     function _set_size_penalty(ce::AbstractCounterfactualExplanation)
         return ECCCo.set_size_penalty(ce; κ=κ, temp=temp)
     end
@@ -11,7 +16,7 @@ function ECCCoGenerator(; λ::Union{AbstractFloat,Vector{<:AbstractFloat}}=[0.1,
 end
 
 "Constructor for `ECECCCoGenerator`: Energy Constrained Conformal Counterfactual Explanation Generator."
-function ECECCCoGenerator(; 
+function ECCCoGenerator(; 
     λ::Union{AbstractFloat,Vector{<:AbstractFloat}}=[0.1, 1.0, 1.0], 
     κ::Real=1.0, 
     temp::Real=0.5, 
