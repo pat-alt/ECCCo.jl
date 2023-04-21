@@ -330,13 +330,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Untrained Models:</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> <span class="fu">Dict</span>(<span class="fu">Symbol</span>(<span class="st">"cov</span><span class="sc">$</span>(<span class="fu">Int</span>(<span class="fl">100</span><span class="op">*</span>cov))<span class="st">"</span>) <span class="op">=&gt;</span> ECCCE.<span class="fu">ConformalModel</span>(<span class="fu">conformal_model</span>(mlp; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span>cov)) <span class="cf">for</span> cov <span class="kw">in</span> cvgs)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> <span class="fu">Dict</span>(<span class="fu">Symbol</span>(<span class="st">"cov</span><span class="sc">$</span>(<span class="fu">Int</span>(<span class="fl">100</span><span class="op">*</span>cov))<span class="st">"</span>) <span class="op">=&gt;</span> ECCCo.<span class="fu">ConformalModel</span>(<span class="fu">conformal_model</span>(mlp; method<span class="op">=:</span>simple_inductive, coverage<span class="op">=</span>cov)) <span class="cf">for</span> cov <span class="kw">in</span> cvgs)</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Measures:</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>measures <span class="op">=</span> [</span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    CounterfactualExplanations.distance,</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    ECCCE.distance_from_energy,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    ECCCE.distance_from_targets,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    ECCCo.distance_from_energy,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    ECCCo.distance_from_targets,</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    CounterfactualExplanations.validity,</span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -397,9 +397,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (dataname, dataset) <span class="kw">in</span> datasets</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> λ <span class="kw">in</span> Λ, temp <span class="kw">in</span> temps</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        _generators <span class="op">=</span> <span class="fu">deepcopy</span>(generators)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        _generators[<span class="op">:</span>cce] <span class="op">=</span> <span class="fu">ECCCEGenerator</span>(temp<span class="op">=</span>temp, λ<span class="op">=</span>[l2_λ,λ], opt<span class="op">=</span>opt)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        _generators[<span class="op">:</span>energy] <span class="op">=</span> ECCCE.<span class="fu">EnergyDrivenGenerator</span>(λ<span class="op">=</span>[l2_λ,λ], opt<span class="op">=</span>opt)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        _generators[<span class="op">:</span>target] <span class="op">=</span> ECCCE.<span class="fu">TargetDrivenGenerator</span>(λ<span class="op">=</span>[l2_λ,λ], opt<span class="op">=</span>opt)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        _generators[<span class="op">:</span>cce] <span class="op">=</span> <span class="fu">ECCCoGenerator</span>(temp<span class="op">=</span>temp, λ<span class="op">=</span>[l2_λ,λ], opt<span class="op">=</span>opt)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        _generators[<span class="op">:</span>energy] <span class="op">=</span> ECCCo.<span class="fu">EnergyDrivenGenerator</span>(λ<span class="op">=</span>[l2_λ,λ], opt<span class="op">=</span>opt)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        _generators[<span class="op">:</span>target] <span class="op">=</span> ECCCo.<span class="fu">TargetDrivenGenerator</span>(λ<span class="op">=</span>[l2_λ,λ], opt<span class="op">=</span>opt)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        bmk <span class="op">=</span> <span class="fu">benchmark</span>(</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            dataset; </span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            models<span class="op">=</span><span class="fu">deepcopy</span>(models), </span>

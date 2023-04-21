@@ -496,7 +496,7 @@ git-tree-sha1 = "5837a837389fccf076445fce071c8ddaea35a566"
 uuid = "fa6b7ba4-c1ee-5f82-b5fc-ecf0adba8f74"
 version = "0.6.8"
 
-[[deps.ECCCE]]
+[[deps.ECCCo]]
 deps = ["CategoricalArrays", "ChainRules", "ConformalPrediction", "CounterfactualExplanations", "Distances", "Distributions", "Flux", "JointEnergyModels", "LinearAlgebra", "MLJBase", "MLJEnsembles", "MLJFlux", "MLJModelInterface", "MLUtils", "Parameters", "PkgTemplates", "Plots", "Random", "SliceMap", "Statistics", "StatsBase", "StatsPlots", "Term"]
 path = ".."
 uuid = "0232c203-4013-4b0d-ad96-43e3e11ac3bf"

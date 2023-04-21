@@ -33,7 +33,7 @@ First, let's create a couple of image classifier architectures:
 epochs = 100
 batch_size = minimum([Int(round(n_obs/10)), 128])
 n_hidden = 32
-activation = Flux.relu
+activation = Flux.swish
 # builder = MLJFlux.@builder Flux.Chain(
 #     Dense(n_in, n_hidden, activation),
 #     Dense(n_hidden, n_hidden, activation),
@@ -43,7 +43,7 @@ activation = Flux.relu
 #     # BatchNorm(n_hidden, activation),
 #     Dense(n_hidden, n_out),
 # )
-builder = MLJFlux.Short(n_hidden=n_hidden, dropout=0.2, σ=activation)
+builder = MLJFlux.Short(n_hidden=n_hidden, dropout=0.1, σ=activation)
 # builder = MLJFlux.MLP(
 #     hidden=(
 #         n_hidden,
@@ -52,7 +52,7 @@ builder = MLJFlux.Short(n_hidden=n_hidden, dropout=0.2, σ=activation)
 #     ), 
 #     σ=activation
 # )
-α = [1.0,1.0,1e-2]
+α = [1.0,1.0,1e-1]
 
 # Simple MLP:
 mlp = NeuralNetworkClassifier(
@@ -93,13 +93,13 @@ cov = .95
 conf_model = conformal_model(jem; method=:adaptive_inductive, coverage=cov)
 mach = machine(conf_model, X, labels)
 fit!(mach)
-M = ECCCE.ConformalModel(mach.model, mach.fitresult)
+M = ECCCo.ConformalModel(mach.model, mach.fitresult)
 ```
 
 ```{julia}
 if mach.model.model isa JointEnergyModels.JointEnergyClassifier
     jem = mach.model.model.jem
-    n_iter = 100
+    n_iter = 500
     _w = 1500
     plts = []
     neach = 10
@@ -151,12 +151,12 @@ ce_jsma = generate_counterfactual(
     initialization=:identity,
 )
 
-# ECCCE:
+# ECCCo:
 λ=[0.0,1.0]
 temp=0.01
 
-# Generate counterfactual using ECCCE generator:
-generator = ECCCEGenerator(
+# Generate counterfactual using ECCCo generator:
+generator = CCEGenerator(
     λ=λ, 
     temp=temp, 
     opt=Flux.Optimise.Adam(),
@@ -168,8 +168,8 @@ ce_conformal = generate_counterfactual(
     converge_when=:generator_conditions,
 )
 
-# Generate counterfactual using ECCCE generator:
-generator = ECCCEGenerator(
+# Generate counterfactual using ECCCo generator:
+generator = CCEGenerator(
     λ=λ, 
     temp=temp, 
     opt=CounterfactualExplanations.Generators.JSMADescent(η=1.0),
@@ -191,7 +191,92 @@ p1 = Plots.plot(
 plts = [p1]
 
 ces = [ce_wachter, ce_conformal, ce_jsma, ce_conformal_jsma]
-_names = ["Wachter", "ECCCE", "JSMA", "ECCCE-JSMA"]
+_names = ["Wachter", "ECCCo", "JSMA", "ECCCo-JSMA"]
+for x in zip(ces, _names)
+    ce, _name = (x[1],x[2])
+    x = CounterfactualExplanations.counterfactual(ce)
+    _phat = target_probs(ce)
+    _title = "$_name (p̂=$(round(_phat[1]; digits=3)))"
+    plt = Plots.plot(
+        convert2image(MNIST, reshape(x,28,28)),
+        axis=nothing, 
+        size=(img_height, img_height),
+        title=_title
+    )
+    plts = [plts..., plt]
+end
+plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
+display(plt)
+savefig(plt, joinpath(www_path, "cce_mnist.png"))
+```
+
+```{julia}
+# Random.seed!(1234)
+
+# Set up search:
+factual_label = 8
+x = reshape(counterfactual_data.X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
+target = 3
+factual = predict_label(M, counterfactual_data, x)[1]
+γ = 0.5
+T = 100
+
+# Generate counterfactual using generic generator:
+generator = GenericGenerator(opt=Flux.Optimise.Adam(),)
+ce_wachter = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+)
+
+generator = GreedyGenerator(η=1.0)
+ce_jsma = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+)
+
+# ECCCo:
+λ=[0.0,1.0,1.0]
+temp=0.01
+
+# Generate counterfactual using ECCCo generator:
+generator = ECCCoGenerator(
+    λ=λ, 
+    temp=temp, 
+    opt=Flux.Optimise.Adam(),
+)
+ce_conformal = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+    converge_when=:generator_conditions,
+)
+
+# Generate counterfactual using ECCCo generator:
+generator = ECCCoGenerator(
+    λ=λ, 
+    temp=temp, 
+    opt=CounterfactualExplanations.Generators.JSMADescent(η=1.0),
+)
+ce_conformal_jsma = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+    converge_when=:generator_conditions,
+)
+
+# Plot:
+p1 = Plots.plot(
+    convert2image(MNIST, reshape(x,28,28)),
+    axis=nothing, 
+    size=(img_height, img_height),
+    title="Factual"
+)
+plts = [p1]
+
+ces = [ce_wachter, ce_conformal, ce_jsma, ce_conformal_jsma]
+_names = ["Wachter", "ECCCo", "JSMA", "ECCCo-JSMA"]
 for x in zip(ces, _names)
     ce, _name = (x[1],x[2])
     x = CounterfactualExplanations.counterfactual(ce)
@@ -226,8 +311,8 @@ generators = Dict(
 # Measures:
 measures = [
     CounterfactualExplanations.distance,
-    ECCCE.distance_from_energy,
-    ECCCE.distance_from_targets,
+    ECCCo.distance_from_energy,
+    ECCCo.distance_from_targets,
     CounterfactualExplanations.validity,
 ]
 ```
