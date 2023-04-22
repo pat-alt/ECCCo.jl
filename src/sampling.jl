@@ -57,10 +57,8 @@ function EnergySampler(
     # Initiate:
     energy_sampler = EnergySampler(model, data, sampler, opt, nothing, nothing)
 
-    # Generate samples:
-    chain = model.model.model.jem.chain
-    rule = model.model.model.jem.sampling_rule
-    energy_sampler.sampler(chain, rule; niter=niter, n_samples=nsamples, y=yidx)
+    # Generate conditional samples:
+    generate_samples!(energy_sampler, nsamples, yidx; niter=niter)
 
     return energy_sampler
 end
@@ -87,18 +85,42 @@ function EnergySampler(
 end
 
 """
+    generate_samples(e::EnergySampler, n::Int, y::Int; niter::Int=100)
+
+Generates `n` samples from `EnergySampler` for conditioning value `y`.
+"""
+function generate_samples(e::EnergySampler, n::Int, y::Int; niter::Int=100)
+
+    # Generate samples:
+    chain = e.model.fitresult[1]
+    rule = e.opt
+    xsamples = e.sampler(chain, rule; niter=niter, n_samples=n, y=y)
+
+    return xsamples
+end
+
+"""
+    generate_samples!(e::EnergySampler, n::Int, y::Int; niter::Int=100)
+
+Generates `n` samples from `EnergySampler` for conditioning value `y`. Assigns samples and conditioning value to `EnergySampler`.
+"""
+function generate_samples!(e::EnergySampler, n::Int, y::Int; niter::Int=100)
+    e.buffer = generate_samples(e, n, y; niter=niter)
+    e.yidx = y
+end
+
+"""
     Base.rand(sampler::EnergySampler, n::Int=100; retrain=false)
 
 Overloads the `rand` method to randomly draw `n` samples from `EnergySampler`.
 """
 function Base.rand(sampler::EnergySampler, n::Int=100; from_buffer=true, niter::Int=100)
-    ntotal = size(sampler.sampler.buffer)[end]
+    ntotal = size(sampler.buffer, 2)
     idx = rand(1:ntotal, n)
     if from_buffer
-        X = sampler.sampler.buffer[:, idx]
+        X = sampler.buffer[:, idx]
     else
-        chain = sampler.model.fitresult[1]
-        X = sampler.sampler(chain, sampler.opt; niter=niter, n_samples=n, y=sampler.yidx)
+        X = generate_samples(sampler, n, sampler.yidx; niter=niter)
     end
     return X
 end
