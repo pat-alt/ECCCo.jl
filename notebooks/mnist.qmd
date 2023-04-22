@@ -32,7 +32,7 @@ First, let's create a couple of image classifier architectures:
 # Model parameters:
 epochs = 100
 batch_size = minimum([Int(round(n_obs/10)), 128])
-n_hidden = 50
+n_hidden = 128
 activation = Flux.swish
 builder = MLJFlux.@builder Flux.Chain(
 
@@ -71,7 +71,7 @@ mlp = NeuralNetworkClassifier(
 sampler = ConditionalSampler(
     𝒟x, 𝒟y, 
     input_size=(input_dim,), 
-    batch_size=10
+    batch_size=1
 )
 jem = JointEnergyClassifier(
     sampler;
@@ -131,24 +131,15 @@ println("F1 score (test): $(round(f1,digits=3))")
 ```
 
 ```{julia}
-𝒟x = Uniform(-1,1)
-𝒟y = Categorical(ones(K) ./ K)
-sampler = UnconditionalSampler(𝒟x; input_size=(D,))
-conditional_sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=(D,))
-opt = ImproperSGLD()
-n_iter = 100
-```
-
-```{julia}
-# Random.seed!(1234)
+Random.seed!(1234)
 
 # Set up search:
-factual_label = 8
+factual_label = 9
 x = reshape(counterfactual_data.X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target = 3
+target = 4
 factual = predict_label(M, counterfactual_data, x)[1]
 γ = 0.5
-T = 100
+T = 250
 
 η=1.0
 
@@ -168,8 +159,8 @@ ce_jsma = generate_counterfactual(
 )
 
 # ECCCo:
-λ=[0.0,1.0,10.0]
-temp=0.01
+λ=[0.1,0.1,0.1]
+temp=0.1
 
 # Generate counterfactual using ECCCo generator:
 generator = ECCCoGenerator(
