@@ -36,13 +36,13 @@ end
 
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=1, niter=200, from_buffer=true, agg=mean, kwargs...
+    n::Int=10, niter=200, from_buffer=true, agg=mean, kwargs...
 )
     conditional_samples = []
     ignore_derivatives() do
         _dict = ce.params
         if !(:energy_sampler ∈ collect(keys(_dict)))
-            _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=1000, kwargs...)
+            _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
         end
         sampler = _dict[:energy_sampler]
         push!(conditional_samples, rand(sampler, n; from_buffer=from_buffer))

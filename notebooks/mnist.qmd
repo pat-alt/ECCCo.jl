@@ -94,7 +94,7 @@ mlp_ens = EnsembleModel(model=mlp, n=50)
 
 ```{julia}
 cov = .95
-conf_model = conformal_model(jem; method=:adaptive_inductive, coverage=cov)
+conf_model = conformal_model(jem; method=:simple_inductive, coverage=cov)
 mach = machine(conf_model, X, labels)
 fit!(mach)
 M = ECCCo.ConformalModel(mach.model, mach.fitresult)
@@ -128,6 +128,101 @@ test_data = load_mnist_test()
 test_data.X = pre_process.(test_data.X)
 f1 = CounterfactualExplanations.Models.model_evaluation(M, test_data)
 println("F1 score (test): $(round(f1,digits=3))")
+```
+
+```{julia}
+𝒟x = Uniform(-1,1)
+𝒟y = Categorical(ones(K) ./ K)
+sampler = UnconditionalSampler(𝒟x; input_size=(D,))
+conditional_sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=(D,))
+opt = ImproperSGLD()
+n_iter = 100
+```
+
+```{julia}
+# Random.seed!(1234)
+
+# Set up search:
+factual_label = 8
+x = reshape(counterfactual_data.X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
+target = 3
+factual = predict_label(M, counterfactual_data, x)[1]
+γ = 0.5
+T = 100
+
+η=1.0
+
+# Generate counterfactual using generic generator:
+generator = GenericGenerator()
+ce_wachter = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+)
+
+generator = GreedyGenerator(η=η)
+ce_jsma = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+)
+
+# ECCCo:
+λ=[0.0,1.0,10.0]
+temp=0.01
+
+# Generate counterfactual using ECCCo generator:
+generator = ECCCoGenerator(
+    λ=λ, 
+    temp=temp, 
+)
+ce_conformal = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+    converge_when=:generator_conditions,
+)
+
+# Generate counterfactual using ECCCo generator:
+generator = ECCCoGenerator(
+    λ=λ, 
+    temp=temp, 
+    opt=CounterfactualExplanations.Generators.JSMADescent(η=η),
+)
+ce_conformal_jsma = generate_counterfactual(
+    x, target, counterfactual_data, M, generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+    converge_when=:generator_conditions,
+)
+
+# Plot:
+p1 = Plots.plot(
+    convert2image(MNIST, reshape(x,28,28)),
+    axis=nothing, 
+    size=(img_height, img_height),
+    title="Factual"
+)
+plts = [p1]
+
+ces = [ce_wachter, ce_conformal, ce_jsma, ce_conformal_jsma]
+_names = ["Wachter", "ECCCo", "JSMA", "ECCCo-JSMA"]
+for x in zip(ces, _names)
+    ce, _name = (x[1],x[2])
+    x = CounterfactualExplanations.counterfactual(ce)
+    _phat = target_probs(ce)
+    _title = "$_name (p̂=$(round(_phat[1]; digits=3)))"
+    plt = Plots.plot(
+        convert2image(MNIST, reshape(x,28,28)),
+        axis=nothing, 
+        size=(img_height, img_height),
+        title=_title
+    )
+    plts = [plts..., plt]
+end
+plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
+display(plt)
+savefig(plt, joinpath(www_path, "eccco_mnist.png"))
 ```
 
 ```{julia}
@@ -213,93 +308,6 @@ end
 plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
 display(plt)
 savefig(plt, joinpath(www_path, "cce_mnist.png"))
-```
-
-```{julia}
-# Random.seed!(1234)
-
-# Set up search:
-factual_label = 8
-x = reshape(counterfactual_data.X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target = 3
-factual = predict_label(M, counterfactual_data, x)[1]
-γ = 0.5
-T = 100
-
-η=0.1
-
-# Generate counterfactual using generic generator:
-generator = GenericGenerator(opt=Flux.Optimise.Adam(),)
-ce_wachter = generate_counterfactual(
-    x, target, counterfactual_data, M, generator; 
-    decision_threshold=γ, max_iter=T,
-    initialization=:identity,
-)
-
-generator = GreedyGenerator(η=η)
-ce_jsma = generate_counterfactual(
-    x, target, counterfactual_data, M, generator; 
-    decision_threshold=γ, max_iter=T,
-    initialization=:identity,
-)
-
-# ECCCo:
-λ=[0.0,0.0,10.0]
-temp=0.5
-
-# Generate counterfactual using ECCCo generator:
-generator = ECCCoGenerator(
-    λ=λ, 
-    temp=temp, 
-    opt=Flux.Optimise.Adam(),
-)
-ce_conformal = generate_counterfactual(
-    x, target, counterfactual_data, M, generator; 
-    decision_threshold=γ, max_iter=T,
-    initialization=:identity,
-    converge_when=:generator_conditions,
-)
-
-# Generate counterfactual using ECCCo generator:
-generator = ECCCoGenerator(
-    λ=λ, 
-    temp=temp, 
-    opt=CounterfactualExplanations.Generators.JSMADescent(η=η),
-)
-ce_conformal_jsma = generate_counterfactual(
-    x, target, counterfactual_data, M, generator; 
-    decision_threshold=γ, max_iter=T,
-    initialization=:identity,
-    converge_when=:generator_conditions,
-)
-
-# Plot:
-p1 = Plots.plot(
-    convert2image(MNIST, reshape(x,28,28)),
-    axis=nothing, 
-    size=(img_height, img_height),
-    title="Factual"
-)
-plts = [p1]
-
-ces = [ce_wachter, ce_conformal, ce_jsma, ce_conformal_jsma]
-_names = ["Wachter", "ECCCo", "JSMA", "ECCCo-JSMA"]
-for x in zip(ces, _names)
-    ce, _name = (x[1],x[2])
-    x = CounterfactualExplanations.counterfactual(ce)
-    _phat = target_probs(ce)
-    _title = "$_name (p̂=$(round(_phat[1]; digits=3)))"
-    plt = Plots.plot(
-        convert2image(MNIST, reshape(x,28,28)),
-        axis=nothing, 
-        size=(img_height, img_height),
-        title=_title
-    )
-    plts = [plts..., plt]
-end
-plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
-display(plt)
-savefig(plt, joinpath(www_path, "eccco_mnist.png"))
 ```
 
 ```{julia}
