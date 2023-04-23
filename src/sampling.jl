@@ -92,9 +92,10 @@ Generates `n` samples from `EnergySampler` for conditioning value `y`.
 function generate_samples(e::EnergySampler, n::Int, y::Int; niter::Int=100)
 
     # Generate samples:
-    chain = e.model.fitresult[1]
+    # chain = e.model.fitresult[1]
+    f(x) = logits(e.model, x)
     rule = e.opt
-    xsamples = e.sampler(chain, rule; niter=niter, n_samples=n, y=y)
+    xsamples = e.sampler(f, rule; niter=niter, n_samples=n, y=y)
 
     return xsamples
 end

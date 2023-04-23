@@ -32,14 +32,46 @@ struct ConformalModel <: Models.AbstractDifferentiableJuliaModel
     end
 end
 
-# Outer constructor method:
+"""
+    _get_chains(fitresult)
+
+Private function that extracts the chains from a fitted model.
+"""
+function _get_chains(fitresult)
+    if fitresult isa MLJEnsembles.WrappedEnsemble
+        chains = map(res -> res[1], fitresult.ensemble)
+    else
+        chains = [fitresult[1]]
+    end
+    return chains
+end
+
+"""
+    _outdim(fitresult)
+
+Private function that extracts the output dimension from a fitted model.
+"""
+function _outdim(fitresult)
+    if fitresult isa MLJEnsembles.WrappedEnsemble
+        outdim = length(fitresult.ensemble[1][2])
+    else
+        outdim = length(fitresult[2])
+    end
+    return outdim
+end
+
+"""
+    ConformalModel(model, fitresult=nothing; likelihood::Union{Nothing,Symbol}=nothing)
+
+Outer constructor for `ConformalModel`. If `fitresult` is not specified, the model is not fitted and `likelihood` is inferred from the model. If `fitresult` is specified, `likelihood` is inferred from the output dimension of the model. If `likelihood` is not specified, it defaults to `:classification_binary`.
+"""
 function ConformalModel(model, fitresult=nothing; likelihood::Union{Nothing,Symbol}=nothing)
 
     # Check if model is fitted and infer likelihood:
     if isnothing(fitresult)
         @info "Conformal Model is not fitted."
     else
-        outdim = length(fitresult[2])
+        outdim = _outdim(fitresult)
         _likelihood = outdim == 2 ? :classification_binary : :classification_multi
         @assert likelihood == _likelihood || isnothing(likelihood) "Specification of `likelihood` does not match the output dimension of the model."
         likelihood = _likelihood
@@ -52,7 +84,7 @@ function ConformalModel(model, fitresult=nothing; likelihood::Union{Nothing,Symb
     end
 
     # Construct model:
-    testmode!(fitresult[1])
+    testmode!.(_get_chains(fitresult))
     M = ConformalModel(model, fitresult, likelihood)
     return M
 end
@@ -82,7 +114,9 @@ which follows from the derivation here: https://stats.stackexchange.com/question
 function Models.logits(M::ConformalModel, X::AbstractArray)
     fitresult = M.fitresult
     function predict_logits(fitresult, x)
-        p̂ = fitresult[1](x)
+        p̂ = MLUtils.stack(map(chain -> chain(x),_get_chains(fitresult))) |> 
+            p -> mean(p, dims=ndims(p)) |>
+            p -> MLUtils.unstack(p, dims=ndims(p))[1]
         if ndims(p̂) == 2
             p̂ = [p̂]
         end
