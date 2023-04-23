@@ -33,7 +33,7 @@ First, let's create a couple of image classifier architectures:
 epochs = 100
 batch_size = minimum([Int(round(n_obs/10)), 128])
 n_hidden = 128
-activation = Flux.swish
+activation = Flux.relu
 builder = MLJFlux.@builder Flux.Chain(
 
     Dense(n_in, n_hidden, activation),
@@ -56,14 +56,19 @@ builder = MLJFlux.@builder Flux.Chain(
 #     ), 
 #     σ=activation
 # )
-α = [1.0,1.0,1e-2]
+α = [1.0,1.0,5e-3]
 
 # Simple MLP:
 mlp = NeuralNetworkClassifier(
     builder=builder, 
     epochs=epochs,
     batch_size=batch_size,
+    finaliser=x -> x,
+    loss=Flux.Losses.logitcrossentropy,
 )
+
+# Deep Ensemble:
+mlp_ens = EnsembleModel(model=mlp, n=5)
 
 # Joint Energy Model:
 𝒟x = Uniform(-1,1)
@@ -88,39 +93,49 @@ jem = JointEnergyClassifier(
     epochs=epochs,
 )
 
-# Deep Ensemble:
-mlp_ens = EnsembleModel(model=mlp, n=50)
+# Deep Ensemble of Joint Energy Models:
+jem_ens = EnsembleModel(model=jem, n=5)
 ```
 
 ```{julia}
 cov = .95
-conf_model = conformal_model(jem; method=:simple_inductive, coverage=cov)
+conf_model = conformal_model(jem_ens; method=:adaptive_inductive, coverage=cov)
 mach = machine(conf_model, X, labels)
 fit!(mach)
 M = ECCCo.ConformalModel(mach.model, mach.fitresult)
 ```
 
 ```{julia}
-if mach.model.model isa JointEnergyModels.JointEnergyClassifier
-    jem = mach.model.model.jem
-    n_iter = 200
-    _w = 1500
-    plts = []
-    neach = 10
-    for i in 1:10
-        x = jem.sampler(jem.chain, jem.sampling_rule; niter=n_iter, n_samples=neach, y=i)
-        plts_i = []
-        for j in 1:size(x, 2)
-            xj = x[:,j]
-            xj = reshape(xj, (n_digits, n_digits))
-            plts_i = [plts_i..., Plots.heatmap(rotl90(xj), axis=nothing, cb=false)]
-        end
-        plt = Plots.plot(plts_i..., size=(_w,0.10*_w), layout=(1,10))
-        plts = [plts..., plt]
-    end
-    plt = Plots.plot(plts..., size=(_w,_w), layout=(10,1))
-    display(plt)
+if mach.model.model isa JointEnergyClassifier
+    sampler = mach.model.model.jem.sampler
+else
+    K = length(counterfactual_data.y_levels)
+    input_size = size(selectdim(counterfactual_data.X, ndims(counterfactual_data.X), 1))
+    𝒟x = Uniform(extrema(counterfactual_data.X)...)
+    𝒟y = Categorical(ones(K) ./ K)
+    sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=input_size)
 end
+opt = ImproperSGLD()
+f(x) = logits(M, x)
+
+n_iter = 200
+_w = 1500
+plts = []
+neach = 10
+for i in 1:10
+    x = sampler(f, opt; niter=n_iter, n_samples=neach, y=i)
+    plts_i = []
+    for j in 1:size(x, 2)
+        xj = x[:,j]
+        xj = reshape(xj, (n_digits, n_digits))
+        plts_i = [plts_i..., Plots.heatmap(rotl90(xj), axis=nothing, cb=false)]
+    end
+    plt = Plots.plot(plts_i..., size=(_w,0.10*_w), layout=(1,10))
+    plts = [plts..., plt]
+end
+plt = Plots.plot(plts..., size=(_w,_w), layout=(10,1))
+display(plt)
+
 ```
 
 ```{julia}
@@ -134,12 +149,12 @@ println("F1 score (test): $(round(f1,digits=3))")
 Random.seed!(1234)
 
 # Set up search:
-factual_label = 9
+factual_label = 4
 x = reshape(counterfactual_data.X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target = 4
+target = 5
 factual = predict_label(M, counterfactual_data, x)[1]
-γ = 0.5
-T = 250
+γ = 0.9
+T = 100
 
 η=1.0
 
@@ -149,6 +164,7 @@ ce_wachter = generate_counterfactual(
     x, target, counterfactual_data, M, generator; 
     decision_threshold=γ, max_iter=T,
     initialization=:identity,
+    converge_when=:generator_conditions,
 )
 
 generator = GreedyGenerator(η=η)
@@ -156,6 +172,7 @@ ce_jsma = generate_counterfactual(
     x, target, counterfactual_data, M, generator; 
     decision_threshold=γ, max_iter=T,
     initialization=:identity,
+    converge_when=:generator_conditions,
 )
 
 # ECCCo:
@@ -166,6 +183,7 @@ temp=0.1
 generator = ECCCoGenerator(
     λ=λ, 
     temp=temp, 
+    opt=Flux.Optimise.Adam(0.01),
 )
 ce_conformal = generate_counterfactual(
     x, target, counterfactual_data, M, generator; 
