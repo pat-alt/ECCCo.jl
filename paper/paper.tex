@@ -96,7 +96,7 @@
 
 
 \begin{abstract}
-  We propose Conformal Counterfactual Explanations: an effortless and rigorous way to produce plausible and conformal Counterfactual Explanations for Black Box Models using Conformal Prediction. To address the need for plausible explanations, existing work has primarily relied on surrogate models to learn the data-generating process. This effectively reallocates the task of learning realistic representations of the data from the model itself to the surrogate. Consequently, the generated explanations may look plausible to humans but not necessarily conform with the behaviour of the Black Box Model. We formalise this notion through the introduction of new evaluation measures. In order to still address the need for plausibility, we build on a recent approach that works by minimizing predictive model uncertainty. Using differentiable Conformal Prediction, we relax the previous assumption that the Black Box Model can produce predictive uncertainty estimates.
+  We propose Eccoe: an effortless and rigorous way to produce plausible and conformal Counterfactual Explanations for Black Box Models using Conformal Prediction. To address the need for plausible explanations, existing work has primarily relied on surrogate models to learn the data-generating process. This effectively reallocates the task of learning realistic representations of the data from the model itself to the surrogate. Consequently, the generated explanations may look plausible to humans but not necessarily conform with the behaviour of the Black Box Model. We formalise this notion through the introduction of new evaluation measures. In order to still address the need for plausibility, we build on a recent approach that works by minimizing predictive model uncertainty. Using differentiable Conformal Prediction, we relax the previous assumption that the Black Box Model can produce predictive uncertainty estimates.
 \end{abstract}
 
 \section{Introduction}\label{intro}
@@ -266,9 +266,9 @@ The fact that conformal classifiers produce set-valued predictions introduces a 
 
 where $\kappa \in \{0,1\}$ is a hyper-parameter and $C_{\theta,\mathbf{y}}(\mathbf{x}_i;\alpha)$ can be interpreted as the probability of label $\mathbf{y}$ being included in the prediction set. Formally, it is defined as $C_{\theta,\mathbf{y}}(\mathbf{x}_i;\alpha):=\sigma\left((s(\mathbf{x}_i,\mathbf{y})-\alpha) T^{-1}\right)$ for $\mathbf{y}\in\mathcal{Y}$ where $\sigma$ is the sigmoid function and $T$ is a hyper-parameter used for temperature scaling \citep{stutz2022learning}.
 
-Penalizing the set size in this way is in principal enough to train efficient conformal classifiers \citep{stutz2022learning}. As we explained above, the set size is also closely linked to predictive uncertainty at the local level. This makes the smooth penalty defined in Equation~\ref{eq:setsize} useful in the context of meeting our objective of generating plausible counterfactuals. In particular, we adapt Equation~\ref{eq:general} to define the baseline objective for Conformal Counterfactual Explanations (ECCCo):
+Penalizing the set size in this way is in principle enough to train efficient conformal classifiers \citep{stutz2022learning}. As we explained above, the set size is also closely linked to predictive uncertainty at the local level. This makes the smooth penalty defined in Equation~\ref{eq:setsize} useful in the context of meeting our objective of generating plausible counterfactuals. In particular, we adapt Equation~\ref{eq:general} to define the objective for our proposed Energy-Constrained Conformal Counterfactual Explanations (Eccoe):
 
-\begin{equation}\label{eq:cce}
+\begin{equation}\label{eq:eccoe}
   \begin{aligned}
     \mathbf{Z}^\prime &= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^M} \left\{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^*)}+ \lambda \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \right\} 
   \end{aligned}
