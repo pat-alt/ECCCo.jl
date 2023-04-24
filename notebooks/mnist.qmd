@@ -228,54 +228,61 @@ models = Dict(
 
 ```{julia}
 # Train models:
-function _train(model, X=X, y=labels; cov=.95, method=:simple_inductive)
-    conf_model = conformal_model(jem_ens; method=method, coverage=cov)
+function _train(model, X=X, y=labels; cov=.95, method=:simple_inductive, mod_name="model")
+    conf_model = conformal_model(model; method=method, coverage=cov)
     mach = machine(conf_model, X, y)
+    @info "Begin training $mod_name."
     fit!(mach)
+    @info "Finished training $mod_name."
     M = ECCCo.ConformalModel(mach.model, mach.fitresult)
     return M
 end
-model_dict = Dict(mod_name => _train(mod) for (mod_name, mod) in models)
+model_dict = Dict(mod_name => _train(mod; mod_name=mod_name) for (mod_name, mod) in models)
+Serialization.serialize(joinpath(output_path,"mnist_models.jls"), model_dict)
 ```
 
 ```{julia}
-if mach.model.model isa JointEnergyClassifier
-    sampler = mach.model.model.jem.sampler
-else
-    K = length(counterfactual_data.y_levels)
-    input_size = size(selectdim(counterfactual_data.X, ndims(counterfactual_data.X), 1))
-    𝒟x = Uniform(extrema(counterfactual_data.X)...)
-    𝒟y = Categorical(ones(K) ./ K)
-    sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=input_size)
-end
-opt = ImproperSGLD()
-f(x) = logits(M, x)
+for (mod_name, mod) in model_dict
 
-n_iter = 200
-_w = 1500
-plts = []
-neach = 10
-for i in 1:10
-    x = sampler(f, opt; niter=n_iter, n_samples=neach, y=i)
-    plts_i = []
-    for j in 1:size(x, 2)
-        xj = x[:,j]
-        xj = reshape(xj, (n_digits, n_digits))
-        plts_i = [plts_i..., Plots.heatmap(rotl90(xj), axis=nothing, cb=false)]
+    # Plot:
+    if mod.model.model isa JointEnergyClassifier
+        sampler = mod.model.model.jem.sampler
+    elseif mod.model.model.model isa JointEnergyClassifier
+        sampler = mod.model.model.model.jem.sampler
+    else
+        K = length(counterfactual_data.y_levels)
+        input_size = size(selectdim(counterfactual_data.X, ndims(counterfactual_data.X), 1))
+        𝒟x = Uniform(extrema(counterfactual_data.X)...)
+        𝒟y = Categorical(ones(K) ./ K)
+        sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=input_size)
     end
-    plt = Plots.plot(plts_i..., size=(_w,0.10*_w), layout=(1,10))
-    plts = [plts..., plt]
+    opt = ImproperSGLD()
+    f(x) = logits(mod, x)
+
+    n_iter = 200
+    _w = 1500
+    plts = []
+    neach = 10
+    for i in 1:10
+        x = sampler(f, opt; niter=n_iter, n_samples=neach, y=i)
+        plts_i = []
+        for j in 1:size(x, 2)
+            xj = x[:,j]
+            xj = reshape(xj, (n_digits, n_digits))
+            plts_i = [plts_i..., Plots.heatmap(rotl90(xj), axis=nothing, cb=false)]
+        end
+        plt = Plots.plot(plts_i..., size=(_w,0.10*_w), layout=(1,10))
+        plts = [plts..., plt]
+    end
+    plt = Plots.plot(plts..., size=(_w,_w), layout=(10,1), plot_title=mod_name)
+    display(plt)
+
+    # Test performance:
+    test_data = load_mnist_test()
+    test_data.X = pre_process.(test_data.X)
+    f1 = CounterfactualExplanations.Models.model_evaluation(M, test_data)
+    println("F1 score (test): $(round(f1,digits=3))")
 end
-plt = Plots.plot(plts..., size=(_w,_w), layout=(10,1))
-display(plt)
-
-```
-
-```{julia}
-test_data = load_mnist_test()
-test_data.X = pre_process.(test_data.X)
-f1 = CounterfactualExplanations.Models.model_evaluation(M, test_data)
-println("F1 score (test): $(round(f1,digits=3))")
 ```
 
 ```{julia}
