@@ -126,7 +126,7 @@ display(plt)
 savefig(plt, joinpath(www_path, "surrogate_gone_wrong.png"))
 ```
 
-### ECCo
+### ECCCo
 
 ```{julia}
 function pre_process(x; noise::Float32=0.03f0)
@@ -138,6 +138,8 @@ end
 
 ```{julia}
 # Data:
+n_obs = 1000
+counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
