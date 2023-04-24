@@ -171,7 +171,7 @@ _finaliser = x -> x                         # finaliser function
 sampler = ConditionalSampler(
     𝒟x, 𝒟y, 
     input_size=(input_dim,), 
-    batch_size=1
+    batch_size=1,
 )
 α = [1.0,1.0,1e-2]      # penalty strengths
 ```
