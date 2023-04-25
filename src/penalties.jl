@@ -37,7 +37,7 @@ end
 
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=10, niter=200, from_buffer=true, agg=mean, kwargs...
+    n::Int=10, niter=250, from_buffer=true, agg=mean, kwargs...
 )
     conditional_samples = []
     ignore_derivatives() do
