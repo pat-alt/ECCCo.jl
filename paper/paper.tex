@@ -159,12 +159,12 @@ Surrogate models offer an obvious solution to achieve this objective. Unfortunat
   \centering
   \begin{minipage}[t]{0.45\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{../www/you_may_not_like_it.png}
+    \includegraphics[width=\textwidth]{../artifacts/results/images/you_may_not_like_it.png}
     \caption{You may not like it, but this is what stripped-down counterfactuals look like. Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); counterfactual produced using \citet{wachter2017counterfactual} (centre); and a counterfactual produced using JSMA-based approach introduced by \citep{schut2021generating}.}\label{fig:adv}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.45\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{../www/surrogate_gone_wrong.png}
+    \includegraphics[width=\textwidth]{../artifacts/results/images/surrogate_gone_wrong.png}
     \caption{Using surrogates can improve plausibility, but also increases vulnerability. Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); counterfactual produced using REVISE \citep{joshi2019realistic} with a well-specified surrogate (centre); and a counterfactual produced using REVISE \citep{joshi2019realistic} with a poorly specified surrogate (right).}\label{fig:vae}
   \end{minipage}
 \end{figure}
@@ -217,6 +217,11 @@ Our framework for generating ECCCos combines the ideas introduced in the previou
   \end{aligned} 
 \end{equation}
 
+\begin{figure}
+  \includegraphics[width=\textwidth]{../artifacts/results/images/mnist_eccco.png}
+  \caption{ECCCos from Black Boxes. Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); }\label{fig:eccco}
+\end{figure}
+
 \section{Evaluation Framework}\label{conformity}
 
 In Section~\ref{background} we explained that Counterfactual Explanations work directly with Black Box Model, so fidelity is not a concern. This may explain why research has primarily focused on other desiderata, most notably plausibility (Definition~\ref{def:plausible}). Enquiring about the plausibility of a counterfactual essentially boils down to the following question: `Is this counterfactual consistent with the underlying data'? To introduce this section, we posit a related, slightly more nuanced question: `Is this counterfactual consistent with what the model has learned about the underlying data'? We will argue that fidelity is not a sufficient evaluation measure to answer this question and propose a novel way to assess if explanations conform with model behaviour. Finally, we will introduce a framework for Conformal Counterfactual Explanations, that reconciles the notions of plausibility and model conformity. 
@@ -268,6 +273,8 @@ As noted by \citet{guidotti2022counterfactual}, these distance-based measures ar
   \item It seems that models that are not explicitly trained for generative task, still learn it implictly
   \item Batch size seems to impact quality of generated samples (at inference, but not so much during JEM training)
   \item ECCCo is sensitive to optimizer (Adam works well), learning rate and distance metric (l1 works well)
+  \item SGLD takes time 
+  \item REVISE has benefit of lower dimensional space
 \end{itemize}
 
 \section{Discussion}
