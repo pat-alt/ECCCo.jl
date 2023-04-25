@@ -51,7 +51,6 @@ function distance_from_energy(
     x′ = CounterfactualExplanations.counterfactual(ce)
     loss = map(eachslice(x′, dims=ndims(x′))) do x
         Δ = map(eachcol(conditional_samples[1])) do xsample
-            # 1 .- (x'xsample)/(norm(x)*norm(xsample))
             norm(x - xsample, 1)
         end
         return mean(Δ)

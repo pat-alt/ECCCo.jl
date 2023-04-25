@@ -138,7 +138,7 @@ end
 
 ```{julia}
 # Data:
-n_obs = 1000
+n_obs = 10000
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
@@ -242,13 +242,11 @@ Serialization.serialize(joinpath(output_path,"mnist_models.jls"), model_dict)
 ```
 
 ```{julia}
-for (mod_name, mod) in model_dict
+# Plot generated samples:
 
-    # Plot:
-    if mod.model.model isa JointEnergyClassifier
-        sampler = mod.model.model.jem.sampler
-    elseif mod.model.model.model isa JointEnergyClassifier
-        sampler = mod.model.model.model.jem.sampler
+for (mod_name, mod) in model_dict
+    if ECCCo._has_sampler(mod)
+        sampler = ECCCo._get_sampler(mod)
     else
         K = length(counterfactual_data.y_levels)
         input_size = size(selectdim(counterfactual_data.X, ndims(counterfactual_data.X), 1))
@@ -275,14 +273,90 @@ for (mod_name, mod) in model_dict
         plts = [plts..., plt]
     end
     plt = Plots.plot(plts..., size=(_w,_w), layout=(10,1), plot_title=mod_name)
+    savefig(plt, joinpath(output_images_path, "mnist_generated_$(mod_name).png"))
     display(plt)
+end
+```
 
+```{julia}
+# Evaluate models:
+
+measure = Dict(
+    :f1score => multiclass_f1score, 
+    :acc => accuracy, 
+    :precision => multiclass_precision
+)
+model_performance = DataFrame()
+for (mod_name, mod) in model_dict
     # Test performance:
     test_data = load_mnist_test()
     test_data.X = pre_process.(test_data.X)
-    f1 = CounterfactualExplanations.Models.model_evaluation(M, test_data)
-    println("F1 score (test): $(round(f1,digits=3))")
+    _perf = CounterfactualExplanations.Models.model_evaluation(mod, test_data, measure=collect(values(measure)))
+    _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
+    _perf.mod_name .= mod_name
+    model_performance = vcat(model_performance, _perf)
 end
+Serialization.serialize(joinpath(output_path,"mnist_model_performance.jls"), model_performance)
+CSV.write(joinpath(output_path, "mnist_model_performance.csv"), model_performance)
+model_performance
+```
+
+```{julia}
+Random.seed!(123)
+
+# Set up search:
+factual = 8
+x = reshape(counterfactual_data.X[:,rand(findall(labels.==factual))],input_dim,1)
+target = 3
+γ = 0.9
+T = 100
+
+# ECCCo:
+λ=[0.5,0.1,0.5]
+temp=0.1
+η=0.01
+
+# Generate counterfactuals using ECCCo generator:
+generator = ECCCoGenerator(
+    λ=λ, 
+    temp=temp, 
+    opt=Flux.Optimise.Adam(η),
+)
+
+ces = Dict()
+for (mod_name, mod) in model_dict
+    ce = generate_counterfactual(
+        x, target, counterfactual_data, mod, generator; 
+        decision_threshold=γ, max_iter=T,
+        initialization=:identity,
+        converge_when=:generator_conditions,
+    )
+    ces[mod_name] = ce
+end
+
+# Plot:
+p1 = Plots.plot(
+    convert2image(MNIST, reshape(x,28,28)),
+    axis=nothing, 
+    size=(img_height, img_height),
+    title="Factual"
+)
+plts = [p1]
+
+for (_name,ce) in ces
+    x = CounterfactualExplanations.counterfactual(ce)
+    _phat = target_probs(ce)
+    _title = "$_name (p̂=$(round(_phat[1]; digits=3)))"
+    plt = Plots.plot(
+        convert2image(MNIST, reshape(x,28,28)),
+        axis=nothing, 
+        size=(img_height, img_height),
+        title=_title
+    )
+    plts = [plts..., plt]
+end
+plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
+display(plt)
 ```
 
 ```{julia}

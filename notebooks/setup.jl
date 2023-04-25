@@ -39,6 +39,7 @@ setup_notebooks = quote
     Random.seed!(2023)
     www_path = "www"
     output_path = "artifacts/results"
+    output_images_path = "artifacts/results/images"
     img_height = 300
 
 end;
