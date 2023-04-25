@@ -266,7 +266,8 @@ As noted by \citet{guidotti2022counterfactual}, these distance-based measures ar
   \item BatchNorm does not seem compatible with JEM
   \item Coverage and temperature impacts CCE in somewhat unpredictable ways
   \item It seems that models that are not explicitly trained for generative task, still learn it implictly
-  \item Batch size seems to impact quality of generated samples
+  \item Batch size seems to impact quality of generated samples (at inference, but not so much during JEM training)
+  \item ECCCo is sensitive to optimizer (Adam works well), learning rate and distance metric (l1 works well)
 \end{itemize}
 
 \section{Discussion}

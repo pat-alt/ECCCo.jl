@@ -61,6 +61,33 @@ function _outdim(fitresult)
 end
 
 """
+    _get_sampler(model::ConformalModel)
+
+Private helper function that extracts the sampler from a fitted model.
+"""
+function _get_sampler(model::ConformalModel)
+    _mod = model.model
+    if _mod.model isa MLJEnsembles.EitherEnsembleModel
+        _mod = _mod.model
+    end
+    if _mod.model isa JointEnergyClassifier
+        sampler = _mod.model.sampler
+    else
+        sampler = false
+    end
+    return sampler
+end
+
+"""
+    _has_sampler(model::ConformalModel)
+
+Private helper function that checks if a fitted model has a sampler.
+"""
+function _has_sampler(model::ConformalModel)
+    return !(_get_sampler(model) isa Bool)
+end
+
+"""
     ConformalModel(model, fitresult=nothing; likelihood::Union{Nothing,Symbol}=nothing)
 
 Outer constructor for `ConformalModel`. If `fitresult` is not specified, the model is not fitted and `likelihood` is inferred from the model. If `fitresult` is specified, `likelihood` is inferred from the output dimension of the model. If `likelihood` is not specified, it defaults to `:classification_binary`.

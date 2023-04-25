@@ -43,8 +43,8 @@ function EnergySampler(
 
     @assert y ∈ data.y_levels || y ∈ 1:length(data.y_levels)
 
-    if model.model.model isa JointEnergyClassifier
-        sampler = model.model.model.jem.sampler
+    if ECCCo._has_sampler(model)
+        sampler = ECCCo._get_sampler(model)
     else
         K = length(data.y_levels)
         input_size = size(selectdim(data.X, ndims(data.X), 1))
@@ -57,8 +57,10 @@ function EnergySampler(
     # Initiate:
     energy_sampler = EnergySampler(model, data, sampler, opt, nothing, nothing)
 
-    # Generate conditional samples:
-    generate_samples!(energy_sampler, nsamples, yidx; niter=niter)
+    # Generate conditional samples (one at a time):
+    for i in 1:nsamples
+        generate_samples!(energy_sampler, 1, yidx; niter=niter)
+    end
 
     return energy_sampler
 end
@@ -106,7 +108,11 @@ end
 Generates `n` samples from `EnergySampler` for conditioning value `y`. Assigns samples and conditioning value to `EnergySampler`.
 """
 function generate_samples!(e::EnergySampler, n::Int, y::Int; niter::Int=100)
-    e.buffer = generate_samples(e, n, y; niter=niter)
+    if isnothing(e.buffer)
+        e.buffer = generate_samples(e, n, y; niter=niter)
+    else
+        e.buffer = cat(e.buffer, generate_samples(e, n, y; niter=niter), dims=ndims(e.buffer))
+    end
     e.yidx = y
 end
 
