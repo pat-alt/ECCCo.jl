@@ -7,12 +7,12 @@
 
 
 % ready for submission
-% \usepackage{neurips_2023}
+\usepackage{neurips_2023}
 
 
 % to compile a preprint version, e.g., for submission to arXiv, add add the
 % [preprint] option:
-\usepackage[preprint]{neurips_2023}
+% \usepackage[preprint]{neurips_2023}
 
 
 % to compile a camera-ready version, add the [final] option, e.g.:
@@ -36,6 +36,8 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 % Bibliography
 \bibliographystyle{plainnat}
@@ -171,7 +173,20 @@ Surrogate models offer an obvious solution to achieve this objective. Unfortunat
 
 \subsubsection{Plausibility through Minimal Predictive Uncertainty}
 
-\citet{schut2021generating} show that to meet the plausibility objective we need not explicitly model the input distribution. Pointing to the undesirable engineering overhead induced by surrogate models, they propose that we rely on the implicit minimisation of predictive uncertainty instead. Their proposed methodology solves Equation~\ref{eq:general} by greedily applying JSMA in the feature space with standard cross-entropy loss and no penalty at all. They demonstrate theoretically and empirically that their approach yields counterfactuals for which the model $M_{\theta}$ predicts the target label $\mathbf{y}^*$ with high confidence. Provided the model is well-specified, these counterfactuals are plausible. Unfortunately, this idea hinges on the assumption that the Black Box Model provides well-calibrated predictive uncertainty estimates. Our proposed methodology, which we will turn to next, relaxes this restriction.
+\citet{schut2021generating} show that to meet the plausibility objective we need not explicitly model the input distribution. Pointing to the undesirable engineering overhead induced by surrogate models, they propose that we rely on the implicit minimisation of predictive uncertainty instead. Their proposed methodology solves Equation~\ref{eq:general} by greedily applying JSMA in the feature space with standard cross-entropy loss and no penalty at all. They demonstrate theoretically and empirically that their approach yields counterfactuals for which the model $M_{\theta}$ predicts the target label $\mathbf{y}^*$ with high confidence. Provided the model is well-specified, these counterfactuals are plausible. Unfortunately, this idea hinges on the assumption that the Black Box Model provides well-calibrated predictive uncertainty estimates.
+
+\subsection{From Fidelity to Model Conformity}
+
+Above we explained that since Counterfactual Explanations work directly with the Black Box model, the fidelity of explanations as we defined it earlier is not a concern. This may explain why research has primarily focused on other desiderata, most notably plausibility (Definition~\ref{def:plausible}). Enquiring about the plausibility of a counterfactual essentially boils down to the following question: `Is this counterfactual consistent with the underlying data'? To introduce this section, we posit a related, slightly more nuanced question: `Is this counterfactual consistent with what the model has learned about the underlying data'? We will argue that fidelity is not a sufficient evaluation measure to answer this question and propose a novel way to assess if Counterfactual Explanations conform with model behaviour. 
+
+The word \textit{fidelity} stems from the Latin word `fidelis', which means `faithful, loyal, trustworthy' \citep{mw2023fidelity}. As we explained in Section~\ref{background}, model explanations are generally considered faithful if their corresponding predictions coincide with the predictions made by the model itself. Since this definition of faithfulness is not useful in the context of Counterfactual Explanations, we propose an adapted version: 
+
+\begin{definition}[Conformal Counterfactuals]
+  \label{def:conformal}
+  Let $\mathcal{X}_{\theta}|\mathbf{y}^* = p_{\theta}(x|\mathbf{y}^*)$ denote the conditional distribution of $\mathbf{x}$ in the target class $\mathbf{y}^*$, where $\theta$ denotes the parameters of model $M_{\theta}$. Then for $\mathbf{x}^{\prime}$ to be considered a conformal counterfactual, we need: $\mathbf{x}^{\prime} \sim \mathcal{X}_{\theta}|\mathbf{y}^*$.
+\end{definition}
+
+In words, conformal counterfactuals conform with what the predictive model has learned about the input data $\mathbf{x}$. Since this definition works with distributional properties, it explicitly accounts for the multiplicity of explanations we discussed earlier. To assess counterfactuals with respect to Definition~\ref{def:conformal}, we need to be able to quantify the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y}^*)$. This is very much at the core of our proposed methodological framework, which reconciles the notions of plausibility and model conformity and which we will introduce next.
 
 \section{Methodological Framework}\label{meth}
 
@@ -213,35 +228,39 @@ Our framework for generating ECCCos combines the ideas introduced in the previou
 
 \begin{equation} \label{eq:eccco}
   \begin{aligned}
-  \mathbf{Z}^\prime &= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^M} \left\{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^*)}+ \lambda {\text{cost}(f(\mathbf{Z}^\prime)) }  \right\} 
+  \mathbf{Z}^\prime= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^M}  &\{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^*)}+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) } \\
+  &+ \lambda_2 \text{dist}(f(\mathbf{Z}^\prime),\hat{\mathbf{x}}_{\theta}) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
   \end{aligned} 
 \end{equation}
 
-\begin{figure}
-  \includegraphics[width=\textwidth]{../artifacts/results/images/mnist_eccco.png}
-  \caption{ECCCos from Black Boxes. Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); }\label{fig:eccco}
-\end{figure}
+where $\hat{\mathbf{x}}_{\theta}$ denotes samples generated using SGLD (Equation~\ref{eq:sgld}) and $\text{dist}(\cdot)$ is a generic term for a distance metric. Our default choice for $\text{dist}(\cdot)$ is the Manhatten Distance since it enforces sparsity.
+
+The first two terms in Equation~\ref{eq:eccco} correspond to the counterfactual search objective defined in~\citet{wachter2017counterfactual} which merely penalises the distance of counterfactuals from their factual values. The additional two penalties in ECCCo ensure that counterfactuals conform with the model's generative property and lead to minimally uncertain predictions, respectively. The hyperparameters $\lambda_1, ..., \lambda_3$ can be used to balance the different objectives: for example, we may choose to incur larger deviations from the factual in favour of conformity with the model's generative property by choosing lower values of $\lambda_1$ and relatively higher values of $\lambda_2$.
+
+\begin{algorithm}
+  \caption{An algorithm with caption}\label{alg:cap}
+  \begin{minipage}[t]{0.45\textwidth}
+  \begin{algorithmic}
+    \Require $n \geq 0$
+    \Ensure $y = x^n$
+    \State $y \gets 1$
+    \State $X \gets x$
+    \State $N \gets n$
+    \While{$N \neq 0$}
+    \If{$N$ is even}
+        \State $X \gets X \times X$
+        \State $N \gets \frac{N}{2}$  \Comment{This is a comment}
+    \ElsIf{$N$ is odd}
+        \State $y \gets y \times X$
+        \State $N \gets N - 1$
+    \EndIf
+    \EndWhile
+  \end{algorithmic}
+  \end{minipage}
+\end{algorithm}
+
 
 \section{Evaluation Framework}\label{conformity}
-
-In Section~\ref{background} we explained that Counterfactual Explanations work directly with Black Box Model, so fidelity is not a concern. This may explain why research has primarily focused on other desiderata, most notably plausibility (Definition~\ref{def:plausible}). Enquiring about the plausibility of a counterfactual essentially boils down to the following question: `Is this counterfactual consistent with the underlying data'? To introduce this section, we posit a related, slightly more nuanced question: `Is this counterfactual consistent with what the model has learned about the underlying data'? We will argue that fidelity is not a sufficient evaluation measure to answer this question and propose a novel way to assess if explanations conform with model behaviour. Finally, we will introduce a framework for Conformal Counterfactual Explanations, that reconciles the notions of plausibility and model conformity. 
-
-\subsection{From Fidelity to Model Conformity}
-
-The word \textit{fidelity} stems from the Latin word `fidelis', which means `faithful, loyal, trustworthy' \citep{mw2023fidelity}. As we explained in Section~\ref{background}, model explanations are considered faithful if their corresponding predictions coincide with the predictions made by the model itself. Since this definition of faithfulness is not useful in the context of Counterfactual Explanations, we propose an adapted version: 
-
-\begin{definition}[Conformal Counterfactuals]
-  \label{def:conformal}
-  Let $\mathcal{X}_{\theta}|\mathbf{y}^* = p_{\theta}(x|\mathbf{y}^*)$ denote the conditional distribution of $\mathbf{x}$ in the target class $\mathbf{y}^*$, where $\theta$ denotes the parameters of model $M_{\theta}$. Then for $\mathbf{x}^{\prime}$ to be considered a conformal counterfactual, we need: $\mathbf{x}^{\prime} \sim \mathcal{X}_{\theta}|\mathbf{y}^*$.
-\end{definition}
-
-In words, conformal counterfactuals conform with what the predictive model has learned about the input data $\mathbf{x}$. Since this definition works with distributional properties, it explicitly accounts for the multiplicity of explanations we discussed earlier. Except for the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y}^*)$, we already have access to all the ingredients in Definition~\ref{def:conformal}.
-
-\textbf{TBD}
-
-\begin{itemize}
-  \item What exact sampler do we use? ImproperSGLD as in \citet{grathwohl2020your} seems to work best.
-\end{itemize}
 
 \subsection{Evaluation Measures}\label{evaluation}
 
@@ -266,6 +285,11 @@ This measure is straightforward to compute and should be less sensitive to outli
 As noted by \citet{guidotti2022counterfactual}, these distance-based measures are simplistic and more complex alternative measures may ultimately be more appropriate for the task. For example, we considered using statistical divergence measures instead. This would involve generating not one but many counterfactuals and comparing the generated empirical distribution to the target distributions in Definitions~\ref{def:plausible} and~\ref{def:conformal}. While this approach is potentially more rigorous, generating enough counterfactuals is not always practical. 
 
 \section{Experiments}
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{../artifacts/results/images/mnist_eccco.png}
+  \caption{ECCCos from Black Boxes. Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); }\label{fig:eccco}
+\end{figure}
 
 \begin{itemize}
   \item BatchNorm does not seem compatible with JEM
