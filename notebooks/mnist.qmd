@@ -137,15 +137,16 @@ savefig(plt, joinpath(output_images_path, "surrogate_gone_wrong.png"))
 ```{julia}
 function pre_process(x; noise::Float32=0.03f0)
     ϵ = Float32.(randn(size(x)) * noise)
-    x = @.(2 * x - 1) .+ ϵ
+    # x = @.(2 * x - 1) 
+    x += ϵ
     return x
 end
 ```
 
 ```{julia}
 # Hyper:
-_retrain = false
-_regen = false
+_retrain = true
+_regen = true
 
 # Data:
 n_obs = 10000
@@ -179,7 +180,7 @@ _finaliser = x -> x                         # finaliser function
 
 ```{julia}
 # JEM parameters:
-𝒟x = Uniform(-1,1)
+𝒟x = Uniform(0,1)
 𝒟y = Categorical(ones(output_dim) ./ output_dim)
 sampler = ConditionalSampler(
     𝒟x, 𝒟y, 
@@ -306,7 +307,7 @@ model_performance = DataFrame()
 for (mod_name, mod) in model_dict
     # Test performance:
     test_data = load_mnist_test()
-    test_data.X = pre_process.(test_data.X, noise=0.0f0)
+    # test_data.X = pre_process.(test_data.X, noise=0.0f0)
     _perf = CounterfactualExplanations.Models.model_evaluation(mod, test_data, measure=collect(values(measure)))
     _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
     _perf.mod_name .= mod_name
