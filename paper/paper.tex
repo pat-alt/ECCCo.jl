@@ -35,6 +35,7 @@
 
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{caption}
 \usepackage{graphicx}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
@@ -237,28 +238,36 @@ where $\hat{\mathbf{x}}_{\theta}$ denotes samples generated using SGLD (Equation
 
 The first two terms in Equation~\ref{eq:eccco} correspond to the counterfactual search objective defined in~\citet{wachter2017counterfactual} which merely penalises the distance of counterfactuals from their factual values. The additional two penalties in ECCCo ensure that counterfactuals conform with the model's generative property and lead to minimally uncertain predictions, respectively. The hyperparameters $\lambda_1, ..., \lambda_3$ can be used to balance the different objectives: for example, we may choose to incur larger deviations from the factual in favour of conformity with the model's generative property by choosing lower values of $\lambda_1$ and relatively higher values of $\lambda_2$.
 
-\begin{algorithm}
-  \caption{An algorithm with caption}\label{alg:cap}
-  \begin{minipage}[t]{0.45\textwidth}
-  \begin{algorithmic}
-    \Require $n \geq 0$
-    \Ensure $y = x^n$
-    \State $y \gets 1$
-    \State $X \gets x$
-    \State $N \gets n$
-    \While{$N \neq 0$}
-    \If{$N$ is even}
-        \State $X \gets X \times X$
-        \State $N \gets \frac{N}{2}$  \Comment{This is a comment}
-    \ElsIf{$N$ is odd}
-        \State $y \gets y \times X$
-        \State $N \gets N - 1$
-    \EndIf
-    \EndWhile
-  \end{algorithmic}
-  \end{minipage}
-\end{algorithm}
+\medskip
 
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+  
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{../artifacts/results/images/surrogate_gone_wrong.png}
+  \captionof{figure}{Using surrogates can improve plausibility, but also increases vulnerability. Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); counterfactual produced using REVISE \citep{joshi2019realistic} with a well-specified surrogate (centre); and a counterfactual produced using REVISE \citep{joshi2019realistic} with a poorly specified surrogate (right).} \label{fig:vae}
+\end{minipage}  
+\hfill
+\begin{minipage}[c]{0.45\textwidth}
+\captionof{algorithm}{Generating ECCCos (For more details, see Appendix~\ref{app:eccco})}\label{alg:eccco}
+\begin{algorithmic}[1]
+  \Require $\mathbf{x}, \mathbf{y}^*, M_{\theta}, f, \Lambda, \alpha, \mathcal{D}, T, \eta, m, M$ \linebreak where $M_{\theta}(\mathbf{x})\neq\mathbf{y}^*$
+  \Ensure $\mathbf{x}^\prime$
+  \State Initialize $\mathbf{z}^\prime \gets f^{-1}(\mathbf{x})$
+  \State Run \textit{SCP} for $M_{\theta}$ using $\mathcal{D}$
+  \State Generate buffer $\mathcal{B}$ of $M$ conditional samples $\hat{\mathbf{x}}_{\theta}|\mathbf{y}^*$ using SGLD (Equation~\ref{eq:sgld})
+  \State Initialize $t \gets 0$
+  \While{\textit{not converged} or $t < T$}
+  \State $\hat{\mathbf{x}}_{\theta, t} \gets \text{rand}(\mathcal{B},m)$
+  \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^*,\hat{\mathbf{x}}_{\theta, t})$
+  \State $t \gets t+1$
+  \EndWhile
+  \State $\mathbf{x}^\prime \gets f(\mathbf{z}^\prime)$
+\end{algorithmic}
+\end{minipage}
+
+\medskip
 
 \section{Evaluation Framework}\label{conformity}
 
@@ -339,6 +348,8 @@ Finally, classification sets are formed as follows,
 where $\hat{q}$ denotes the $(1-\alpha)$-quantile of $\mathcal{S}$ and $\alpha$ is a predetermined error rate. As the size of the calibration set increases, the probability that the classification set $C(\mathbf{x}_{\text{test}})$ for a newly arrived sample $\mathbf{x}_{\text{test}}$ does not cover the true test label $\mathbf{y}_{\text{test}}$ approaches $\alpha$ \citep{angelopoulos2021gentle}. 
 
 Observe from Equation~\ref{eq:scp} that Conformal Prediction works on an instance-level basis, much like Counterfactual Explanations are local. The prediction set for an individual instance $\mathbf{x}_i$ depends only on the characteristics of that sample and the specified error rate. Intuitively, the set is more likely to include multiple labels for samples that are difficult to classify, so the set size is indicative of predictive uncertainty. To see why this effect is exacerbated by small choices for $\alpha$ consider the case of $\alpha=0$, which requires that the true label is covered by the prediction set with probability equal to one.
+
+\subsection{Conformal Prediction}\label{app:eccco}
 
 
 \section{Submission of papers to NeurIPS 2023}
