@@ -1,5 +1,6 @@
 using ChainRules: ignore_derivatives
 using Distances
+using Flux
 using LinearAlgebra: norm
 using Statistics: mean
 
@@ -37,7 +38,7 @@ end
 
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=10, niter=250, from_buffer=true, agg=mean, kwargs...
+    n::Int=10, niter=100, from_buffer=true, agg=mean, kwargs...
 )
     conditional_samples = []
     ignore_derivatives() do
@@ -46,7 +47,7 @@ function distance_from_energy(
             _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
         end
         sampler = _dict[:energy_sampler]
-        push!(conditional_samples, rand(sampler, n; from_buffer=from_buffer))
+        push!(conditional_samples, rand(sampler, 100; from_buffer=from_buffer))
     end
     x′ = CounterfactualExplanations.counterfactual(ce)
     loss = map(eachslice(x′, dims=ndims(x′))) do x
