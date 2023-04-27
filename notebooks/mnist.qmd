@@ -137,7 +137,7 @@ savefig(plt, joinpath(output_images_path, "surrogate_gone_wrong.png"))
 ```{julia}
 function pre_process(x; noise::Float32=0.03f0)
     ϵ = Float32.(randn(size(x)) * noise)
-    # x = @.(2 * x - 1) 
+    x = @.(2 * x - 1) 
     x += ϵ
     return x
 end
@@ -145,8 +145,8 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = true
-_regen = true
+_retrain = false
+_regen = false
 
 # Data:
 n_obs = 10000
@@ -307,7 +307,7 @@ model_performance = DataFrame()
 for (mod_name, mod) in model_dict
     # Test performance:
     test_data = load_mnist_test()
-    # test_data.X = pre_process.(test_data.X, noise=0.0f0)
+    test_data.X = pre_process.(test_data.X, noise=0.0f0)
     _perf = CounterfactualExplanations.Models.model_evaluation(mod, test_data, measure=collect(values(measure)))
     _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
     _perf.mod_name .= mod_name
@@ -321,6 +321,8 @@ model_performance
 ### Different Models
 
 ```{julia}
+plt_order = ["MLP", "MLP Ensemble", "JEM", "JEM Ensemble"]
+
 # ECCCo:
 λ=[0.5,0.1,0.5]
 temp=0.5
@@ -343,7 +345,7 @@ for (mod_name, mod) in model_dict
     )
     ces[mod_name] = ce
 end
-plt_order = sortperm(collect(keys(ces)))
+_plt_order = map(x -> findall(collect(keys(model_dict)) .== x)[1], plt_order)
 
 # Plot:
 p1 = Plots.plot(
@@ -366,7 +368,7 @@ for (_name,ce) in ces
     )
     plts = [plts..., plt]
 end
-plts = plts[plt_order]
+plts = plts[_plt_order]
 plts = [p1, plts...]
 plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
 display(plt)
