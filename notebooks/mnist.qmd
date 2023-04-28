@@ -499,7 +499,7 @@ plts = plts[plt_order]
 plts = [p1, plts...]
 plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
 display(plt)
-savefig(plt, joinpath(output_images_path, "mnist_eccco_benchmark.png"))
+savefig(plt, joinpath(output_images_path, "mnist_all_generators.png"))
 ```
 
 ## Benchmark
@@ -536,4 +536,25 @@ Serialization.serialize(joinpath(output_path, "mnist_benchmark.jls"), bmk)
     @ungroup
     @filter(variable == "distance_from_energy")
 end
+```
+
+
+```{julia}
+df = @chain bmk() begin
+    @filter(variable in [
+        "distance_from_energy",
+        "distance_from_targets",
+        "distance",])
+    @mutate(variable = ifelse.(variable .== "distance_from_energy", "Non-Conformity", variable))
+    @mutate(variable = ifelse.(variable .== "distance_from_targets", "Implausibility", variable))
+    @mutate(variable = ifelse.(variable .== "distance", "Cost", variable))
+end
+plt = AlgebraOfGraphics.data(df) * visual(BoxPlot) * 
+    mapping(:generator, :value, row=:variable, col=:model, color=:generator)
+plt = draw(
+    plt, axis=(xlabel="", xticksvisible=false, xticklabelsvisible=false, width=150, height=120), 
+    facet=(; linkyaxes=:minimal)
+)   
+display(plt)
+save(joinpath(output_images_path, "mnist_benchmark.png"), plt, px_per_unit=5)
 ```
