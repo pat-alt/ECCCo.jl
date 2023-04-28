@@ -38,7 +38,7 @@ end
 
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=10, niter=60, from_buffer=true, agg=mean, kwargs...
+    n::Int=10, niter=100, from_buffer=true, agg=mean, kwargs...
 )
     conditional_samples = []
     ignore_derivatives() do
@@ -64,7 +64,7 @@ end
 
 function distance_from_targets(
     ce::AbstractCounterfactualExplanation;
-    n::Int=100, agg=mean
+    n::Int=1000, agg=mean
 )
     target_idx = ce.data.output_encoder.labels .== ce.target
     target_samples = ce.data.X[:,target_idx] |>

@@ -520,7 +520,8 @@ bmk = benchmark(
     generators=generator_dict, 
     measure=measures,
     suppress_training=true, dataname="MNIST",
-    n_individuals=100,
+    n_individuals=5,
+    factual=0, target=1,
     initialization=:identity,
 )
 
@@ -533,6 +534,6 @@ Serialization.serialize(joinpath(output_path, "mnist_benchmark.jls"), bmk)
     @group_by(dataname, generator, model, variable)
     @summarize(mean=mean(value),sd=std(value))
     @ungroup
-    @filter(variable == "distance_from_targets")
+    @filter(variable == "distance_from_energy")
 end
 ```
