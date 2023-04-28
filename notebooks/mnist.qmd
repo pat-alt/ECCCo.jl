@@ -524,8 +524,7 @@ bmk = benchmark(
     factual=0, target=1,
     initialization=:identity,
 )
-
-Serialization.serialize(joinpath(output_path, "mnist_benchmark.jls"), bmk)
+CSV.write(joinpath(output_path, "mnist_benchmark.csv"), bmk())
 ```
 
 
