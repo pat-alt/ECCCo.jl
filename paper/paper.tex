@@ -246,7 +246,7 @@ The first two terms in Equation~\ref{eq:eccco} correspond to the counterfactual 
 \begin{minipage}[c]{0.40\textwidth}
   \centering
   \includegraphics[width=\textwidth]{../artifacts/results/images/eccco_illustration.png}
-  \captionof{figure}{Vector fields indicating the direction of gradients with respect to the different components of the ECCCo objective (Equation~\ref{eq:eccco}).} \label{fig:eccco}
+  \captionof{figure}{[PLACEHOLDER] Vector fields indicating the direction of gradients with respect to the different components of the ECCCo objective (Equation~\ref{eq:eccco}).} \label{fig:eccco}
 \end{minipage}  
 \hfill
 \begin{minipage}[c]{0.50\textwidth}
@@ -271,7 +271,7 @@ The first two terms in Equation~\ref{eq:eccco} correspond to the counterfactual 
 
 \begin{minipage}[c]{\textwidth}
   \includegraphics[width=\textwidth]{../artifacts/results/images/mnist_eccco.png}
-  \captionof{figure}{Original image (left) and ECCCos for turning an 8 (eight) into a 3 (three) for different Black Boxes from left to right: Multi-Layer Perceptron (MLP), Ensemble of MLPs, Joint Energy Model (JEM), Ensemble of JEMs.}\label{fig:eccco-mnist}
+  \captionof{figure}{[SUBJECTO TO CHANGE] Original image (left) and ECCCos for turning an 8 (eight) into a 3 (three) for different Black Boxes from left to right: Multi-Layer Perceptron (MLP), Ensemble of MLPs, Joint Energy Model (JEM), Ensemble of JEMs.}\label{fig:eccco-mnist}
 \end{minipage}
 
 \medskip
@@ -282,7 +282,7 @@ Finally, we search counterfactuals through gradient descent. Let $\mathcal{L}(\m
 
 Figure~\ref{fig:eccco-mnist} presents ECCCos for the MNIST example from Section~\ref{background} for various Black Box models of increasing complexity from left to right: a simple Multi-Layer Perceptron (MLP); an Ensemble of MLPs, each of the same architecture as the single MLP; a Joint Energy Model (JEM) based on the same MLP architecture; and finally, an Ensemble of these JEMs. Since Deep Ensembles have an improved capacity for predictive uncertainty quantification and JEMs are explicitly trained to learn plausible representations of the input data, it is intuitive to see that the plausibility of counterfactuals visibly improves from left to right. This provides some first anecdotal evidence that ECCCos achieve plausibility while maintaining faithfulness to the Black Box. 
 
-\section{Experiments}\label{conformity}
+\section{Empirical Analysis}\label{emp}
 
 In this section, we bolster our anecdotal findings from the previous section through rigorous empirical analysis. We first briefly describe our evaluation framework and data, before presenting and discussing our results.
 
@@ -308,9 +308,22 @@ This measure is straightforward to compute and should be less sensitive to outli
 
 As noted by \citet{guidotti2022counterfactual}, these distance-based measures are simplistic and more complex alternative measures may ultimately be more appropriate for the task. For example, we considered using statistical divergence measures instead. This would involve generating not one but many counterfactuals and comparing the generated empirical distribution to the target distributions in Definitions~\ref{def:plausible} and~\ref{def:conformal}. While this approach is potentially more rigorous, generating enough counterfactuals is not always practical. 
 
-\section{Experiments}
+\subsection{Data}
 
+\subsection{Results}
 
+\begin{figure}
+  \includegraphics[width=\textwidth]{../artifacts/results/images/mnist_benchmark.png}
+  \caption{[SUBJECTO TO CHANGE] Original image (left) and ECCCos for turning an 8 (eight) into a 3 (three) for different Black Boxes from left to right: Multi-Layer Perceptron (MLP), Ensemble of MLPs, Joint Energy Model (JEM), Ensemble of JEMs.}\label{fig:mnist-benchmark}
+\end{figure}
+
+\section{Discussion}
+
+\subsection{Key Insights}
+
+Consistent with the findings in \citet{schut2021generating}, we have demonstrated that predictive uncertainty estimates can be leveraged to generate plausible counterfactuals. Interestingly, \citet{schut2021generating} point out that this finding --- as intuitive as it is --- may be linked to a positive connection between the generative task and predictive uncertainty quantification. In particular, \citet{grathwohl2020your} demonstrate that their proposed method for integrating the generative objective in training yields models that have improved predictive uncertainty quantification. Since neither \citet{schut2021generating} nor we have employed any surrogate generative models, our findings seem to indicate that the positive connection found in \citet{grathwohl2020your} is bidirectional.
+
+\subsection{Limitations}
 
 \begin{itemize}
   \item BatchNorm does not seem compatible with JEM
@@ -323,10 +336,7 @@ As noted by \citet{guidotti2022counterfactual}, these distance-based measures ar
   \item For MNIST it seems that ECCCo is better at reducing pixel values than increasing them (better at erasing than writing)
 \end{itemize}
 
-\section{Discussion}
-
-Consistent with the findings in \citet{schut2021generating}, we have demonstrated that predictive uncertainty estimates can be leveraged to generate plausible counterfactuals. Interestingly, \citet{schut2021generating} point out that this finding --- as intuitive as it is --- may be linked to a positive connection between the generative task and predictive uncertainty quantification. In particular, \citet{grathwohl2020your} demonstrate that their proposed method for integrating the generative objective in training yields models that have improved predictive uncertainty quantification. Since neither \citet{schut2021generating} nor we have employed any surrogate generative models, our findings seem to indicate that the positive connection found in \citet{grathwohl2020your} is bidirectional.
-
+\section{Conclusion}
 
 \medskip
 

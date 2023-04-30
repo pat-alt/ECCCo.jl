@@ -148,9 +148,10 @@ _retrain = false
 _regen = false
 
 # Data:
-n_obs = 1000
+n_obs = 10000
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
+counterfactual_data.generative_model = vae
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
 x_factual = reshape(pre_process(x_factual, noise=0.0f0), input_dim, 1)
@@ -186,7 +187,7 @@ sampler = ConditionalSampler(
     input_size=(input_dim,), 
     batch_size=10,
 )
-α = [1.0,1.0,1e-1]      # penalty strengths
+α = [1.0,1.0,1e-2]      # penalty strengths
 ```
 
 ```{julia}
@@ -258,6 +259,7 @@ end
 
 ```{julia}
 # Plot generated samples:
+n_regen = 150
 if _regen 
     for (mod_name, mod) in model_dict
         if ECCCo._has_sampler(mod)
@@ -272,12 +274,11 @@ if _regen
         opt = ImproperSGLD()
         f(x) = logits(mod, x)
 
-        n_iter = 200
         _w = 1500
         plts = []
         neach = 10
         for i in 1:10
-            x = sampler(f, opt; niter=n_iter, n_samples=neach, y=i)
+            x = sampler(f, opt; niter=n_regen, n_samples=neach, y=i)
             plts_i = []
             for j in 1:size(x, 2)
                 xj = x[:,j]
@@ -321,7 +322,7 @@ model_performance
 ```{julia}
 function _plot_eccco_mnist(
     x::Union{AbstractArray, Int}=x_factual, target::Int=target;
-    λ=[0.1,0.1,0.1],
+    λ=[0.5,0.1,0.5],
     temp=0.1,η=0.01,
     plt_order = ["MLP", "MLP Ensemble", "JEM", "JEM Ensemble"],
     opt = Flux.Optimise.Adam(η),
@@ -498,7 +499,7 @@ plts = plts[plt_order]
 plts = [p1, plts...]
 plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
 display(plt)
-savefig(plt, joinpath(output_images_path, "mnist_eccco_benchmark.png"))
+savefig(plt, joinpath(output_images_path, "mnist_all_generators.png"))
 ```
 
 ## Benchmark
@@ -509,7 +510,50 @@ measures = [
     CounterfactualExplanations.distance,
     ECCCo.distance_from_energy,
     ECCCo.distance_from_targets,
-    CounterfactualExplanations.validity,
-    CounterfactualExplanations.redudancy,
+    CounterfactualExplanations.Evaluation.validity,
+    CounterfactualExplanations.Evaluation.redundancy,
 ]
+
+bmk = benchmark(
+    counterfactual_data; 
+    models=model_dict, 
+    generators=generator_dict, 
+    measure=measures,
+    suppress_training=true, dataname="MNIST",
+    n_individuals=5,
+    factual=0, target=1,
+    initialization=:identity,
+)
+CSV.write(joinpath(output_path, "mnist_benchmark.csv"), bmk())
+```
+
+
+```{julia}
+@chain bmk() begin
+    @group_by(dataname, generator, model, variable)
+    @summarize(mean=mean(value),sd=std(value))
+    @ungroup
+    @filter(variable == "distance_from_energy")
+end
+```
+
+
+```{julia}
+df = @chain bmk() begin
+    @filter(variable in [
+        "distance_from_energy",
+        "distance_from_targets",
+        "distance",])
+    @mutate(variable = ifelse.(variable .== "distance_from_energy", "Non-Conformity", variable))
+    @mutate(variable = ifelse.(variable .== "distance_from_targets", "Implausibility", variable))
+    @mutate(variable = ifelse.(variable .== "distance", "Cost", variable))
+end
+plt = AlgebraOfGraphics.data(df) * visual(BoxPlot) * 
+    mapping(:generator, :value, row=:variable, col=:model, color=:generator)
+plt = draw(
+    plt, axis=(xlabel="", xticksvisible=false, xticklabelsvisible=false, width=150, height=120), 
+    facet=(; linkyaxes=:minimal)
+)   
+display(plt)
+save(joinpath(output_images_path, "mnist_benchmark.png"), plt, px_per_unit=5)
 ```
