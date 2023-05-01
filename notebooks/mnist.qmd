@@ -91,7 +91,7 @@ Serialization.serialize(joinpath(output_path,"mnist_vae_weak.jls"), vae_weak)
 # Define generator:
 revise_generator = REVISEGenerator(
   opt = opt,
-  λ=0.1
+  λ=0.0
 )
 # Generate recourse:
 counterfactual_data.generative_model = vae # assign generative model
