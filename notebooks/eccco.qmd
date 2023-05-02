@@ -6,7 +6,7 @@ eval(setup_notebooks)
 
 ```{julia}
 # Counteractual data:
-counterfactual_data = load_circles(2000)
+counterfactual_data = load_circles(1000)
 X = counterfactual_data.X
 y = counterfactual_data.y
 labels = counterfactual_data.output_encoder.labels
@@ -20,12 +20,12 @@ batch_size = Int(round(nobs/10))
 sampler = ConditionalSampler(𝒟x, 𝒟y, input_size=size(X)[1:end-1], batch_size=batch_size)
 clf = JointEnergyClassifier(
     sampler;
-    builder=MLJFlux.MLP(hidden=(32, 32, 32,), σ=Flux.relu),
+    builder=MLJFlux.MLP(hidden=(32, 32, 32,), σ=Flux.swish),
     batch_size=batch_size,
     finaliser=x -> x,
     loss=Flux.Losses.logitcrossentropy,
     jem_training_params=(
-        α=[1.0,1.0,1e-1],
+        α=[1.0,1.0,1e-2],
         verbosity=10,
     ),
 )
@@ -80,9 +80,9 @@ end
 
 ```{julia}
 M = ECCCo.ConformalModel(mach.model, mach.fitresult)
-factual_label = 0
+factual_label =  levels(labels)[1]
 x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target = 1
+target =  levels(labels)[2]
 factual = predict_label(M, counterfactual_data, x_factual)[1]
 
 # ECCCo:
