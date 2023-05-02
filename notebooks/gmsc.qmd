@@ -167,12 +167,12 @@ bmk = benchmark(
     factual=0, target=1,
     initialization=:identity,
 )
-CSV.write(joinpath(output_path, "gmsc_benchmark.csv"), bmk())
+CSV.write(joinpath(output_path, "gmsc_benchmark.csv"), bmk.evaluation)
 ```
 
 
 ```{julia}
-@chain bmk() begin
+@chain bmk.evaluation begin
     @group_by(dataname, generator, model, variable)
     @summarize(mean=mean(value),sd=std(value))
     @ungroup
@@ -182,14 +182,15 @@ end
 
 
 ```{julia}
-df = @chain bmk() begin
+df = @chain bmk.evaluation begin
     @filter(variable in [
         "distance_from_energy",
         "distance_from_targets",
-        "distance",])
+        # "distance",
+    ])
     @mutate(variable = ifelse.(variable .== "distance_from_energy", "Non-Conformity", variable))
     @mutate(variable = ifelse.(variable .== "distance_from_targets", "Implausibility", variable))
-    @mutate(variable = ifelse.(variable .== "distance", "Cost", variable))
+    # @mutate(variable = ifelse.(variable .== "distance", "Cost", variable))
 end
 plt = AlgebraOfGraphics.data(df) * visual(BoxPlot) * 
     mapping(:generator, :value, row=:variable, col=:model, color=:generator)
