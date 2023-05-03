@@ -12,6 +12,7 @@ setup_notebooks = quote
     using ConformalPrediction
     using CounterfactualExplanations
     using CounterfactualExplanations.Data
+    using CounterfactualExplanations.DataPreprocessing: train_test_split
     using CounterfactualExplanations.Evaluation: benchmark, evaluate
     using CounterfactualExplanations.Models: load_mnist_mlp, train
     using CounterfactualExplanations.Objectives

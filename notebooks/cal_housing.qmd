@@ -10,8 +10,9 @@ eval(setup_notebooks)
 _retrain = true
 
 # Data:
-n_obs = 10000
-counterfactual_data = load_california_housing(n_obs)
+test_size = 0.2
+n_obs = Int(1000 / (1.0 - test_size))
+counterfactual_data, test_data = train_test_split(load_california_housing(n_obs); test_size=test_size)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
 labels = counterfactual_data.output_encoder.labels
@@ -25,10 +26,11 @@ First, let's create a couple of image classifier architectures:
 # Model parameters:
 epochs = 100
 batch_size = minimum([Int(round(n_obs/10)), 128])
-n_hidden = 64
+n_hidden = 128
 activation = Flux.relu
 builder = MLJFlux.@builder Flux.Chain(
     Dense(n_in, n_hidden, activation),
+    Dense(n_hidden, n_hidden, activation),
     Dense(n_hidden, n_out),
 )
 n_ens = 5                                   # number of models in ensemble
@@ -45,7 +47,7 @@ sampler = ConditionalSampler(
     input_size=(input_dim,), 
     batch_size=10,
 )
-α = [1.0,1.0,1e-2]      # penalty strengths
+α = [1.0,1.0,1e-1]      # penalty strengths
 ```
 
 ```{julia}
@@ -72,7 +74,7 @@ jem = JointEnergyClassifier(
     jem_training_params=(
         α=α,verbosity=10,
     ),
-    sampling_steps=20,
+    sampling_steps=50,
 )
 
 # JEM with adversarial training:
@@ -116,25 +118,24 @@ end
 ```
 
 ```{julia}
-# # Evaluate models:
+# Evaluate models:
 
-# measure = Dict(
-#     :f1score => multiclass_f1score, 
-#     :acc => accuracy, 
-#     :precision => multiclass_precision
-# )
-# model_performance = DataFrame()
-# for (mod_name, mod) in model_dict
-#     # Test performance:
-#     test_data = load_mnist_test()
-#     _perf = CounterfactualExplanations.Models.model_evaluation(mod, test_data, measure=collect(values(measure)))
-#     _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
-#     _perf.mod_name .= mod_name
-#     model_performance = vcat(model_performance, _perf)
-# end
-# Serialization.serialize(joinpath(output_path,"cal_housing_model_performance.jls"), model_performance)
-# CSV.write(joinpath(output_path, "cal_housing_model_performance.csv"), model_performance)
-# model_performance
+measure = Dict(
+    :f1score => multiclass_f1score, 
+    :acc => accuracy, 
+    :precision => multiclass_precision
+)
+model_performance = DataFrame()
+for (mod_name, mod) in model_dict
+    # Test performance:
+    _perf = CounterfactualExplanations.Models.model_evaluation(mod, test_data, measure=collect(values(measure)))
+    _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
+    _perf.mod_name .= mod_name
+    model_performance = vcat(model_performance, _perf)
+end
+Serialization.serialize(joinpath(output_path,"cal_housing_model_performance.jls"), model_performance)
+CSV.write(joinpath(output_path, "cal_housing_model_performance.csv"), model_performance)
+model_performance
 ```
 
 ## Benchmark
@@ -183,19 +184,17 @@ end
 
 ```{julia}
 df = @chain bmk() begin
-    @filter(variable in [
-        "distance_from_energy",
-        "distance_from_targets",
-        "distance",])
     @mutate(variable = ifelse.(variable .== "distance_from_energy", "Non-Conformity", variable))
     @mutate(variable = ifelse.(variable .== "distance_from_targets", "Implausibility", variable))
     @mutate(variable = ifelse.(variable .== "distance", "Cost", variable))
+    @mutate(variable = ifelse.(variable .== "redundancy", "Redundancy", variable))
+    @mutate(variable = ifelse.(variable .== "Validity", "Validity", variable))
 end
 plt = AlgebraOfGraphics.data(df) * visual(BoxPlot) * 
     mapping(:generator, :value, row=:variable, col=:model, color=:generator)
 plt = draw(
     plt, axis=(xlabel="", xticksvisible=false, xticklabelsvisible=false, width=150, height=120), 
-    facet=(; linkyaxes=:minimal)
+    facet=(; linkyaxes=:none)
 )   
 display(plt)
 save(joinpath(output_images_path, "cal_housing_benchmark.png"), plt, px_per_unit=5)

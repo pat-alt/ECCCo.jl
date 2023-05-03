@@ -542,13 +542,11 @@ end
 
 ```{julia}
 df = @chain bmk() begin
-    @filter(variable in [
-        "distance_from_energy",
-        "distance_from_targets",
-        "distance",])
     @mutate(variable = ifelse.(variable .== "distance_from_energy", "Non-Conformity", variable))
     @mutate(variable = ifelse.(variable .== "distance_from_targets", "Implausibility", variable))
     @mutate(variable = ifelse.(variable .== "distance", "Cost", variable))
+    @mutate(variable = ifelse.(variable .== "redundancy", "Redundancy", variable))
+    @mutate(variable = ifelse.(variable .== "Validity", "Validity", variable))
 end
 plt = AlgebraOfGraphics.data(df) * visual(BoxPlot) * 
     mapping(:generator, :value, row=:variable, col=:model, color=:generator)
