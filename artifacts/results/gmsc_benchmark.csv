@@ -1,801 +1,401 @@
-sample,num_counterfactual,variable,value,ce,dataname,generator,model,target,factual
-1,1,distance,Float32[1.8808396],"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-1,1,distance_from_energy,8.461664,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-1,1,distance_from_targets,4.557821,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-1,1,redundancy,0.0,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-1,1,validity,false,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-2,1,distance,Float32[3.8812537],"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-2,1,distance_from_energy,10.366544,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-2,1,distance_from_targets,4.504924,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-2,1,redundancy,0.0,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-2,1,validity,false,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-3,1,distance,Float32[1.8619741],"
-Convergence: ✅",Californian Housing,revise,JEM Ensemble,1,0
-3,1,distance_from_energy,10.0912,"
-Convergence: ✅",Californian Housing,revise,JEM Ensemble,1,0
-3,1,distance_from_targets,5.72349,"
-Convergence: ✅",Californian Housing,revise,JEM Ensemble,1,0
-3,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,JEM Ensemble,1,0
-3,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,JEM Ensemble,1,0
-4,1,distance,Float32[1.8302257],"
-Convergence: ✅",Californian Housing,revise,JEM Ensemble,1,0
-4,1,distance_from_energy,9.54855,"
-Convergence: ✅",Californian Housing,revise,JEM Ensemble,1,0
-4,1,distance_from_targets,5.3711357,"
-Convergence: ✅",Californian Housing,revise,JEM Ensemble,1,0
-4,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,JEM Ensemble,1,0
-4,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,JEM Ensemble,1,0
-5,1,distance,Float32[2.374693],"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-5,1,distance_from_energy,10.37821,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-5,1,distance_from_targets,6.7792215,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-5,1,redundancy,0.0,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-5,1,validity,false,"
-Convergence: ❌",Californian Housing,revise,JEM Ensemble,1,0
-1,1,distance,Float32[0.2],"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-1,1,distance_from_energy,10.128708,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-1,1,distance_from_targets,5.6870294,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-1,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-1,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-2,1,distance,Float32[0.2],"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-2,1,distance_from_energy,8.044174,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-2,1,distance_from_targets,6.587344,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-2,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-2,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-3,1,distance,Float32[0.099999994],"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-3,1,distance_from_energy,10.562269,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-3,1,distance_from_targets,6.5746174,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-3,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-3,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-4,1,distance,Float32[0.099999994],"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-4,1,distance_from_energy,10.433871,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-4,1,distance_from_targets,6.1688733,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-4,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-4,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-5,1,distance,Float32[0.70000017],"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-5,1,distance_from_energy,9.828283,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-5,1,distance_from_targets,7.0533257,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-5,1,redundancy,0.75,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-5,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,JEM Ensemble,1,0
-1,1,distance,Float32[0.2],"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-1,1,distance_from_energy,9.726099,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-1,1,distance_from_targets,5.4704204,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-1,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-1,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-2,1,distance,Float32[0.2],"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-2,1,distance_from_energy,9.422539,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-2,1,distance_from_targets,6.3577952,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-2,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-2,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-3,1,distance,Float32[0.099999994],"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-3,1,distance_from_energy,9.744759,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-3,1,distance_from_targets,6.589761,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-3,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-3,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-4,1,distance,Float32[0.099999994],"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-4,1,distance_from_energy,9.709781,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-4,1,distance_from_targets,6.180225,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-4,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-4,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-5,1,distance,Float32[0.8000001],"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-5,1,distance_from_energy,10.758295,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-5,1,distance_from_targets,6.8113194,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-5,1,redundancy,0.75,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-5,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,JEM Ensemble,1,0
-1,1,distance,Float32[0.6799995],"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-1,1,distance_from_energy,8.298499,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-1,1,distance_from_targets,5.641716,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-1,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-1,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-2,1,distance,Float32[0.31999975],"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-2,1,distance_from_energy,7.664296,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-2,1,distance_from_targets,6.6763825,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-2,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-2,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-3,1,distance,Float32[0.07999997],"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-3,1,distance_from_energy,10.768106,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-3,1,distance_from_targets,6.361887,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-3,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-3,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-4,1,distance,Float32[0.35999972],"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-4,1,distance_from_energy,8.668391,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-4,1,distance_from_targets,6.2152205,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-4,1,redundancy,0.25,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-4,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-5,1,distance,Float32[0.83999944],"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-5,1,distance_from_energy,8.757013,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-5,1,distance_from_targets,6.563821,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-5,1,redundancy,0.25,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-5,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,JEM Ensemble,1,0
-6,1,distance,Float32[4.0026846],"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-6,1,distance_from_energy,314.77728,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-6,1,distance_from_targets,5.6145387,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-6,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-6,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-7,1,distance,Float32[3.2443917],"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-7,1,distance_from_energy,322.58966,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-7,1,distance_from_targets,4.734803,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-7,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-7,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-8,1,distance,Float32[4.6039753],"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-8,1,distance_from_energy,406.99112,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-8,1,distance_from_targets,4.7767906,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-8,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-8,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-9,1,distance,Float32[1.6108489],"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-9,1,distance_from_energy,259.97772,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-9,1,distance_from_targets,4.821418,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-9,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-9,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-10,1,distance,Float32[3.361702],"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-10,1,distance_from_energy,325.50375,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-10,1,distance_from_targets,5.769852,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-10,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-10,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,MLP,1,0
-6,1,distance,Float32[0.39999998],"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-6,1,distance_from_energy,177.16382,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-6,1,distance_from_targets,7.6693,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-6,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-6,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-7,1,distance,Float32[0.2],"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-7,1,distance_from_energy,170.38297,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-7,1,distance_from_targets,6.680264,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-7,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-7,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-8,1,distance,Float32[0.4],"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-8,1,distance_from_energy,216.61328,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-8,1,distance_from_targets,6.4001665,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-8,1,redundancy,0.75,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-8,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-9,1,distance,Float32[0.1],"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-9,1,distance_from_energy,281.91168,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-9,1,distance_from_targets,5.159766,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-9,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-9,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-10,1,distance,Float32[0.59999996],"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-10,1,distance_from_energy,219.05847,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-10,1,distance_from_targets,7.6656485,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-10,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-10,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,MLP,1,0
-6,1,distance,Float32[0.39999998],"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-6,1,distance_from_energy,246.38237,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-6,1,distance_from_targets,7.6779747,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-6,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-6,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-7,1,distance,Float32[0.2],"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-7,1,distance_from_energy,297.0213,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-7,1,distance_from_targets,6.6958055,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-7,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-7,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-8,1,distance,Float32[0.4],"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-8,1,distance_from_energy,266.59482,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-8,1,distance_from_targets,6.331769,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-8,1,redundancy,0.75,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-8,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-9,1,distance,Float32[0.1],"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-9,1,distance_from_energy,290.03915,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-9,1,distance_from_targets,5.263832,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-9,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-9,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-10,1,distance,Float32[0.59999996],"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-10,1,distance_from_energy,301.52667,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-10,1,distance_from_targets,7.647933,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-10,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-10,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,MLP,1,0
-6,1,distance,Float32[0.95999956],"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-6,1,distance_from_energy,246.16826,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-6,1,distance_from_targets,7.4335694,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-6,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-6,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-7,1,distance,Float32[0.35999975],"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-7,1,distance_from_energy,228.79973,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-7,1,distance_from_targets,6.351187,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-7,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-7,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-8,1,distance,Float32[0.79999954],"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-8,1,distance_from_energy,218.44572,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-8,1,distance_from_targets,6.1676702,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-8,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-8,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-9,1,distance,Float32[0.07999994],"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-9,1,distance_from_energy,196.818,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-9,1,distance_from_targets,5.023533,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-9,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-9,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-10,1,distance,Float32[1.6399989],"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-10,1,distance_from_energy,268.28333,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-10,1,distance_from_targets,7.4489574,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-10,1,redundancy,0.125,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-10,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,MLP,1,0
-11,1,distance,Float32[2.988908],"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-11,1,distance_from_energy,166.39853,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-11,1,distance_from_targets,5.394507,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-11,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-11,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-12,1,distance,Float32[8.518592],"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-12,1,distance_from_energy,197.99025,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-12,1,distance_from_targets,4.6680164,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-12,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-12,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-13,1,distance,Float32[1.5909717],"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-13,1,distance_from_energy,246.94055,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-13,1,distance_from_targets,4.8824925,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-13,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-13,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-14,1,distance,Float32[3.789693],"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-14,1,distance_from_energy,187.41772,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-14,1,distance_from_targets,4.701274,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-14,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-14,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-15,1,distance,Float32[3.7671118],"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-15,1,distance_from_energy,308.73193,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-15,1,distance_from_targets,4.6771507,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-15,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-15,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,MLP Ensemble,1,0
-11,1,distance,Float32[0.39999998],"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-11,1,distance_from_energy,214.13828,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-11,1,distance_from_targets,7.074875,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-11,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-11,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-12,1,distance,Float32[0.1],"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-12,1,distance_from_energy,214.93787,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-12,1,distance_from_targets,8.603035,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-12,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-12,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-13,1,distance,Float32[0.099999994],"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-13,1,distance_from_energy,262.8469,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-13,1,distance_from_targets,5.794109,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-13,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-13,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-14,1,distance,Float32[0.39999998],"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-14,1,distance_from_energy,289.6086,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-14,1,distance_from_targets,6.75391,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-14,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-14,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-15,1,distance,Float32[0.1],"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-15,1,distance_from_energy,219.26624,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-15,1,distance_from_targets,6.5528407,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-15,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-15,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,MLP Ensemble,1,0
-11,1,distance,Float32[0.39999998],"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-11,1,distance_from_energy,306.83655,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-11,1,distance_from_targets,7.1254005,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-11,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-11,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-12,1,distance,Float32[0.1],"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-12,1,distance_from_energy,264.65982,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-12,1,distance_from_targets,8.556416,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-12,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-12,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-13,1,distance,Float32[0.099999994],"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-13,1,distance_from_energy,210.39725,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-13,1,distance_from_targets,5.6687,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-13,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-13,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-14,1,distance,Float32[0.39999998],"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-14,1,distance_from_energy,299.83313,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-14,1,distance_from_targets,6.7239194,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-14,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-14,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-15,1,distance,Float32[0.1],"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-15,1,distance_from_energy,283.7801,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-15,1,distance_from_targets,6.476427,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-15,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-15,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,MLP Ensemble,1,0
-11,1,distance,Float32[0.87999946],"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-11,1,distance_from_energy,240.0104,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-11,1,distance_from_targets,6.619682,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-11,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-11,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-12,1,distance,Float32[0.13999996],"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-12,1,distance_from_energy,210.00273,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-12,1,distance_from_targets,8.638436,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-12,1,redundancy,0.125,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-12,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-13,1,distance,Float32[0.07999995],"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-13,1,distance_from_energy,338.97745,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-13,1,distance_from_targets,5.7860813,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-13,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-13,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-14,1,distance,Float32[1.3199995],"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-14,1,distance_from_energy,254.07788,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-14,1,distance_from_targets,6.563486,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-14,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-14,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-15,1,distance,Float32[0.1399999],"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-15,1,distance_from_energy,222.0273,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-15,1,distance_from_targets,6.601179,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-15,1,redundancy,0.125,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-15,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,MLP Ensemble,1,0
-16,1,distance,Float32[2.9892344],"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-16,1,distance_from_energy,8.488709,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-16,1,distance_from_targets,4.4637537,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-16,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-16,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-17,1,distance,Float32[2.5778935],"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-17,1,distance_from_energy,8.316306,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-17,1,distance_from_targets,4.7104325,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-17,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-17,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-18,1,distance,Float32[3.0227609],"
-Convergence: ❌",Californian Housing,revise,JEM,1,0
-18,1,distance_from_energy,9.328789,"
-Convergence: ❌",Californian Housing,revise,JEM,1,0
-18,1,distance_from_targets,4.8747354,"
-Convergence: ❌",Californian Housing,revise,JEM,1,0
-18,1,redundancy,0.0,"
-Convergence: ❌",Californian Housing,revise,JEM,1,0
-18,1,validity,false,"
-Convergence: ❌",Californian Housing,revise,JEM,1,0
-19,1,distance,Float32[2.872929],"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-19,1,distance_from_energy,10.106264,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-19,1,distance_from_targets,5.788596,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-19,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-19,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-20,1,distance,Float32[2.173339],"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-20,1,distance_from_energy,8.9135,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-20,1,distance_from_targets,5.000705,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-20,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-20,1,validity,true,"
-Convergence: ✅",Californian Housing,revise,JEM,1,0
-16,1,distance,Float32[0.1],"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-16,1,distance_from_energy,9.9056835,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-16,1,distance_from_targets,6.3118243,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-16,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-16,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-17,1,distance,Float32[0.099999994],"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-17,1,distance_from_energy,8.909609,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-17,1,distance_from_targets,5.394095,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-17,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-17,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-18,1,distance,Float32[0.2],"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-18,1,distance_from_energy,10.332393,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-18,1,distance_from_targets,6.551979,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-18,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-18,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-19,1,distance,Float32[0.1],"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-19,1,distance_from_energy,9.619695,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-19,1,distance_from_targets,7.0109854,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-19,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-19,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-20,1,distance,Float32[0.2],"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-20,1,distance_from_energy,9.4669285,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-20,1,distance_from_targets,5.6579533,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-20,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-20,1,validity,true,"
-Convergence: ✅",Californian Housing,greedy,JEM,1,0
-16,1,distance,Float32[0.1],"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-16,1,distance_from_energy,11.167322,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-16,1,distance_from_targets,6.1822476,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-16,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-16,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-17,1,distance,Float32[0.099999994],"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-17,1,distance_from_energy,9.06465,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-17,1,distance_from_targets,5.4826946,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-17,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-17,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-18,1,distance,Float32[0.2],"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-18,1,distance_from_energy,9.936276,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-18,1,distance_from_targets,6.5694094,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-18,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-18,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-19,1,distance,Float32[0.1],"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-19,1,distance_from_energy,10.191511,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-19,1,distance_from_targets,6.9682,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-19,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-19,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-20,1,distance,Float32[0.2],"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-20,1,distance_from_energy,10.2408695,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-20,1,distance_from_targets,5.6725516,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-20,1,redundancy,0.875,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-20,1,validity,true,"
-Convergence: ✅",Californian Housing,eccco,JEM,1,0
-16,1,distance,Float32[0.43999973],"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-16,1,distance_from_energy,10.513639,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-16,1,distance_from_targets,6.377578,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-16,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-16,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-17,1,distance,Float32[0.2799998],"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-17,1,distance_from_energy,6.898867,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-17,1,distance_from_targets,5.364885,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-17,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-17,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-18,1,distance,Float32[0.6799996],"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-18,1,distance_from_energy,9.212458,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-18,1,distance_from_targets,6.529666,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-18,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-18,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-19,1,distance,Float32[0.4999996],"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-19,1,distance_from_energy,8.577317,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-19,1,distance_from_targets,7.186394,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-19,1,redundancy,0.0,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-19,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-20,1,distance,Float32[0.59999955],"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-20,1,distance_from_energy,10.01089,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-20,1,distance_from_targets,5.405971,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-20,1,redundancy,0.375,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
-20,1,validity,true,"
-Convergence: ✅",Californian Housing,wachter,JEM,1,0
+sample,variable,value,dataname,generator,model,target,factual
+1,distance,5.564479827880859,California Housing,revise,JEM Ensemble,1,0
+1,distance_from_energy,10.624597549438477,California Housing,revise,JEM Ensemble,1,0
+1,distance_from_targets,4.858004570007324,California Housing,revise,JEM Ensemble,1,0
+1,redundancy,0.0,California Housing,revise,JEM Ensemble,1,0
+1,validity,1.0,California Housing,revise,JEM Ensemble,1,0
+2,distance,2.128340482711792,California Housing,revise,JEM Ensemble,1,0
+2,distance_from_energy,9.088190078735352,California Housing,revise,JEM Ensemble,1,0
+2,distance_from_targets,3.6487929821014404,California Housing,revise,JEM Ensemble,1,0
+2,redundancy,0.0,California Housing,revise,JEM Ensemble,1,0
+2,validity,1.0,California Housing,revise,JEM Ensemble,1,0
+3,distance,2.937845230102539,California Housing,revise,JEM Ensemble,1,0
+3,distance_from_energy,8.908811569213867,California Housing,revise,JEM Ensemble,1,0
+3,distance_from_targets,4.466905117034912,California Housing,revise,JEM Ensemble,1,0
+3,redundancy,0.0,California Housing,revise,JEM Ensemble,1,0
+3,validity,1.0,California Housing,revise,JEM Ensemble,1,0
+4,distance,1.9354369640350342,California Housing,revise,JEM Ensemble,1,0
+4,distance_from_energy,9.564157485961914,California Housing,revise,JEM Ensemble,1,0
+4,distance_from_targets,3.7939188480377197,California Housing,revise,JEM Ensemble,1,0
+4,redundancy,0.0,California Housing,revise,JEM Ensemble,1,0
+4,validity,1.0,California Housing,revise,JEM Ensemble,1,0
+5,distance,1.2710787057876587,California Housing,revise,JEM Ensemble,1,0
+5,distance_from_energy,10.314037322998047,California Housing,revise,JEM Ensemble,1,0
+5,distance_from_targets,4.288711071014404,California Housing,revise,JEM Ensemble,1,0
+5,redundancy,0.0,California Housing,revise,JEM Ensemble,1,0
+5,validity,1.0,California Housing,revise,JEM Ensemble,1,0
+1,distance,0.19999998807907104,California Housing,greedy,JEM Ensemble,1,0
+1,distance_from_energy,11.204401969909668,California Housing,greedy,JEM Ensemble,1,0
+1,distance_from_targets,5.200430870056152,California Housing,greedy,JEM Ensemble,1,0
+1,redundancy,0.9,California Housing,greedy,JEM Ensemble,1,0
+1,validity,1.0,California Housing,greedy,JEM Ensemble,1,0
+2,distance,0.09999999403953552,California Housing,greedy,JEM Ensemble,1,0
+2,distance_from_energy,9.716474533081055,California Housing,greedy,JEM Ensemble,1,0
+2,distance_from_targets,3.882671356201172,California Housing,greedy,JEM Ensemble,1,0
+2,redundancy,0.9,California Housing,greedy,JEM Ensemble,1,0
+2,validity,1.0,California Housing,greedy,JEM Ensemble,1,0
+3,distance,0.10000000149011612,California Housing,greedy,JEM Ensemble,1,0
+3,distance_from_energy,12.475095748901367,California Housing,greedy,JEM Ensemble,1,0
+3,distance_from_targets,5.301448345184326,California Housing,greedy,JEM Ensemble,1,0
+3,redundancy,0.9,California Housing,greedy,JEM Ensemble,1,0
+3,validity,1.0,California Housing,greedy,JEM Ensemble,1,0
+4,distance,0.09999999403953552,California Housing,greedy,JEM Ensemble,1,0
+4,distance_from_energy,10.566214561462402,California Housing,greedy,JEM Ensemble,1,0
+4,distance_from_targets,3.804549217224121,California Housing,greedy,JEM Ensemble,1,0
+4,redundancy,0.9,California Housing,greedy,JEM Ensemble,1,0
+4,validity,1.0,California Housing,greedy,JEM Ensemble,1,0
+5,distance,0.20000001788139343,California Housing,greedy,JEM Ensemble,1,0
+5,distance_from_energy,9.567259788513184,California Housing,greedy,JEM Ensemble,1,0
+5,distance_from_targets,4.261157989501953,California Housing,greedy,JEM Ensemble,1,0
+5,redundancy,0.8,California Housing,greedy,JEM Ensemble,1,0
+5,validity,1.0,California Housing,greedy,JEM Ensemble,1,0
+1,distance,0.20000000298023224,California Housing,eccco,JEM Ensemble,1,0
+1,distance_from_energy,11.426634788513184,California Housing,eccco,JEM Ensemble,1,0
+1,distance_from_targets,5.166793346405029,California Housing,eccco,JEM Ensemble,1,0
+1,redundancy,0.8,California Housing,eccco,JEM Ensemble,1,0
+1,validity,1.0,California Housing,eccco,JEM Ensemble,1,0
+2,distance,0.09999999403953552,California Housing,eccco,JEM Ensemble,1,0
+2,distance_from_energy,9.737007141113281,California Housing,eccco,JEM Ensemble,1,0
+2,distance_from_targets,3.840818166732788,California Housing,eccco,JEM Ensemble,1,0
+2,redundancy,0.9,California Housing,eccco,JEM Ensemble,1,0
+2,validity,1.0,California Housing,eccco,JEM Ensemble,1,0
+3,distance,0.10000000149011612,California Housing,eccco,JEM Ensemble,1,0
+3,distance_from_energy,11.053731918334961,California Housing,eccco,JEM Ensemble,1,0
+3,distance_from_targets,5.473806381225586,California Housing,eccco,JEM Ensemble,1,0
+3,redundancy,0.9,California Housing,eccco,JEM Ensemble,1,0
+3,validity,1.0,California Housing,eccco,JEM Ensemble,1,0
+4,distance,0.09999999403953552,California Housing,eccco,JEM Ensemble,1,0
+4,distance_from_energy,8.737981796264648,California Housing,eccco,JEM Ensemble,1,0
+4,distance_from_targets,3.9571189880371094,California Housing,eccco,JEM Ensemble,1,0
+4,redundancy,0.9,California Housing,eccco,JEM Ensemble,1,0
+4,validity,1.0,California Housing,eccco,JEM Ensemble,1,0
+5,distance,0.20000001788139343,California Housing,eccco,JEM Ensemble,1,0
+5,distance_from_energy,9.255507469177246,California Housing,eccco,JEM Ensemble,1,0
+5,distance_from_targets,4.328383922576904,California Housing,eccco,JEM Ensemble,1,0
+5,redundancy,0.8,California Housing,eccco,JEM Ensemble,1,0
+5,validity,1.0,California Housing,eccco,JEM Ensemble,1,0
+1,distance,0.1999998837709427,California Housing,wachter,JEM Ensemble,1,0
+1,distance_from_energy,11.166852951049805,California Housing,wachter,JEM Ensemble,1,0
+1,distance_from_targets,4.991885662078857,California Housing,wachter,JEM Ensemble,1,0
+1,redundancy,0.8,California Housing,wachter,JEM Ensemble,1,0
+1,validity,0.0,California Housing,wachter,JEM Ensemble,1,0
+2,distance,0.09999998658895493,California Housing,wachter,JEM Ensemble,1,0
+2,distance_from_energy,10.558074951171875,California Housing,wachter,JEM Ensemble,1,0
+2,distance_from_targets,4.021323204040527,California Housing,wachter,JEM Ensemble,1,0
+2,redundancy,0.0,California Housing,wachter,JEM Ensemble,1,0
+2,validity,1.0,California Housing,wachter,JEM Ensemble,1,0
+3,distance,0.2799997925758362,California Housing,wachter,JEM Ensemble,1,0
+3,distance_from_energy,12.050450325012207,California Housing,wachter,JEM Ensemble,1,0
+3,distance_from_targets,5.445785045623779,California Housing,wachter,JEM Ensemble,1,0
+3,redundancy,0.0,California Housing,wachter,JEM Ensemble,1,0
+3,validity,1.0,California Housing,wachter,JEM Ensemble,1,0
+4,distance,1.4901161193847656e-8,California Housing,wachter,JEM Ensemble,1,0
+4,distance_from_energy,11.341981887817383,California Housing,wachter,JEM Ensemble,1,0
+4,distance_from_targets,3.836761713027954,California Housing,wachter,JEM Ensemble,1,0
+4,redundancy,1.0,California Housing,wachter,JEM Ensemble,1,0
+4,validity,0.0,California Housing,wachter,JEM Ensemble,1,0
+5,distance,0.33999985456466675,California Housing,wachter,JEM Ensemble,1,0
+5,distance_from_energy,10.11213493347168,California Housing,wachter,JEM Ensemble,1,0
+5,distance_from_targets,4.818438529968262,California Housing,wachter,JEM Ensemble,1,0
+5,redundancy,0.9,California Housing,wachter,JEM Ensemble,1,0
+5,validity,0.0,California Housing,wachter,JEM Ensemble,1,0
+6,distance,4.0728559494018555,California Housing,revise,MLP,1,0
+6,distance_from_energy,66.91232299804688,California Housing,revise,MLP,1,0
+6,distance_from_targets,5.12241268157959,California Housing,revise,MLP,1,0
+6,redundancy,0.0,California Housing,revise,MLP,1,0
+6,validity,1.0,California Housing,revise,MLP,1,0
+7,distance,2.743494749069214,California Housing,revise,MLP,1,0
+7,distance_from_energy,94.57240295410156,California Housing,revise,MLP,1,0
+7,distance_from_targets,3.948488712310791,California Housing,revise,MLP,1,0
+7,redundancy,0.0,California Housing,revise,MLP,1,0
+7,validity,1.0,California Housing,revise,MLP,1,0
+8,distance,2.759432554244995,California Housing,revise,MLP,1,0
+8,distance_from_energy,55.22428512573242,California Housing,revise,MLP,1,0
+8,distance_from_targets,4.306966781616211,California Housing,revise,MLP,1,0
+8,redundancy,0.0,California Housing,revise,MLP,1,0
+8,validity,1.0,California Housing,revise,MLP,1,0
+9,distance,3.0576250553131104,California Housing,revise,MLP,1,0
+9,distance_from_energy,58.68041229248047,California Housing,revise,MLP,1,0
+9,distance_from_targets,4.392056941986084,California Housing,revise,MLP,1,0
+9,redundancy,0.0,California Housing,revise,MLP,1,0
+9,validity,1.0,California Housing,revise,MLP,1,0
+10,distance,2.8674750328063965,California Housing,revise,MLP,1,0
+10,distance_from_energy,43.06920623779297,California Housing,revise,MLP,1,0
+10,distance_from_targets,4.253293991088867,California Housing,revise,MLP,1,0
+10,redundancy,0.0,California Housing,revise,MLP,1,0
+10,validity,1.0,California Housing,revise,MLP,1,0
+6,distance,0.20000000298023224,California Housing,greedy,MLP,1,0
+6,distance_from_energy,77.97296905517578,California Housing,greedy,MLP,1,0
+6,distance_from_targets,5.571389198303223,California Housing,greedy,MLP,1,0
+6,redundancy,0.9,California Housing,greedy,MLP,1,0
+6,validity,1.0,California Housing,greedy,MLP,1,0
+7,distance,0.699999988079071,California Housing,greedy,MLP,1,0
+7,distance_from_energy,91.50792694091797,California Housing,greedy,MLP,1,0
+7,distance_from_targets,4.989508628845215,California Housing,greedy,MLP,1,0
+7,redundancy,0.9,California Housing,greedy,MLP,1,0
+7,validity,1.0,California Housing,greedy,MLP,1,0
+8,distance,0.3999999761581421,California Housing,greedy,MLP,1,0
+8,distance_from_energy,79.4323959350586,California Housing,greedy,MLP,1,0
+8,distance_from_targets,6.428986072540283,California Housing,greedy,MLP,1,0
+8,redundancy,0.9,California Housing,greedy,MLP,1,0
+8,validity,1.0,California Housing,greedy,MLP,1,0
+9,distance,0.30000001192092896,California Housing,greedy,MLP,1,0
+9,distance_from_energy,66.9940185546875,California Housing,greedy,MLP,1,0
+9,distance_from_targets,5.906508445739746,California Housing,greedy,MLP,1,0
+9,redundancy,0.8,California Housing,greedy,MLP,1,0
+9,validity,1.0,California Housing,greedy,MLP,1,0
+10,distance,0.10000000149011612,California Housing,greedy,MLP,1,0
+10,distance_from_energy,64.43855285644531,California Housing,greedy,MLP,1,0
+10,distance_from_targets,5.2784600257873535,California Housing,greedy,MLP,1,0
+10,redundancy,0.9,California Housing,greedy,MLP,1,0
+10,validity,1.0,California Housing,greedy,MLP,1,0
+6,distance,0.30000004172325134,California Housing,eccco,MLP,1,0
+6,distance_from_energy,84.65956115722656,California Housing,eccco,MLP,1,0
+6,distance_from_targets,5.561000823974609,California Housing,eccco,MLP,1,0
+6,redundancy,0.9,California Housing,eccco,MLP,1,0
+6,validity,1.0,California Housing,eccco,MLP,1,0
+7,distance,2.6000003814697266,California Housing,eccco,MLP,1,0
+7,distance_from_energy,66.11222076416016,California Housing,eccco,MLP,1,0
+7,distance_from_targets,5.290802478790283,California Housing,eccco,MLP,1,0
+7,redundancy,0.5,California Housing,eccco,MLP,1,0
+7,validity,0.0,California Housing,eccco,MLP,1,0
+8,distance,3.200000286102295,California Housing,eccco,MLP,1,0
+8,distance_from_energy,73.18525695800781,California Housing,eccco,MLP,1,0
+8,distance_from_targets,4.796335220336914,California Housing,eccco,MLP,1,0
+8,redundancy,0.5,California Housing,eccco,MLP,1,0
+8,validity,1.0,California Housing,eccco,MLP,1,0
+9,distance,0.29999998211860657,California Housing,eccco,MLP,1,0
+9,distance_from_energy,68.22465515136719,California Housing,eccco,MLP,1,0
+9,distance_from_targets,5.669700622558594,California Housing,eccco,MLP,1,0
+9,redundancy,0.7,California Housing,eccco,MLP,1,0
+9,validity,1.0,California Housing,eccco,MLP,1,0
+10,distance,0.10000000149011612,California Housing,eccco,MLP,1,0
+10,distance_from_energy,70.25737762451172,California Housing,eccco,MLP,1,0
+10,distance_from_targets,5.126810550689697,California Housing,eccco,MLP,1,0
+10,redundancy,0.9,California Housing,eccco,MLP,1,0
+10,validity,1.0,California Housing,eccco,MLP,1,0
+6,distance,0.6599994897842407,California Housing,wachter,MLP,1,0
+6,distance_from_energy,61.025657653808594,California Housing,wachter,MLP,1,0
+6,distance_from_targets,5.685238361358643,California Housing,wachter,MLP,1,0
+6,redundancy,0.0,California Housing,wachter,MLP,1,0
+6,validity,1.0,California Housing,wachter,MLP,1,0
+7,distance,2.6799981594085693,California Housing,wachter,MLP,1,0
+7,distance_from_energy,70.65636444091797,California Housing,wachter,MLP,1,0
+7,distance_from_targets,4.860723495483398,California Housing,wachter,MLP,1,0
+7,redundancy,0.5,California Housing,wachter,MLP,1,0
+7,validity,0.0,California Housing,wachter,MLP,1,0
+8,distance,2.4199976921081543,California Housing,wachter,MLP,1,0
+8,distance_from_energy,107.84793853759766,California Housing,wachter,MLP,1,0
+8,distance_from_targets,6.298903942108154,California Housing,wachter,MLP,1,0
+8,redundancy,0.0,California Housing,wachter,MLP,1,0
+8,validity,1.0,California Housing,wachter,MLP,1,0
+9,distance,0.579999566078186,California Housing,wachter,MLP,1,0
+9,distance_from_energy,73.76725769042969,California Housing,wachter,MLP,1,0
+9,distance_from_targets,5.706188678741455,California Housing,wachter,MLP,1,0
+9,redundancy,0.0,California Housing,wachter,MLP,1,0
+9,validity,1.0,California Housing,wachter,MLP,1,0
+10,distance,0.29999980330467224,California Housing,wachter,MLP,1,0
+10,distance_from_energy,59.27626419067383,California Housing,wachter,MLP,1,0
+10,distance_from_targets,5.059507846832275,California Housing,wachter,MLP,1,0
+10,redundancy,0.0,California Housing,wachter,MLP,1,0
+10,validity,1.0,California Housing,wachter,MLP,1,0
+11,distance,2.9446020126342773,California Housing,revise,MLP Ensemble,1,0
+11,distance_from_energy,112.00111389160156,California Housing,revise,MLP Ensemble,1,0
+11,distance_from_targets,3.7937021255493164,California Housing,revise,MLP Ensemble,1,0
+11,redundancy,0.0,California Housing,revise,MLP Ensemble,1,0
+11,validity,1.0,California Housing,revise,MLP Ensemble,1,0
+12,distance,20.435651779174805,California Housing,revise,MLP Ensemble,1,0
+12,distance_from_energy,92.62034606933594,California Housing,revise,MLP Ensemble,1,0
+12,distance_from_targets,4.544589042663574,California Housing,revise,MLP Ensemble,1,0
+12,redundancy,0.0,California Housing,revise,MLP Ensemble,1,0
+12,validity,1.0,California Housing,revise,MLP Ensemble,1,0
+13,distance,2.8908486366271973,California Housing,revise,MLP Ensemble,1,0
+13,distance_from_energy,76.86541748046875,California Housing,revise,MLP Ensemble,1,0
+13,distance_from_targets,4.581481456756592,California Housing,revise,MLP Ensemble,1,0
+13,redundancy,0.0,California Housing,revise,MLP Ensemble,1,0
+13,validity,1.0,California Housing,revise,MLP Ensemble,1,0
+14,distance,3.2291829586029053,California Housing,revise,MLP Ensemble,1,0
+14,distance_from_energy,78.06466674804688,California Housing,revise,MLP Ensemble,1,0
+14,distance_from_targets,3.8079476356506348,California Housing,revise,MLP Ensemble,1,0
+14,redundancy,0.0,California Housing,revise,MLP Ensemble,1,0
+14,validity,1.0,California Housing,revise,MLP Ensemble,1,0
+15,distance,3.3418705463409424,California Housing,revise,MLP Ensemble,1,0
+15,distance_from_energy,81.8373794555664,California Housing,revise,MLP Ensemble,1,0
+15,distance_from_targets,3.8303706645965576,California Housing,revise,MLP Ensemble,1,0
+15,redundancy,0.0,California Housing,revise,MLP Ensemble,1,0
+15,validity,1.0,California Housing,revise,MLP Ensemble,1,0
+11,distance,0.30000001192092896,California Housing,greedy,MLP Ensemble,1,0
+11,distance_from_energy,78.31103515625,California Housing,greedy,MLP Ensemble,1,0
+11,distance_from_targets,4.786750316619873,California Housing,greedy,MLP Ensemble,1,0
+11,redundancy,0.9,California Housing,greedy,MLP Ensemble,1,0
+11,validity,1.0,California Housing,greedy,MLP Ensemble,1,0
+12,distance,10.000003814697266,California Housing,greedy,MLP Ensemble,1,0
+12,distance_from_energy,83.95401000976562,California Housing,greedy,MLP Ensemble,1,0
+12,distance_from_targets,26.30084991455078,California Housing,greedy,MLP Ensemble,1,0
+12,redundancy,0.0,California Housing,greedy,MLP Ensemble,1,0
+12,validity,0.0,California Housing,greedy,MLP Ensemble,1,0
+13,distance,0.7000000476837158,California Housing,greedy,MLP Ensemble,1,0
+13,distance_from_energy,84.73243713378906,California Housing,greedy,MLP Ensemble,1,0
+13,distance_from_targets,5.02972936630249,California Housing,greedy,MLP Ensemble,1,0
+13,redundancy,0.8,California Housing,greedy,MLP Ensemble,1,0
+13,validity,1.0,California Housing,greedy,MLP Ensemble,1,0
+14,distance,0.09999999403953552,California Housing,greedy,MLP Ensemble,1,0
+14,distance_from_energy,77.81356048583984,California Housing,greedy,MLP Ensemble,1,0
+14,distance_from_targets,4.023746490478516,California Housing,greedy,MLP Ensemble,1,0
+14,redundancy,0.9,California Housing,greedy,MLP Ensemble,1,0
+14,validity,1.0,California Housing,greedy,MLP Ensemble,1,0
+15,distance,0.10000000149011612,California Housing,greedy,MLP Ensemble,1,0
+15,distance_from_energy,85.52420043945312,California Housing,greedy,MLP Ensemble,1,0
+15,distance_from_targets,4.452949523925781,California Housing,greedy,MLP Ensemble,1,0
+15,redundancy,0.9,California Housing,greedy,MLP Ensemble,1,0
+15,validity,1.0,California Housing,greedy,MLP Ensemble,1,0
+11,distance,0.5,California Housing,eccco,MLP Ensemble,1,0
+11,distance_from_energy,80.85704040527344,California Housing,eccco,MLP Ensemble,1,0
+11,distance_from_targets,4.6387176513671875,California Housing,eccco,MLP Ensemble,1,0
+11,redundancy,0.9,California Housing,eccco,MLP Ensemble,1,0
+11,validity,1.0,California Housing,eccco,MLP Ensemble,1,0
+12,distance,5.000000953674316,California Housing,eccco,MLP Ensemble,1,0
+12,distance_from_energy,72.9338150024414,California Housing,eccco,MLP Ensemble,1,0
+12,distance_from_targets,23.536605834960938,California Housing,eccco,MLP Ensemble,1,0
+12,redundancy,0.5,California Housing,eccco,MLP Ensemble,1,0
+12,validity,0.0,California Housing,eccco,MLP Ensemble,1,0
+13,distance,0.8000001907348633,California Housing,eccco,MLP Ensemble,1,0
+13,distance_from_energy,47.87910842895508,California Housing,eccco,MLP Ensemble,1,0
+13,distance_from_targets,4.664304733276367,California Housing,eccco,MLP Ensemble,1,0
+13,redundancy,0.8,California Housing,eccco,MLP Ensemble,1,0
+13,validity,1.0,California Housing,eccco,MLP Ensemble,1,0
+14,distance,0.09999999403953552,California Housing,eccco,MLP Ensemble,1,0
+14,distance_from_energy,107.40899658203125,California Housing,eccco,MLP Ensemble,1,0
+14,distance_from_targets,3.9644620418548584,California Housing,eccco,MLP Ensemble,1,0
+14,redundancy,0.9,California Housing,eccco,MLP Ensemble,1,0
+14,validity,1.0,California Housing,eccco,MLP Ensemble,1,0
+15,distance,0.10000000149011612,California Housing,eccco,MLP Ensemble,1,0
+15,distance_from_energy,86.38545227050781,California Housing,eccco,MLP Ensemble,1,0
+15,distance_from_targets,4.468271255493164,California Housing,eccco,MLP Ensemble,1,0
+15,redundancy,0.9,California Housing,eccco,MLP Ensemble,1,0
+15,validity,1.0,California Housing,eccco,MLP Ensemble,1,0
+11,distance,0.5799997448921204,California Housing,wachter,MLP Ensemble,1,0
+11,distance_from_energy,39.44195556640625,California Housing,wachter,MLP Ensemble,1,0
+11,distance_from_targets,4.511152267456055,California Housing,wachter,MLP Ensemble,1,0
+11,redundancy,0.0,California Housing,wachter,MLP Ensemble,1,0
+11,validity,1.0,California Housing,wachter,MLP Ensemble,1,0
+12,distance,4.499996662139893,California Housing,wachter,MLP Ensemble,1,0
+12,distance_from_energy,88.25691986083984,California Housing,wachter,MLP Ensemble,1,0
+12,distance_from_targets,23.618432998657227,California Housing,wachter,MLP Ensemble,1,0
+12,redundancy,0.5,California Housing,wachter,MLP Ensemble,1,0
+12,validity,0.0,California Housing,wachter,MLP Ensemble,1,0
+13,distance,1.0999994277954102,California Housing,wachter,MLP Ensemble,1,0
+13,distance_from_energy,84.45135498046875,California Housing,wachter,MLP Ensemble,1,0
+13,distance_from_targets,4.340921878814697,California Housing,wachter,MLP Ensemble,1,0
+13,redundancy,0.0,California Housing,wachter,MLP Ensemble,1,0
+13,validity,1.0,California Housing,wachter,MLP Ensemble,1,0
+14,distance,0.2999998927116394,California Housing,wachter,MLP Ensemble,1,0
+14,distance_from_energy,64.98536682128906,California Housing,wachter,MLP Ensemble,1,0
+14,distance_from_targets,3.8328497409820557,California Housing,wachter,MLP Ensemble,1,0
+14,redundancy,0.5,California Housing,wachter,MLP Ensemble,1,0
+14,validity,1.0,California Housing,wachter,MLP Ensemble,1,0
+15,distance,0.939999520778656,California Housing,wachter,MLP Ensemble,1,0
+15,distance_from_energy,98.19804382324219,California Housing,wachter,MLP Ensemble,1,0
+15,distance_from_targets,4.425012111663818,California Housing,wachter,MLP Ensemble,1,0
+15,redundancy,0.0,California Housing,wachter,MLP Ensemble,1,0
+15,validity,1.0,California Housing,wachter,MLP Ensemble,1,0
+16,distance,2.371237277984619,California Housing,revise,JEM,1,0
+16,distance_from_energy,10.828821182250977,California Housing,revise,JEM,1,0
+16,distance_from_targets,4.2692742347717285,California Housing,revise,JEM,1,0
+16,redundancy,0.0,California Housing,revise,JEM,1,0
+16,validity,1.0,California Housing,revise,JEM,1,0
+17,distance,5.001166343688965,California Housing,revise,JEM,1,0
+17,distance_from_energy,8.575849533081055,California Housing,revise,JEM,1,0
+17,distance_from_targets,3.6614322662353516,California Housing,revise,JEM,1,0
+17,redundancy,0.0,California Housing,revise,JEM,1,0
+17,validity,1.0,California Housing,revise,JEM,1,0
+18,distance,2.903388500213623,California Housing,revise,JEM,1,0
+18,distance_from_energy,11.436322212219238,California Housing,revise,JEM,1,0
+18,distance_from_targets,4.934658050537109,California Housing,revise,JEM,1,0
+18,redundancy,0.0,California Housing,revise,JEM,1,0
+18,validity,1.0,California Housing,revise,JEM,1,0
+19,distance,3.350205421447754,California Housing,revise,JEM,1,0
+19,distance_from_energy,11.705821990966797,California Housing,revise,JEM,1,0
+19,distance_from_targets,4.306410312652588,California Housing,revise,JEM,1,0
+19,redundancy,0.0,California Housing,revise,JEM,1,0
+19,validity,1.0,California Housing,revise,JEM,1,0
+20,distance,19.59447479248047,California Housing,revise,JEM,1,0
+20,distance_from_energy,11.022638320922852,California Housing,revise,JEM,1,0
+20,distance_from_targets,10.661826133728027,California Housing,revise,JEM,1,0
+20,redundancy,0.0,California Housing,revise,JEM,1,0
+20,validity,1.0,California Housing,revise,JEM,1,0
+16,distance,0.10000000149011612,California Housing,greedy,JEM,1,0
+16,distance_from_energy,11.127701759338379,California Housing,greedy,JEM,1,0
+16,distance_from_targets,5.094544887542725,California Housing,greedy,JEM,1,0
+16,redundancy,0.9,California Housing,greedy,JEM,1,0
+16,validity,1.0,California Housing,greedy,JEM,1,0
+17,distance,0.10000000149011612,California Housing,greedy,JEM,1,0
+17,distance_from_energy,13.381426811218262,California Housing,greedy,JEM,1,0
+17,distance_from_targets,5.928926944732666,California Housing,greedy,JEM,1,0
+17,redundancy,0.9,California Housing,greedy,JEM,1,0
+17,validity,1.0,California Housing,greedy,JEM,1,0
+18,distance,0.10000000894069672,California Housing,greedy,JEM,1,0
+18,distance_from_energy,14.115972518920898,California Housing,greedy,JEM,1,0
+18,distance_from_targets,6.211500644683838,California Housing,greedy,JEM,1,0
+18,redundancy,0.9,California Housing,greedy,JEM,1,0
+18,validity,1.0,California Housing,greedy,JEM,1,0
+19,distance,0.10000000149011612,California Housing,greedy,JEM,1,0
+19,distance_from_energy,11.6144437789917,California Housing,greedy,JEM,1,0
+19,distance_from_targets,4.900711536407471,California Housing,greedy,JEM,1,0
+19,redundancy,0.9,California Housing,greedy,JEM,1,0
+19,validity,1.0,California Housing,greedy,JEM,1,0
+20,distance,0.6000000238418579,California Housing,greedy,JEM,1,0
+20,distance_from_energy,24.675037384033203,California Housing,greedy,JEM,1,0
+20,distance_from_targets,19.886587142944336,California Housing,greedy,JEM,1,0
+20,redundancy,0.9,California Housing,greedy,JEM,1,0
+20,validity,1.0,California Housing,greedy,JEM,1,0
+16,distance,0.6000001430511475,California Housing,eccco,JEM,1,0
+16,distance_from_energy,9.478602409362793,California Housing,eccco,JEM,1,0
+16,distance_from_targets,4.610134601593018,California Housing,eccco,JEM,1,0
+16,redundancy,0.8,California Housing,eccco,JEM,1,0
+16,validity,1.0,California Housing,eccco,JEM,1,0
+17,distance,0.10000000894069672,California Housing,eccco,JEM,1,0
+17,distance_from_energy,12.051526069641113,California Housing,eccco,JEM,1,0
+17,distance_from_targets,5.79629373550415,California Housing,eccco,JEM,1,0
+17,redundancy,0.9,California Housing,eccco,JEM,1,0
+17,validity,1.0,California Housing,eccco,JEM,1,0
+18,distance,0.10000002384185791,California Housing,eccco,JEM,1,0
+18,distance_from_energy,14.378667831420898,California Housing,eccco,JEM,1,0
+18,distance_from_targets,6.210714817047119,California Housing,eccco,JEM,1,0
+18,redundancy,0.9,California Housing,eccco,JEM,1,0
+18,validity,1.0,California Housing,eccco,JEM,1,0
+19,distance,0.09999999403953552,California Housing,eccco,JEM,1,0
+19,distance_from_energy,11.558502197265625,California Housing,eccco,JEM,1,0
+19,distance_from_targets,5.056278228759766,California Housing,eccco,JEM,1,0
+19,redundancy,0.9,California Housing,eccco,JEM,1,0
+19,validity,1.0,California Housing,eccco,JEM,1,0
+20,distance,0.6000000238418579,California Housing,eccco,JEM,1,0
+20,distance_from_energy,24.84628677368164,California Housing,eccco,JEM,1,0
+20,distance_from_targets,19.91420555114746,California Housing,eccco,JEM,1,0
+20,redundancy,0.9,California Housing,eccco,JEM,1,0
+20,validity,1.0,California Housing,eccco,JEM,1,0
+16,distance,0.37999966740608215,California Housing,wachter,JEM,1,0
+16,distance_from_energy,11.440272331237793,California Housing,wachter,JEM,1,0
+16,distance_from_targets,4.819549083709717,California Housing,wachter,JEM,1,0
+16,redundancy,0.0,California Housing,wachter,JEM,1,0
+16,validity,1.0,California Housing,wachter,JEM,1,0
+17,distance,0.0,California Housing,wachter,JEM,1,0
+17,distance_from_energy,13.221417427062988,California Housing,wachter,JEM,1,0
+17,distance_from_targets,5.725661754608154,California Housing,wachter,JEM,1,0
+17,redundancy,1.0,California Housing,wachter,JEM,1,0
+17,validity,0.0,California Housing,wachter,JEM,1,0
+18,distance,0.059999946504831314,California Housing,wachter,JEM,1,0
+18,distance_from_energy,11.842077255249023,California Housing,wachter,JEM,1,0
+18,distance_from_targets,6.210434436798096,California Housing,wachter,JEM,1,0
+18,redundancy,0.9,California Housing,wachter,JEM,1,0
+18,validity,0.0,California Housing,wachter,JEM,1,0
+19,distance,0.040000271052122116,California Housing,wachter,JEM,1,0
+19,distance_from_energy,10.277088165283203,California Housing,wachter,JEM,1,0
+19,distance_from_targets,4.812685489654541,California Housing,wachter,JEM,1,0
+19,redundancy,0.9,California Housing,wachter,JEM,1,0
+19,validity,0.0,California Housing,wachter,JEM,1,0
+20,distance,2.5200090408325195,California Housing,wachter,JEM,1,0
+20,distance_from_energy,26.077587127685547,California Housing,wachter,JEM,1,0
+20,distance_from_targets,19.866092681884766,California Housing,wachter,JEM,1,0
+20,redundancy,0.0,California Housing,wachter,JEM,1,0
+20,validity,1.0,California Housing,wachter,JEM,1,0

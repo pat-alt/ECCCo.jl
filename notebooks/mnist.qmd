@@ -135,7 +135,7 @@ savefig(plt, joinpath(output_images_path, "surrogate_gone_wrong.png"))
 ### ECCCo
 
 ```{julia}
-function pre_process(x; noise::Float32=1/256f0)
+function pre_process(x; noise::Float32=0.03f0)
     ϵ = Float32.(randn(size(x)) * noise)
     x += ϵ
     return x
@@ -148,7 +148,7 @@ _retrain = true
 _regen = true
 
 # Data:
-n_obs = 1000
+n_obs = 10000
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
 counterfactual_data.generative_model = vae
@@ -187,7 +187,7 @@ sampler = ConditionalSampler(
     input_size=(input_dim,), 
     batch_size=10,
 )
-α = [1.0,1.0,5e-2]      # penalty strengths
+α = [1.0,1.0,1e-1]      # penalty strengths
 ```
 
 ```{julia}
@@ -214,7 +214,7 @@ jem = JointEnergyClassifier(
     jem_training_params=(
         α=α,verbosity=10,
     ),
-    sampling_steps=50,
+    sampling_steps=20,
 )
 
 # JEM with adversarial training:
@@ -261,18 +261,14 @@ end
 
 ```{julia}
 # Plot generated samples:
-n_regen = 120
+n_regen = 200
 if _regen 
     for (mod_name, mod) in model_dict
-        if ECCCo._has_sampler(mod)
-            sampler = ECCCo._get_sampler(mod)
-        else
-            K = length(counterfactual_data.y_levels)
-            input_size = size(selectdim(counterfactual_data.X, ndims(counterfactual_data.X), 1))
-            𝒟x = Uniform(extrema(counterfactual_data.X)...)
-            𝒟y = Categorical(ones(K) ./ K)
-            sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=input_size)
-        end
+        K = length(counterfactual_data.y_levels)
+        input_size = size(selectdim(counterfactual_data.X, ndims(counterfactual_data.X), 1))
+        𝒟x = Uniform(extrema(counterfactual_data.X)...)
+        𝒟y = Categorical(ones(K) ./ K)
+        sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=input_size, prob_buffer=0.0)
         opt = ImproperSGLD()
         f(x) = logits(mod, x)
 
@@ -324,11 +320,12 @@ model_performance
 ```{julia}
 function _plot_eccco_mnist(
     x::Union{AbstractArray, Int}=x_factual, target::Int=target;
-    λ=[0.5,0.1,0.5],
+    λ=[0.1,0.1,0.1],
     temp=0.1,η=0.01,
     plt_order = ["MLP", "MLP Ensemble", "JEM", "JEM Ensemble"],
     opt = Flux.Optimise.Adam(η),
     rng::Union{Int,AbstractRNG}=Random.GLOBAL_RNG,
+    T::Int = 100,
 )
 
     # Setup:
@@ -386,7 +383,7 @@ end
 ```
 
 ```{julia}
-plt, eccco_generator = _plot_eccco_mnist()
+plt, eccco_generator = _plot_eccco_mnist(opt=JSMADescent(η=1.0))
 display(plt)
 savefig(plt, joinpath(output_images_path, "mnist_eccco.png"))
 ```

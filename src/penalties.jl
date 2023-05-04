@@ -49,15 +49,11 @@ function distance_from_energy(
         sampler = _dict[:energy_sampler]
         push!(conditional_samples, rand(sampler, n; from_buffer=from_buffer))
     end
-    x′ = CounterfactualExplanations.counterfactual(ce)
-    loss = map(eachslice(x′, dims=ndims(x′))) do x
-        Δ = map(eachcol(conditional_samples[1])) do xsample
-            norm(x - xsample, 1)
-        end
-        return mean(Δ)
-    end
-    loss = agg(loss)[1]
 
+    loss = map(eachcol(conditional_samples[1])) do xsample
+        distance_l1(ce; from=xsample)
+    end
+    loss = agg(loss)
     return loss
 
 end

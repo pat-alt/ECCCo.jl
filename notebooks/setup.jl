@@ -14,7 +14,8 @@ setup_notebooks = quote
     using CounterfactualExplanations.Data
     using CounterfactualExplanations.DataPreprocessing: train_test_split
     using CounterfactualExplanations.Evaluation: benchmark, evaluate
-    using CounterfactualExplanations.Models: load_mnist_mlp, train
+    using CounterfactualExplanations.Generators: JSMADescent
+    using CounterfactualExplanations.Models: load_mnist_mlp, train, probs
     using CounterfactualExplanations.Objectives
     using CSV
     using DataFrames

@@ -61,17 +61,21 @@ function _outdim(fitresult)
 end
 
 """
-    _get_sampler(model::ConformalModel)
+    _get_sampler(model::AbstractFittedModel)
 
 Private helper function that extracts the sampler from a fitted model.
 """
-function _get_sampler(model::ConformalModel)
+function _get_sampler(model::AbstractFittedModel)
     _mod = model.model
-    if _mod.model isa MLJEnsembles.EitherEnsembleModel
-        _mod = _mod.model
-    end
-    if _mod.model isa JointEnergyClassifier
-        sampler = _mod.model.sampler
+    if hasfield(typeof(_mod), :model)
+        if _mod.model isa MLJEnsembles.EitherEnsembleModel
+            _mod = _mod.model
+        end
+        if _mod.model isa JointEnergyClassifier
+            sampler = _mod.model.sampler
+        else
+            sampler = false
+        end
     else
         sampler = false
     end
@@ -79,11 +83,11 @@ function _get_sampler(model::ConformalModel)
 end
 
 """
-    _has_sampler(model::ConformalModel)
+    _has_sampler(model::AbstractFittedModel)
 
 Private helper function that checks if a fitted model has a sampler.
 """
-function _has_sampler(model::ConformalModel)
+function _has_sampler(model::AbstractFittedModel)
     return !(_get_sampler(model) isa Bool)
 end
 
