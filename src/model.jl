@@ -101,16 +101,16 @@ function ConformalModel(model, fitresult=nothing; likelihood::Union{Nothing,Symb
     # Check if model is fitted and infer likelihood:
     if isnothing(fitresult)
         @info "Conformal Model is not fitted."
-    else
-        outdim = _outdim(fitresult)
-        _likelihood = outdim == 2 ? :classification_binary : :classification_multi
-        @assert likelihood == _likelihood || isnothing(likelihood) "Specification of `likelihood` does not match the output dimension of the model."
-        likelihood = _likelihood
+    # else
+    #     outdim = _outdim(fitresult)
+    #     _likelihood = outdim == 2 ? :classification_binary : :classification_multi
+    #     @assert likelihood == _likelihood || isnothing(likelihood) "Specification of `likelihood` does not match the output dimension of the model."
+    #     likelihood = _likelihood
     end
 
     # Default to binary classification, if not specified or inferred:
     if isnothing(likelihood)
-        likelihood = :classification_binary
+        likelihood = :classification_multi
         @info "Likelihood not specified. Defaulting to $likelihood."
     end
 

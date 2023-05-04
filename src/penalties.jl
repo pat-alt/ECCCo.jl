@@ -50,11 +50,11 @@ function distance_from_energy(
         push!(conditional_samples, rand(sampler, n; from_buffer=from_buffer))
     end
 
-    loss = map(eachcol(conditional_samples[1])) do xsample
-        distance_l1(ce; from=xsample)
+    _loss = map(eachcol(conditional_samples[1])) do xsample
+        distance_l1(ce; from=xsample, agg=agg)
     end
-    loss = agg(loss)
-    return loss
+    _loss = reduce((x,y) -> x + y, _loss) / n       # aggregate over samples
+    return _loss
 
 end
 

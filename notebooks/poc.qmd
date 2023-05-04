@@ -6,28 +6,40 @@ eval(setup_notebooks)
 
 ```{julia}
 # Counteractual data:
-counterfactual_data = load_circles(1000)
+counterfactual_data = load_moons(2500; noise=0.1)
 X = counterfactual_data.X
 y = counterfactual_data.y
 labels = counterfactual_data.output_encoder.labels
 input_dim, nobs = size(X)
 batch_size = Int(round(nobs/10))
+epochs = 500
+```
+
+```{julia}
+Plots.plot()
+display(Plots.scatter!(counterfactual_data))
 ```
 
 ```{julia}
 𝒟x = Normal()
 𝒟y = Categorical(ones(2) ./ 2)
-sampler = ConditionalSampler(𝒟x, 𝒟y, input_size=size(X)[1:end-1], batch_size=batch_size)
+sampler = ConditionalSampler(𝒟x, 𝒟y, input_size=size(X)[1:end-1], batch_size=25)
+n_hidden = 32
 clf = JointEnergyClassifier(
     sampler;
-    builder=MLJFlux.MLP(hidden=(32, 32, 32,), σ=Flux.swish),
+    builder=MLJFlux.MLP(
+        hidden=(n_hidden, n_hidden, n_hidden), 
+        σ=Flux.relu
+    ),
     batch_size=batch_size,
     finaliser=x -> x,
     loss=Flux.Losses.logitcrossentropy,
     jem_training_params=(
-        α=[1.0,1.0,1e-2],
-        verbosity=10,
+        α=[1.0,1.0,1e-1],
+        verbosity=50,
     ),
+    epochs=epochs,
+    sampling_steps=30,
 )
 ```
 
@@ -43,7 +55,7 @@ fit!(mach)
 
 ```{julia}
 #| echo: false
-
+niter = 1000
 jem = mach.model.model.jem
 batch_size = mach.model.model.batch_size
 X = Float32.(matrix(X))
@@ -51,7 +63,7 @@ if typeof(jem.sampler) <: ConditionalSampler
     
     plts = []
     for target in 1:2
-        X̂ = generate_conditional_samples(jem, batch_size, target; niter=200) 
+        X̂ = generate_conditional_samples(jem, batch_size, target; niter=niter) 
         ex = extrema(hcat(X,X̂), dims=2)
         xlims = ex[1]
         ylims = ex[2]
@@ -80,22 +92,29 @@ end
 
 ```{julia}
 M = ECCCo.ConformalModel(mach.model, mach.fitresult)
-factual_label =  levels(labels)[1]
+factual_label =  levels(labels)[2]
 x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target =  levels(labels)[2]
+target =  levels(labels)[1]
 factual = predict_label(M, counterfactual_data, x_factual)[1]
 
-# ECCCo:
-λ=[0.5,0.1,0.5]
-temp=0.5
-η=0.01
-
-# Generate counterfactuals using ECCCo generator:
-generator = ECCCoGenerator(
-    λ=λ, 
-    temp=temp, 
-    opt=Flux.Optimise.Adam(η),
+generator_dict = Dict(
+    :wachter => WachterGenerator(),
+    :revise => REVISEGenerator(),
+    :greedy => GreedyGenerator(),
+    :eccco => ECCCoGenerator(),
 )
 
-ce = CounterfactualExplanation(x_factual, target, counterfactual_data, M, generator)
+ces = []
+plts = []
+for (name, generator) in generator_dict
+    ce = generate_counterfactual(
+        x_factual, target, counterfactual_data, M, generator;
+        initialization=:identity, 
+        converge_when=:generator_conditions,
+    )
+    plt = Plots.plot(ce, title=name)
+    push!(plts, plt)
+    push!(ces, ce)
+end
+display(Plots.plot(plts...))
 ```
