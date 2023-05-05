@@ -23,7 +23,7 @@ display(Plots.scatter!(counterfactual_data))
 ```{julia}
 𝒟x = Normal()
 𝒟y = Categorical(ones(2) ./ 2)
-sampler = ConditionalSampler(𝒟x, 𝒟y, input_size=size(X)[1:end-1], batch_size=25)
+sampler = ConditionalSampler(𝒟x, 𝒟y, input_size=size(X)[1:end-1], batch_size=10)
 n_hidden = 32
 clf = JointEnergyClassifier(
     sampler;
@@ -39,7 +39,7 @@ clf = JointEnergyClassifier(
         verbosity=50,
     ),
     epochs=epochs,
-    sampling_steps=30,
+    sampling_steps=50,
 )
 ```
 
@@ -91,30 +91,30 @@ end
 
 
 ```{julia}
-M = ECCCo.ConformalModel(mach.model, mach.fitresult)
-factual_label =  levels(labels)[2]
-x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target =  levels(labels)[1]
-factual = predict_label(M, counterfactual_data, x_factual)[1]
+# M = ECCCo.ConformalModel(mach.model, mach.fitresult)
+# factual_label =  levels(labels)[2]
+# x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
+# target =  levels(labels)[1]
+# factual = predict_label(M, counterfactual_data, x_factual)[1]
 
-generator_dict = Dict(
-    :wachter => WachterGenerator(),
-    :revise => REVISEGenerator(),
-    :greedy => GreedyGenerator(),
-    :eccco => ECCCoGenerator(),
-)
+# generator_dict = Dict(
+#     :wachter => WachterGenerator(),
+#     :revise => REVISEGenerator(),
+#     :greedy => GreedyGenerator(),
+#     :eccco => ECCCoGenerator(),
+# )
 
-ces = []
-plts = []
-for (name, generator) in generator_dict
-    ce = generate_counterfactual(
-        x_factual, target, counterfactual_data, M, generator;
-        initialization=:identity, 
-        converge_when=:generator_conditions,
-    )
-    plt = Plots.plot(ce, title=name)
-    push!(plts, plt)
-    push!(ces, ce)
-end
-display(Plots.plot(plts...))
+# ces = []
+# plts = []
+# for (name, generator) in generator_dict
+#     ce = generate_counterfactual(
+#         x_factual, target, counterfactual_data, M, generator;
+#         initialization=:identity, 
+#         converge_when=:generator_conditions,
+#     )
+#     plt = Plots.plot(ce, title=name)
+#     push!(plts, plt)
+#     push!(ces, ce)
+# end
+# display(Plots.plot(plts...))
 ```
