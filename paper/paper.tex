@@ -48,7 +48,7 @@
 \newtheorem{definition}{Definition}[section]
 
 
-\title{ECCCos from the Black Box: Letting Models speak for Themselves}
+\title{ECCCos from the Black Box: Faithful Counterfactual Explanations through Energy Based Modeling and Conformal Prediction}
 
 
 % The \author macro works with any number of authors. There are two commands
@@ -99,7 +99,7 @@
 
 
 \begin{abstract}
-  Counterfactual Explanations offer an intuitive and straightforward way to explain black-box models but they are not unique. To address the need for plausible explanations, existing work has primarily relied on surrogate models to learn how the input data is distributed. This effectively reallocates the task of learning realistic representations of the data from the model itself to the surrogate. Consequently, the generated explanations may look plausible to humans but not necessarily conform with the behaviour of the black-box model. We formalise this notion of model conformity through the introduction of tailored evaluation measures and propose a novel algorithmic framework for generating \textbf{E}nergy-\textbf{C}onstrained \textbf{C}onformal \textbf{Co}unterfactuals that are only as plausible as the model permits. To do so, \textbf{ECCCo} leverages recent advances in energy-based modelling and predictive uncertainty quantification through conformal inference. Through illustrative examples and extensive empirical studies, we demonstrate that ECCCos reconcile the need for plausibility and model conformity. 
+  Counterfactual Explanations offer an intuitive and straightforward way to explain black-box models but they are not unique. To address the need for plausible explanations, existing work has primarily relied on surrogate models to learn how the input data is distributed. This effectively reallocates the task of learning realistic representations of the data from the model itself to the surrogate. Consequently, the generated explanations may look plausible to humans but not necessarily faithfully describe the behaviour of the black-box model. We formalise this notion of faithfulness through the introduction of a tailored evaluation metric and propose a novel algorithmic framework for generating \textbf{E}nergy-\textbf{C}onstrained \textbf{C}onformal \textbf{Co}unterfactuals that are only as plausible as the model permits. To do so, \textbf{ECCCo} leverages recent advances with respect to energy-based models and conformal inference. Through extensive empirical studies, we demonstrate that ECCCos reconcile the need for plausibility and faithfulness. Our findings also highlight that black-box models that are trained jointly to discriminate outputs and generate inputs yield more plausible explanations than pure discriminative models.
 \end{abstract}
 
 \section{Introduction}\label{intro}

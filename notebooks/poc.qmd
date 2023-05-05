@@ -6,13 +6,13 @@ eval(setup_notebooks)
 
 ```{julia}
 # Counteractual data:
-counterfactual_data = load_moons(2500; noise=0.1)
+counterfactual_data = load_linearly_separable(1000)
 X = counterfactual_data.X
 y = counterfactual_data.y
 labels = counterfactual_data.output_encoder.labels
 input_dim, nobs = size(X)
 batch_size = Int(round(nobs/10))
-epochs = 500
+epochs = 100
 ```
 
 ```{julia}
@@ -23,23 +23,23 @@ display(Plots.scatter!(counterfactual_data))
 ```{julia}
 𝒟x = Normal()
 𝒟y = Categorical(ones(2) ./ 2)
-sampler = ConditionalSampler(𝒟x, 𝒟y, input_size=size(X)[1:end-1], batch_size=10)
-n_hidden = 32
+sampler = ConditionalSampler(𝒟x, 𝒟y, input_size=size(X)[1:end-1], batch_size=50)
+n_hidden = 16
 clf = JointEnergyClassifier(
     sampler;
     builder=MLJFlux.MLP(
         hidden=(n_hidden, n_hidden, n_hidden), 
-        σ=Flux.relu
+        σ=Flux.swish
     ),
     batch_size=batch_size,
     finaliser=x -> x,
     loss=Flux.Losses.logitcrossentropy,
     jem_training_params=(
         α=[1.0,1.0,1e-1],
-        verbosity=50,
+        verbosity=10,
     ),
     epochs=epochs,
-    sampling_steps=50,
+    sampling_steps=30,
 )
 ```
 
@@ -100,11 +100,10 @@ Random.seed!(1234)
 Λ = [λ₁, λ₂, λ₃]
 
 M = ECCCo.ConformalModel(mach.model, mach.fitresult)
-factual_label =  levels(labels)[1]
+factual_label =  levels(labels)[2]
 x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target =  levels(labels)[2]
+target =  levels(labels)[1]
 factual = predict_label(M, counterfactual_data, x_factual)[1]
-γ = 0.5
 
 generator_dict = OrderedDict(
     "Wachter (γ=$γ)" => WachterGenerator(λ = λ₁),
@@ -116,14 +115,13 @@ generator_dict = OrderedDict(
 ces = Dict{Any,Any}()
 plts = []
 for (name, generator) in generator_dict
-    conv_when = name == "Wachter (γ=$γ)" ? :decision_threshold : :generator_conditions
     ce = generate_counterfactual(
         x_factual, target, counterfactual_data, M, generator;
         initialization=:identity, 
-        converge_when=conv_when,
+        converge_when=:generator_conditions,
         decision_threshold=γ,
     )
-    plt = Plots.plot(ce, title=name, alpha=0.2, cbar=false, axis=nothing)
+    plt = Plots.plot(ce, title=name, alpha=0.2, cbar=false, axis=nothing, length_out=10)
     if name == "ECCCo"
         _X = distance_from_energy(ce, return_conditionals=true)
         Plots.scatter!(

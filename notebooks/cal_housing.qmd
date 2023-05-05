@@ -11,7 +11,7 @@ _retrain = true
 
 # Data:
 test_size = 0.2
-n_obs = Int(1000 / (1.0 - test_size))
+n_obs = Int(10000 / (1.0 - test_size))
 counterfactual_data, test_data = train_test_split(load_california_housing(n_obs); test_size=test_size)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
@@ -74,7 +74,7 @@ jem = JointEnergyClassifier(
     jem_training_params=(
         α=α,verbosity=10,
     ),
-    sampling_steps=50,
+    sampling_steps=30,
 )
 
 # JEM with adversarial training:
@@ -141,14 +141,21 @@ model_performance
 ## Benchmark
 
 ```{julia}
+λ₁ = 0.25
+λ₂ = 0.75
+λ₃ = 0.75
+Λ = [λ₁, λ₂, λ₃]
+
 # Benchmark generators:
 generator_dict = Dict(
-    :wachter => WachterGenerator(),
-    :revise => REVISEGenerator(),
-    :greedy => GreedyGenerator(),
-    :eccco => ECCCoGenerator(),
+    "Wachter" => WachterGenerator(λ=λ₁),
+    "REVISE" => REVISEGenerator(λ=λ₁),
+    "Schut" => GreedyGenerator(),
+    "ECCCo" => ECCCoGenerator(λ=Λ),
 )
+```
 
+```{julia}
 # Measures:
 measures = [
     CounterfactualExplanations.distance,
@@ -156,6 +163,7 @@ measures = [
     ECCCo.distance_from_targets,
     CounterfactualExplanations.Evaluation.validity,
     CounterfactualExplanations.Evaluation.redundancy,
+    ECCCo.set_size_penalty
 ]
 
 bmk = benchmark(
@@ -167,6 +175,7 @@ bmk = benchmark(
     n_individuals=5,
     factual=0, target=1,
     initialization=:identity,
+    converge_when=:generator_conditions,
 )
 CSV.write(joinpath(output_path, "cal_housing_benchmark.csv"), bmk())
 ```

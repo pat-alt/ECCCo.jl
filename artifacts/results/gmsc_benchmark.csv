@@ -1,401 +1,401 @@
 sample,variable,value,dataname,generator,model,target,factual
-1,distance,5.564479827880859,California Housing,revise,JEM Ensemble,1,0
-1,distance_from_energy,10.624597549438477,California Housing,revise,JEM Ensemble,1,0
-1,distance_from_targets,4.858004570007324,California Housing,revise,JEM Ensemble,1,0
-1,redundancy,0.0,California Housing,revise,JEM Ensemble,1,0
-1,validity,1.0,California Housing,revise,JEM Ensemble,1,0
-2,distance,2.128340482711792,California Housing,revise,JEM Ensemble,1,0
-2,distance_from_energy,9.088190078735352,California Housing,revise,JEM Ensemble,1,0
-2,distance_from_targets,3.6487929821014404,California Housing,revise,JEM Ensemble,1,0
-2,redundancy,0.0,California Housing,revise,JEM Ensemble,1,0
-2,validity,1.0,California Housing,revise,JEM Ensemble,1,0
-3,distance,2.937845230102539,California Housing,revise,JEM Ensemble,1,0
-3,distance_from_energy,8.908811569213867,California Housing,revise,JEM Ensemble,1,0
-3,distance_from_targets,4.466905117034912,California Housing,revise,JEM Ensemble,1,0
-3,redundancy,0.0,California Housing,revise,JEM Ensemble,1,0
-3,validity,1.0,California Housing,revise,JEM Ensemble,1,0
-4,distance,1.9354369640350342,California Housing,revise,JEM Ensemble,1,0
-4,distance_from_energy,9.564157485961914,California Housing,revise,JEM Ensemble,1,0
-4,distance_from_targets,3.7939188480377197,California Housing,revise,JEM Ensemble,1,0
-4,redundancy,0.0,California Housing,revise,JEM Ensemble,1,0
-4,validity,1.0,California Housing,revise,JEM Ensemble,1,0
-5,distance,1.2710787057876587,California Housing,revise,JEM Ensemble,1,0
-5,distance_from_energy,10.314037322998047,California Housing,revise,JEM Ensemble,1,0
-5,distance_from_targets,4.288711071014404,California Housing,revise,JEM Ensemble,1,0
-5,redundancy,0.0,California Housing,revise,JEM Ensemble,1,0
-5,validity,1.0,California Housing,revise,JEM Ensemble,1,0
-1,distance,0.19999998807907104,California Housing,greedy,JEM Ensemble,1,0
-1,distance_from_energy,11.204401969909668,California Housing,greedy,JEM Ensemble,1,0
-1,distance_from_targets,5.200430870056152,California Housing,greedy,JEM Ensemble,1,0
-1,redundancy,0.9,California Housing,greedy,JEM Ensemble,1,0
-1,validity,1.0,California Housing,greedy,JEM Ensemble,1,0
-2,distance,0.09999999403953552,California Housing,greedy,JEM Ensemble,1,0
-2,distance_from_energy,9.716474533081055,California Housing,greedy,JEM Ensemble,1,0
-2,distance_from_targets,3.882671356201172,California Housing,greedy,JEM Ensemble,1,0
-2,redundancy,0.9,California Housing,greedy,JEM Ensemble,1,0
-2,validity,1.0,California Housing,greedy,JEM Ensemble,1,0
-3,distance,0.10000000149011612,California Housing,greedy,JEM Ensemble,1,0
-3,distance_from_energy,12.475095748901367,California Housing,greedy,JEM Ensemble,1,0
-3,distance_from_targets,5.301448345184326,California Housing,greedy,JEM Ensemble,1,0
-3,redundancy,0.9,California Housing,greedy,JEM Ensemble,1,0
-3,validity,1.0,California Housing,greedy,JEM Ensemble,1,0
-4,distance,0.09999999403953552,California Housing,greedy,JEM Ensemble,1,0
-4,distance_from_energy,10.566214561462402,California Housing,greedy,JEM Ensemble,1,0
-4,distance_from_targets,3.804549217224121,California Housing,greedy,JEM Ensemble,1,0
-4,redundancy,0.9,California Housing,greedy,JEM Ensemble,1,0
-4,validity,1.0,California Housing,greedy,JEM Ensemble,1,0
-5,distance,0.20000001788139343,California Housing,greedy,JEM Ensemble,1,0
-5,distance_from_energy,9.567259788513184,California Housing,greedy,JEM Ensemble,1,0
-5,distance_from_targets,4.261157989501953,California Housing,greedy,JEM Ensemble,1,0
-5,redundancy,0.8,California Housing,greedy,JEM Ensemble,1,0
-5,validity,1.0,California Housing,greedy,JEM Ensemble,1,0
-1,distance,0.20000000298023224,California Housing,eccco,JEM Ensemble,1,0
-1,distance_from_energy,11.426634788513184,California Housing,eccco,JEM Ensemble,1,0
-1,distance_from_targets,5.166793346405029,California Housing,eccco,JEM Ensemble,1,0
-1,redundancy,0.8,California Housing,eccco,JEM Ensemble,1,0
-1,validity,1.0,California Housing,eccco,JEM Ensemble,1,0
-2,distance,0.09999999403953552,California Housing,eccco,JEM Ensemble,1,0
-2,distance_from_energy,9.737007141113281,California Housing,eccco,JEM Ensemble,1,0
-2,distance_from_targets,3.840818166732788,California Housing,eccco,JEM Ensemble,1,0
-2,redundancy,0.9,California Housing,eccco,JEM Ensemble,1,0
-2,validity,1.0,California Housing,eccco,JEM Ensemble,1,0
-3,distance,0.10000000149011612,California Housing,eccco,JEM Ensemble,1,0
-3,distance_from_energy,11.053731918334961,California Housing,eccco,JEM Ensemble,1,0
-3,distance_from_targets,5.473806381225586,California Housing,eccco,JEM Ensemble,1,0
-3,redundancy,0.9,California Housing,eccco,JEM Ensemble,1,0
-3,validity,1.0,California Housing,eccco,JEM Ensemble,1,0
-4,distance,0.09999999403953552,California Housing,eccco,JEM Ensemble,1,0
-4,distance_from_energy,8.737981796264648,California Housing,eccco,JEM Ensemble,1,0
-4,distance_from_targets,3.9571189880371094,California Housing,eccco,JEM Ensemble,1,0
-4,redundancy,0.9,California Housing,eccco,JEM Ensemble,1,0
-4,validity,1.0,California Housing,eccco,JEM Ensemble,1,0
-5,distance,0.20000001788139343,California Housing,eccco,JEM Ensemble,1,0
-5,distance_from_energy,9.255507469177246,California Housing,eccco,JEM Ensemble,1,0
-5,distance_from_targets,4.328383922576904,California Housing,eccco,JEM Ensemble,1,0
-5,redundancy,0.8,California Housing,eccco,JEM Ensemble,1,0
-5,validity,1.0,California Housing,eccco,JEM Ensemble,1,0
-1,distance,0.1999998837709427,California Housing,wachter,JEM Ensemble,1,0
-1,distance_from_energy,11.166852951049805,California Housing,wachter,JEM Ensemble,1,0
-1,distance_from_targets,4.991885662078857,California Housing,wachter,JEM Ensemble,1,0
-1,redundancy,0.8,California Housing,wachter,JEM Ensemble,1,0
-1,validity,0.0,California Housing,wachter,JEM Ensemble,1,0
-2,distance,0.09999998658895493,California Housing,wachter,JEM Ensemble,1,0
-2,distance_from_energy,10.558074951171875,California Housing,wachter,JEM Ensemble,1,0
-2,distance_from_targets,4.021323204040527,California Housing,wachter,JEM Ensemble,1,0
-2,redundancy,0.0,California Housing,wachter,JEM Ensemble,1,0
-2,validity,1.0,California Housing,wachter,JEM Ensemble,1,0
-3,distance,0.2799997925758362,California Housing,wachter,JEM Ensemble,1,0
-3,distance_from_energy,12.050450325012207,California Housing,wachter,JEM Ensemble,1,0
-3,distance_from_targets,5.445785045623779,California Housing,wachter,JEM Ensemble,1,0
-3,redundancy,0.0,California Housing,wachter,JEM Ensemble,1,0
-3,validity,1.0,California Housing,wachter,JEM Ensemble,1,0
-4,distance,1.4901161193847656e-8,California Housing,wachter,JEM Ensemble,1,0
-4,distance_from_energy,11.341981887817383,California Housing,wachter,JEM Ensemble,1,0
-4,distance_from_targets,3.836761713027954,California Housing,wachter,JEM Ensemble,1,0
-4,redundancy,1.0,California Housing,wachter,JEM Ensemble,1,0
-4,validity,0.0,California Housing,wachter,JEM Ensemble,1,0
-5,distance,0.33999985456466675,California Housing,wachter,JEM Ensemble,1,0
-5,distance_from_energy,10.11213493347168,California Housing,wachter,JEM Ensemble,1,0
-5,distance_from_targets,4.818438529968262,California Housing,wachter,JEM Ensemble,1,0
-5,redundancy,0.9,California Housing,wachter,JEM Ensemble,1,0
-5,validity,0.0,California Housing,wachter,JEM Ensemble,1,0
-6,distance,4.0728559494018555,California Housing,revise,MLP,1,0
-6,distance_from_energy,66.91232299804688,California Housing,revise,MLP,1,0
-6,distance_from_targets,5.12241268157959,California Housing,revise,MLP,1,0
-6,redundancy,0.0,California Housing,revise,MLP,1,0
-6,validity,1.0,California Housing,revise,MLP,1,0
-7,distance,2.743494749069214,California Housing,revise,MLP,1,0
-7,distance_from_energy,94.57240295410156,California Housing,revise,MLP,1,0
-7,distance_from_targets,3.948488712310791,California Housing,revise,MLP,1,0
-7,redundancy,0.0,California Housing,revise,MLP,1,0
-7,validity,1.0,California Housing,revise,MLP,1,0
-8,distance,2.759432554244995,California Housing,revise,MLP,1,0
-8,distance_from_energy,55.22428512573242,California Housing,revise,MLP,1,0
-8,distance_from_targets,4.306966781616211,California Housing,revise,MLP,1,0
-8,redundancy,0.0,California Housing,revise,MLP,1,0
-8,validity,1.0,California Housing,revise,MLP,1,0
-9,distance,3.0576250553131104,California Housing,revise,MLP,1,0
-9,distance_from_energy,58.68041229248047,California Housing,revise,MLP,1,0
-9,distance_from_targets,4.392056941986084,California Housing,revise,MLP,1,0
-9,redundancy,0.0,California Housing,revise,MLP,1,0
-9,validity,1.0,California Housing,revise,MLP,1,0
-10,distance,2.8674750328063965,California Housing,revise,MLP,1,0
-10,distance_from_energy,43.06920623779297,California Housing,revise,MLP,1,0
-10,distance_from_targets,4.253293991088867,California Housing,revise,MLP,1,0
-10,redundancy,0.0,California Housing,revise,MLP,1,0
-10,validity,1.0,California Housing,revise,MLP,1,0
-6,distance,0.20000000298023224,California Housing,greedy,MLP,1,0
-6,distance_from_energy,77.97296905517578,California Housing,greedy,MLP,1,0
-6,distance_from_targets,5.571389198303223,California Housing,greedy,MLP,1,0
-6,redundancy,0.9,California Housing,greedy,MLP,1,0
-6,validity,1.0,California Housing,greedy,MLP,1,0
-7,distance,0.699999988079071,California Housing,greedy,MLP,1,0
-7,distance_from_energy,91.50792694091797,California Housing,greedy,MLP,1,0
-7,distance_from_targets,4.989508628845215,California Housing,greedy,MLP,1,0
-7,redundancy,0.9,California Housing,greedy,MLP,1,0
-7,validity,1.0,California Housing,greedy,MLP,1,0
-8,distance,0.3999999761581421,California Housing,greedy,MLP,1,0
-8,distance_from_energy,79.4323959350586,California Housing,greedy,MLP,1,0
-8,distance_from_targets,6.428986072540283,California Housing,greedy,MLP,1,0
-8,redundancy,0.9,California Housing,greedy,MLP,1,0
-8,validity,1.0,California Housing,greedy,MLP,1,0
-9,distance,0.30000001192092896,California Housing,greedy,MLP,1,0
-9,distance_from_energy,66.9940185546875,California Housing,greedy,MLP,1,0
-9,distance_from_targets,5.906508445739746,California Housing,greedy,MLP,1,0
-9,redundancy,0.8,California Housing,greedy,MLP,1,0
-9,validity,1.0,California Housing,greedy,MLP,1,0
-10,distance,0.10000000149011612,California Housing,greedy,MLP,1,0
-10,distance_from_energy,64.43855285644531,California Housing,greedy,MLP,1,0
-10,distance_from_targets,5.2784600257873535,California Housing,greedy,MLP,1,0
-10,redundancy,0.9,California Housing,greedy,MLP,1,0
-10,validity,1.0,California Housing,greedy,MLP,1,0
-6,distance,0.30000004172325134,California Housing,eccco,MLP,1,0
-6,distance_from_energy,84.65956115722656,California Housing,eccco,MLP,1,0
-6,distance_from_targets,5.561000823974609,California Housing,eccco,MLP,1,0
-6,redundancy,0.9,California Housing,eccco,MLP,1,0
-6,validity,1.0,California Housing,eccco,MLP,1,0
-7,distance,2.6000003814697266,California Housing,eccco,MLP,1,0
-7,distance_from_energy,66.11222076416016,California Housing,eccco,MLP,1,0
-7,distance_from_targets,5.290802478790283,California Housing,eccco,MLP,1,0
-7,redundancy,0.5,California Housing,eccco,MLP,1,0
-7,validity,0.0,California Housing,eccco,MLP,1,0
-8,distance,3.200000286102295,California Housing,eccco,MLP,1,0
-8,distance_from_energy,73.18525695800781,California Housing,eccco,MLP,1,0
-8,distance_from_targets,4.796335220336914,California Housing,eccco,MLP,1,0
-8,redundancy,0.5,California Housing,eccco,MLP,1,0
-8,validity,1.0,California Housing,eccco,MLP,1,0
-9,distance,0.29999998211860657,California Housing,eccco,MLP,1,0
-9,distance_from_energy,68.22465515136719,California Housing,eccco,MLP,1,0
-9,distance_from_targets,5.669700622558594,California Housing,eccco,MLP,1,0
-9,redundancy,0.7,California Housing,eccco,MLP,1,0
-9,validity,1.0,California Housing,eccco,MLP,1,0
-10,distance,0.10000000149011612,California Housing,eccco,MLP,1,0
-10,distance_from_energy,70.25737762451172,California Housing,eccco,MLP,1,0
-10,distance_from_targets,5.126810550689697,California Housing,eccco,MLP,1,0
-10,redundancy,0.9,California Housing,eccco,MLP,1,0
-10,validity,1.0,California Housing,eccco,MLP,1,0
-6,distance,0.6599994897842407,California Housing,wachter,MLP,1,0
-6,distance_from_energy,61.025657653808594,California Housing,wachter,MLP,1,0
-6,distance_from_targets,5.685238361358643,California Housing,wachter,MLP,1,0
-6,redundancy,0.0,California Housing,wachter,MLP,1,0
-6,validity,1.0,California Housing,wachter,MLP,1,0
-7,distance,2.6799981594085693,California Housing,wachter,MLP,1,0
-7,distance_from_energy,70.65636444091797,California Housing,wachter,MLP,1,0
-7,distance_from_targets,4.860723495483398,California Housing,wachter,MLP,1,0
-7,redundancy,0.5,California Housing,wachter,MLP,1,0
-7,validity,0.0,California Housing,wachter,MLP,1,0
-8,distance,2.4199976921081543,California Housing,wachter,MLP,1,0
-8,distance_from_energy,107.84793853759766,California Housing,wachter,MLP,1,0
-8,distance_from_targets,6.298903942108154,California Housing,wachter,MLP,1,0
-8,redundancy,0.0,California Housing,wachter,MLP,1,0
-8,validity,1.0,California Housing,wachter,MLP,1,0
-9,distance,0.579999566078186,California Housing,wachter,MLP,1,0
-9,distance_from_energy,73.76725769042969,California Housing,wachter,MLP,1,0
-9,distance_from_targets,5.706188678741455,California Housing,wachter,MLP,1,0
-9,redundancy,0.0,California Housing,wachter,MLP,1,0
-9,validity,1.0,California Housing,wachter,MLP,1,0
-10,distance,0.29999980330467224,California Housing,wachter,MLP,1,0
-10,distance_from_energy,59.27626419067383,California Housing,wachter,MLP,1,0
-10,distance_from_targets,5.059507846832275,California Housing,wachter,MLP,1,0
-10,redundancy,0.0,California Housing,wachter,MLP,1,0
-10,validity,1.0,California Housing,wachter,MLP,1,0
-11,distance,2.9446020126342773,California Housing,revise,MLP Ensemble,1,0
-11,distance_from_energy,112.00111389160156,California Housing,revise,MLP Ensemble,1,0
-11,distance_from_targets,3.7937021255493164,California Housing,revise,MLP Ensemble,1,0
-11,redundancy,0.0,California Housing,revise,MLP Ensemble,1,0
-11,validity,1.0,California Housing,revise,MLP Ensemble,1,0
-12,distance,20.435651779174805,California Housing,revise,MLP Ensemble,1,0
-12,distance_from_energy,92.62034606933594,California Housing,revise,MLP Ensemble,1,0
-12,distance_from_targets,4.544589042663574,California Housing,revise,MLP Ensemble,1,0
-12,redundancy,0.0,California Housing,revise,MLP Ensemble,1,0
-12,validity,1.0,California Housing,revise,MLP Ensemble,1,0
-13,distance,2.8908486366271973,California Housing,revise,MLP Ensemble,1,0
-13,distance_from_energy,76.86541748046875,California Housing,revise,MLP Ensemble,1,0
-13,distance_from_targets,4.581481456756592,California Housing,revise,MLP Ensemble,1,0
-13,redundancy,0.0,California Housing,revise,MLP Ensemble,1,0
-13,validity,1.0,California Housing,revise,MLP Ensemble,1,0
-14,distance,3.2291829586029053,California Housing,revise,MLP Ensemble,1,0
-14,distance_from_energy,78.06466674804688,California Housing,revise,MLP Ensemble,1,0
-14,distance_from_targets,3.8079476356506348,California Housing,revise,MLP Ensemble,1,0
-14,redundancy,0.0,California Housing,revise,MLP Ensemble,1,0
-14,validity,1.0,California Housing,revise,MLP Ensemble,1,0
-15,distance,3.3418705463409424,California Housing,revise,MLP Ensemble,1,0
-15,distance_from_energy,81.8373794555664,California Housing,revise,MLP Ensemble,1,0
-15,distance_from_targets,3.8303706645965576,California Housing,revise,MLP Ensemble,1,0
-15,redundancy,0.0,California Housing,revise,MLP Ensemble,1,0
-15,validity,1.0,California Housing,revise,MLP Ensemble,1,0
-11,distance,0.30000001192092896,California Housing,greedy,MLP Ensemble,1,0
-11,distance_from_energy,78.31103515625,California Housing,greedy,MLP Ensemble,1,0
-11,distance_from_targets,4.786750316619873,California Housing,greedy,MLP Ensemble,1,0
-11,redundancy,0.9,California Housing,greedy,MLP Ensemble,1,0
-11,validity,1.0,California Housing,greedy,MLP Ensemble,1,0
-12,distance,10.000003814697266,California Housing,greedy,MLP Ensemble,1,0
-12,distance_from_energy,83.95401000976562,California Housing,greedy,MLP Ensemble,1,0
-12,distance_from_targets,26.30084991455078,California Housing,greedy,MLP Ensemble,1,0
-12,redundancy,0.0,California Housing,greedy,MLP Ensemble,1,0
-12,validity,0.0,California Housing,greedy,MLP Ensemble,1,0
-13,distance,0.7000000476837158,California Housing,greedy,MLP Ensemble,1,0
-13,distance_from_energy,84.73243713378906,California Housing,greedy,MLP Ensemble,1,0
-13,distance_from_targets,5.02972936630249,California Housing,greedy,MLP Ensemble,1,0
-13,redundancy,0.8,California Housing,greedy,MLP Ensemble,1,0
-13,validity,1.0,California Housing,greedy,MLP Ensemble,1,0
-14,distance,0.09999999403953552,California Housing,greedy,MLP Ensemble,1,0
-14,distance_from_energy,77.81356048583984,California Housing,greedy,MLP Ensemble,1,0
-14,distance_from_targets,4.023746490478516,California Housing,greedy,MLP Ensemble,1,0
-14,redundancy,0.9,California Housing,greedy,MLP Ensemble,1,0
-14,validity,1.0,California Housing,greedy,MLP Ensemble,1,0
-15,distance,0.10000000149011612,California Housing,greedy,MLP Ensemble,1,0
-15,distance_from_energy,85.52420043945312,California Housing,greedy,MLP Ensemble,1,0
-15,distance_from_targets,4.452949523925781,California Housing,greedy,MLP Ensemble,1,0
-15,redundancy,0.9,California Housing,greedy,MLP Ensemble,1,0
-15,validity,1.0,California Housing,greedy,MLP Ensemble,1,0
-11,distance,0.5,California Housing,eccco,MLP Ensemble,1,0
-11,distance_from_energy,80.85704040527344,California Housing,eccco,MLP Ensemble,1,0
-11,distance_from_targets,4.6387176513671875,California Housing,eccco,MLP Ensemble,1,0
-11,redundancy,0.9,California Housing,eccco,MLP Ensemble,1,0
-11,validity,1.0,California Housing,eccco,MLP Ensemble,1,0
-12,distance,5.000000953674316,California Housing,eccco,MLP Ensemble,1,0
-12,distance_from_energy,72.9338150024414,California Housing,eccco,MLP Ensemble,1,0
-12,distance_from_targets,23.536605834960938,California Housing,eccco,MLP Ensemble,1,0
-12,redundancy,0.5,California Housing,eccco,MLP Ensemble,1,0
-12,validity,0.0,California Housing,eccco,MLP Ensemble,1,0
-13,distance,0.8000001907348633,California Housing,eccco,MLP Ensemble,1,0
-13,distance_from_energy,47.87910842895508,California Housing,eccco,MLP Ensemble,1,0
-13,distance_from_targets,4.664304733276367,California Housing,eccco,MLP Ensemble,1,0
-13,redundancy,0.8,California Housing,eccco,MLP Ensemble,1,0
-13,validity,1.0,California Housing,eccco,MLP Ensemble,1,0
-14,distance,0.09999999403953552,California Housing,eccco,MLP Ensemble,1,0
-14,distance_from_energy,107.40899658203125,California Housing,eccco,MLP Ensemble,1,0
-14,distance_from_targets,3.9644620418548584,California Housing,eccco,MLP Ensemble,1,0
-14,redundancy,0.9,California Housing,eccco,MLP Ensemble,1,0
-14,validity,1.0,California Housing,eccco,MLP Ensemble,1,0
-15,distance,0.10000000149011612,California Housing,eccco,MLP Ensemble,1,0
-15,distance_from_energy,86.38545227050781,California Housing,eccco,MLP Ensemble,1,0
-15,distance_from_targets,4.468271255493164,California Housing,eccco,MLP Ensemble,1,0
-15,redundancy,0.9,California Housing,eccco,MLP Ensemble,1,0
-15,validity,1.0,California Housing,eccco,MLP Ensemble,1,0
-11,distance,0.5799997448921204,California Housing,wachter,MLP Ensemble,1,0
-11,distance_from_energy,39.44195556640625,California Housing,wachter,MLP Ensemble,1,0
-11,distance_from_targets,4.511152267456055,California Housing,wachter,MLP Ensemble,1,0
-11,redundancy,0.0,California Housing,wachter,MLP Ensemble,1,0
-11,validity,1.0,California Housing,wachter,MLP Ensemble,1,0
-12,distance,4.499996662139893,California Housing,wachter,MLP Ensemble,1,0
-12,distance_from_energy,88.25691986083984,California Housing,wachter,MLP Ensemble,1,0
-12,distance_from_targets,23.618432998657227,California Housing,wachter,MLP Ensemble,1,0
-12,redundancy,0.5,California Housing,wachter,MLP Ensemble,1,0
-12,validity,0.0,California Housing,wachter,MLP Ensemble,1,0
-13,distance,1.0999994277954102,California Housing,wachter,MLP Ensemble,1,0
-13,distance_from_energy,84.45135498046875,California Housing,wachter,MLP Ensemble,1,0
-13,distance_from_targets,4.340921878814697,California Housing,wachter,MLP Ensemble,1,0
-13,redundancy,0.0,California Housing,wachter,MLP Ensemble,1,0
-13,validity,1.0,California Housing,wachter,MLP Ensemble,1,0
-14,distance,0.2999998927116394,California Housing,wachter,MLP Ensemble,1,0
-14,distance_from_energy,64.98536682128906,California Housing,wachter,MLP Ensemble,1,0
-14,distance_from_targets,3.8328497409820557,California Housing,wachter,MLP Ensemble,1,0
-14,redundancy,0.5,California Housing,wachter,MLP Ensemble,1,0
-14,validity,1.0,California Housing,wachter,MLP Ensemble,1,0
-15,distance,0.939999520778656,California Housing,wachter,MLP Ensemble,1,0
-15,distance_from_energy,98.19804382324219,California Housing,wachter,MLP Ensemble,1,0
-15,distance_from_targets,4.425012111663818,California Housing,wachter,MLP Ensemble,1,0
-15,redundancy,0.0,California Housing,wachter,MLP Ensemble,1,0
-15,validity,1.0,California Housing,wachter,MLP Ensemble,1,0
-16,distance,2.371237277984619,California Housing,revise,JEM,1,0
-16,distance_from_energy,10.828821182250977,California Housing,revise,JEM,1,0
-16,distance_from_targets,4.2692742347717285,California Housing,revise,JEM,1,0
-16,redundancy,0.0,California Housing,revise,JEM,1,0
-16,validity,1.0,California Housing,revise,JEM,1,0
-17,distance,5.001166343688965,California Housing,revise,JEM,1,0
-17,distance_from_energy,8.575849533081055,California Housing,revise,JEM,1,0
-17,distance_from_targets,3.6614322662353516,California Housing,revise,JEM,1,0
-17,redundancy,0.0,California Housing,revise,JEM,1,0
-17,validity,1.0,California Housing,revise,JEM,1,0
-18,distance,2.903388500213623,California Housing,revise,JEM,1,0
-18,distance_from_energy,11.436322212219238,California Housing,revise,JEM,1,0
-18,distance_from_targets,4.934658050537109,California Housing,revise,JEM,1,0
-18,redundancy,0.0,California Housing,revise,JEM,1,0
-18,validity,1.0,California Housing,revise,JEM,1,0
-19,distance,3.350205421447754,California Housing,revise,JEM,1,0
-19,distance_from_energy,11.705821990966797,California Housing,revise,JEM,1,0
-19,distance_from_targets,4.306410312652588,California Housing,revise,JEM,1,0
-19,redundancy,0.0,California Housing,revise,JEM,1,0
-19,validity,1.0,California Housing,revise,JEM,1,0
-20,distance,19.59447479248047,California Housing,revise,JEM,1,0
-20,distance_from_energy,11.022638320922852,California Housing,revise,JEM,1,0
-20,distance_from_targets,10.661826133728027,California Housing,revise,JEM,1,0
-20,redundancy,0.0,California Housing,revise,JEM,1,0
-20,validity,1.0,California Housing,revise,JEM,1,0
-16,distance,0.10000000149011612,California Housing,greedy,JEM,1,0
-16,distance_from_energy,11.127701759338379,California Housing,greedy,JEM,1,0
-16,distance_from_targets,5.094544887542725,California Housing,greedy,JEM,1,0
-16,redundancy,0.9,California Housing,greedy,JEM,1,0
-16,validity,1.0,California Housing,greedy,JEM,1,0
-17,distance,0.10000000149011612,California Housing,greedy,JEM,1,0
-17,distance_from_energy,13.381426811218262,California Housing,greedy,JEM,1,0
-17,distance_from_targets,5.928926944732666,California Housing,greedy,JEM,1,0
-17,redundancy,0.9,California Housing,greedy,JEM,1,0
-17,validity,1.0,California Housing,greedy,JEM,1,0
-18,distance,0.10000000894069672,California Housing,greedy,JEM,1,0
-18,distance_from_energy,14.115972518920898,California Housing,greedy,JEM,1,0
-18,distance_from_targets,6.211500644683838,California Housing,greedy,JEM,1,0
-18,redundancy,0.9,California Housing,greedy,JEM,1,0
-18,validity,1.0,California Housing,greedy,JEM,1,0
-19,distance,0.10000000149011612,California Housing,greedy,JEM,1,0
-19,distance_from_energy,11.6144437789917,California Housing,greedy,JEM,1,0
-19,distance_from_targets,4.900711536407471,California Housing,greedy,JEM,1,0
-19,redundancy,0.9,California Housing,greedy,JEM,1,0
-19,validity,1.0,California Housing,greedy,JEM,1,0
-20,distance,0.6000000238418579,California Housing,greedy,JEM,1,0
-20,distance_from_energy,24.675037384033203,California Housing,greedy,JEM,1,0
-20,distance_from_targets,19.886587142944336,California Housing,greedy,JEM,1,0
-20,redundancy,0.9,California Housing,greedy,JEM,1,0
-20,validity,1.0,California Housing,greedy,JEM,1,0
-16,distance,0.6000001430511475,California Housing,eccco,JEM,1,0
-16,distance_from_energy,9.478602409362793,California Housing,eccco,JEM,1,0
-16,distance_from_targets,4.610134601593018,California Housing,eccco,JEM,1,0
-16,redundancy,0.8,California Housing,eccco,JEM,1,0
-16,validity,1.0,California Housing,eccco,JEM,1,0
-17,distance,0.10000000894069672,California Housing,eccco,JEM,1,0
-17,distance_from_energy,12.051526069641113,California Housing,eccco,JEM,1,0
-17,distance_from_targets,5.79629373550415,California Housing,eccco,JEM,1,0
-17,redundancy,0.9,California Housing,eccco,JEM,1,0
-17,validity,1.0,California Housing,eccco,JEM,1,0
-18,distance,0.10000002384185791,California Housing,eccco,JEM,1,0
-18,distance_from_energy,14.378667831420898,California Housing,eccco,JEM,1,0
-18,distance_from_targets,6.210714817047119,California Housing,eccco,JEM,1,0
-18,redundancy,0.9,California Housing,eccco,JEM,1,0
-18,validity,1.0,California Housing,eccco,JEM,1,0
-19,distance,0.09999999403953552,California Housing,eccco,JEM,1,0
-19,distance_from_energy,11.558502197265625,California Housing,eccco,JEM,1,0
-19,distance_from_targets,5.056278228759766,California Housing,eccco,JEM,1,0
-19,redundancy,0.9,California Housing,eccco,JEM,1,0
-19,validity,1.0,California Housing,eccco,JEM,1,0
-20,distance,0.6000000238418579,California Housing,eccco,JEM,1,0
-20,distance_from_energy,24.84628677368164,California Housing,eccco,JEM,1,0
-20,distance_from_targets,19.91420555114746,California Housing,eccco,JEM,1,0
-20,redundancy,0.9,California Housing,eccco,JEM,1,0
-20,validity,1.0,California Housing,eccco,JEM,1,0
-16,distance,0.37999966740608215,California Housing,wachter,JEM,1,0
-16,distance_from_energy,11.440272331237793,California Housing,wachter,JEM,1,0
-16,distance_from_targets,4.819549083709717,California Housing,wachter,JEM,1,0
-16,redundancy,0.0,California Housing,wachter,JEM,1,0
-16,validity,1.0,California Housing,wachter,JEM,1,0
-17,distance,0.0,California Housing,wachter,JEM,1,0
-17,distance_from_energy,13.221417427062988,California Housing,wachter,JEM,1,0
-17,distance_from_targets,5.725661754608154,California Housing,wachter,JEM,1,0
-17,redundancy,1.0,California Housing,wachter,JEM,1,0
-17,validity,0.0,California Housing,wachter,JEM,1,0
-18,distance,0.059999946504831314,California Housing,wachter,JEM,1,0
-18,distance_from_energy,11.842077255249023,California Housing,wachter,JEM,1,0
-18,distance_from_targets,6.210434436798096,California Housing,wachter,JEM,1,0
-18,redundancy,0.9,California Housing,wachter,JEM,1,0
-18,validity,0.0,California Housing,wachter,JEM,1,0
-19,distance,0.040000271052122116,California Housing,wachter,JEM,1,0
-19,distance_from_energy,10.277088165283203,California Housing,wachter,JEM,1,0
-19,distance_from_targets,4.812685489654541,California Housing,wachter,JEM,1,0
-19,redundancy,0.9,California Housing,wachter,JEM,1,0
-19,validity,0.0,California Housing,wachter,JEM,1,0
-20,distance,2.5200090408325195,California Housing,wachter,JEM,1,0
-20,distance_from_energy,26.077587127685547,California Housing,wachter,JEM,1,0
-20,distance_from_targets,19.866092681884766,California Housing,wachter,JEM,1,0
-20,redundancy,0.0,California Housing,wachter,JEM,1,0
-20,validity,1.0,California Housing,wachter,JEM,1,0
+1,distance,0.2999986708164215,GMSC,Wachter,JEM Ensemble,1,0
+1,distance_from_energy,3.1601035594940186,GMSC,Wachter,JEM Ensemble,1,0
+1,distance_from_targets,5.4923176765441895,GMSC,Wachter,JEM Ensemble,1,0
+1,redundancy,0.9,GMSC,Wachter,JEM Ensemble,1,0
+1,validity,0.0,GMSC,Wachter,JEM Ensemble,1,0
+2,distance,4.6938657760620117e-7,GMSC,Wachter,JEM Ensemble,1,0
+2,distance_from_energy,3.4079253673553467,GMSC,Wachter,JEM Ensemble,1,0
+2,distance_from_targets,6.626768112182617,GMSC,Wachter,JEM Ensemble,1,0
+2,redundancy,1.0,GMSC,Wachter,JEM Ensemble,1,0
+2,validity,0.0,GMSC,Wachter,JEM Ensemble,1,0
+3,distance,0.9999991059303284,GMSC,Wachter,JEM Ensemble,1,0
+3,distance_from_energy,1.7405489683151245,GMSC,Wachter,JEM Ensemble,1,0
+3,distance_from_targets,4.952810764312744,GMSC,Wachter,JEM Ensemble,1,0
+3,redundancy,0.9,GMSC,Wachter,JEM Ensemble,1,0
+3,validity,0.0,GMSC,Wachter,JEM Ensemble,1,0
+4,distance,2.1399989128112793,GMSC,Wachter,JEM Ensemble,1,0
+4,distance_from_energy,2.5381667613983154,GMSC,Wachter,JEM Ensemble,1,0
+4,distance_from_targets,5.321303844451904,GMSC,Wachter,JEM Ensemble,1,0
+4,redundancy,0.7,GMSC,Wachter,JEM Ensemble,1,0
+4,validity,0.0,GMSC,Wachter,JEM Ensemble,1,0
+5,distance,0.09999998658895493,GMSC,Wachter,JEM Ensemble,1,0
+5,distance_from_energy,3.6240057945251465,GMSC,Wachter,JEM Ensemble,1,0
+5,distance_from_targets,6.974389553070068,GMSC,Wachter,JEM Ensemble,1,0
+5,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
+5,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
+1,distance,3.8729124069213867,GMSC,REVISE,JEM Ensemble,1,0
+1,distance_from_energy,1.7687273025512695,GMSC,REVISE,JEM Ensemble,1,0
+1,distance_from_targets,3.8504834175109863,GMSC,REVISE,JEM Ensemble,1,0
+1,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
+1,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
+2,distance,2.4816770553588867,GMSC,REVISE,JEM Ensemble,1,0
+2,distance_from_energy,3.0756969451904297,GMSC,REVISE,JEM Ensemble,1,0
+2,distance_from_targets,5.617615699768066,GMSC,REVISE,JEM Ensemble,1,0
+2,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
+2,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
+3,distance,2.513032913208008,GMSC,REVISE,JEM Ensemble,1,0
+3,distance_from_energy,1.2264904975891113,GMSC,REVISE,JEM Ensemble,1,0
+3,distance_from_targets,3.494110584259033,GMSC,REVISE,JEM Ensemble,1,0
+3,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
+3,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
+4,distance,2.894728183746338,GMSC,REVISE,JEM Ensemble,1,0
+4,distance_from_energy,2.477642059326172,GMSC,REVISE,JEM Ensemble,1,0
+4,distance_from_targets,4.7057294845581055,GMSC,REVISE,JEM Ensemble,1,0
+4,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
+4,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
+5,distance,3.5615830421447754,GMSC,REVISE,JEM Ensemble,1,0
+5,distance_from_energy,2.502185106277466,GMSC,REVISE,JEM Ensemble,1,0
+5,distance_from_targets,4.967865943908691,GMSC,REVISE,JEM Ensemble,1,0
+5,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
+5,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
+1,distance,0.29999998211860657,GMSC,ECCCo,JEM Ensemble,1,0
+1,distance_from_energy,3.225388288497925,GMSC,ECCCo,JEM Ensemble,1,0
+1,distance_from_targets,5.846500873565674,GMSC,ECCCo,JEM Ensemble,1,0
+1,redundancy,0.9,GMSC,ECCCo,JEM Ensemble,1,0
+1,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
+2,distance,0.09999999403953552,GMSC,ECCCo,JEM Ensemble,1,0
+2,distance_from_energy,3.3236422538757324,GMSC,ECCCo,JEM Ensemble,1,0
+2,distance_from_targets,6.668421745300293,GMSC,ECCCo,JEM Ensemble,1,0
+2,redundancy,0.9,GMSC,ECCCo,JEM Ensemble,1,0
+2,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
+3,distance,0.19999998807907104,GMSC,ECCCo,JEM Ensemble,1,0
+3,distance_from_energy,1.6657214164733887,GMSC,ECCCo,JEM Ensemble,1,0
+3,distance_from_targets,4.490762233734131,GMSC,ECCCo,JEM Ensemble,1,0
+3,redundancy,0.9,GMSC,ECCCo,JEM Ensemble,1,0
+3,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
+4,distance,0.3999999761581421,GMSC,ECCCo,JEM Ensemble,1,0
+4,distance_from_energy,3.2961161136627197,GMSC,ECCCo,JEM Ensemble,1,0
+4,distance_from_targets,6.272601127624512,GMSC,ECCCo,JEM Ensemble,1,0
+4,redundancy,0.9,GMSC,ECCCo,JEM Ensemble,1,0
+4,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
+5,distance,0.09999999403953552,GMSC,ECCCo,JEM Ensemble,1,0
+5,distance_from_energy,3.5636050701141357,GMSC,ECCCo,JEM Ensemble,1,0
+5,distance_from_targets,7.1558122634887695,GMSC,ECCCo,JEM Ensemble,1,0
+5,redundancy,0.9,GMSC,ECCCo,JEM Ensemble,1,0
+5,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
+1,distance,0.29999998211860657,GMSC,Schut,JEM Ensemble,1,0
+1,distance_from_energy,3.3090059757232666,GMSC,Schut,JEM Ensemble,1,0
+1,distance_from_targets,5.877996921539307,GMSC,Schut,JEM Ensemble,1,0
+1,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+1,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
+2,distance,0.09999999403953552,GMSC,Schut,JEM Ensemble,1,0
+2,distance_from_energy,3.3817806243896484,GMSC,Schut,JEM Ensemble,1,0
+2,distance_from_targets,6.7189483642578125,GMSC,Schut,JEM Ensemble,1,0
+2,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+2,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
+3,distance,0.19999998807907104,GMSC,Schut,JEM Ensemble,1,0
+3,distance_from_energy,1.7849133014678955,GMSC,Schut,JEM Ensemble,1,0
+3,distance_from_targets,4.415220260620117,GMSC,Schut,JEM Ensemble,1,0
+3,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+3,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
+4,distance,0.3999999761581421,GMSC,Schut,JEM Ensemble,1,0
+4,distance_from_energy,3.3208305835723877,GMSC,Schut,JEM Ensemble,1,0
+4,distance_from_targets,6.342911720275879,GMSC,Schut,JEM Ensemble,1,0
+4,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+4,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
+5,distance,0.09999999403953552,GMSC,Schut,JEM Ensemble,1,0
+5,distance_from_energy,3.7075986862182617,GMSC,Schut,JEM Ensemble,1,0
+5,distance_from_targets,6.953596115112305,GMSC,Schut,JEM Ensemble,1,0
+5,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+5,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
+6,distance,1.0399994850158691,GMSC,Wachter,MLP,1,0
+6,distance_from_energy,24.71023178100586,GMSC,Wachter,MLP,1,0
+6,distance_from_targets,4.146365165710449,GMSC,Wachter,MLP,1,0
+6,redundancy,0.0,GMSC,Wachter,MLP,1,0
+6,validity,1.0,GMSC,Wachter,MLP,1,0
+7,distance,0.3199997544288635,GMSC,Wachter,MLP,1,0
+7,distance_from_energy,36.72300720214844,GMSC,Wachter,MLP,1,0
+7,distance_from_targets,5.839165687561035,GMSC,Wachter,MLP,1,0
+7,redundancy,0.0,GMSC,Wachter,MLP,1,0
+7,validity,1.0,GMSC,Wachter,MLP,1,0
+8,distance,1.3999994993209839,GMSC,Wachter,MLP,1,0
+8,distance_from_energy,19.572063446044922,GMSC,Wachter,MLP,1,0
+8,distance_from_targets,5.146306037902832,GMSC,Wachter,MLP,1,0
+8,redundancy,0.6,GMSC,Wachter,MLP,1,0
+8,validity,0.0,GMSC,Wachter,MLP,1,0
+9,distance,1.5999966859817505,GMSC,Wachter,MLP,1,0
+9,distance_from_energy,53.978275299072266,GMSC,Wachter,MLP,1,0
+9,distance_from_targets,4.864651679992676,GMSC,Wachter,MLP,1,0
+9,redundancy,0.7,GMSC,Wachter,MLP,1,0
+9,validity,1.0,GMSC,Wachter,MLP,1,0
+10,distance,4.019998550415039,GMSC,Wachter,MLP,1,0
+10,distance_from_energy,48.498653411865234,GMSC,Wachter,MLP,1,0
+10,distance_from_targets,6.381560325622559,GMSC,Wachter,MLP,1,0
+10,redundancy,0.5,GMSC,Wachter,MLP,1,0
+10,validity,0.0,GMSC,Wachter,MLP,1,0
+6,distance,3.5378565788269043,GMSC,REVISE,MLP,1,0
+6,distance_from_energy,40.94810485839844,GMSC,REVISE,MLP,1,0
+6,distance_from_targets,3.584502696990967,GMSC,REVISE,MLP,1,0
+6,redundancy,0.0,GMSC,REVISE,MLP,1,0
+6,validity,1.0,GMSC,REVISE,MLP,1,0
+7,distance,3.574359893798828,GMSC,REVISE,MLP,1,0
+7,distance_from_energy,37.66975402832031,GMSC,REVISE,MLP,1,0
+7,distance_from_targets,5.462897777557373,GMSC,REVISE,MLP,1,0
+7,redundancy,0.0,GMSC,REVISE,MLP,1,0
+7,validity,1.0,GMSC,REVISE,MLP,1,0
+8,distance,3.517518997192383,GMSC,REVISE,MLP,1,0
+8,distance_from_energy,39.8207893371582,GMSC,REVISE,MLP,1,0
+8,distance_from_targets,3.3297274112701416,GMSC,REVISE,MLP,1,0
+8,redundancy,0.1,GMSC,REVISE,MLP,1,0
+8,validity,1.0,GMSC,REVISE,MLP,1,0
+9,distance,3.7982728481292725,GMSC,REVISE,MLP,1,0
+9,distance_from_energy,37.370235443115234,GMSC,REVISE,MLP,1,0
+9,distance_from_targets,3.679018497467041,GMSC,REVISE,MLP,1,0
+9,redundancy,0.0,GMSC,REVISE,MLP,1,0
+9,validity,1.0,GMSC,REVISE,MLP,1,0
+10,distance,3.9807510375976562,GMSC,REVISE,MLP,1,0
+10,distance_from_energy,45.736412048339844,GMSC,REVISE,MLP,1,0
+10,distance_from_targets,3.6412699222564697,GMSC,REVISE,MLP,1,0
+10,redundancy,0.0,GMSC,REVISE,MLP,1,0
+10,validity,1.0,GMSC,REVISE,MLP,1,0
+6,distance,0.19999998807907104,GMSC,ECCCo,MLP,1,0
+6,distance_from_energy,40.34561538696289,GMSC,ECCCo,MLP,1,0
+6,distance_from_targets,4.3720808029174805,GMSC,ECCCo,MLP,1,0
+6,redundancy,0.9,GMSC,ECCCo,MLP,1,0
+6,validity,1.0,GMSC,ECCCo,MLP,1,0
+7,distance,0.10000000894069672,GMSC,ECCCo,MLP,1,0
+7,distance_from_energy,38.525657653808594,GMSC,ECCCo,MLP,1,0
+7,distance_from_targets,5.956114768981934,GMSC,ECCCo,MLP,1,0
+7,redundancy,0.9,GMSC,ECCCo,MLP,1,0
+7,validity,1.0,GMSC,ECCCo,MLP,1,0
+8,distance,0.30000001192092896,GMSC,ECCCo,MLP,1,0
+8,distance_from_energy,39.3001708984375,GMSC,ECCCo,MLP,1,0
+8,distance_from_targets,4.608822345733643,GMSC,ECCCo,MLP,1,0
+8,redundancy,0.9,GMSC,ECCCo,MLP,1,0
+8,validity,1.0,GMSC,ECCCo,MLP,1,0
+9,distance,0.29999998211860657,GMSC,ECCCo,MLP,1,0
+9,distance_from_energy,41.25008773803711,GMSC,ECCCo,MLP,1,0
+9,distance_from_targets,4.558477878570557,GMSC,ECCCo,MLP,1,0
+9,redundancy,0.9,GMSC,ECCCo,MLP,1,0
+9,validity,1.0,GMSC,ECCCo,MLP,1,0
+10,distance,1.2000000476837158,GMSC,ECCCo,MLP,1,0
+10,distance_from_energy,31.958477020263672,GMSC,ECCCo,MLP,1,0
+10,distance_from_targets,6.212945938110352,GMSC,ECCCo,MLP,1,0
+10,redundancy,0.8,GMSC,ECCCo,MLP,1,0
+10,validity,1.0,GMSC,ECCCo,MLP,1,0
+6,distance,0.19999998807907104,GMSC,Schut,MLP,1,0
+6,distance_from_energy,39.115169525146484,GMSC,Schut,MLP,1,0
+6,distance_from_targets,4.4108405113220215,GMSC,Schut,MLP,1,0
+6,redundancy,0.9,GMSC,Schut,MLP,1,0
+6,validity,1.0,GMSC,Schut,MLP,1,0
+7,distance,0.10000000894069672,GMSC,Schut,MLP,1,0
+7,distance_from_energy,37.97956466674805,GMSC,Schut,MLP,1,0
+7,distance_from_targets,5.958198547363281,GMSC,Schut,MLP,1,0
+7,redundancy,0.9,GMSC,Schut,MLP,1,0
+7,validity,1.0,GMSC,Schut,MLP,1,0
+8,distance,0.30000001192092896,GMSC,Schut,MLP,1,0
+8,distance_from_energy,25.59380531311035,GMSC,Schut,MLP,1,0
+8,distance_from_targets,4.564840793609619,GMSC,Schut,MLP,1,0
+8,redundancy,0.9,GMSC,Schut,MLP,1,0
+8,validity,1.0,GMSC,Schut,MLP,1,0
+9,distance,0.29999998211860657,GMSC,Schut,MLP,1,0
+9,distance_from_energy,34.160804748535156,GMSC,Schut,MLP,1,0
+9,distance_from_targets,4.534679889678955,GMSC,Schut,MLP,1,0
+9,redundancy,0.9,GMSC,Schut,MLP,1,0
+9,validity,1.0,GMSC,Schut,MLP,1,0
+10,distance,1.2000000476837158,GMSC,Schut,MLP,1,0
+10,distance_from_energy,41.815223693847656,GMSC,Schut,MLP,1,0
+10,distance_from_targets,6.1237993240356445,GMSC,Schut,MLP,1,0
+10,redundancy,0.8,GMSC,Schut,MLP,1,0
+10,validity,1.0,GMSC,Schut,MLP,1,0
+11,distance,1.3599988222122192,GMSC,Wachter,MLP Ensemble,1,0
+11,distance_from_energy,28.8709774017334,GMSC,Wachter,MLP Ensemble,1,0
+11,distance_from_targets,5.192536354064941,GMSC,Wachter,MLP Ensemble,1,0
+11,redundancy,0.7,GMSC,Wachter,MLP Ensemble,1,0
+11,validity,0.0,GMSC,Wachter,MLP Ensemble,1,0
+12,distance,0.9799990653991699,GMSC,Wachter,MLP Ensemble,1,0
+12,distance_from_energy,45.955875396728516,GMSC,Wachter,MLP Ensemble,1,0
+12,distance_from_targets,4.0593671798706055,GMSC,Wachter,MLP Ensemble,1,0
+12,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
+12,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
+13,distance,2.839998245239258,GMSC,Wachter,MLP Ensemble,1,0
+13,distance_from_energy,44.35859298706055,GMSC,Wachter,MLP Ensemble,1,0
+13,distance_from_targets,5.679142951965332,GMSC,Wachter,MLP Ensemble,1,0
+13,redundancy,0.5,GMSC,Wachter,MLP Ensemble,1,0
+13,validity,0.0,GMSC,Wachter,MLP Ensemble,1,0
+14,distance,1.859998345375061,GMSC,Wachter,MLP Ensemble,1,0
+14,distance_from_energy,30.679594039916992,GMSC,Wachter,MLP Ensemble,1,0
+14,distance_from_targets,5.821691989898682,GMSC,Wachter,MLP Ensemble,1,0
+14,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
+14,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
+15,distance,3.55999755859375,GMSC,Wachter,MLP Ensemble,1,0
+15,distance_from_energy,30.881750106811523,GMSC,Wachter,MLP Ensemble,1,0
+15,distance_from_targets,4.397616386413574,GMSC,Wachter,MLP Ensemble,1,0
+15,redundancy,0.5,GMSC,Wachter,MLP Ensemble,1,0
+15,validity,0.0,GMSC,Wachter,MLP Ensemble,1,0
+11,distance,3.7725155353546143,GMSC,REVISE,MLP Ensemble,1,0
+11,distance_from_energy,41.80202102661133,GMSC,REVISE,MLP Ensemble,1,0
+11,distance_from_targets,3.5406908988952637,GMSC,REVISE,MLP Ensemble,1,0
+11,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
+11,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
+12,distance,2.976764678955078,GMSC,REVISE,MLP Ensemble,1,0
+12,distance_from_energy,30.3883056640625,GMSC,REVISE,MLP Ensemble,1,0
+12,distance_from_targets,3.9437170028686523,GMSC,REVISE,MLP Ensemble,1,0
+12,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
+12,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
+13,distance,3.0438432693481445,GMSC,REVISE,MLP Ensemble,1,0
+13,distance_from_energy,33.664310455322266,GMSC,REVISE,MLP Ensemble,1,0
+13,distance_from_targets,3.8854360580444336,GMSC,REVISE,MLP Ensemble,1,0
+13,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
+13,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
+14,distance,5.325833320617676,GMSC,REVISE,MLP Ensemble,1,0
+14,distance_from_energy,37.607330322265625,GMSC,REVISE,MLP Ensemble,1,0
+14,distance_from_targets,5.401455879211426,GMSC,REVISE,MLP Ensemble,1,0
+14,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
+14,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
+15,distance,3.2915830612182617,GMSC,REVISE,MLP Ensemble,1,0
+15,distance_from_energy,32.84475326538086,GMSC,REVISE,MLP Ensemble,1,0
+15,distance_from_targets,3.9927377700805664,GMSC,REVISE,MLP Ensemble,1,0
+15,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
+15,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
+11,distance,0.4000000059604645,GMSC,ECCCo,MLP Ensemble,1,0
+11,distance_from_energy,31.047250747680664,GMSC,ECCCo,MLP Ensemble,1,0
+11,distance_from_targets,4.637204170227051,GMSC,ECCCo,MLP Ensemble,1,0
+11,redundancy,0.9,GMSC,ECCCo,MLP Ensemble,1,0
+11,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
+12,distance,0.10000000149011612,GMSC,ECCCo,MLP Ensemble,1,0
+12,distance_from_energy,30.037517547607422,GMSC,ECCCo,MLP Ensemble,1,0
+12,distance_from_targets,4.587416172027588,GMSC,ECCCo,MLP Ensemble,1,0
+12,redundancy,0.9,GMSC,ECCCo,MLP Ensemble,1,0
+12,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
+13,distance,0.30000001192092896,GMSC,ECCCo,MLP Ensemble,1,0
+13,distance_from_energy,32.266090393066406,GMSC,ECCCo,MLP Ensemble,1,0
+13,distance_from_targets,5.128987789154053,GMSC,ECCCo,MLP Ensemble,1,0
+13,redundancy,0.9,GMSC,ECCCo,MLP Ensemble,1,0
+13,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
+14,distance,0.29999998211860657,GMSC,ECCCo,MLP Ensemble,1,0
+14,distance_from_energy,38.798946380615234,GMSC,ECCCo,MLP Ensemble,1,0
+14,distance_from_targets,7.11771821975708,GMSC,ECCCo,MLP Ensemble,1,0
+14,redundancy,0.9,GMSC,ECCCo,MLP Ensemble,1,0
+14,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
+15,distance,0.4000000059604645,GMSC,ECCCo,MLP Ensemble,1,0
+15,distance_from_energy,39.46040725708008,GMSC,ECCCo,MLP Ensemble,1,0
+15,distance_from_targets,3.9857075214385986,GMSC,ECCCo,MLP Ensemble,1,0
+15,redundancy,0.9,GMSC,ECCCo,MLP Ensemble,1,0
+15,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
+11,distance,0.4000000059604645,GMSC,Schut,MLP Ensemble,1,0
+11,distance_from_energy,21.198532104492188,GMSC,Schut,MLP Ensemble,1,0
+11,distance_from_targets,4.631879806518555,GMSC,Schut,MLP Ensemble,1,0
+11,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
+11,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
+12,distance,0.10000000149011612,GMSC,Schut,MLP Ensemble,1,0
+12,distance_from_energy,35.41194534301758,GMSC,Schut,MLP Ensemble,1,0
+12,distance_from_targets,4.636297702789307,GMSC,Schut,MLP Ensemble,1,0
+12,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
+12,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
+13,distance,0.30000001192092896,GMSC,Schut,MLP Ensemble,1,0
+13,distance_from_energy,37.01441955566406,GMSC,Schut,MLP Ensemble,1,0
+13,distance_from_targets,5.18504524230957,GMSC,Schut,MLP Ensemble,1,0
+13,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
+13,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
+14,distance,0.29999998211860657,GMSC,Schut,MLP Ensemble,1,0
+14,distance_from_energy,27.630590438842773,GMSC,Schut,MLP Ensemble,1,0
+14,distance_from_targets,7.154283046722412,GMSC,Schut,MLP Ensemble,1,0
+14,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
+14,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
+15,distance,0.4000000059604645,GMSC,Schut,MLP Ensemble,1,0
+15,distance_from_energy,30.93317413330078,GMSC,Schut,MLP Ensemble,1,0
+15,distance_from_targets,4.142734527587891,GMSC,Schut,MLP Ensemble,1,0
+15,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
+15,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
+16,distance,0.5399997234344482,GMSC,Wachter,JEM,1,0
+16,distance_from_energy,3.5276153087615967,GMSC,Wachter,JEM,1,0
+16,distance_from_targets,7.735180854797363,GMSC,Wachter,JEM,1,0
+16,redundancy,0.6,GMSC,Wachter,JEM,1,0
+16,validity,0.0,GMSC,Wachter,JEM,1,0
+17,distance,0.6399997472763062,GMSC,Wachter,JEM,1,0
+17,distance_from_energy,3.26423716545105,GMSC,Wachter,JEM,1,0
+17,distance_from_targets,4.442192077636719,GMSC,Wachter,JEM,1,0
+17,redundancy,0.7,GMSC,Wachter,JEM,1,0
+17,validity,0.0,GMSC,Wachter,JEM,1,0
+18,distance,1.2999988794326782,GMSC,Wachter,JEM,1,0
+18,distance_from_energy,3.9603798389434814,GMSC,Wachter,JEM,1,0
+18,distance_from_targets,5.781925678253174,GMSC,Wachter,JEM,1,0
+18,redundancy,0.0,GMSC,Wachter,JEM,1,0
+18,validity,1.0,GMSC,Wachter,JEM,1,0
+19,distance,0.27999985218048096,GMSC,Wachter,JEM,1,0
+19,distance_from_energy,2.926628351211548,GMSC,Wachter,JEM,1,0
+19,distance_from_targets,4.641378402709961,GMSC,Wachter,JEM,1,0
+19,redundancy,0.8,GMSC,Wachter,JEM,1,0
+19,validity,0.0,GMSC,Wachter,JEM,1,0
+20,distance,2.299999237060547,GMSC,Wachter,JEM,1,0
+20,distance_from_energy,3.3298096656799316,GMSC,Wachter,JEM,1,0
+20,distance_from_targets,4.899237632751465,GMSC,Wachter,JEM,1,0
+20,redundancy,0.7,GMSC,Wachter,JEM,1,0
+20,validity,0.0,GMSC,Wachter,JEM,1,0
+16,distance,5.979305744171143,GMSC,REVISE,JEM,1,0
+16,distance_from_energy,3.1135129928588867,GMSC,REVISE,JEM,1,0
+16,distance_from_targets,4.394468307495117,GMSC,REVISE,JEM,1,0
+16,redundancy,0.0,GMSC,REVISE,JEM,1,0
+16,validity,1.0,GMSC,REVISE,JEM,1,0
+17,distance,1.8333065509796143,GMSC,REVISE,JEM,1,0
+17,distance_from_energy,2.9296789169311523,GMSC,REVISE,JEM,1,0
+17,distance_from_targets,4.115004062652588,GMSC,REVISE,JEM,1,0
+17,redundancy,0.0,GMSC,REVISE,JEM,1,0
+17,validity,1.0,GMSC,REVISE,JEM,1,0
+18,distance,3.8030900955200195,GMSC,REVISE,JEM,1,0
+18,distance_from_energy,2.7767693996429443,GMSC,REVISE,JEM,1,0
+18,distance_from_targets,3.5506298542022705,GMSC,REVISE,JEM,1,0
+18,redundancy,0.0,GMSC,REVISE,JEM,1,0
+18,validity,1.0,GMSC,REVISE,JEM,1,0
+19,distance,2.961282968521118,GMSC,REVISE,JEM,1,0
+19,distance_from_energy,2.7058987617492676,GMSC,REVISE,JEM,1,0
+19,distance_from_targets,4.393538951873779,GMSC,REVISE,JEM,1,0
+19,redundancy,0.0,GMSC,REVISE,JEM,1,0
+19,validity,1.0,GMSC,REVISE,JEM,1,0
+20,distance,2.595212936401367,GMSC,REVISE,JEM,1,0
+20,distance_from_energy,2.7545366287231445,GMSC,REVISE,JEM,1,0
+20,distance_from_targets,3.50051212310791,GMSC,REVISE,JEM,1,0
+20,redundancy,0.0,GMSC,REVISE,JEM,1,0
+20,validity,1.0,GMSC,REVISE,JEM,1,0
+16,distance,0.6000000238418579,GMSC,ECCCo,JEM,1,0
+16,distance_from_energy,3.540743827819824,GMSC,ECCCo,JEM,1,0
+16,distance_from_targets,7.558573246002197,GMSC,ECCCo,JEM,1,0
+16,redundancy,0.8,GMSC,ECCCo,JEM,1,0
+16,validity,1.0,GMSC,ECCCo,JEM,1,0
+17,distance,0.20000000298023224,GMSC,ECCCo,JEM,1,0
+17,distance_from_energy,3.128509283065796,GMSC,ECCCo,JEM,1,0
+17,distance_from_targets,4.4576334953308105,GMSC,ECCCo,JEM,1,0
+17,redundancy,0.9,GMSC,ECCCo,JEM,1,0
+17,validity,1.0,GMSC,ECCCo,JEM,1,0
+18,distance,0.19999998807907104,GMSC,ECCCo,JEM,1,0
+18,distance_from_energy,3.2683377265930176,GMSC,ECCCo,JEM,1,0
+18,distance_from_targets,5.094405174255371,GMSC,ECCCo,JEM,1,0
+18,redundancy,0.9,GMSC,ECCCo,JEM,1,0
+18,validity,1.0,GMSC,ECCCo,JEM,1,0
+19,distance,0.09999999403953552,GMSC,ECCCo,JEM,1,0
+19,distance_from_energy,3.0810434818267822,GMSC,ECCCo,JEM,1,0
+19,distance_from_targets,5.041547775268555,GMSC,ECCCo,JEM,1,0
+19,redundancy,0.9,GMSC,ECCCo,JEM,1,0
+19,validity,1.0,GMSC,ECCCo,JEM,1,0
+20,distance,0.30000001192092896,GMSC,ECCCo,JEM,1,0
+20,distance_from_energy,2.6982016563415527,GMSC,ECCCo,JEM,1,0
+20,distance_from_targets,4.556940078735352,GMSC,ECCCo,JEM,1,0
+20,redundancy,0.8,GMSC,ECCCo,JEM,1,0
+20,validity,1.0,GMSC,ECCCo,JEM,1,0
+16,distance,0.6000000238418579,GMSC,Schut,JEM,1,0
+16,distance_from_energy,3.8994383811950684,GMSC,Schut,JEM,1,0
+16,distance_from_targets,7.516748905181885,GMSC,Schut,JEM,1,0
+16,redundancy,0.8,GMSC,Schut,JEM,1,0
+16,validity,1.0,GMSC,Schut,JEM,1,0
+17,distance,0.20000000298023224,GMSC,Schut,JEM,1,0
+17,distance_from_energy,3.2859389781951904,GMSC,Schut,JEM,1,0
+17,distance_from_targets,4.451855659484863,GMSC,Schut,JEM,1,0
+17,redundancy,0.9,GMSC,Schut,JEM,1,0
+17,validity,1.0,GMSC,Schut,JEM,1,0
+18,distance,0.19999998807907104,GMSC,Schut,JEM,1,0
+18,distance_from_energy,4.035769939422607,GMSC,Schut,JEM,1,0
+18,distance_from_targets,5.105393886566162,GMSC,Schut,JEM,1,0
+18,redundancy,0.9,GMSC,Schut,JEM,1,0
+18,validity,1.0,GMSC,Schut,JEM,1,0
+19,distance,0.09999999403953552,GMSC,Schut,JEM,1,0
+19,distance_from_energy,3.141606330871582,GMSC,Schut,JEM,1,0
+19,distance_from_targets,4.901351451873779,GMSC,Schut,JEM,1,0
+19,redundancy,0.9,GMSC,Schut,JEM,1,0
+19,validity,1.0,GMSC,Schut,JEM,1,0
+20,distance,0.30000001192092896,GMSC,Schut,JEM,1,0
+20,distance_from_energy,2.787290096282959,GMSC,Schut,JEM,1,0
+20,distance_from_targets,4.495995044708252,GMSC,Schut,JEM,1,0
+20,redundancy,0.8,GMSC,Schut,JEM,1,0
+20,validity,1.0,GMSC,Schut,JEM,1,0
