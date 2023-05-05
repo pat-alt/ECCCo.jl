@@ -50,6 +50,7 @@ cov = .95
 conf_model = conformal_model(clf; method=method, coverage=cov)
 mach = machine(conf_model, table(permutedims(X)), labels)
 fit!(mach)
+Serialization.serialize(joinpath(output_path,"poc_model.jls"), mach)
 ```
 
 

@@ -11,8 +11,8 @@ _retrain = true
 
 # Data:
 test_size = 0.2
-n_obs = Int(1000 / (1.0 - test_size))
-counterfactual_data, test_data = train_test_split(load_moons(n_obs; noise=0.05, factor=0.5); test_size=test_size)
+n_obs = Int(2500 / (1.0 - test_size))
+counterfactual_data, test_data = train_test_split(load_moons(n_obs); test_size=test_size)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
 labels = counterfactual_data.output_encoder.labels
@@ -24,10 +24,10 @@ First, let's create a couple of image classifier architectures:
 
 ```{julia}
 # Model parameters:
-epochs = 100
+epochs = 500
 batch_size = minimum([Int(round(n_obs/10)), 128])
 n_hidden = 32
-activation = Flux.swish
+activation = Flux.relu
 builder = MLJFlux.MLP(
     hidden=(n_hidden, n_hidden, n_hidden,), 
     σ=activation
@@ -44,9 +44,9 @@ _finaliser = x -> x                         # finaliser function
 sampler = ConditionalSampler(
     𝒟x, 𝒟y, 
     input_size=(input_dim,), 
-    batch_size=batch_size,
+    batch_size=10,
 )
-α = [1.0,1.0,1e-2]      # penalty strengths
+α = [1.0,1.0,1e-1]      # penalty strengths
 ```
 
 ```{julia}
@@ -73,7 +73,7 @@ jem = JointEnergyClassifier(
     jem_training_params=(
         α=α,verbosity=10,
     ),
-    sampling_steps=20,
+    sampling_steps=30,
 )
 
 # JEM with adversarial training:
@@ -89,9 +89,9 @@ jem_ens = EnsembleModel(model=jem, n=n_ens)
 # Dictionary of models:
 models = Dict(
     "MLP" => mlp,
-    "MLP Ensemble" => mlp_ens,
+    # "MLP Ensemble" => mlp_ens,
     "JEM" => jem,
-    "JEM Ensemble" => jem_ens,
+    # "JEM Ensemble" => jem_ens,
     # "JEM Ensemble+" => jem_ens_plus,
 )
 ```
@@ -138,7 +138,7 @@ model_performance
 ```
 
 ```{julia}
-n_regen = 200
+n_regen = 500
 n_each = batch_size
 for (mod_name, model) in model_dict
     K = length(counterfactual_data.y_levels)
@@ -185,14 +185,61 @@ end
 ## Benchmark
 
 ```{julia}
+λ₁ = 0.25
+λ₂ = 0.75
+λ₃ = 0.75
+Λ = [λ₁, λ₂, λ₃]
+
 # Benchmark generators:
 generator_dict = Dict(
-    :wachter => WachterGenerator(),
-    :revise => REVISEGenerator(),
-    :greedy => GreedyGenerator(),
-    :eccco => ECCCoGenerator(),
+    "Wachter" => WachterGenerator(λ=λ₁),
+    "REVISE" => REVISEGenerator(λ=λ₁),
+    "Schut" => GreedyGenerator(),
+    "ECCCo" => ECCCoGenerator(λ=Λ),
 )
+```
 
+### POC
+
+```{julia}
+Random.seed!(2023)
+
+M = model_dict["JEM"]
+X = X isa Matrix ? X : Float32.(permutedims(matrix(X)))
+factual_label =  levels(labels)[1]
+x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
+target =  levels(labels)[2]
+factual = predict_label(M, counterfactual_data, x_factual)[1]
+
+ces = Dict{Any,Any}()
+plts = []
+for (name, generator) in generator_dict
+    ce = generate_counterfactual(
+        x_factual, target, counterfactual_data, M, generator;
+        initialization=:identity, 
+        converge_when=:generator_conditions,
+    )
+    plt = Plots.plot(ce, title=name, alpha=0.2, cbar=false, axis=nothing)
+    if name == "ECCCo"
+        _X = distance_from_energy(ce, return_conditionals=true)
+        Plots.scatter!(
+            _X[1,:],_X[2,:], color=:purple, shape=:star5, 
+            ms=10, label="x̂|$target", alpha=0.5
+        )
+    end
+    push!(plts, plt)
+    ces[name] = ce
+end
+plt = Plots.plot(plts..., size=(500,520))
+display(plt)
+savefig(plt, joinpath(output_images_path, "moons_poc.png"))
+```
+
+```{julia}
+evaluate(collect(values(ces)))
+```
+
+```{julia}
 # Measures:
 measures = [
     CounterfactualExplanations.distance,
@@ -200,6 +247,7 @@ measures = [
     ECCCo.distance_from_targets,
     CounterfactualExplanations.Evaluation.validity,
     CounterfactualExplanations.Evaluation.redundancy,
+    ECCCo.set_size_penalty
 ]
 
 bmk = benchmark(
@@ -209,12 +257,12 @@ bmk = benchmark(
     measure=measures,
     suppress_training=true, dataname="Moons",
     n_individuals=5,
-    target=0, factual=1,
+    target=1, factual=0,
     initialization=:identity,
+    converge_when=:generator_conditions,
 )
 CSV.write(joinpath(output_path, "moons_benchmark.csv"), bmk())
 ```
-
 
 ```{julia}
 @chain bmk() begin

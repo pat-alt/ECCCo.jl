@@ -1,7 +1,6 @@
 using ChainRules: ignore_derivatives
 using Distances
 using Flux
-using JointEnergyModels.Samplers: get_lowest_energy_sample
 using LinearAlgebra: norm
 using Statistics: mean
 
@@ -39,10 +38,10 @@ end
 
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=50, niter=500, from_buffer=true, agg=mean, 
+    n::Int=100, niter=500, from_buffer=true, agg=mean, 
     choose_lowest_energy=true,
     choose_random=false,
-    nmin::Int=25,
+    nmin::Int=50,
     return_conditionals=false,
     kwargs...
 )
