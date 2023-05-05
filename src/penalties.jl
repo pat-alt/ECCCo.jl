@@ -14,10 +14,12 @@ function set_size_penalty(
     κ::Real=0.0, temp::Real=0.05, agg=mean
 )
 
+    _loss = 0.0
+
     conf_model = ce.M.model
     fitresult = ce.M.fitresult
     X = CounterfactualExplanations.decode_state(ce)
-    loss = map(eachslice(X, dims=ndims(X))) do x
+    _loss = map(eachslice(X, dims=ndims(X))) do x
         x = ndims(x) == 1 ? x[:,:] : x
         if target_probs(ce, x)[1] >= 0.5
             l = ConformalPrediction.smooth_size_loss(
@@ -30,9 +32,9 @@ function set_size_penalty(
         end
         return l
     end
-    loss = agg(loss)
+    _loss = agg(_loss)
 
-    return loss
+    return _loss
 
 end
 
@@ -45,6 +47,8 @@ function distance_from_energy(
     return_conditionals=false,
     kwargs...
 )
+
+    _loss = 0.0
 
     @assert choose_lowest_energy ⊻ choose_random || !choose_lowest_energy && !choose_random "Must choose either lowest energy or random samples or neither."
 

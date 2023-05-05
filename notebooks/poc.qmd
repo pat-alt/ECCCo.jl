@@ -126,7 +126,7 @@ for (name, generator) in generator_dict
         _X = distance_from_energy(ce, return_conditionals=true)
         Plots.scatter!(
             _X[1,:],_X[2,:], color=:purple, shape=:star5, 
-            ms=10, label="x̂|$target", alpha=0.5
+            ms=10, label="x̂|$target", alpha=0.1
         )
     end
     push!(plts, plt)
@@ -140,4 +140,62 @@ savefig(plt, joinpath(output_images_path, "poc.png"))
 
 ```{julia}
 ce = ces["ECCCo"]
+using CounterfactualExplanations.Generators: ℓ
+
+# loss
+function f1(x)
+    _ce = deepcopy(ce)
+    _ce.s′ = x
+    return - ℓ(_ce.generator, _ce)
+end
+
+# cost
+function f2(x)
+    _ce = deepcopy(ce)
+    _ce.s′ = x
+    λ = _ce.generator.λ[1]
+    _loss = _ce.generator.penalty[1]
+    return - λ * _loss(_ce)
+end
+
+# set size
+function f3(x)
+    _ce = deepcopy(ce)
+    _ce.s′ = x
+    λ = _ce.generator.λ[2]
+    _loss = _ce.generator.penalty[2]
+    return - λ * _loss(_ce)
+end
+
+# distance from energy
+function f4(x)
+    _ce = deepcopy(ce)
+    _ce.s′ = x
+    λ = _ce.generator.λ[3]
+    _loss = _ce.generator.penalty[3]
+    return - λ * _loss(_ce)
+end
+
+# Helper function:
+meshgrid(x, y) = (repeat(x, outer=length(y)), repeat(y, inner=length(x)))
+
+xlims, ylims = extrema(X, dims=2)
+xrange = range(xlims..., length=10)
+yrange = range(ylims..., length=10)
+
+x1, x2 = meshgrid(xrange, yrange)
+inputs = zip(x, y)
+
+u = []
+v = []
+
+scale = 0.1
+for (x, y) in inputs
+    push!(u, scale * gradient(f2, [x, y][:,:])[1][1])
+    push!(v, scale * gradient(f2, [x, y][:,:])[1][2])
+end
+
+Plots.plot(xlims=xlims, ylims=ylims)
+Plots.scatter!(counterfactual_data)
+Plots.quiver!(x1, x2, quiver=(u, v))
 ```
