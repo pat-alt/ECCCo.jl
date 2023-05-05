@@ -55,12 +55,10 @@ function EnergySampler(
     yidx = get_target_index(data.y_levels, y)
 
     # Initiate:
-    energy_sampler = EnergySampler(model, data, sampler, opt, nothing, nothing)
+    energy_sampler = EnergySampler(model, data, sampler, opt, nothing, yidx)
 
-    # Generate conditional samples (one at a time):
-    for i in 1:nsamples
-        generate_samples!(energy_sampler, 1, yidx; niter=niter)
-    end
+    # Generate conditional:
+    generate_samples!(energy_sampler, nsamples, yidx; niter=niter)
 
     return energy_sampler
 end
@@ -130,4 +128,17 @@ function Base.rand(sampler::EnergySampler, n::Int=100; from_buffer=true, niter::
         X = generate_samples(sampler, n, sampler.yidx; niter=niter)
     end
     return X
+end
+
+"""
+    get_lowest_energy_sample(sampler::EnergySampler; n::Int=5)
+
+Chooses the samples with the lowest energy (i.e. highest probability) from `EnergySampler`.
+"""
+function get_lowest_energy_sample(sampler::EnergySampler; n::Int=5)
+    X = sampler.buffer
+    model = sampler.model
+    y = sampler.yidx
+    x = selectdim(X, ndims(X), energy(sampler.sampler, model, X, y; agg=x -> partialsortperm(x, 1:n)))
+    return x
 end

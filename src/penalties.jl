@@ -1,6 +1,7 @@
 using ChainRules: ignore_derivatives
 using Distances
 using Flux
+using JointEnergyModels.Samplers: get_lowest_energy_sample
 using LinearAlgebra: norm
 using Statistics: mean
 
@@ -38,22 +39,41 @@ end
 
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=10, niter=100, from_buffer=true, agg=mean, kwargs...
+    n::Int=50, niter=500, from_buffer=true, agg=mean, 
+    choose_lowest_energy=true,
+    choose_random=false,
+    nmin::Int=25,
+    return_conditionals=false,
+    kwargs...
 )
+
+    @assert choose_lowest_energy ⊻ choose_random || !choose_lowest_energy && !choose_random "Must choose either lowest energy or random samples or neither."
+
     conditional_samples = []
     ignore_derivatives() do
         _dict = ce.params
         if !(:energy_sampler ∈ collect(keys(_dict)))
             _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
         end
-        sampler = _dict[:energy_sampler]
-        push!(conditional_samples, rand(sampler, n; from_buffer=from_buffer))
+        eng_sampler = _dict[:energy_sampler]
+        if choose_lowest_energy
+            xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n=nmin)
+            push!(conditional_samples, xmin)
+        elseif choose_random
+            push!(conditional_samples, rand(eng_sampler, n; from_buffer=from_buffer))
+        else
+            push!(conditional_samples, eng_sampler.buffer)
+        end
     end
 
     _loss = map(eachcol(conditional_samples[1])) do xsample
         distance_l1(ce; from=xsample, agg=agg)
     end
     _loss = reduce((x,y) -> x + y, _loss) / n       # aggregate over samples
+
+    if return_conditionals
+        return conditional_samples[1]
+    end
     return _loss
 
 end

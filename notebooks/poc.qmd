@@ -91,30 +91,54 @@ end
 
 
 ```{julia}
-# M = ECCCo.ConformalModel(mach.model, mach.fitresult)
-# factual_label =  levels(labels)[2]
-# x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-# target =  levels(labels)[1]
-# factual = predict_label(M, counterfactual_data, x_factual)[1]
+Random.seed!(1234)
 
-# generator_dict = Dict(
-#     :wachter => WachterGenerator(),
-#     :revise => REVISEGenerator(),
-#     :greedy => GreedyGenerator(),
-#     :eccco => ECCCoGenerator(),
-# )
+λ₁ = 0.1
+λ₂ = 0.5
+λ₃ = 0.5
+Λ = [λ₁, λ₂, λ₃]
 
-# ces = []
-# plts = []
-# for (name, generator) in generator_dict
-#     ce = generate_counterfactual(
-#         x_factual, target, counterfactual_data, M, generator;
-#         initialization=:identity, 
-#         converge_when=:generator_conditions,
-#     )
-#     plt = Plots.plot(ce, title=name)
-#     push!(plts, plt)
-#     push!(ces, ce)
-# end
-# display(Plots.plot(plts...))
+M = ECCCo.ConformalModel(mach.model, mach.fitresult)
+factual_label =  levels(labels)[1]
+x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
+target =  levels(labels)[2]
+factual = predict_label(M, counterfactual_data, x_factual)[1]
+γ = 0.5
+
+generator_dict = OrderedDict(
+    "Wachter (γ=$γ)" => WachterGenerator(λ = λ₁),
+    "Schut" => GreedyGenerator(λ = λ₁),
+    "REVISE" => REVISEGenerator(λ = λ₁),
+    "ECCCo" => ECCCoGenerator(λ = Λ),
+)
+
+ces = Dict{Any,Any}()
+plts = []
+for (name, generator) in generator_dict
+    conv_when = name == "Wachter (γ=$γ)" ? :decision_threshold : :generator_conditions
+    ce = generate_counterfactual(
+        x_factual, target, counterfactual_data, M, generator;
+        initialization=:identity, 
+        converge_when=conv_when,
+        decision_threshold=γ,
+    )
+    plt = Plots.plot(ce, title=name, alpha=0.2, cbar=false, axis=nothing)
+    if name == "ECCCo"
+        _X = distance_from_energy(ce, return_conditionals=true)
+        Plots.scatter!(
+            _X[1,:],_X[2,:], color=:purple, shape=:star5, 
+            ms=10, label="x̂|$target", alpha=0.5
+        )
+    end
+    push!(plts, plt)
+    ces[name] = ce
+end
+plt = Plots.plot(plts..., size=(500,520))
+display(plt)
+savefig(plt, joinpath(output_images_path, "poc.png"))
+```
+
+
+```{julia}
+ce = ces["ECCCo"]
 ```

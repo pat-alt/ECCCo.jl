@@ -19,6 +19,7 @@ setup_notebooks = quote
     using CounterfactualExplanations.Objectives
     using CSV
     using DataFrames
+    using DataStructures
     using Distributions
     using Flux
     using Images
