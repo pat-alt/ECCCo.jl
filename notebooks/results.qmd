@@ -1,0 +1,29 @@
+```{julia}
+include("notebooks/setup.jl")
+eval(setup_notebooks)
+```
+
+# Results
+
+```{julia}
+df = DataFrame()
+for _file in filter(endswith("_benchmark.csv"), readdir(output_path)) 
+    x = joinpath(output_path, _file)
+    _df = CSV.read(x, DataFrame)
+    df = vcat(df, _df, cols=:intersect)
+end
+synth = ("Moons", "Circles")
+df.source .= ifelse.(df.dataname .∈ [synth], :synthetic, :real) 
+```
+
+
+```{julia}
+tab = @chain df begin
+    @group_by(dataname, generator, model, variable, source)
+    @summarize(mean=mean(value),sd=std(value))
+    @ungroup
+    @filter(variable ∈ ["distance_from_energy", "distance_from_targets"])
+    @mutate(variable = ifelse.(variable .== "distance_from_energy", "Non-Conformity", variable))
+    @mutate(variable = ifelse.(variable .== "distance_from_targets", "Implausibility", variable))
+end
+```

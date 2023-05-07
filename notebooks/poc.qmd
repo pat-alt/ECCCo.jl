@@ -191,8 +191,8 @@ v = []
 
 scale = 0.1
 for (x, y) in inputs
-    push!(u, scale * gradient(f2, [x, y][:,:])[1][1])
-    push!(v, scale * gradient(f2, [x, y][:,:])[1][2])
+    push!(u, scale * gradient(f1, [x, y][:,:])[1][1])
+    push!(v, scale * gradient(f1, [x, y][:,:])[1][2])
 end
 
 Plots.plot(xlims=xlims, ylims=ylims)
