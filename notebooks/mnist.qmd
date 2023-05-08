@@ -12,7 +12,7 @@ eval(setup_notebooks)
 #### Wachter and JSMA
 
 ```{julia}
-Random.seed!(2023)
+Random.seed!(1234)
 
 # Data:
 counterfactual_data = load_mnist()
@@ -34,7 +34,7 @@ opt = Flux.Optimise.Adam(0.1)
 
 ```{julia}
 # Search:
-generic_generator = GenericGenerator(opt=Flux.Optimise.Descent(1.0))
+generic_generator = GenericGenerator(opt=Flux.Optimise.Adam(1.0))
 ce_wachter = generate_counterfactual(
     x_factual, target, counterfactual_data, M, generic_generator; 
     decision_threshold=γ, max_iter=T,
