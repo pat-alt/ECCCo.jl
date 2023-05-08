@@ -18,18 +18,76 @@ dt[,source:=ifelse(dataname %in% synth, "synthetic", "real")]
 ```{r}
 measures <- c("distance_from_energy", "distance_from_targets")
 tab <- dt[
-    variable %in% measures,
-    .(value=sprintf("%1.2f\n(%1.2f)", mean(value), sd(value))),
-    .(dataname, generator, model, variable, source)
+    variable %in% measures & source=="real",
+    .(
+      value=sprintf("%1.2f (%1.2f)", mean(value), sd(value)),
+      val = mean(value)
+    ),
+    .(dataname, generator, model, variable)
 ]
+tab[,min_val:=val==min(val),.(model, dataname, variable)]
+tab$value <- cell_spec(tab$value, "latex", bold=tab$min_val)
+tab[,val:=NULL]
+tab[,min_val:=NULL]
 tab[generator == "eccco", generator:="ECCCo"]
 tab[generator == "revise", generator:="REVISE"]
 tab[generator == "generic", generator:="Wachter"]
 tab[generator == "wachter", generator:="Wachter"]
 tab[generator == "greedy", generator:="Schut"]
-tab <- dcast(tab, model + variable + generator ~ dataname)
-kbl(tab, align = "c") %>%
-  kable_paper(full_width = F) %>%
+n_data <- length(unique(tab$dataname))
+tab <- dcast(tab, model + generator ~ dataname + variable)
+col_names <- c(
+  "Model",
+  "Generator",
+  rep(c("Non-conformity ↓","Implausibility ↓"),n_data)
+)
+kbl(
+  tab, caption = "Results for real-world datasets. Standard deviation in parentheses. \\label{tab:results-real}", 
+  align = "c", col.names=col_names, booktabs = T, escape=F, 
+  format="latex", linesep = c("", "", "", "\\addlinespace") 
+) %>%
+  kable_styling(latex_options = c("scale_down")) %>%
+  add_header_above(c(" " = 2, "California Housing" = 2, "GMSC" = 2, "MNIST" = 2)) %>%
   column_spec(1, bold = T) %>%
-  collapse_rows(columns = 1:3, valign = "top")
+  collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
+  save_kable("paper/contents/table_real.tex")
+```
+
+```{r}
+measures <- c("distance_from_energy", "distance_from_targets")
+tab <- dt[
+    variable %in% measures & source=="synthetic",
+    .(
+      value=sprintf("%1.2f (%1.2f)", mean(value), sd(value)),
+      val = mean(value)
+    ),
+    .(dataname, generator, model, variable)
+]
+tab[,min_val:=val==min(val),.(model, dataname, variable)]
+tab$value <- cell_spec(tab$value, "latex", bold=tab$min_val)
+tab[,val:=NULL]
+tab[,min_val:=NULL]
+tab[generator == "eccco", generator:="ECCCo"]
+tab[generator == "revise", generator:="REVISE"]
+tab[generator == "generic", generator:="Wachter"]
+tab[generator == "wachter", generator:="Wachter"]
+tab[generator == "greedy", generator:="Schut"]
+n_data <- length(unique(tab$dataname))
+tab <- dcast(tab, model + generator ~ dataname + variable)
+col_names <- c(
+  "Model",
+  "Generator",
+  rep(c("Non-conformity ↓","Implausibility ↓"),n_data)
+)
+kbl(
+  tab, caption = "Results for synthetic datasets. Standard deviation in parentheses. \\label{tab:results-synth}", 
+  align = "c", col.names=col_names, booktabs = T, escape=F, 
+  format="latex", linesep = c("", "", "", "\\addlinespace") 
+) %>%
+  # kable_styling(latex_options = c("scale_down")) %>%
+  kable_paper(full_width = F) %>%
+  add_header_above(c(" " = 2, "Moons" = 2)) %>%
+  column_spec(1, bold = T) %>%
+  collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
+  save_kable("paper/contents/table_synth.tex")
 ```

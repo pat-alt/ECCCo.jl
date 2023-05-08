@@ -12,7 +12,7 @@ eval(setup_notebooks)
 #### Wachter and JSMA
 
 ```{julia}
-Random.seed!(1234)
+Random.seed!(2023)
 
 # Data:
 counterfactual_data = load_mnist()
@@ -29,18 +29,18 @@ factual = predict_label(M, counterfactual_data, x_factual)[1]
 
 # Training params:
 T = 100
-opt = Flux.Optimise.Adam(0.01)
+opt = Flux.Optimise.Adam(0.1)
 ```
 
 ```{julia}
 # Search:
-generic_generator = GenericGenerator(opt=opt)
+generic_generator = GenericGenerator(opt=Flux.Optimise.Descent(1.0))
 ce_wachter = generate_counterfactual(
     x_factual, target, counterfactual_data, M, generic_generator; 
     decision_threshold=γ, max_iter=T,
     initialization=:identity,
 )
-greedy_generator = GreedyGenerator(η=1.0)
+greedy_generator = GreedyGenerator(η=2.0)
 ce_jsma = generate_counterfactual(
     x_factual, target, counterfactual_data, M, greedy_generator; 
     decision_threshold=γ, max_iter=T,
@@ -180,7 +180,7 @@ _finaliser = x -> x                         # finaliser function
 
 ```{julia}
 # JEM parameters:
-𝒟x = Uniform(0,1)
+𝒟x = Uniform(-1.0,1.0)
 𝒟y = Categorical(ones(output_dim) ./ output_dim)
 sampler = ConditionalSampler(
     𝒟x, 𝒟y, 
@@ -261,7 +261,7 @@ end
 
 ```{julia}
 # Plot generated samples:
-n_regen = 200
+n_regen = 500
 if _regen 
     for (mod_name, mod) in model_dict
         K = length(counterfactual_data.y_levels)

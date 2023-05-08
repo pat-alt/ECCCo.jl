@@ -253,7 +253,7 @@ bmk = benchmark(
     models=model_dict, 
     generators=generator_dict, 
     measure=measures,
-    suppress_training=true, dataname="Moons",
+    suppress_training=true, dataname="Circles",
     n_individuals=5,
     target=0, factual=1,
     initialization=:identity,

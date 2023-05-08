@@ -1,0 +1,45 @@
+\begin{table}
+
+\caption{Results for real-world datasets. Standard deviation in parentheses. \label{tab:results-real}}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{>{}cccccccc}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{California Housing} & \multicolumn{2}{c}{GMSC} & \multicolumn{2}{c}{MNIST} \\
+\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6} \cmidrule(l{3pt}r{3pt}){7-8}
+Model & Generator & Non-conformity ↓ & Implausibility ↓ & Non-conformity ↓ & Implausibility ↓ & Non-conformity ↓ & Implausibility ↓\\
+\midrule
+ & ECCCo & \textbf{4.31 (0.58)} & 5.37 (0.46) & 3.14 (0.31) & 5.34 (1.27) & \textbf{99.01 (12.50)} & 120.76 (9.23)\\
+
+ & REVISE & 5.01 (0.59) & \textbf{5.33 (0.58)} & \textbf{2.86 (0.17)} & \textbf{3.99 (0.44)} & 101.01 (15.20) & \textbf{115.14 (20.10)}\\
+
+ & Schut & 5.23 (0.74) & 6.50 (0.84) & 3.43 (0.53) & 5.29 (1.27) & 179.39 (29.17) & 190.01 (34.50)\\
+
+\multirow{-4}{*}{\centering\arraybackslash \textbf{JEM}} & Wachter & 5.29 (0.52) & 6.48 (0.70) & 3.40 (0.38) & 5.50 (1.35) & 197.35 (32.89) & 199.65 (35.60)\\
+\cmidrule{1-8}
+ & ECCCo & \textbf{3.51 (0.62)} & 5.33 (0.53) & 3.01 (0.76) & 6.09 (1.01) & \textbf{85.30 (14.79)} & \textbf{102.27 (4.72)}\\
+
+ & REVISE & 4.33 (0.38) & \textbf{4.73 (0.22)} & \textbf{2.21 (0.72)} & \textbf{4.53 (0.86)} & 119.87 (16.20) & 110.30 (12.11)\\
+
+ & Schut & 5.81 (0.61) & 6.53 (0.81) & 3.10 (0.75) & 6.06 (1.01) & 171.19 (22.13) & 178.31 (24.94)\\
+
+\multirow{-4}{*}{\centering\arraybackslash \textbf{JEM Ensemble}} & Wachter & 5.02 (0.85) & 6.07 (1.04) & 2.89 (0.76) & 5.87 (0.88) & 222.18 (23.50) & 212.40 (27.99)\\
+\cmidrule{1-8}
+ & ECCCo & 145.15 (28.83) & 8.84 (1.01) & 38.28 (3.68) & 5.14 (0.87) & \textbf{416.59 (14.69)} & 204.16 (24.95)\\
+
+ & REVISE & \textbf{119.53 (11.72)} & \textbf{5.28 (0.97)} & 40.31 (3.38) & \textbf{3.94 (0.86)} & 444.47 (10.01) & \textbf{95.53 (13.46)}\\
+
+ & Schut & 151.20 (28.78) & 7.04 (1.27) & \textbf{35.73 (6.30)} & 5.12 (0.85) & 477.40 (17.45) & 197.85 (25.43)\\
+
+\multirow{-4}{*}{\centering\arraybackslash \textbf{MLP}} & Wachter & 131.81 (40.19) & 6.81 (1.22) & 36.70 (14.79) & 5.28 (0.87) & 444.82 (13.20) & 198.27 (24.73)\\
+\cmidrule{1-8}
+ & ECCCo & 125.55 (22.76) & 10.06 (1.40) & 34.32 (4.47) & 5.09 (1.20) & \textbf{397.02 (7.99)} & 214.01 (21.17)\\
+
+ & REVISE & 151.49 (20.56) & \textbf{6.17 (1.83)} & 35.26 (4.48) & \textbf{4.15 (0.72)} & 430.37 (10.51) & \textbf{95.87 (7.51)}\\
+
+ & Schut & \textbf{106.34 (30.66)} & 8.49 (2.22) & \textbf{30.44 (6.35)} & 5.15 (1.18) & 471.16 (7.93) & 203.43 (19.51)\\
+
+\multirow{-4}{*}{\centering\arraybackslash \textbf{MLP Ensemble}} & Wachter & 152.35 (21.75) & 7.68 (1.89) & 36.15 (8.28) & 5.03 (0.78) & 421.75 (9.75) & 206.04 (20.35)\\
+\bottomrule
+\end{tabular}}
+\end{table}

@@ -1,0 +1,28 @@
+\begin{table}
+
+\caption{Results for synthetic datasets. Standard deviation in parentheses. \label{tab:results-synth}}
+\centering
+\begin{tabular}[t]{>{}cccc}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Moons} \\
+\cmidrule(l{3pt}r{3pt}){3-4}
+Model & Generator & Non-conformity ↓ & Implausibility ↓\\
+\midrule
+ & ECCCo & \textbf{0.10 (0.03)} & \textbf{1.01 (0.24)}\\
+
+ & REVISE & 0.64 (0.34) & 1.12 (0.51)\\
+
+ & Schut & 0.54 (0.38) & 1.10 (0.37)\\
+
+\multirow{-4}{*}{\centering\arraybackslash \textbf{JEM}} & Wachter & 0.74 (0.36) & 1.38 (0.38)\\
+\cmidrule{1-4}
+ & ECCCo & \textbf{0.20 (0.36)} & 1.45 (0.86)\\
+
+ & REVISE & 0.38 (0.39) & \textbf{1.10 (0.51)}\\
+
+ & Schut & 0.73 (0.53) & 1.26 (0.67)\\
+
+\multirow{-4}{*}{\centering\arraybackslash \textbf{MLP}} & Wachter & 0.78 (0.52) & 1.33 (0.60)\\
+\bottomrule
+\end{tabular}
+\end{table}
