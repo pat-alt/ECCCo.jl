@@ -196,14 +196,14 @@ generator_dict = Dict(
     "REVISE" => REVISEGenerator(λ=λ₁),
     "Schut" => GreedyGenerator(),
     "ECCCo" => ECCCoGenerator(λ=Λ),
+    "ECCCo (no CP)" => ECCCoGenerator(λ=[λ₁, 0.0, λ₃]),
+    "ECCCo (no EBM)" => ECCCoGenerator(λ=[λ₁, λ₂, 0.0]),
 )
 ```
 
 ### POC
 
 ```{julia}
-Random.seed!(2023)
-
 M = model_dict["JEM"]
 X = X isa Matrix ? X : Float32.(permutedims(matrix(X)))
 factual_label =  levels(labels)[1]
@@ -248,30 +248,29 @@ measures = [
     ECCCo.set_size_penalty
 ]
 
-bmk = benchmark(
-    counterfactual_data; 
-    models=model_dict, 
-    generators=generator_dict, 
-    measure=measures,
-    suppress_training=true, dataname="Circles",
-    n_individuals=5,
-    target=0, factual=1,
-    initialization=:identity,
-    converge_when=:generator_conditions,
-)
+bmks = []
+for target in sort(unique(labels))
+    for factual in sort(unique(labels))
+        if factual == target
+            continue
+        end
+        bmk = benchmark(
+            counterfactual_data; 
+            models=model_dict, 
+            generators=generator_dict, 
+            measure=measures,
+            suppress_training=true, dataname="Circles",
+            n_individuals=5,
+            target=target, factual=factual,
+            initialization=:identity,
+            converge_when=:generator_conditions,
+        )
+        push!(bmks, bmk)
+    end
+end
+bmk = reduce(vcat, bmks)
 CSV.write(joinpath(output_path, "circles_benchmark.csv"), bmk())
 ```
-
-
-```{julia}
-@chain bmk() begin
-    @group_by(dataname, generator, model, variable)
-    @summarize(mean=mean(value),sd=std(value))
-    @ungroup
-    @filter(variable == "distance_from_energy")
-end
-```
-
 
 ```{julia}
 df = @chain bmk() begin

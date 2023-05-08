@@ -3,7 +3,7 @@ include("notebooks/setup.jl")
 eval(setup_notebooks)
 ```
 
-# Moons Data
+# Circles Data
 
 ```{julia}
 # Hyper:
@@ -11,8 +11,8 @@ _retrain = true
 
 # Data:
 test_size = 0.2
-n_obs = Int(2500 / (1.0 - test_size))
-counterfactual_data, test_data = train_test_split(load_moons(n_obs); test_size=test_size)
+n_obs = Int(1000 / (1.0 - test_size))
+counterfactual_data, test_data = train_test_split(load_linearly_separable(n_obs); test_size=test_size)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
 labels = counterfactual_data.output_encoder.labels
@@ -24,10 +24,10 @@ First, let's create a couple of image classifier architectures:
 
 ```{julia}
 # Model parameters:
-epochs = 500
+epochs = 100
 batch_size = minimum([Int(round(n_obs/10)), 128])
-n_hidden = 32
-activation = Flux.relu
+n_hidden = 16
+activation = Flux.swish
 builder = MLJFlux.MLP(
     hidden=(n_hidden, n_hidden, n_hidden,), 
     σ=activation
@@ -44,9 +44,9 @@ _finaliser = x -> x                         # finaliser function
 sampler = ConditionalSampler(
     𝒟x, 𝒟y, 
     input_size=(input_dim,), 
-    batch_size=10,
+    batch_size=batch_size,
 )
-α = [1.0,1.0,1e-1]      # penalty strengths
+α = [1.0,1.0,1e-2]      # penalty strengths
 ```
 
 ```{julia}
@@ -73,7 +73,7 @@ jem = JointEnergyClassifier(
     jem_training_params=(
         α=α,verbosity=10,
     ),
-    sampling_steps=30,
+    sampling_steps=20,
 )
 
 # JEM with adversarial training:
@@ -96,7 +96,6 @@ models = Dict(
 )
 ```
 
-
 ```{julia}
 # Train models:
 function _train(model, X=X, y=labels; cov=.95, method=:simple_inductive, mod_name="model")
@@ -110,9 +109,9 @@ function _train(model, X=X, y=labels; cov=.95, method=:simple_inductive, mod_nam
 end
 if _retrain
     model_dict = Dict(mod_name => _train(model; mod_name=mod_name) for (mod_name, model) in models)
-    Serialization.serialize(joinpath(output_path,"moons_models.jls"), model_dict)
+    Serialization.serialize(joinpath(output_path,"circles_models.jls"), model_dict)
 else
-    model_dict = Serialization.deserialize(joinpath(output_path,"moons_models.jls"))
+    model_dict = Serialization.deserialize(joinpath(output_path,"circles_models.jls"))
 end
 ```
 
@@ -132,13 +131,13 @@ for (mod_name, model) in model_dict
     _perf.mod_name .= mod_name
     model_performance = vcat(model_performance, _perf)
 end
-Serialization.serialize(joinpath(output_path,"moons_model_performance.jls"), model_performance)
-CSV.write(joinpath(output_path, "moons_model_performance.csv"), model_performance)
+Serialization.serialize(joinpath(output_path,"circles_model_performance.jls"), model_performance)
+CSV.write(joinpath(output_path, "circles_model_performance.csv"), model_performance)
 model_performance
 ```
 
 ```{julia}
-n_regen = 500
+n_regen = 200
 n_each = batch_size
 for (mod_name, model) in model_dict
     K = length(counterfactual_data.y_levels)
@@ -174,7 +173,7 @@ for (mod_name, model) in model_dict
             group=repeat([target], size(X̂,2)), 
             shape=:star5, ms=10
         )
-        savefig(plt, joinpath(output_images_path, "moons_generated_$(mod_name).png"))
+        savefig(plt, joinpath(output_images_path, "circles_generated_$(mod_name).png"))
         push!(plts, plt)
     end
     plt = Plots.plot(plts..., layout=(1, 2), size=(2*500, 400), plot_title=mod_name)
@@ -204,8 +203,6 @@ generator_dict = Dict(
 ### POC
 
 ```{julia}
-Random.seed!(2023)
-
 M = model_dict["JEM"]
 X = X isa Matrix ? X : Float32.(permutedims(matrix(X)))
 factual_label =  levels(labels)[1]
@@ -234,12 +231,10 @@ for (name, generator) in generator_dict
 end
 plt = Plots.plot(plts..., size=(500,520))
 display(plt)
-savefig(plt, joinpath(output_images_path, "moons_poc.png"))
+savefig(plt, joinpath(output_images_path, "circles_poc.png"))
 ```
 
-```{julia}
-evaluate(collect(values(ces)))
-```
+### Complete Benchmark
 
 ```{julia}
 # Measures:
@@ -263,7 +258,7 @@ for target in sort(unique(labels))
             models=model_dict, 
             generators=generator_dict, 
             measure=measures,
-            suppress_training=true, dataname="Moons",
+            suppress_training=true, dataname="Circles",
             n_individuals=5,
             target=target, factual=factual,
             initialization=:identity,
@@ -273,7 +268,7 @@ for target in sort(unique(labels))
     end
 end
 bmk = reduce(vcat, bmks)
-CSV.write(joinpath(output_path, "moons_benchmark.csv"), bmk())
+CSV.write(joinpath(output_path, "circles_benchmark.csv"), bmk())
 ```
 
 ```{julia}
@@ -291,5 +286,5 @@ plt = draw(
     facet=(; linkyaxes=:none)
 )   
 display(plt)
-save(joinpath(output_images_path, "moons_benchmark.png"), plt, px_per_unit=5)
+save(joinpath(output_images_path, "circles_benchmark.png"), plt, px_per_unit=5)
 ```

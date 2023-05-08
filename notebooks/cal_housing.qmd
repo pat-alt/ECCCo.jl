@@ -180,17 +180,6 @@ bmk = benchmark(
 CSV.write(joinpath(output_path, "cal_housing_benchmark.csv"), bmk())
 ```
 
-
-```{julia}
-@chain bmk() begin
-    @group_by(dataname, generator, model, variable)
-    @summarize(mean=mean(value),sd=std(value))
-    @ungroup
-    @filter(variable == "distance_from_energy")
-end
-```
-
-
 ```{julia}
 df = @chain bmk() begin
     @mutate(variable = ifelse.(variable .== "distance_from_energy", "Non-Conformity", variable))
