@@ -1,5 +1,5 @@
 ```{julia}
-include("notebooks/setup.jl")
+include("$(pwd())/notebooks/setup.jl")
 eval(setup_notebooks)
 ```
 
@@ -12,7 +12,7 @@ eval(setup_notebooks)
 #### Wachter and JSMA
 
 ```{julia}
-Random.seed!(1234)
+Random.seed!(2023)
 
 # Data:
 counterfactual_data = load_mnist()
@@ -21,20 +21,19 @@ input_dim, n_obs = size(counterfactual_data.X)
 M = load_mnist_mlp()
 
 # Target:
-factual_label = 8
+factual_label = 9
 x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target = 3
+target = 7
 factual = predict_label(M, counterfactual_data, x_factual)[1]
 γ = 0.9
 
 # Training params:
 T = 100
-opt = Flux.Optimise.Adam(0.1)
 ```
 
 ```{julia}
 # Search:
-generic_generator = GenericGenerator(opt=Flux.Optimise.Adam(1.0))
+generic_generator = WachterGenerator()
 ce_wachter = generate_counterfactual(
     x_factual, target, counterfactual_data, M, generic_generator; 
     decision_threshold=γ, max_iter=T,
@@ -90,8 +89,8 @@ Serialization.serialize(joinpath(output_path,"mnist_vae_weak.jls"), vae_weak)
 ```{julia}
 # Define generator:
 revise_generator = REVISEGenerator(
-  opt = opt,
-  λ=0.0
+    opt = Flux.Optimise.Descent(0.25),
+    λ=0.0,
 )
 # Generate recourse:
 counterfactual_data.generative_model = vae # assign generative model
@@ -187,7 +186,7 @@ sampler = ConditionalSampler(
     input_size=(input_dim,), 
     batch_size=10,
 )
-α = [1.0,1.0,1e-1]      # penalty strengths
+α = [1.0,1.0,2e-2]      # penalty strengths
 ```
 
 ```{julia}
@@ -214,7 +213,7 @@ jem = JointEnergyClassifier(
     jem_training_params=(
         α=α,verbosity=10,
     ),
-    sampling_steps=20,
+    sampling_steps=25,
 )
 
 # JEM with adversarial training:
@@ -320,11 +319,11 @@ model_performance
 ```{julia}
 function _plot_eccco_mnist(
     x::Union{AbstractArray, Int}=x_factual, target::Int=target;
-    λ=[0.1,0.1,0.1],
-    temp=0.1,η=0.01,
+    λ=[0.1,0.25,0.25],
+    temp=0.1,
     plt_order = ["MLP", "MLP Ensemble", "JEM", "JEM Ensemble"],
-    opt = Flux.Optimise.Adam(η),
-    rng::Union{Int,AbstractRNG}=Random.GLOBAL_RNG,
+    opt = nothing,
+    rng::Union{Int,AbstractRNG}=1234,
     T::Int = 100,
 )
 
@@ -383,7 +382,7 @@ end
 ```
 
 ```{julia}
-plt, eccco_generator = _plot_eccco_mnist(opt=JSMADescent(η=1.0))
+plt, eccco_generator = _plot_eccco_mnist()
 display(plt)
 savefig(plt, joinpath(output_images_path, "mnist_eccco.png"))
 ```
@@ -398,8 +397,11 @@ function plot_mnist(
     data::CounterfactualData=counterfactual_data,
     rng::Union{Int,AbstractRNG}=Random.GLOBAL_RNG,
     _plot_title::Bool=true,
+    show_factual::Bool=false,
     kwargs...,
 )
+    Random.seed!(rng)
+
     decision_threshold = !isdefined(kwargs, :decision_threshold) ? 0.9 : decision_threshold
     max_iter = !isdefined(kwargs, :max_iter) ? 100 : max_iter
     initialization = !isdefined(kwargs, :initialization) ? :identity : initialization
@@ -423,13 +425,23 @@ function plot_mnist(
         size=(img_height, img_height),
         title=_title
     )
+    if show_factual
+        plt_factual = Plots.plot(
+            convert2image(MNIST, reshape(x,28,28)),
+            axis=nothing, 
+            size=(img_height, img_height),
+            title="Factual"
+        )
+        plt = Plots.plot(plt_factual, plt; size=(img_height*2,img_height), layout=(1,2))
+    end
+    
     return plt
 end
 ```
 
 ```{julia}
 if _regen
-    function plot_all_digits(rng=1;verbose=true,kwargs...)
+    function plot_all_digits(rng=123;verbose=true,kwargs...)
         plts = []
         for i in 0:9
             for j in 0:9
@@ -447,61 +459,22 @@ if _regen
 end
 ```
 
-### Different Generators
+## Benchmark
 
 ```{julia}
-# Setup:
-model = model_dict["JEM Ensemble"]
+λ₁ = 0.1
+λ₂ = 0.25
+λ₃ = 0.25
+Λ = [λ₁, λ₂, λ₃]
 
 # Benchmark generators:
 generator_dict = Dict(
-    :wachter => generic_generator,
-    :revise => revise_generator,
-    :greedy => greedy_generator,
-    :eccco => eccco_generator,
+    "Wachter" => WachterGenerator(λ=λ₁),
+    "REVISE" => REVISEGenerator(λ=λ₁),
+    "Schut" => GreedyGenerator(),
+    "ECCCo" => ECCCoGenerator(λ=Λ),
 )
-
-ces = Dict()
-for (gen_name, gen) in generator_dict
-    ce = generate_counterfactual(
-        x_factual, target, counterfactual_data, model, gen; 
-        decision_threshold=γ, max_iter=T,
-        initialization=:identity,
-        converge_when=:generator_conditions,
-    )
-    ces[gen_name] = ce
-end
-plt_order = sortperm(collect(keys(ces)))
-
-# Plot:
-p1 = Plots.plot(
-    convert2image(MNIST, reshape(x_factual,28,28)),
-    axis=nothing, 
-    size=(img_height, img_height),
-    title="Factual"
-)
-
-plts = []
-for (_name,ce) in ces
-    _x = CounterfactualExplanations.counterfactual(ce)
-    _phat = target_probs(ce)
-    _title = "$_name (p̂=$(round(_phat[1]; digits=3)))"
-    plt = Plots.plot(
-        convert2image(MNIST, reshape(_x,28,28)),
-        axis=nothing, 
-        size=(img_height, img_height),
-        title=_title
-    )
-    plts = [plts..., plt]
-end
-plts = plts[plt_order]
-plts = [p1, plts...]
-plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
-display(plt)
-savefig(plt, joinpath(output_images_path, "mnist_all_generators.png"))
 ```
-
-## Benchmark
 
 ```{julia}
 # Measures:
@@ -513,29 +486,30 @@ measures = [
     CounterfactualExplanations.Evaluation.redundancy,
 ]
 
-bmk = benchmark(
-    counterfactual_data; 
-    models=model_dict, 
-    generators=generator_dict, 
-    measure=measures,
-    suppress_training=true, dataname="MNIST",
-    n_individuals=5,
-    factual=0, target=1,
-    initialization=:identity,
-)
+bmks = []
+for target in sort(unique(labels))
+    for factual in sort(unique(labels))
+        if factual == target
+            continue
+        end
+        bmk = benchmark(
+            counterfactual_data; 
+            models=model_dict, 
+            generators=generator_dict, 
+            measure=measures,
+            suppress_training=true, dataname="MNIST",
+            n_individuals=5,
+            target=target, factual=factual,
+            initialization=:identity,
+            converge_when=:generator_conditions,
+        )
+        push!(bmks, bmk)
+    end
+end
+bmk = reduce(vcat, bmks)
+
 CSV.write(joinpath(output_path, "mnist_benchmark.csv"), bmk())
 ```
-
-
-```{julia}
-@chain bmk() begin
-    @group_by(dataname, generator, model, variable)
-    @summarize(mean=mean(value),sd=std(value))
-    @ungroup
-    @filter(variable == "distance_from_energy")
-end
-```
-
 
 ```{julia}
 df = @chain bmk() begin

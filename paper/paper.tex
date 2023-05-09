@@ -329,11 +329,16 @@ Consistent with the findings in~\citet{schut2021generating}, we have demonstrate
   \item Coverage and temperature impacts CCE in somewhat unpredictable ways
   \item It seems that models that are not explicitly trained for generative task, still learn it implictly
   \item Batch size seems to impact quality of generated samples (at inference, but not so much during JEM training)
-  \item ECCCo is sensitive to optimizer (Adam works well), learning rate and distance metric (l1 currently only one that works)
   \item SGLD takes time 
   \item REVISE has benefit of lower dimensional space
   \item For MNIST it seems that ECCCo is better at reducing pixel values than increasing them (better at erasing than writing)
   \item JEMs are more difficult to train
+  \item There is a tradeoff: higher cost vs. higher conformity/plausibility
+  \item Results are sensitive to choices of penalty strength and step size
+  \item Counterfactuals may end up looking fairly homogenous
+  \item For MNIST data we found CP to have little effect
+  \item JEMs themselves are sensitive to scale
+  \item ECCCo can backfire, in case generative property of model is poor
 \end{itemize}
 
 \section{Conclusion}

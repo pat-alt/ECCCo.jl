@@ -4,7 +4,7 @@ using CounterfactualExplanations.Objectives
 function CCEGenerator(; 
     λ::Union{AbstractFloat,Vector{<:AbstractFloat}}=[0.1, 1.0], 
     κ::Real=1.0, 
-    temp::Real=0.5, 
+    temp::Real=0.1, 
     kwargs...
 )
     function _set_size_penalty(ce::AbstractCounterfactualExplanation)
@@ -17,14 +17,15 @@ end
 
 "Constructor for `ECECCCoGenerator`: Energy Constrained Conformal Counterfactual Explanation Generator."
 function ECCCoGenerator(; 
-    λ::Union{AbstractFloat,Vector{<:AbstractFloat}}=[0.1, 0.1, 0.1], 
+    λ::Union{AbstractFloat,Vector{<:AbstractFloat}}=[0.2,0.4,0.4], 
     κ::Real=1.0, 
-    temp::Real=0.5, 
-    η::Union{Nothing,Real}=nothing,
-    n::Union{Nothing,Int}=nothing,
-    opt::Flux.Optimise.AbstractOptimiser=CounterfactualExplanations.Generators.JSMADescent(η=η,n=n),
+    temp::Real=0.1, 
+    opt::Union{Nothing,Flux.Optimise.AbstractOptimiser}=nothing,
     kwargs...
 )
+    if isnothing(opt)
+        opt = CounterfactualExplanations.Generators.Descent(0.1)
+    end
     function _set_size_penalty(ce::AbstractCounterfactualExplanation)
         return ECCCo.set_size_penalty(ce; κ=κ, temp=temp)
     end

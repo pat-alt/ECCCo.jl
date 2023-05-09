@@ -1,5 +1,5 @@
 ```{julia}
-include("notebooks/setup.jl")
+include("$(pwd())/notebooks/setup.jl")
 eval(setup_notebooks)
 ```
 
@@ -185,9 +185,9 @@ end
 ## Benchmark
 
 ```{julia}
-λ₁ = 0.25
-λ₂ = 0.75
-λ₃ = 0.75
+λ₁ = 0.1
+λ₂ = 0.25
+λ₃ = 0.25
 Λ = [λ₁, λ₂, λ₃]
 
 # Benchmark generators:
@@ -222,7 +222,7 @@ for (name, generator) in generator_dict
         converge_when=:generator_conditions,
     )
     plt = Plots.plot(ce, title=name, alpha=0.2, cbar=false, axis=nothing)
-    if name == "ECCCo"
+    if contains(name, "ECCCo")
         _X = distance_from_energy(ce, return_conditionals=true)
         Plots.scatter!(
             _X[1,:],_X[2,:], color=:purple, shape=:star5, 
@@ -232,13 +232,9 @@ for (name, generator) in generator_dict
     push!(plts, plt)
     ces[name] = ce
 end
-plt = Plots.plot(plts..., size=(500,520))
+plt = Plots.plot(plts..., size=(650,500))
 display(plt)
 savefig(plt, joinpath(output_images_path, "moons_poc.png"))
-```
-
-```{julia}
-evaluate(collect(values(ces)))
 ```
 
 ```{julia}
@@ -264,7 +260,7 @@ for target in sort(unique(labels))
             generators=generator_dict, 
             measure=measures,
             suppress_training=true, dataname="Moons",
-            n_individuals=5,
+            n_individuals=25,
             target=target, factual=factual,
             initialization=:identity,
             converge_when=:generator_conditions,

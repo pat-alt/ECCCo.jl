@@ -6,7 +6,7 @@ abstract: |
 ---
 
 ```{julia}
-include("notebooks/setup.jl")
+include("$(pwd())/notebooks/setup.jl")
 eval(setup_notebooks)
 ```
 

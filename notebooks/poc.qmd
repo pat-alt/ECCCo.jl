@@ -1,12 +1,13 @@
 ```{julia}
-include("notebooks/setup.jl")
+include("$(pwd())/notebooks/setup.jl")
 eval(setup_notebooks)
 ```
 
 
 ```{julia}
 # Counteractual data:
-counterfactual_data = load_linearly_separable(1000)
+n_obs = 1000
+counterfactual_data = load_blobs(n_obs; cluster_std=0.1, center_box=(-1. => 1.))
 X = counterfactual_data.X
 y = counterfactual_data.y
 labels = counterfactual_data.output_encoder.labels
@@ -95,8 +96,8 @@ end
 Random.seed!(1234)
 
 λ₁ = 0.1
-λ₂ = 0.5
-λ₃ = 0.5
+λ₂ = 0.4
+λ₃ = 0.4
 Λ = [λ₁, λ₂, λ₃]
 
 M = ECCCo.ConformalModel(mach.model, mach.fitresult)
@@ -105,11 +106,13 @@ x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==fac
 target =  levels(labels)[1]
 factual = predict_label(M, counterfactual_data, x_factual)[1]
 
+opt = Flux.Optimise.Descent(0.01)
+
 generator_dict = OrderedDict(
-    "Wachter (γ=$γ)" => WachterGenerator(λ = λ₁),
+    "Wachter" => WachterGenerator(λ = λ₁, opt=opt),
     "Schut" => GreedyGenerator(λ = λ₁),
-    "REVISE" => REVISEGenerator(λ = λ₁),
-    "ECCCo" => ECCCoGenerator(λ = Λ),
+    "REVISE" => REVISEGenerator(λ = λ₁, opt=opt),
+    "ECCCo" => ECCCoGenerator(λ = Λ, opt=opt),
 )
 
 ces = Dict{Any,Any}()
@@ -119,9 +122,11 @@ for (name, generator) in generator_dict
         x_factual, target, counterfactual_data, M, generator;
         initialization=:identity, 
         converge_when=:generator_conditions,
-        decision_threshold=γ,
     )
-    plt = Plots.plot(ce, title=name, alpha=0.2, cbar=false, axis=nothing, length_out=10)
+    plt = Plots.plot(
+        ce, title=name, alpha=0.2, cbar=false, 
+        axis=nothing, length_out=10, contour_alpha=1.0,
+    )
     if name == "ECCCo"
         _X = distance_from_energy(ce, return_conditionals=true)
         Plots.scatter!(

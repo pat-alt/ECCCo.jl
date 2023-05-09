@@ -40,7 +40,7 @@ end
 
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=100, niter=500, from_buffer=true, agg=mean, 
+    n::Int=10, niter=500, from_buffer=true, agg=mean, 
     choose_lowest_energy=true,
     choose_random=false,
     nmin::Int=50,
@@ -49,6 +49,7 @@ function distance_from_energy(
 )
 
     _loss = 0.0
+    nmin = minimum([nmin, n])
 
     @assert choose_lowest_energy ⊻ choose_random || !choose_lowest_energy && !choose_random "Must choose either lowest energy or random samples or neither."
 
@@ -83,7 +84,8 @@ end
 
 function distance_from_targets(
     ce::AbstractCounterfactualExplanation;
-    n::Int=1000, agg=mean
+    n::Int=1000, agg=mean,
+    n_nearest_neighbors::Union{Int,Nothing}=nothing,
 )
     target_idx = ce.data.output_encoder.labels .== ce.target
     target_samples = ce.data.X[:,target_idx] |>
@@ -92,6 +94,9 @@ function distance_from_targets(
     loss = map(eachslice(x′, dims=ndims(x′))) do x
         Δ = map(eachcol(target_samples)) do xsample
             norm(x - xsample, 1)
+        end
+        if n_nearest_neighbors != nothing
+            Δ = sort(Δ)[1:n_nearest_neighbors]
         end
         return mean(Δ)
     end

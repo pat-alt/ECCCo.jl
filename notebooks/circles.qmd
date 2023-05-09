@@ -1,5 +1,5 @@
 ```{julia}
-include("notebooks/setup.jl")
+include("$(pwd())/notebooks/setup.jl")
 eval(setup_notebooks)
 ```
 
@@ -185,9 +185,9 @@ end
 ## Benchmark
 
 ```{julia}
-λ₁ = 0.25
-λ₂ = 0.75
-λ₃ = 0.75
+λ₁ = 0.1
+λ₂ = 0.25
+λ₃ = 0.25
 Λ = [λ₁, λ₂, λ₃]
 
 # Benchmark generators:
@@ -204,11 +204,13 @@ generator_dict = Dict(
 ### POC
 
 ```{julia}
+Random.seed!(2023)
+
 M = model_dict["JEM"]
 X = X isa Matrix ? X : Float32.(permutedims(matrix(X)))
-factual_label =  levels(labels)[1]
+factual_label =  levels(labels)[2]
 x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target =  levels(labels)[2]
+target =  levels(labels)[1]
 factual = predict_label(M, counterfactual_data, x_factual)[1]
 
 ces = Dict{Any,Any}()
@@ -220,7 +222,7 @@ for (name, generator) in generator_dict
         converge_when=:generator_conditions,
     )
     plt = Plots.plot(ce, title=name, alpha=0.2, cbar=false, axis=nothing)
-    if name == "ECCCo"
+    if contains(name, "ECCCo")
         _X = distance_from_energy(ce, return_conditionals=true)
         Plots.scatter!(
             _X[1,:],_X[2,:], color=:purple, shape=:star5, 
@@ -230,7 +232,7 @@ for (name, generator) in generator_dict
     push!(plts, plt)
     ces[name] = ce
 end
-plt = Plots.plot(plts..., size=(500,520))
+plt = Plots.plot(plts..., size=(650,500))
 display(plt)
 savefig(plt, joinpath(output_images_path, "circles_poc.png"))
 ```
@@ -260,7 +262,7 @@ for target in sort(unique(labels))
             generators=generator_dict, 
             measure=measures,
             suppress_training=true, dataname="Circles",
-            n_individuals=5,
+            n_individuals=25,
             target=target, factual=factual,
             initialization=:identity,
             converge_when=:generator_conditions,

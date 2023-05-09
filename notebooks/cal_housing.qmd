@@ -1,5 +1,5 @@
 ```{julia}
-include("notebooks/setup.jl")
+include("$(pwd())/notebooks/setup.jl")
 eval(setup_notebooks)
 ```
 
@@ -148,8 +148,8 @@ model_performance
 
 # Benchmark generators:
 generator_dict = Dict(
-    "Wachter" => WachterGenerator(λ=λ₁),
-    "REVISE" => REVISEGenerator(λ=λ₁),
+    "Wachter" => WachterGenerator(),
+    "REVISE" => REVISEGenerator(),
     "Schut" => GreedyGenerator(),
     "ECCCo" => ECCCoGenerator(λ=Λ),
 )
@@ -166,17 +166,27 @@ measures = [
     ECCCo.set_size_penalty
 ]
 
-bmk = benchmark(
-    counterfactual_data; 
-    models=model_dict, 
-    generators=generator_dict, 
-    measure=measures,
-    suppress_training=true, dataname="California Housing",
-    n_individuals=5,
-    factual=0, target=1,
-    initialization=:identity,
-    converge_when=:generator_conditions,
-)
+bmks = []
+for target in sort(unique(labels))
+    for factual in sort(unique(labels))
+        if factual == target
+            continue
+        end
+        bmk = benchmark(
+            counterfactual_data; 
+            models=model_dict, 
+            generators=generator_dict, 
+            measure=measures,
+            suppress_training=true, dataname="California Housing",
+            n_individuals=10,
+            target=target, factual=factual,
+            initialization=:identity,
+            converge_when=:generator_conditions,
+        )
+        push!(bmks, bmk)
+    end
+end
+bmk = reduce(vcat, bmks)
 CSV.write(joinpath(output_path, "cal_housing_benchmark.csv"), bmk())
 ```
 

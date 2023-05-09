@@ -43,15 +43,11 @@ function EnergySampler(
 
     @assert y ∈ data.y_levels || y ∈ 1:length(data.y_levels)
 
-    if ECCCo._has_sampler(model)
-        sampler = ECCCo._get_sampler(model)
-    else
-        K = length(data.y_levels)
-        input_size = size(selectdim(data.X, ndims(data.X), 1))
-        𝒟x = Uniform(extrema(data.X)...)
-        𝒟y = Categorical(ones(K) ./ K)
-        sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=input_size)
-    end
+    K = length(data.y_levels)
+    input_size = size(selectdim(data.X, ndims(data.X), 1))
+    𝒟x = Uniform(extrema(data.X)...)
+    𝒟y = Categorical(ones(K) ./ K)
+    sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=input_size)
     yidx = get_target_index(data.y_levels, y)
 
     # Initiate:

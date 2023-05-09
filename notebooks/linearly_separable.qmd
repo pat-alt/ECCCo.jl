@@ -1,9 +1,9 @@
 ```{julia}
-include("notebooks/setup.jl")
+include("$(pwd())/notebooks/setup.jl")
 eval(setup_notebooks)
 ```
 
-# Circles Data
+# Linearly Separable Data
 
 ```{julia}
 # Hyper:
@@ -12,7 +12,10 @@ _retrain = true
 # Data:
 test_size = 0.2
 n_obs = Int(1000 / (1.0 - test_size))
-counterfactual_data, test_data = train_test_split(load_linearly_separable(n_obs); test_size=test_size)
+counterfactual_data, test_data = train_test_split(
+    load_blobs(n_obs; cluster_std=0.1, center_box=(-1. => 1.)); 
+    test_size=test_size
+)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
 labels = counterfactual_data.output_encoder.labels
@@ -46,7 +49,7 @@ sampler = ConditionalSampler(
     input_size=(input_dim,), 
     batch_size=batch_size,
 )
-α = [1.0,1.0,1e-2]      # penalty strengths
+α = [1.0,1.0,1e-1]      # penalty strengths
 ```
 
 ```{julia}
@@ -73,7 +76,7 @@ jem = JointEnergyClassifier(
     jem_training_params=(
         α=α,verbosity=10,
     ),
-    sampling_steps=20,
+    sampling_steps=30,
 )
 
 # JEM with adversarial training:
@@ -109,9 +112,9 @@ function _train(model, X=X, y=labels; cov=.95, method=:simple_inductive, mod_nam
 end
 if _retrain
     model_dict = Dict(mod_name => _train(model; mod_name=mod_name) for (mod_name, model) in models)
-    Serialization.serialize(joinpath(output_path,"circles_models.jls"), model_dict)
+    Serialization.serialize(joinpath(output_path,"linearly_separable_models.jls"), model_dict)
 else
-    model_dict = Serialization.deserialize(joinpath(output_path,"circles_models.jls"))
+    model_dict = Serialization.deserialize(joinpath(output_path,"linearly_separable_models.jls"))
 end
 ```
 
@@ -131,8 +134,8 @@ for (mod_name, model) in model_dict
     _perf.mod_name .= mod_name
     model_performance = vcat(model_performance, _perf)
 end
-Serialization.serialize(joinpath(output_path,"circles_model_performance.jls"), model_performance)
-CSV.write(joinpath(output_path, "circles_model_performance.csv"), model_performance)
+Serialization.serialize(joinpath(output_path,"linearly_separable_model_performance.jls"), model_performance)
+CSV.write(joinpath(output_path, "linearly_separable_model_performance.csv"), model_performance)
 model_performance
 ```
 
@@ -154,8 +157,8 @@ for (mod_name, model) in model_dict
         ex = extrema(hcat(MLJFlux.reformat(X),X̂), dims=2)
         xlims = ex[1]
         ylims = ex[2]
-        x1 = range(1.0f0.*xlims...,length=100)
-        x2 = range(1.0f0.*ylims...,length=100)
+        x1 = range(1.0f0.*xlims...,length=10)
+        x2 = range(1.0f0.*ylims...,length=10)
         p(x) = probs(model, x)
         plt = Plots.contour(
             x1, x2, (x, y) -> p([x, y][:,:])[target_idx], 
@@ -165,15 +168,15 @@ for (mod_name, model) in model_dict
         )
         Plots.scatter!(
             MLJFlux.reformat(X)[1,:], MLJFlux.reformat(X)[2,:], 
-            color=Int.(labels.refs).-1, group=Int.(labels.refs).-1, alpha=0.5
+            color=Int.(labels.refs), group=Int.(labels.refs), alpha=0.5
         )
         Plots.scatter!(
             X̂[1,:], X̂[2,:], 
-            color=repeat([target], size(X̂,2)), 
-            group=repeat([target], size(X̂,2)), 
+            color=repeat([target_idx], size(X̂,2)), 
+            group=repeat([target_idx], size(X̂,2)), 
             shape=:star5, ms=10
         )
-        savefig(plt, joinpath(output_images_path, "circles_generated_$(mod_name).png"))
+        savefig(plt, joinpath(output_images_path, "linearly_separable_generated_$(mod_name).png"))
         push!(plts, plt)
     end
     plt = Plots.plot(plts..., layout=(1, 2), size=(2*500, 400), plot_title=mod_name)
@@ -184,9 +187,9 @@ end
 ## Benchmark
 
 ```{julia}
-λ₁ = 0.25
-λ₂ = 0.75
-λ₃ = 0.75
+λ₁ = 0.1
+λ₂ = 0.25
+λ₃ = 0.25
 Λ = [λ₁, λ₂, λ₃]
 
 # Benchmark generators:
@@ -203,6 +206,8 @@ generator_dict = Dict(
 ### POC
 
 ```{julia}
+Random.seed!(2023)
+
 M = model_dict["JEM"]
 X = X isa Matrix ? X : Float32.(permutedims(matrix(X)))
 factual_label =  levels(labels)[1]
@@ -219,7 +224,7 @@ for (name, generator) in generator_dict
         converge_when=:generator_conditions,
     )
     plt = Plots.plot(ce, title=name, alpha=0.2, cbar=false, axis=nothing)
-    if name == "ECCCo"
+    if contains(name, "ECCCo")
         _X = distance_from_energy(ce, return_conditionals=true)
         Plots.scatter!(
             _X[1,:],_X[2,:], color=:purple, shape=:star5, 
@@ -229,9 +234,9 @@ for (name, generator) in generator_dict
     push!(plts, plt)
     ces[name] = ce
 end
-plt = Plots.plot(plts..., size=(500,520))
+plt = Plots.plot(plts..., size=(650,500))
 display(plt)
-savefig(plt, joinpath(output_images_path, "circles_poc.png"))
+savefig(plt, joinpath(output_images_path, "linearly_separable_poc.png"))
 ```
 
 ### Complete Benchmark
@@ -258,8 +263,8 @@ for target in sort(unique(labels))
             models=model_dict, 
             generators=generator_dict, 
             measure=measures,
-            suppress_training=true, dataname="Circles",
-            n_individuals=5,
+            suppress_training=true, dataname="Linearly Separable",
+            n_individuals=25,
             target=target, factual=factual,
             initialization=:identity,
             converge_when=:generator_conditions,
@@ -268,7 +273,7 @@ for target in sort(unique(labels))
     end
 end
 bmk = reduce(vcat, bmks)
-CSV.write(joinpath(output_path, "circles_benchmark.csv"), bmk())
+CSV.write(joinpath(output_path, "linearly_separable_benchmark.csv"), bmk())
 ```
 
 ```{julia}
@@ -286,5 +291,5 @@ plt = draw(
     facet=(; linkyaxes=:none)
 )   
 display(plt)
-save(joinpath(output_images_path, "circles_benchmark.png"), plt, px_per_unit=5)
+save(joinpath(output_images_path, "linearly_separable_benchmark.png"), plt, px_per_unit=5)
 ```
