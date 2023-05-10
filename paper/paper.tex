@@ -107,7 +107,7 @@ Energy-Constrained Conformal Counterfactuals}
 
 
 \begin{abstract}
-  Counterfactual Explanations offer an intuitive and straightforward way to explain black-box models and offer Algorithmic Recourse to individuals. To address the need for plausible explanations, existing work has primarily relied on surrogate models to learn how the input data is distributed. This effectively reallocates the task of learning realistic representations of the data from the model itself to the surrogate. Consequently, the generated explanations may seem plausible to humans but need not necessarily faithfully describe the behaviour of the black-box model. We formalise this notion of faithfulness through the introduction of a tailored evaluation metric and propose a novel algorithmic framework for generating \textbf{E}nergy-\textbf{C}onstrained \textbf{C}onformal \textbf{Co}unterfactuals that are only as plausible as the model permits. Through extensive empirical studies involving multiple synthetic and real-world datasets, we demonstrate that \textbf{ECCCo} reconciles the need for plausibility and faithfulness. In particular, we show that it is possible to achieve state-of-the-art plausibility for models with gradient access without the need for surrogate models. To do so, ECCCo relies solely on properties defining the black-box model itself by leveraging recent advances in energy-based modelling and conformal inference. Through this work, we also shine new light on the explanatory properties of Joint Energy Models. Our framework is intuitive, flexible and fully open-sourced. By highlighting the need for faithfulness in the context of Counterfactual Explanations, we believe that in the short term, our work will enable researchers and practitioners to better distinguish trustworthy from unreliable models. We further anticipate that ECCCo can serve as a baseline for future research directed at providing plausible but faithful Counterfactual Explanations. 
+  Counterfactual Explanations offer an intuitive and straightforward way to explain black-box models and offer Algorithmic Recourse to individuals. To address the need for plausible explanations, existing work has primarily relied on surrogate models to learn how the input data is distributed. This effectively reallocates the task of learning realistic representations of the data from the model itself to the surrogate. Consequently, the generated explanations may seem plausible to humans but need not necessarily describe the behaviour of the black-box model faithfully. We formalise this notion of faithfulness through the introduction of a tailored evaluation metric and propose a novel algorithmic framework for generating \textbf{E}nergy-\textbf{C}onstrained \textbf{C}onformal \textbf{Co}unterfactuals that are only as plausible as the model permits. Through extensive empirical studies involving multiple synthetic and real-world datasets, we demonstrate that \textbf{ECCCos} reconcile the need for plausibility and faithfulness. In particular, we show that it is possible to achieve state-of-the-art plausibility without the need for surrogate models. To do so, our framework relies solely on properties defining the black-box model itself by leveraging recent advances in energy-based modelling and conformal inference. While this work is limited in scope and our proposed methodology is only readily applicable to models with gradient access, we anticipate that ECCCo can serve as a baseline for future research directed at providing plausible but faithful Counterfactual Explanations. By highlighting the need for faithfulness in the context of Counterfactual Explanations, we believe that in the short term, our work will enable researchers and practitioners to better distinguish trustworthy from unreliable models. 
 \end{abstract}
 
 \section{Introduction}\label{intro}
@@ -162,12 +162,12 @@ Surrogate models offer an obvious solution to achieve this objective. Unfortunat
   \begin{minipage}[t]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{../artifacts/results/images/you_may_not_like_it.png}
-    \caption{Explanations or Adversarial Examples? Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); counterfactual produced using~\citet{wachter2017counterfactual} (centre); and a counterfactual produced using the approach introduced by~\citep{schut2021generating} that uses Jacobian-Based Saliency Map Attacks to solve Equation~\ref{eq:general}.}\label{fig:adv}
+    \caption{Explanations or Adversarial Examples? Counterfactuals for turning a 9 (nine) into a 7 (seven): original image (left); counterfactual produced using~\citet{wachter2017counterfactual} (centre); and a counterfactual produced using the approach introduced by~\citep{schut2021generating} that uses Jacobian-Based Saliency Map Attacks to solve Equation~\ref{eq:general}.}\label{fig:adv}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{../artifacts/results/images/surrogate_gone_wrong.png}
-    \caption{Using surrogates can improve plausibility, but also increases vulnerability. Counterfactuals for turning an 8 (eight) into a 3 (three): original image (left); counterfactual produced using REVISE~\citep{joshi2019realistic} with a well-specified surrogate (centre); and a counterfactual produced using REVISE~\citep{joshi2019realistic} with a poorly specified surrogate (right).}\label{fig:vae}
+    \caption{Using surrogates can improve plausibility, but also increases vulnerability. Counterfactuals for turning an 9 (nine) into a 7 (seven): original image (left); counterfactual produced using REVISE~\citep{joshi2019realistic} with a well-specified surrogate (centre); and a counterfactual produced using REVISE~\citep{joshi2019realistic} with a poorly specified surrogate (right).}\label{fig:vae}
   \end{minipage}
 \end{figure}
 
@@ -245,7 +245,7 @@ The first two terms in Equation~\ref{eq:eccco} correspond to the counterfactual 
 \begin{minipage}[c]{0.40\textwidth}
   \centering
   \includegraphics[width=\textwidth]{../artifacts/results/images/poc.png}
-  \captionof{figure}{[PLACEHOLDER] Vector fields indicating the direction of gradients with respect to the different components of the ECCCo objective (Equation~\ref{eq:eccco}).} \label{fig:eccco}
+  \captionof{figure}{[PLACEHOLDER; may swap for:] Vector fields indicating the direction of gradients with respect to the different components of the ECCCo objective (Equation~\ref{eq:eccco}).} \label{fig:eccco}
 \end{minipage}  
 \hfill
 \begin{minipage}[c]{0.50\textwidth}
@@ -270,7 +270,7 @@ The first two terms in Equation~\ref{eq:eccco} correspond to the counterfactual 
 
 \begin{minipage}[c]{\textwidth}
   \includegraphics[width=\textwidth]{../artifacts/results/images/mnist_eccco.png}
-  \captionof{figure}{[SUBJECTO TO CHANGE] Original image (left) and ECCCos for turning an 8 (eight) into a 3 (three) for different Black Boxes from left to right: Multi-Layer Perceptron (MLP), Ensemble of MLPs, Joint Energy Model (JEM), Ensemble of JEMs.}\label{fig:eccco-mnist}
+  \captionof{figure}{Original image (left) and ECCCos for turning a 9 (nine) into a 7 (seven) for different black-box models from left to right: Multi-Layer Perceptron (MLP), Ensemble of MLPs, Joint Energy Model (JEM), Ensemble of JEMs.}\label{fig:eccco-mnist}
 \end{minipage}
 
 \medskip
@@ -333,7 +333,7 @@ Table~\ref{tab:results-synthetic} shows the key results for the synthetic datase
 
 \import{contents/}{table-synthetic.tex}
 
-Starting with the high-level results for our Linearly Separable data, we find that ECCCo produces the most faithful counterfactuals for both black-box models. It also produces the most plausible counterfactuals for the Joint Energy Model, which was explicitly trained to learn plausible representations of the input data. This high-level pattern is broadly consistent across all datasets and supportive of our narrative, so it is worth highlighting here, before we discuss it below: ECCCos consistently achieve high faithfulness, which---subject to the quality of the black-box model itself---coincides with high plausibility. 
+Starting with the high-level results for our Linearly Separable data, we find that ECCCo produces the most faithful counterfactuals for both black-box models. This is not surprising, since ECCCo directly enforces faithfulness through regularization. Crucially though, ECCCo also produces the most plausible counterfactuals for the Joint Energy Model, which was explicitly trained to learn plausible representations of the input data. This high-level pattern is broadly consistent across all datasets and supportive of our narrative, so it is worth highlighting it here: ECCCos consistently achieve high faithfulness, which---subject to the quality of the black-box model itself---coincides with high plausibility. 
 
 Zooming in on the granular details for the Linearly Separable data, note that the list of generators in Table~\ref{tab:results-synthetic} includes `ECCCo (no CP)' and `ECCCo (no EBM)' in addition to `ECCCo' and our benchmark generators. These have been added to gain some sense of the degree to which the two components underlying ECCCo---namely energy-based modelling (EBM) and conformal prediction (CP)---drive the results. Specifically, `ECCCo (no CP)' involves no set size penalty ($\lambda_3=0$ in Equation~\ref{eq:eccco}), while `ECCCo (no EBM)' does not penalise the distance to samples generated through SGLD ($\lambda_2=0$ in Equation~\ref{eq:eccco}). The corresponding results indicate that the positive results are dominated by the effect of quantifying and leveraging the model's generative property (EBM) in our search for counterfactuals. Conformal Prediction alone only leads to marginally improved faithfulness and plausibility relative to the benchmark generators for our JEM. 
 
@@ -347,30 +347,26 @@ The results for GMSC ...
 
 \import{contents/}{table-real-world.tex}
 
-\subsection{Discussion of Results}\label{disc}
+To conclude this section, we summarize our findings with reference to the opening questions. Concerning the feasibility of our proposed methodology (Research Question~\ref{rq:feasibility}), our findings clearly demonstrate that it is indeed possible to generate plausible counterfactuals without the need for surrogate models. A related important finding is that ECCCo never sacrifices faithfulness for plausibility: any plausible ECCCo also faithfully describes model behaviour. This mitigates the risk of generating plausible explanations for models that are, in fact, highly susceptible to implausible counterfactuals as well. Our findings here indicate that ECCCo achieves this result primarily by leveraging the model's generative property. We think that further work is needed, however, to definitively answer Research Question~\ref{rq:drivers}, on which we elaborate in the following section. 
 
-Consistent with the findings in~\citet{schut2021generating}, we have demonstrated that predictive uncertainty estimates can be leveraged to generate plausible counterfactuals. Interestingly, \citet{schut2021generating} point out that this finding --- as intuitive as it is --- may be linked to a positive connection between the generative task and predictive uncertainty quantification. In particular, \citet{grathwohl2020your} demonstrate that their proposed method for integrating the generative objective in training yields models that have improved predictive uncertainty quantification. Since neither~\citet{schut2021generating} nor we have employed any surrogate generative models, our findings seem to indicate that the positive connection found in~\citet{grathwohl2020your} is bidirectional.
+\section{Limitations}
 
-\subsection{Limitations}
+Even though we have taken considerable measures to study our proposed methodology carefully, this work is limited in scope, which caveats our findings. In particular, we have found that the performance of ECCCo is sensitive to hyperparameter choices. In order to achieve faithfulness, we generally had to penalise the distance from generated samples slightly more than the distance from factual values. This choice is associated with relatively higher costs to individuals since the proposed recourses typically involve more substantial feature changes than for our benchmark generators.
 
-\begin{itemize}
-  \item BatchNorm does not seem compatible with JEM
-  \item Coverage and temperature impacts CCE in somewhat unpredictable ways
-  \item It seems that models that are not explicitly trained for generative task, still learn it implictly
-  \item Batch size seems to impact quality of generated samples (at inference, but not so much during JEM training)
-  \item SGLD takes time 
-  \item REVISE has benefit of lower dimensional space
-  \item For MNIST it seems that ECCCo is better at reducing pixel values than increasing them (better at erasing than writing)
-  \item JEMs are more difficult to train
-  \item There is a tradeoff: higher cost vs. higher faithfulness/plausibility
-  \item Results are sensitive to choices of penalty strength and step size
-  \item Counterfactuals may end up looking fairly homogenous
-  \item For MNIST data we found CP to have little effect
-  \item JEMs themselves are sensitive to scale
-  \item ECCCo can backfire, in case generative property of model is poor
-\end{itemize}
+Conversely, we have not found that penalising prediction set sizes disproportionately strongly had any discernable effect on our results. As discussed above, we also struggled to achieve good results by relying on conformal prediction alone. We want to caveat this finding by acknowledging that the role of CP in this context needs to be investigated more thoroughly through future work. Our suggested approach involving a smooth set size penalty may be insufficient in this context. 
+
+The fact that our findings are primarily driven by applying ideas from energy-based modelling presents a challenge in itself: while our approach is readily applicable to models with gradient access like deep neural networks, more work is needed to generalise our methodology to other popular machine learning models such as gradient-boosted trees. Relatedly, we have encountered common challenges associated with energy-based modelling during our experiments including sensitivity to scale, training instabilities and sensitivity to hyperparameters. We have also struggled to apply our proposed approach to low-dimensional tabular data. 
 
 \section{Conclusion}
+
+This work leverages recent advances in energy-based modelling and conformal prediction in the context of Explainable Artificial Intelligence. We have proposed a new way to generate Counterfactual Explanations that are maximally faithful to the black-model they aim to explain. Our proposed counterfactual generator, ECCCo, produces plausible counterfactual if and only if the black-model itself has learned realistic representations of the data. This should enable researchers and practitioners to use counterfactuals in order to discern trustworthy models from unreliable ones. While the scope of this work limits its generalizability, we believe that ECCCo offers a solid baseline for future work on faithful Counterfactual Explanations.
+
+\begin{ack}
+
+Some of the members of TU Delft were partially funded by ICAI AI for Fintech Research, an ING — TU Delft
+collaboration.
+
+\end{ack}
 
 \medskip
 
@@ -412,16 +408,6 @@ Observe from Equation~\ref{eq:scp} that Conformal Prediction works on an instanc
 \subsection{Results}\label{app:results}
 
 \import{contents/}{table_all.tex}
-
-\begin{ack}
-Use unnumbered first level headings for the acknowledgments. All acknowledgments
-go at the end of the paper before the list of references. Moreover, you are required to declare
-funding (financial activities supporting the submitted work) and competing interests (related financial activities outside the submitted work).
-More information about this disclosure can be found at: \url{https://neurips.cc/Conferences/2023/PaperInformation/FundingDisclosure}.
-
-
-Do {\bf not} include this section in the anonymized submission, only in the final paper. You can use the \texttt{ack} environment provided in the style file to autmoatically hide this section in the anonymized submission.
-\end{ack}
 
 
 \end{document}
