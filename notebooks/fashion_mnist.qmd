@@ -484,6 +484,7 @@ measures = [
     ECCCo.distance_from_targets,
     CounterfactualExplanations.Evaluation.validity,
     CounterfactualExplanations.Evaluation.redundancy,
+    ECCCo.set_size_penalty
 ]
 
 bmks = []

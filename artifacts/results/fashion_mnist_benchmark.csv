@@ -1,0 +1,481 @@
+sample,variable,value,dataname,generator,model,target,factual
+1,distance,92.7341537475586,FashionMNIST,Wachter,JEM Ensemble,5,0
+1,distance_from_energy,674.7952270507812,FashionMNIST,Wachter,JEM Ensemble,5,0
+1,distance_from_targets,405.76617431640625,FashionMNIST,Wachter,JEM Ensemble,5,0
+1,redundancy,0.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+1,set_size_penalty,10.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+1,validity,1.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+2,distance,100.43872833251953,FashionMNIST,Wachter,JEM Ensemble,5,0
+2,distance_from_energy,697.0897827148438,FashionMNIST,Wachter,JEM Ensemble,5,0
+2,distance_from_targets,465.9045715332031,FashionMNIST,Wachter,JEM Ensemble,5,0
+2,redundancy,0.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+2,set_size_penalty,10.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+2,validity,1.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+3,distance,98.73724365234375,FashionMNIST,Wachter,JEM Ensemble,5,0
+3,distance_from_energy,692.2579345703125,FashionMNIST,Wachter,JEM Ensemble,5,0
+3,distance_from_targets,453.68994140625,FashionMNIST,Wachter,JEM Ensemble,5,0
+3,redundancy,0.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+3,set_size_penalty,10.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+3,validity,1.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+4,distance,93.68498992919922,FashionMNIST,Wachter,JEM Ensemble,5,0
+4,distance_from_energy,810.8032836914062,FashionMNIST,Wachter,JEM Ensemble,5,0
+4,distance_from_targets,633.6386108398438,FashionMNIST,Wachter,JEM Ensemble,5,0
+4,redundancy,0.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+4,set_size_penalty,10.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+4,validity,1.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+5,distance,76.89517974853516,FashionMNIST,Wachter,JEM Ensemble,5,0
+5,distance_from_energy,698.1971435546875,FashionMNIST,Wachter,JEM Ensemble,5,0
+5,distance_from_targets,393.7125244140625,FashionMNIST,Wachter,JEM Ensemble,5,0
+5,redundancy,0.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+5,set_size_penalty,10.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+5,validity,1.0,FashionMNIST,Wachter,JEM Ensemble,5,0
+1,distance,325.1293029785156,FashionMNIST,REVISE,JEM Ensemble,5,0
+1,distance_from_energy,587.8599853515625,FashionMNIST,REVISE,JEM Ensemble,5,0
+1,distance_from_targets,288.9649353027344,FashionMNIST,REVISE,JEM Ensemble,5,0
+1,redundancy,0.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+1,set_size_penalty,5.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+1,validity,1.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+2,distance,553.89990234375,FashionMNIST,REVISE,JEM Ensemble,5,0
+2,distance_from_energy,454.59332275390625,FashionMNIST,REVISE,JEM Ensemble,5,0
+2,distance_from_targets,443.2844543457031,FashionMNIST,REVISE,JEM Ensemble,5,0
+2,redundancy,0.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+2,set_size_penalty,4.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+2,validity,1.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+3,distance,532.0134887695312,FashionMNIST,REVISE,JEM Ensemble,5,0
+3,distance_from_energy,536.4755859375,FashionMNIST,REVISE,JEM Ensemble,5,0
+3,distance_from_targets,368.3476867675781,FashionMNIST,REVISE,JEM Ensemble,5,0
+3,redundancy,0.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+3,set_size_penalty,4.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+3,validity,1.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+4,distance,650.5697631835938,FashionMNIST,REVISE,JEM Ensemble,5,0
+4,distance_from_energy,416.4754943847656,FashionMNIST,REVISE,JEM Ensemble,5,0
+4,distance_from_targets,420.66180419921875,FashionMNIST,REVISE,JEM Ensemble,5,0
+4,redundancy,0.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+4,set_size_penalty,4.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+4,validity,1.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+5,distance,320.7551574707031,FashionMNIST,REVISE,JEM Ensemble,5,0
+5,distance_from_energy,672.775634765625,FashionMNIST,REVISE,JEM Ensemble,5,0
+5,distance_from_targets,261.74517822265625,FashionMNIST,REVISE,JEM Ensemble,5,0
+5,redundancy,0.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+5,set_size_penalty,7.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+5,validity,1.0,FashionMNIST,REVISE,JEM Ensemble,5,0
+1,distance,631.0206909179688,FashionMNIST,ECCCo,JEM Ensemble,5,0
+1,distance_from_energy,115.51751708984375,FashionMNIST,ECCCo,JEM Ensemble,5,0
+1,distance_from_targets,498.5903015136719,FashionMNIST,ECCCo,JEM Ensemble,5,0
+1,redundancy,0.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+1,set_size_penalty,4.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+1,validity,1.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+2,distance,690.1732788085938,FashionMNIST,ECCCo,JEM Ensemble,5,0
+2,distance_from_energy,35.075828552246094,FashionMNIST,ECCCo,JEM Ensemble,5,0
+2,distance_from_targets,477.24969482421875,FashionMNIST,ECCCo,JEM Ensemble,5,0
+2,redundancy,0.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+2,set_size_penalty,4.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+2,validity,1.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+3,distance,692.314208984375,FashionMNIST,ECCCo,JEM Ensemble,5,0
+3,distance_from_energy,38.54697799682617,FashionMNIST,ECCCo,JEM Ensemble,5,0
+3,distance_from_targets,509.7564392089844,FashionMNIST,ECCCo,JEM Ensemble,5,0
+3,redundancy,0.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+3,set_size_penalty,4.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+3,validity,1.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+4,distance,777.89794921875,FashionMNIST,ECCCo,JEM Ensemble,5,0
+4,distance_from_energy,46.97472381591797,FashionMNIST,ECCCo,JEM Ensemble,5,0
+4,distance_from_targets,542.152587890625,FashionMNIST,ECCCo,JEM Ensemble,5,0
+4,redundancy,0.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+4,set_size_penalty,4.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+4,validity,1.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+5,distance,604.5400390625,FashionMNIST,ECCCo,JEM Ensemble,5,0
+5,distance_from_energy,61.940147399902344,FashionMNIST,ECCCo,JEM Ensemble,5,0
+5,distance_from_targets,474.7564392089844,FashionMNIST,ECCCo,JEM Ensemble,5,0
+5,redundancy,0.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+5,set_size_penalty,4.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+5,validity,1.0,FashionMNIST,ECCCo,JEM Ensemble,5,0
+1,distance,10.000000953674316,FashionMNIST,Schut,JEM Ensemble,5,0
+1,distance_from_energy,613.396240234375,FashionMNIST,Schut,JEM Ensemble,5,0
+1,distance_from_targets,379.22857666015625,FashionMNIST,Schut,JEM Ensemble,5,0
+1,redundancy,0.9846938775510204,FashionMNIST,Schut,JEM Ensemble,5,0
+1,set_size_penalty,0.0,FashionMNIST,Schut,JEM Ensemble,5,0
+1,validity,0.0,FashionMNIST,Schut,JEM Ensemble,5,0
+2,distance,10.0,FashionMNIST,Schut,JEM Ensemble,5,0
+2,distance_from_energy,702.0545043945312,FashionMNIST,Schut,JEM Ensemble,5,0
+2,distance_from_targets,445.01702880859375,FashionMNIST,Schut,JEM Ensemble,5,0
+2,redundancy,0.9872448979591837,FashionMNIST,Schut,JEM Ensemble,5,0
+2,set_size_penalty,0.0,FashionMNIST,Schut,JEM Ensemble,5,0
+2,validity,0.0,FashionMNIST,Schut,JEM Ensemble,5,0
+3,distance,10.000000953674316,FashionMNIST,Schut,JEM Ensemble,5,0
+3,distance_from_energy,709.853271484375,FashionMNIST,Schut,JEM Ensemble,5,0
+3,distance_from_targets,433.61456298828125,FashionMNIST,Schut,JEM Ensemble,5,0
+3,redundancy,0.985969387755102,FashionMNIST,Schut,JEM Ensemble,5,0
+3,set_size_penalty,0.0,FashionMNIST,Schut,JEM Ensemble,5,0
+3,validity,0.0,FashionMNIST,Schut,JEM Ensemble,5,0
+4,distance,10.000000953674316,FashionMNIST,Schut,JEM Ensemble,5,0
+4,distance_from_energy,816.2142944335938,FashionMNIST,Schut,JEM Ensemble,5,0
+4,distance_from_targets,610.602294921875,FashionMNIST,Schut,JEM Ensemble,5,0
+4,redundancy,0.985969387755102,FashionMNIST,Schut,JEM Ensemble,5,0
+4,set_size_penalty,0.0,FashionMNIST,Schut,JEM Ensemble,5,0
+4,validity,0.0,FashionMNIST,Schut,JEM Ensemble,5,0
+5,distance,10.0,FashionMNIST,Schut,JEM Ensemble,5,0
+5,distance_from_energy,601.5181884765625,FashionMNIST,Schut,JEM Ensemble,5,0
+5,distance_from_targets,359.29095458984375,FashionMNIST,Schut,JEM Ensemble,5,0
+5,redundancy,0.985969387755102,FashionMNIST,Schut,JEM Ensemble,5,0
+5,set_size_penalty,0.0,FashionMNIST,Schut,JEM Ensemble,5,0
+5,validity,0.0,FashionMNIST,Schut,JEM Ensemble,5,0
+6,distance,98.99669647216797,FashionMNIST,Wachter,MLP,5,0
+6,distance_from_energy,910.66162109375,FashionMNIST,Wachter,MLP,5,0
+6,distance_from_targets,572.0587768554688,FashionMNIST,Wachter,MLP,5,0
+6,redundancy,0.0012755102040816326,FashionMNIST,Wachter,MLP,5,0
+6,set_size_penalty,9.99814927723568,FashionMNIST,Wachter,MLP,5,0
+6,validity,1.0,FashionMNIST,Wachter,MLP,5,0
+7,distance,94.51173400878906,FashionMNIST,Wachter,MLP,5,0
+7,distance_from_energy,989.5108642578125,FashionMNIST,Wachter,MLP,5,0
+7,distance_from_targets,774.241455078125,FashionMNIST,Wachter,MLP,5,0
+7,redundancy,0.0,FashionMNIST,Wachter,MLP,5,0
+7,set_size_penalty,4.919552680067099,FashionMNIST,Wachter,MLP,5,0
+7,validity,1.0,FashionMNIST,Wachter,MLP,5,0
+8,distance,108.33902740478516,FashionMNIST,Wachter,MLP,5,0
+8,distance_from_energy,937.8558349609375,FashionMNIST,Wachter,MLP,5,0
+8,distance_from_targets,544.8487548828125,FashionMNIST,Wachter,MLP,5,0
+8,redundancy,0.0,FashionMNIST,Wachter,MLP,5,0
+8,set_size_penalty,0.0,FashionMNIST,Wachter,MLP,5,0
+8,validity,0.0,FashionMNIST,Wachter,MLP,5,0
+9,distance,80.63764953613281,FashionMNIST,Wachter,MLP,5,0
+9,distance_from_energy,860.4642333984375,FashionMNIST,Wachter,MLP,5,0
+9,distance_from_targets,420.0157775878906,FashionMNIST,Wachter,MLP,5,0
+9,redundancy,0.0,FashionMNIST,Wachter,MLP,5,0
+9,set_size_penalty,2.001864438664443,FashionMNIST,Wachter,MLP,5,0
+9,validity,1.0,FashionMNIST,Wachter,MLP,5,0
+10,distance,90.34187316894531,FashionMNIST,Wachter,MLP,5,0
+10,distance_from_energy,883.7332763671875,FashionMNIST,Wachter,MLP,5,0
+10,distance_from_targets,420.56280517578125,FashionMNIST,Wachter,MLP,5,0
+10,redundancy,0.0,FashionMNIST,Wachter,MLP,5,0
+10,set_size_penalty,1.1492428906119283,FashionMNIST,Wachter,MLP,5,0
+10,validity,1.0,FashionMNIST,Wachter,MLP,5,0
+6,distance,470.03759765625,FashionMNIST,REVISE,MLP,5,0
+6,distance_from_energy,782.0775756835938,FashionMNIST,REVISE,MLP,5,0
+6,distance_from_targets,308.4596252441406,FashionMNIST,REVISE,MLP,5,0
+6,redundancy,0.0,FashionMNIST,REVISE,MLP,5,0
+6,set_size_penalty,2.000432561985068,FashionMNIST,REVISE,MLP,5,0
+6,validity,1.0,FashionMNIST,REVISE,MLP,5,0
+7,distance,250.65858459472656,FashionMNIST,REVISE,MLP,5,0
+7,distance_from_energy,975.47119140625,FashionMNIST,REVISE,MLP,5,0
+7,distance_from_targets,843.3827514648438,FashionMNIST,REVISE,MLP,5,0
+7,redundancy,0.0,FashionMNIST,REVISE,MLP,5,0
+7,set_size_penalty,0.0,FashionMNIST,REVISE,MLP,5,0
+7,validity,0.0,FashionMNIST,REVISE,MLP,5,0
+8,distance,358.52587890625,FashionMNIST,REVISE,MLP,5,0
+8,distance_from_energy,869.5494995117188,FashionMNIST,REVISE,MLP,5,0
+8,distance_from_targets,293.769287109375,FashionMNIST,REVISE,MLP,5,0
+8,redundancy,0.0,FashionMNIST,REVISE,MLP,5,0
+8,set_size_penalty,0.0,FashionMNIST,REVISE,MLP,5,0
+8,validity,0.0,FashionMNIST,REVISE,MLP,5,0
+9,distance,204.91806030273438,FashionMNIST,REVISE,MLP,5,0
+9,distance_from_energy,821.3395385742188,FashionMNIST,REVISE,MLP,5,0
+9,distance_from_targets,297.7679138183594,FashionMNIST,REVISE,MLP,5,0
+9,redundancy,0.0,FashionMNIST,REVISE,MLP,5,0
+9,set_size_penalty,0.9999984406335609,FashionMNIST,REVISE,MLP,5,0
+9,validity,1.0,FashionMNIST,REVISE,MLP,5,0
+10,distance,331.38433837890625,FashionMNIST,REVISE,MLP,5,0
+10,distance_from_energy,831.94921875,FashionMNIST,REVISE,MLP,5,0
+10,distance_from_targets,230.27488708496094,FashionMNIST,REVISE,MLP,5,0
+10,redundancy,0.0,FashionMNIST,REVISE,MLP,5,0
+10,set_size_penalty,1.9999999999943119,FashionMNIST,REVISE,MLP,5,0
+10,validity,1.0,FashionMNIST,REVISE,MLP,5,0
+6,distance,905.6820068359375,FashionMNIST,ECCCo,MLP,5,0
+6,distance_from_energy,40.05362319946289,FashionMNIST,ECCCo,MLP,5,0
+6,distance_from_targets,773.1035766601562,FashionMNIST,ECCCo,MLP,5,0
+6,redundancy,0.0,FashionMNIST,ECCCo,MLP,5,0
+6,set_size_penalty,2.0,FashionMNIST,ECCCo,MLP,5,0
+6,validity,1.0,FashionMNIST,ECCCo,MLP,5,0
+7,distance,908.8114624023438,FashionMNIST,ECCCo,MLP,5,0
+7,distance_from_energy,67.25755310058594,FashionMNIST,ECCCo,MLP,5,0
+7,distance_from_targets,798.0518798828125,FashionMNIST,ECCCo,MLP,5,0
+7,redundancy,0.0,FashionMNIST,ECCCo,MLP,5,0
+7,set_size_penalty,2.0,FashionMNIST,ECCCo,MLP,5,0
+7,validity,1.0,FashionMNIST,ECCCo,MLP,5,0
+8,distance,907.2071533203125,FashionMNIST,ECCCo,MLP,5,0
+8,distance_from_energy,61.75941848754883,FashionMNIST,ECCCo,MLP,5,0
+8,distance_from_targets,797.5115966796875,FashionMNIST,ECCCo,MLP,5,0
+8,redundancy,0.0,FashionMNIST,ECCCo,MLP,5,0
+8,set_size_penalty,2.0,FashionMNIST,ECCCo,MLP,5,0
+8,validity,1.0,FashionMNIST,ECCCo,MLP,5,0
+9,distance,862.2353515625,FashionMNIST,ECCCo,MLP,5,0
+9,distance_from_energy,60.413726806640625,FashionMNIST,ECCCo,MLP,5,0
+9,distance_from_targets,807.8145141601562,FashionMNIST,ECCCo,MLP,5,0
+9,redundancy,0.0,FashionMNIST,ECCCo,MLP,5,0
+9,set_size_penalty,2.0,FashionMNIST,ECCCo,MLP,5,0
+9,validity,1.0,FashionMNIST,ECCCo,MLP,5,0
+10,distance,845.914794921875,FashionMNIST,ECCCo,MLP,5,0
+10,distance_from_energy,97.32709503173828,FashionMNIST,ECCCo,MLP,5,0
+10,distance_from_targets,778.889892578125,FashionMNIST,ECCCo,MLP,5,0
+10,redundancy,0.0,FashionMNIST,ECCCo,MLP,5,0
+10,set_size_penalty,2.0,FashionMNIST,ECCCo,MLP,5,0
+10,validity,1.0,FashionMNIST,ECCCo,MLP,5,0
+6,distance,10.000000953674316,FashionMNIST,Schut,MLP,5,0
+6,distance_from_energy,928.9529418945312,FashionMNIST,Schut,MLP,5,0
+6,distance_from_targets,546.8418579101562,FashionMNIST,Schut,MLP,5,0
+6,redundancy,0.9872448979591837,FashionMNIST,Schut,MLP,5,0
+6,set_size_penalty,0.0,FashionMNIST,Schut,MLP,5,0
+6,validity,0.0,FashionMNIST,Schut,MLP,5,0
+7,distance,10.000001907348633,FashionMNIST,Schut,MLP,5,0
+7,distance_from_energy,985.77294921875,FashionMNIST,Schut,MLP,5,0
+7,distance_from_targets,746.522705078125,FashionMNIST,Schut,MLP,5,0
+7,redundancy,0.985969387755102,FashionMNIST,Schut,MLP,5,0
+7,set_size_penalty,0.0,FashionMNIST,Schut,MLP,5,0
+7,validity,0.0,FashionMNIST,Schut,MLP,5,0
+8,distance,10.0,FashionMNIST,Schut,MLP,5,0
+8,distance_from_energy,952.4954223632812,FashionMNIST,Schut,MLP,5,0
+8,distance_from_targets,506.1714782714844,FashionMNIST,Schut,MLP,5,0
+8,redundancy,0.9834183673469388,FashionMNIST,Schut,MLP,5,0
+8,set_size_penalty,0.0,FashionMNIST,Schut,MLP,5,0
+8,validity,0.0,FashionMNIST,Schut,MLP,5,0
+9,distance,10.000000953674316,FashionMNIST,Schut,MLP,5,0
+9,distance_from_energy,882.7547607421875,FashionMNIST,Schut,MLP,5,0
+9,distance_from_targets,397.3174133300781,FashionMNIST,Schut,MLP,5,0
+9,redundancy,0.9872448979591837,FashionMNIST,Schut,MLP,5,0
+9,set_size_penalty,0.0,FashionMNIST,Schut,MLP,5,0
+9,validity,0.0,FashionMNIST,Schut,MLP,5,0
+10,distance,10.0,FashionMNIST,Schut,MLP,5,0
+10,distance_from_energy,893.87255859375,FashionMNIST,Schut,MLP,5,0
+10,distance_from_targets,398.06622314453125,FashionMNIST,Schut,MLP,5,0
+10,redundancy,0.9872448979591837,FashionMNIST,Schut,MLP,5,0
+10,set_size_penalty,0.0,FashionMNIST,Schut,MLP,5,0
+10,validity,0.0,FashionMNIST,Schut,MLP,5,0
+11,distance,78.03800201416016,FashionMNIST,Wachter,MLP Ensemble,5,0
+11,distance_from_energy,852.0643310546875,FashionMNIST,Wachter,MLP Ensemble,5,0
+11,distance_from_targets,366.18975830078125,FashionMNIST,Wachter,MLP Ensemble,5,0
+11,redundancy,0.0,FashionMNIST,Wachter,MLP Ensemble,5,0
+11,set_size_penalty,9.986873170559821,FashionMNIST,Wachter,MLP Ensemble,5,0
+11,validity,1.0,FashionMNIST,Wachter,MLP Ensemble,5,0
+12,distance,90.7940902709961,FashionMNIST,Wachter,MLP Ensemble,5,0
+12,distance_from_energy,843.6769409179688,FashionMNIST,Wachter,MLP Ensemble,5,0
+12,distance_from_targets,412.8853454589844,FashionMNIST,Wachter,MLP Ensemble,5,0
+12,redundancy,0.0,FashionMNIST,Wachter,MLP Ensemble,5,0
+12,set_size_penalty,1.0010910730884355,FashionMNIST,Wachter,MLP Ensemble,5,0
+12,validity,1.0,FashionMNIST,Wachter,MLP Ensemble,5,0
+13,distance,80.20181274414062,FashionMNIST,Wachter,MLP Ensemble,5,0
+13,distance_from_energy,838.3800659179688,FashionMNIST,Wachter,MLP Ensemble,5,0
+13,distance_from_targets,378.16253662109375,FashionMNIST,Wachter,MLP Ensemble,5,0
+13,redundancy,0.0,FashionMNIST,Wachter,MLP Ensemble,5,0
+13,set_size_penalty,1.002013656209385,FashionMNIST,Wachter,MLP Ensemble,5,0
+13,validity,1.0,FashionMNIST,Wachter,MLP Ensemble,5,0
+14,distance,118.99607849121094,FashionMNIST,Wachter,MLP Ensemble,5,0
+14,distance_from_energy,979.5863037109375,FashionMNIST,Wachter,MLP Ensemble,5,0
+14,distance_from_targets,730.8563842773438,FashionMNIST,Wachter,MLP Ensemble,5,0
+14,redundancy,0.0,FashionMNIST,Wachter,MLP Ensemble,5,0
+14,set_size_penalty,9.999999588240707,FashionMNIST,Wachter,MLP Ensemble,5,0
+14,validity,1.0,FashionMNIST,Wachter,MLP Ensemble,5,0
+15,distance,89.45011138916016,FashionMNIST,Wachter,MLP Ensemble,5,0
+15,distance_from_energy,857.3304443359375,FashionMNIST,Wachter,MLP Ensemble,5,0
+15,distance_from_targets,494.8572998046875,FashionMNIST,Wachter,MLP Ensemble,5,0
+15,redundancy,0.0,FashionMNIST,Wachter,MLP Ensemble,5,0
+15,set_size_penalty,0.9999999603917582,FashionMNIST,Wachter,MLP Ensemble,5,0
+15,validity,1.0,FashionMNIST,Wachter,MLP Ensemble,5,0
+11,distance,156.48739624023438,FashionMNIST,REVISE,MLP Ensemble,5,0
+11,distance_from_energy,805.1888427734375,FashionMNIST,REVISE,MLP Ensemble,5,0
+11,distance_from_targets,259.8066101074219,FashionMNIST,REVISE,MLP Ensemble,5,0
+11,redundancy,0.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+11,set_size_penalty,10.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+11,validity,1.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+12,distance,251.19183349609375,FashionMNIST,REVISE,MLP Ensemble,5,0
+12,distance_from_energy,789.118408203125,FashionMNIST,REVISE,MLP Ensemble,5,0
+12,distance_from_targets,266.8845520019531,FashionMNIST,REVISE,MLP Ensemble,5,0
+12,redundancy,0.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+12,set_size_penalty,1.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+12,validity,1.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+13,distance,300.5081481933594,FashionMNIST,REVISE,MLP Ensemble,5,0
+13,distance_from_energy,789.8229370117188,FashionMNIST,REVISE,MLP Ensemble,5,0
+13,distance_from_targets,251.5621337890625,FashionMNIST,REVISE,MLP Ensemble,5,0
+13,redundancy,0.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+13,set_size_penalty,2.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+13,validity,1.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+14,distance,292.0784912109375,FashionMNIST,REVISE,MLP Ensemble,5,0
+14,distance_from_energy,924.4373168945312,FashionMNIST,REVISE,MLP Ensemble,5,0
+14,distance_from_targets,495.20928955078125,FashionMNIST,REVISE,MLP Ensemble,5,0
+14,redundancy,0.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+14,set_size_penalty,0.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+14,validity,0.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+15,distance,339.1512145996094,FashionMNIST,REVISE,MLP Ensemble,5,0
+15,distance_from_energy,803.1324462890625,FashionMNIST,REVISE,MLP Ensemble,5,0
+15,distance_from_targets,264.0553894042969,FashionMNIST,REVISE,MLP Ensemble,5,0
+15,redundancy,0.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+15,set_size_penalty,1.999999999973831,FashionMNIST,REVISE,MLP Ensemble,5,0
+15,validity,1.0,FashionMNIST,REVISE,MLP Ensemble,5,0
+11,distance,818.6685180664062,FashionMNIST,ECCCo,MLP Ensemble,5,0
+11,distance_from_energy,52.33057403564453,FashionMNIST,ECCCo,MLP Ensemble,5,0
+11,distance_from_targets,741.0591430664062,FashionMNIST,ECCCo,MLP Ensemble,5,0
+11,redundancy,0.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+11,set_size_penalty,1.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+11,validity,1.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+12,distance,842.7197265625,FashionMNIST,ECCCo,MLP Ensemble,5,0
+12,distance_from_energy,50.74909210205078,FashionMNIST,ECCCo,MLP Ensemble,5,0
+12,distance_from_targets,749.9978637695312,FashionMNIST,ECCCo,MLP Ensemble,5,0
+12,redundancy,0.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+12,set_size_penalty,1.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+12,validity,1.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+13,distance,827.7291870117188,FashionMNIST,ECCCo,MLP Ensemble,5,0
+13,distance_from_energy,55.50498580932617,FashionMNIST,ECCCo,MLP Ensemble,5,0
+13,distance_from_targets,739.9014892578125,FashionMNIST,ECCCo,MLP Ensemble,5,0
+13,redundancy,0.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+13,set_size_penalty,1.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+13,validity,1.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+14,distance,985.2136840820312,FashionMNIST,ECCCo,MLP Ensemble,5,0
+14,distance_from_energy,38.55409240722656,FashionMNIST,ECCCo,MLP Ensemble,5,0
+14,distance_from_targets,764.639404296875,FashionMNIST,ECCCo,MLP Ensemble,5,0
+14,redundancy,0.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+14,set_size_penalty,1.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+14,validity,1.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+15,distance,873.9414672851562,FashionMNIST,ECCCo,MLP Ensemble,5,0
+15,distance_from_energy,39.73211669921875,FashionMNIST,ECCCo,MLP Ensemble,5,0
+15,distance_from_targets,763.5609741210938,FashionMNIST,ECCCo,MLP Ensemble,5,0
+15,redundancy,0.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+15,set_size_penalty,1.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+15,validity,1.0,FashionMNIST,ECCCo,MLP Ensemble,5,0
+11,distance,10.000001907348633,FashionMNIST,Schut,MLP Ensemble,5,0
+11,distance_from_energy,844.4656982421875,FashionMNIST,Schut,MLP Ensemble,5,0
+11,distance_from_targets,338.56805419921875,FashionMNIST,Schut,MLP Ensemble,5,0
+11,redundancy,0.9872448979591837,FashionMNIST,Schut,MLP Ensemble,5,0
+11,set_size_penalty,0.0,FashionMNIST,Schut,MLP Ensemble,5,0
+11,validity,0.0,FashionMNIST,Schut,MLP Ensemble,5,0
+12,distance,10.0,FashionMNIST,Schut,MLP Ensemble,5,0
+12,distance_from_energy,851.7576904296875,FashionMNIST,Schut,MLP Ensemble,5,0
+12,distance_from_targets,379.41607666015625,FashionMNIST,Schut,MLP Ensemble,5,0
+12,redundancy,0.9872448979591837,FashionMNIST,Schut,MLP Ensemble,5,0
+12,set_size_penalty,0.0,FashionMNIST,Schut,MLP Ensemble,5,0
+12,validity,0.0,FashionMNIST,Schut,MLP Ensemble,5,0
+13,distance,10.000000953674316,FashionMNIST,Schut,MLP Ensemble,5,0
+13,distance_from_energy,862.72509765625,FashionMNIST,Schut,MLP Ensemble,5,0
+13,distance_from_targets,358.60833740234375,FashionMNIST,Schut,MLP Ensemble,5,0
+13,redundancy,0.9872448979591837,FashionMNIST,Schut,MLP Ensemble,5,0
+13,set_size_penalty,0.0,FashionMNIST,Schut,MLP Ensemble,5,0
+13,validity,0.0,FashionMNIST,Schut,MLP Ensemble,5,0
+14,distance,10.000000953674316,FashionMNIST,Schut,MLP Ensemble,5,0
+14,distance_from_energy,1013.9431762695312,FashionMNIST,Schut,MLP Ensemble,5,0
+14,distance_from_targets,700.950927734375,FashionMNIST,Schut,MLP Ensemble,5,0
+14,redundancy,0.9872448979591837,FashionMNIST,Schut,MLP Ensemble,5,0
+14,set_size_penalty,0.0,FashionMNIST,Schut,MLP Ensemble,5,0
+14,validity,0.0,FashionMNIST,Schut,MLP Ensemble,5,0
+15,distance,10.0,FashionMNIST,Schut,MLP Ensemble,5,0
+15,distance_from_energy,884.9392700195312,FashionMNIST,Schut,MLP Ensemble,5,0
+15,distance_from_targets,471.38250732421875,FashionMNIST,Schut,MLP Ensemble,5,0
+15,redundancy,0.9872448979591837,FashionMNIST,Schut,MLP Ensemble,5,0
+15,set_size_penalty,0.0,FashionMNIST,Schut,MLP Ensemble,5,0
+15,validity,0.0,FashionMNIST,Schut,MLP Ensemble,5,0
+16,distance,81.54898834228516,FashionMNIST,Wachter,JEM,5,0
+16,distance_from_energy,876.271484375,FashionMNIST,Wachter,JEM,5,0
+16,distance_from_targets,617.86865234375,FashionMNIST,Wachter,JEM,5,0
+16,redundancy,0.0,FashionMNIST,Wachter,JEM,5,0
+16,set_size_penalty,10.0,FashionMNIST,Wachter,JEM,5,0
+16,validity,1.0,FashionMNIST,Wachter,JEM,5,0
+17,distance,104.7730484008789,FashionMNIST,Wachter,JEM,5,0
+17,distance_from_energy,998.52734375,FashionMNIST,Wachter,JEM,5,0
+17,distance_from_targets,625.0110473632812,FashionMNIST,Wachter,JEM,5,0
+17,redundancy,0.0,FashionMNIST,Wachter,JEM,5,0
+17,set_size_penalty,10.0,FashionMNIST,Wachter,JEM,5,0
+17,validity,1.0,FashionMNIST,Wachter,JEM,5,0
+18,distance,119.29895782470703,FashionMNIST,Wachter,JEM,5,0
+18,distance_from_energy,765.3713989257812,FashionMNIST,Wachter,JEM,5,0
+18,distance_from_targets,424.64202880859375,FashionMNIST,Wachter,JEM,5,0
+18,redundancy,0.0,FashionMNIST,Wachter,JEM,5,0
+18,set_size_penalty,10.0,FashionMNIST,Wachter,JEM,5,0
+18,validity,1.0,FashionMNIST,Wachter,JEM,5,0
+19,distance,103.47349548339844,FashionMNIST,Wachter,JEM,5,0
+19,distance_from_energy,922.1671142578125,FashionMNIST,Wachter,JEM,5,0
+19,distance_from_targets,583.1035766601562,FashionMNIST,Wachter,JEM,5,0
+19,redundancy,0.0,FashionMNIST,Wachter,JEM,5,0
+19,set_size_penalty,10.0,FashionMNIST,Wachter,JEM,5,0
+19,validity,1.0,FashionMNIST,Wachter,JEM,5,0
+20,distance,95.22376251220703,FashionMNIST,Wachter,JEM,5,0
+20,distance_from_energy,951.8389892578125,FashionMNIST,Wachter,JEM,5,0
+20,distance_from_targets,681.839599609375,FashionMNIST,Wachter,JEM,5,0
+20,redundancy,0.0012755102040816326,FashionMNIST,Wachter,JEM,5,0
+20,set_size_penalty,10.0,FashionMNIST,Wachter,JEM,5,0
+20,validity,1.0,FashionMNIST,Wachter,JEM,5,0
+16,distance,583.0718994140625,FashionMNIST,REVISE,JEM,5,0
+16,distance_from_energy,619.681396484375,FashionMNIST,REVISE,JEM,5,0
+16,distance_from_targets,529.9765625,FashionMNIST,REVISE,JEM,5,0
+16,redundancy,0.0,FashionMNIST,REVISE,JEM,5,0
+16,set_size_penalty,4.0,FashionMNIST,REVISE,JEM,5,0
+16,validity,1.0,FashionMNIST,REVISE,JEM,5,0
+17,distance,498.78704833984375,FashionMNIST,REVISE,JEM,5,0
+17,distance_from_energy,745.7589721679688,FashionMNIST,REVISE,JEM,5,0
+17,distance_from_targets,379.979248046875,FashionMNIST,REVISE,JEM,5,0
+17,redundancy,0.0,FashionMNIST,REVISE,JEM,5,0
+17,set_size_penalty,2.0,FashionMNIST,REVISE,JEM,5,0
+17,validity,1.0,FashionMNIST,REVISE,JEM,5,0
+18,distance,442.4130554199219,FashionMNIST,REVISE,JEM,5,0
+18,distance_from_energy,595.9207763671875,FashionMNIST,REVISE,JEM,5,0
+18,distance_from_targets,344.8277282714844,FashionMNIST,REVISE,JEM,5,0
+18,redundancy,0.0,FashionMNIST,REVISE,JEM,5,0
+18,set_size_penalty,4.0,FashionMNIST,REVISE,JEM,5,0
+18,validity,1.0,FashionMNIST,REVISE,JEM,5,0
+19,distance,390.6921081542969,FashionMNIST,REVISE,JEM,5,0
+19,distance_from_energy,878.6526489257812,FashionMNIST,REVISE,JEM,5,0
+19,distance_from_targets,669.0762329101562,FashionMNIST,REVISE,JEM,5,0
+19,redundancy,0.0,FashionMNIST,REVISE,JEM,5,0
+19,set_size_penalty,0.0,FashionMNIST,REVISE,JEM,5,0
+19,validity,0.0,FashionMNIST,REVISE,JEM,5,0
+20,distance,586.4188232421875,FashionMNIST,REVISE,JEM,5,0
+20,distance_from_energy,629.0546264648438,FashionMNIST,REVISE,JEM,5,0
+20,distance_from_targets,415.5286560058594,FashionMNIST,REVISE,JEM,5,0
+20,redundancy,0.0,FashionMNIST,REVISE,JEM,5,0
+20,set_size_penalty,6.0,FashionMNIST,REVISE,JEM,5,0
+20,validity,1.0,FashionMNIST,REVISE,JEM,5,0
+16,distance,787.4117431640625,FashionMNIST,ECCCo,JEM,5,0
+16,distance_from_energy,35.39264678955078,FashionMNIST,ECCCo,JEM,5,0
+16,distance_from_targets,626.3201293945312,FashionMNIST,ECCCo,JEM,5,0
+16,redundancy,0.0,FashionMNIST,ECCCo,JEM,5,0
+16,set_size_penalty,3.0,FashionMNIST,ECCCo,JEM,5,0
+16,validity,1.0,FashionMNIST,ECCCo,JEM,5,0
+17,distance,971.0924072265625,FashionMNIST,ECCCo,JEM,5,0
+17,distance_from_energy,44.552955627441406,FashionMNIST,ECCCo,JEM,5,0
+17,distance_from_targets,595.3128662109375,FashionMNIST,ECCCo,JEM,5,0
+17,redundancy,0.0,FashionMNIST,ECCCo,JEM,5,0
+17,set_size_penalty,3.0,FashionMNIST,ECCCo,JEM,5,0
+17,validity,1.0,FashionMNIST,ECCCo,JEM,5,0
+18,distance,751.150634765625,FashionMNIST,ECCCo,JEM,5,0
+18,distance_from_energy,37.14124298095703,FashionMNIST,ECCCo,JEM,5,0
+18,distance_from_targets,625.6317749023438,FashionMNIST,ECCCo,JEM,5,0
+18,redundancy,0.0,FashionMNIST,ECCCo,JEM,5,0
+18,set_size_penalty,3.0,FashionMNIST,ECCCo,JEM,5,0
+18,validity,1.0,FashionMNIST,ECCCo,JEM,5,0
+19,distance,868.52197265625,FashionMNIST,ECCCo,JEM,5,0
+19,distance_from_energy,48.637550354003906,FashionMNIST,ECCCo,JEM,5,0
+19,distance_from_targets,582.1905517578125,FashionMNIST,ECCCo,JEM,5,0
+19,redundancy,0.0,FashionMNIST,ECCCo,JEM,5,0
+19,set_size_penalty,3.0,FashionMNIST,ECCCo,JEM,5,0
+19,validity,1.0,FashionMNIST,ECCCo,JEM,5,0
+20,distance,920.2332153320312,FashionMNIST,ECCCo,JEM,5,0
+20,distance_from_energy,37.54027557373047,FashionMNIST,ECCCo,JEM,5,0
+20,distance_from_targets,598.8733520507812,FashionMNIST,ECCCo,JEM,5,0
+20,redundancy,0.0,FashionMNIST,ECCCo,JEM,5,0
+20,set_size_penalty,3.0,FashionMNIST,ECCCo,JEM,5,0
+20,validity,1.0,FashionMNIST,ECCCo,JEM,5,0
+16,distance,10.000001907348633,FashionMNIST,Schut,JEM,5,0
+16,distance_from_energy,879.8532104492188,FashionMNIST,Schut,JEM,5,0
+16,distance_from_targets,593.4099731445312,FashionMNIST,Schut,JEM,5,0
+16,redundancy,0.9846938775510204,FashionMNIST,Schut,JEM,5,0
+16,set_size_penalty,0.0,FashionMNIST,Schut,JEM,5,0
+16,validity,0.0,FashionMNIST,Schut,JEM,5,0
+17,distance,10.000001907348633,FashionMNIST,Schut,JEM,5,0
+17,distance_from_energy,926.8323974609375,FashionMNIST,Schut,JEM,5,0
+17,distance_from_targets,605.0003051757812,FashionMNIST,Schut,JEM,5,0
+17,redundancy,0.985969387755102,FashionMNIST,Schut,JEM,5,0
+17,set_size_penalty,0.0,FashionMNIST,Schut,JEM,5,0
+17,validity,0.0,FashionMNIST,Schut,JEM,5,0
+18,distance,10.000000953674316,FashionMNIST,Schut,JEM,5,0
+18,distance_from_energy,762.9257202148438,FashionMNIST,Schut,JEM,5,0
+18,distance_from_targets,406.8590393066406,FashionMNIST,Schut,JEM,5,0
+18,redundancy,0.985969387755102,FashionMNIST,Schut,JEM,5,0
+18,set_size_penalty,0.0,FashionMNIST,Schut,JEM,5,0
+18,validity,0.0,FashionMNIST,Schut,JEM,5,0
+19,distance,10.0,FashionMNIST,Schut,JEM,5,0
+19,distance_from_energy,875.0910034179688,FashionMNIST,Schut,JEM,5,0
+19,distance_from_targets,547.91748046875,FashionMNIST,Schut,JEM,5,0
+19,redundancy,0.985969387755102,FashionMNIST,Schut,JEM,5,0
+19,set_size_penalty,0.0,FashionMNIST,Schut,JEM,5,0
+19,validity,0.0,FashionMNIST,Schut,JEM,5,0
+20,distance,10.000001907348633,FashionMNIST,Schut,JEM,5,0
+20,distance_from_energy,914.3974609375,FashionMNIST,Schut,JEM,5,0
+20,distance_from_targets,655.8760375976562,FashionMNIST,Schut,JEM,5,0
+20,redundancy,0.9834183673469388,FashionMNIST,Schut,JEM,5,0
+20,set_size_penalty,0.0,FashionMNIST,Schut,JEM,5,0
+20,validity,0.0,FashionMNIST,Schut,JEM,5,0
