@@ -15,6 +15,83 @@ synth <- c("Moons", "Circles", "Linearly Separable")
 dt[,source:=ifelse(dataname %in% synth, "synthetic", "real")]
 ```
 
+```{r}
+tab <- dt[
+    ,
+    .(
+      value=sprintf("%1.2f (%1.2f)", mean(value), sd(value)),
+      val = mean(value),
+      std = sd(value)
+    ),
+    .(dataname, generator, model, variable, source)
+]
+
+tab$top_val = F
+tab$one_std_wachter = F
+tab$two_std_wachter = F
+
+# Measures to be minimized:
+min_measures <- c(
+  "distance",
+  "distance_from_energy", 
+  "distance_from_targets",
+  "set_size_penalty"
+)
+tab[variable %in% min_measures,top_val:=val==min(val),.(model, dataname, variable)]
+tab[variable %in% min_measures,top_val:=ifelse(rep(all(top_val),length(top_val)),F,top_val),.(model, dataname, variable)]
+tab[variable %in% min_measures,two_std_wachter:=val+2*std<val[generator=="Wachter"],.(model, dataname, variable)]
+tab[variable %in% min_measures,one_std_wachter:=val+1*std<val[generator=="Wachter"],.(model, dataname, variable)]
+
+# Measures to be maximized:
+max_measures <- c(
+  "validity",
+  "redundancy"
+)
+tab[variable %in% max_measures,top_val:=val==max(val),.(model, dataname, variable)]
+tab[variable %in% max_measures,top_val:=ifelse(rep(all(top_val),length(top_val)),F,top_val),.(model, dataname, variable)]
+tab[variable %in% max_measures,two_std_wachter:=val-2*std>val[generator=="Wachter"],.(model, dataname, variable)]
+tab[variable %in% max_measures,one_std_wachter:=val-1*std>val[generator=="Wachter"],.(model, dataname, variable)]
+
+# Add conditional formatting:
+tab[one_std_wachter==T,value:=paste0(value,"*")]
+tab[two_std_wachter==T,value:=paste0(value,"*")]
+tab$value <- cell_spec(tab$value, "latex", bold=tab$top_val)
+
+# Remove redundant columns:
+tab[,val:=NULL]
+tab[,std:=NULL]
+tab[,top_val:=NULL]
+tab[,two_std_wachter:=NULL]
+tab[,one_std_wachter:=NULL]
+```
+
+## Full table
+
+```{r}
+tab_full <- dcast(tab, dataname + model + generator ~ variable)
+col_names <- c(
+  "Model",
+  "Data",
+  "Generator",
+  "Cost ↓", 
+  "Unfaithfulness ↓", 
+  "Implausibility ↓", 
+  "Redundancy ↑",
+  "Uncertainty ↓",
+  "Validity ↑"
+)
+kbl(
+  tab_full, caption = "All results for all datasets. Standard deviations across samples are shown in parentheses. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-full} \\newline", 
+  align = "c", col.names=col_names, booktabs = F, escape=F, 
+  format="latex"
+) %>%
+  kable_styling(latex_options = c("scale_down")) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  collapse_rows(columns = 1:3, latex_hline = "custom", valign = "middle", custom_latex_hline = 1:2) %>%
+  save_kable("paper/contents/table_all.tex")
+```
+
 ## Main tables
 
 ```{r}
@@ -44,7 +121,7 @@ tab <- dcast(tab, model + generator ~ dataname + variable)
 col_names <- c(
   "Model",
   "Generator",
-  rep(c("Non-conformity ↓","Implausibility ↓"),n_data)
+  rep(c("Unfaithfulness ↓","Implausibility ↓"),n_data)
 )
 kbl(
   tab, caption = "Results for real-world datasets. Standard deviations across samples are shown in parentheses. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-real} \\newline", 
@@ -86,7 +163,7 @@ tab <- dcast(tab, model + generator ~ dataname + variable)
 col_names <- c(
   "Model",
   "Generator",
-  rep(c("Non-conformity ↓","Implausibility ↓"),n_data)
+  rep(c("Unfaithfulness ↓","Implausibility ↓"),n_data)
 )
 kbl(
   tab, caption = "Results for synthetic datasets. Standard deviations across samples are shown in parentheses. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-synth} \\newline", 

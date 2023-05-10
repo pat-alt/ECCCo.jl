@@ -293,7 +293,7 @@ In this section, we present our empirical analysis and findings. Our goal is to 
   Subject to feasibility, what drives the performance of ECCCo? Is it sufficient to rely on energy-based modelling to quantify the model's generative property? Is it sufficient to rely on conformal prediction to quantify the model's uncertainty?
 \end{question}
 
-In the following, we first briefly describe our evaluation framework and data, before presenting and discussing our results.
+In the following, we first briefly describe our evaluation framework and experimental setup, before presenting and discussing our results.
 
 \subsection{Key Evaluation Measures}\label{evaluation}
 
@@ -317,9 +317,13 @@ Specifically, we form this subset based on the $n_E$ generated samples associate
 
 While we focus on these key evaluation metrics in the body of this paper, we also sporadically discuss outcomes with respect to other common measures used to evaluate the validity, proximity and sparsity of counterfactuals. Details can be found in Appendix~\ref{app:results}.
 
-As noted by~\citet{guidotti2022counterfactual}, these distance-based measures are simplistic and more complex alternative measures may ultimately be more appropriate for the task. For example, we considered using statistical divergence measures instead. This would involve generating not one but many counterfactuals and comparing the generated empirical distribution to the target distributions in Definitions~\ref{def:plausible} and~\ref{def:faithful}. While this approach is potentially more rigorous, generating enough counterfactuals is not always practical. 
+\subsection{Experimental Setup}
 
-\subsection{Data}
+To assess and benchmark the performance of ECCCo against the state of the art, we generate multiple counterfactuals for different black-box models and datasets. In particular, we compare ECCCo to the following counterfactual generators that were introduced above: firstly; \textbf{Schut}~\citep{schut2021generating}, which minimizes predictive uncertainty; secondly, \textbf{REVISE}~\citep{joshi2019realistic}, which uses a VAE as its surrogate model; and, finally, \textbf{Wachter}~\citep{wachter2017counterfactual}, which serves as our baseline.
+
+We use both synthetic and real-world datasets from different domains, all of which are publically available. The synthetic datasets include: a dataset containing two \textbf{Linearly Separable} Gaussian clusters ($n=1000$), as well as the common \textbf{Circles} ($n=1000$) and \textbf{Moons} ($n=2500$) data. As for real-world data, we use two well-known datasets from the vision domain: firstly, following~\citet{schut2021generating} we use \textbf{MNIST}~\citep{lecun1998mnist} and, secondly, we add \textbf{Fashion-MNIST}~\citep{xiao2017fashion}. Both datasets involve 60000 images of 28x28 pixels each in 10 different classes. Finally, we also study the Give Me Some Credit (\textbf{GMSC}) dataset, a tabular dataset from the social sciences domain that has been used extensively in the literature on Algorithmic Recourse~\citep{pawelczyk2021carla}. It consists of 11 numeric features that can be used to predict the binary outcome variable indicating whether or not retail borrowers experience financial distress~\citep{kaggle2011give}. 
+
+As for the example in Section~\ref{meth}, we use simple neural networks (\textbf{MLP}), ensembles of neural networks (\textbf{MLP Ensemble}), Joint Energy Models (\textbf{JEM}) and ensembles of JEMs (\textbf{JEM Ensemble}) to model our real-world datasets. For the synthetic datasets, we found that the use of ensembles was not necessary. Full details concerning our hyperparameter choices, training procedures and model performance can be found in Appendix~\ref{app:setup}.
 
 \subsection{Results}
 
@@ -392,10 +396,10 @@ Observe from Equation~\ref{eq:scp} that Conformal Prediction works on an instanc
 
 \subsection{Conformal Prediction}\label{app:eccco}
 
+\subsection{Experimental Setup}\label{app:setup}
 \subsection{Results}\label{app:results}
 
-
-
+\import{contents/}{table_all.tex}
 
 \begin{ack}
 Use unnumbered first level headings for the acknowledgments. All acknowledgments
