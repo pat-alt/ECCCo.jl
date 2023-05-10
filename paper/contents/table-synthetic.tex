@@ -1,0 +1,37 @@
+\begin{table}
+
+\caption{Results for synthetic datasets. Standard deviations across samples are shown in parentheses. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \label{tab:results-synthetic} \newline}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{>{}cccccccc}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Linearly Separable} & \multicolumn{2}{c}{Moons} & \multicolumn{2}{c}{Circles} \\
+\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6} \cmidrule(l{3pt}r{3pt}){7-8}
+Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Unfaithfulness ↓ & Implausibility ↓ & Unfaithfulness ↓ & Implausibility ↓\\
+\midrule
+ & ECCCo & 0.10 (0.06)** & 0.19 (0.03)** & \textbf{0.57 (0.58)**} & \textbf{1.29 (0.21)*} & \textbf{0.63 (1.58)} & 1.44 (1.37)\\
+
+ & ECCCo (no CP) & \textbf{0.10 (0.07)**} & \textbf{0.19 (0.03)**} & 0.63 (0.64)* & 1.30 (0.21)* & 0.64 (1.61) & 1.45 (1.38)\\
+
+ & ECCCo (no EBM) & 0.37 (0.28) & 0.38 (0.26) & 1.73 (1.34) & 1.73 (1.42) & 1.41 (1.51) & 1.50 (1.38)\\
+
+ & REVISE & 0.41 (0.02)** & 0.41 (0.01)** & 1.59 (0.55) & 1.55 (0.20) & 0.96 (0.32)* & \textbf{0.95 (0.32)*}\\
+
+ & Schut & 0.66 (0.23) & 0.66 (0.22) & 1.55 (0.61) & 1.42 (0.16)* & 0.99 (0.80) & 1.28 (0.53)\\
+
+\multirow{-6}{*}{\centering\arraybackslash \textbf{JEM}} & Wachter & 0.44 (0.16) & 0.44 (0.15) & 1.77 (0.48) & 1.67 (0.15) & 1.41 (1.50) & 1.51 (1.35)\\
+\cmidrule{1-8}
+ & ECCCo & \textbf{0.03 (0.02)**} & 0.69 (0.10) & 1.68 (1.74) & 2.02 (0.86) & \textbf{0.37 (0.65)**} & 1.30 (0.68)\\
+
+ & ECCCo (no CP) & \textbf{0.03 (0.02)**} & 0.68 (0.10) & \textbf{1.34 (1.66)} & 2.11 (0.88) & 0.50 (0.85)* & 1.28 (0.66)\\
+
+ & ECCCo (no EBM) & 1.25 (0.87) & 1.84 (1.10) & 2.98 (1.89) & 2.29 (1.75) & 2.00 (1.46) & 1.83 (1.00)\\
+
+ & REVISE & 1.10 (0.10) & \textbf{0.40 (0.01)**} & 2.46 (1.05) & \textbf{1.54 (0.27)*} & 1.16 (1.05) & \textbf{0.95 (0.32)*}\\
+
+ & Schut & 0.81 (0.10)* & 0.47 (0.24) & 2.71 (1.15) & 1.62 (0.42) & 1.60 (1.15) & 1.24 (0.44)\\
+
+\multirow{-6}{*}{\centering\arraybackslash \textbf{MLP}} & Wachter & 0.94 (0.11) & 0.44 (0.15) & 2.95 (1.42) & 1.84 (1.33) & 1.67 (1.05) & 1.31 (0.43)\\
+\bottomrule
+\end{tabular}}
+\end{table}

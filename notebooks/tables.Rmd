@@ -12,7 +12,7 @@ dt <- lapply(files[grepl("_benchmark.csv", files)], function(x) {
 dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
 dt[,ce:=NULL]
 synth <- c("Moons", "Circles", "Linearly Separable")
-dt[,source:=ifelse(dataname %in% synth, "synthetic", "real")]
+dt[,source:=ifelse(dataname %in% synth, "synthetic", "real-world")]
 ```
 
 ```{r}
@@ -95,85 +95,102 @@ kbl(
 ## Main tables
 
 ```{r}
+# Choices:
 measures <- c("distance_from_energy", "distance_from_targets")
-tab <- dt[
-    variable %in% measures & source=="real",
-    .(
-      value=sprintf("%1.2f (%1.2f)", mean(value), sd(value)),
-      val = mean(value),
-      std = sd(value)
-    ),
-    .(dataname, generator, model, variable)
-]
-tab[,min_val:=val==min(val),.(model, dataname, variable)]
-tab[,two_std_wachter:=val+2*std<val[generator=="Wachter"],.(model, dataname, variable)]
-tab[,one_std_wachter:=val+1*std<val[generator=="Wachter"],.(model, dataname, variable)]
-tab[one_std_wachter==T,value:=paste0(value,"*")]
-tab[two_std_wachter==T,value:=paste0(value,"*")]
-tab$value <- cell_spec(tab$value, "latex", bold=tab$min_val)
-tab[,val:=NULL]
-tab[,std:=NULL]
-tab[,min_val:=NULL]
-tab[,two_std_wachter:=NULL]
-tab[,one_std_wachter:=NULL]
-n_data <- length(unique(tab$dataname))
-tab <- dcast(tab, model + generator ~ dataname + variable)
+measure_names <- c("Unfaithfulness ↓","Implausibility ↓")
+chosen_source <- "real-world"
+chosen_data <- c(
+  "MNIST",
+  "GMSC"
+)
+tab_i <- tab
+
+# Logic:
+tab_i <- tab_i[variable %in% measures]
+tab_i <- tab_i[source == chosen_source]
+tab_i <- tab_i[dataname %in% chosen_data]
+tab_i[,dataname:=factor(dataname,levels=chosen_data)]
+tab_i <- dcast(tab_i, model + generator ~ dataname + variable)
 col_names <- c(
   "Model",
   "Generator",
-  rep(c("Unfaithfulness ↓","Implausibility ↓"),n_data)
+  rep(measure_names,length(chosen_data))
 )
+caption <- sprintf(
+  "Results for %s datasets. Standard deviations across samples are shown in parentheses. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-%s} \\newline",
+  chosen_source,
+  chosen_source
+)
+file_name <- sprintf(
+  "paper/contents/table-%s.tex",
+  chosen_source
+)
+sub_header <- rep(length(measures), length(chosen_data))
+names(sub_header) <- chosen_data
+header <- c(
+  " " = 2, sub_header
+)
+line_sep <- c(rep("",length(measures)-1),"\\addlinespace")
 kbl(
-  tab, caption = "Results for real-world datasets. Standard deviations across samples are shown in parentheses. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-real} \\newline", 
+  tab_i, caption = caption, 
   align = "c", col.names=col_names, booktabs = T, escape=F, 
-  format="latex", linesep = c("", "", "", "\\addlinespace") 
+  format="latex", linesep = line_sep 
 ) %>%
   kable_styling(latex_options = c("scale_down")) %>%
   kable_paper(full_width = F) %>%
-  add_header_above(c(" " = 2, "California Housing" = 2, "GMSC" = 2, "MNIST" = 2)) %>%
+  add_header_above(header) %>%
   column_spec(1, bold = T) %>%
   collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
-  save_kable("paper/contents/table_real.tex")
+  save_kable(file_name)
 ```
 
 ```{r}
+# Choices:
 measures <- c("distance_from_energy", "distance_from_targets")
-tab <- dt[
-    variable %in% measures & source=="synthetic",
-    .(
-      value=sprintf("%1.2f (%1.2f)", mean(value), sd(value)),
-      val = mean(value),
-      std = sd(value)
-    ),
-    .(dataname, generator, model, variable)
-]
-tab[,min_val:=val==min(val),.(model, dataname, variable)]
-tab[,two_std_wachter:=val+2*std<val[generator=="Wachter"],.(model, dataname, variable)]
-tab[,one_std_wachter:=val+1*std<val[generator=="Wachter"],.(model, dataname, variable)]
-tab[one_std_wachter==T,value:=paste0(value,"*")]
-tab[two_std_wachter==T,value:=paste0(value,"*")]
-tab$value <- cell_spec(tab$value, "latex", bold=tab$min_val)
-tab[,val:=NULL]
-tab[,std:=NULL]
-tab[,min_val:=NULL]
-tab[,two_std_wachter:=NULL]
-tab[,one_std_wachter:=NULL]
-n_data <- length(unique(tab$dataname))
-tab <- dcast(tab, model + generator ~ dataname + variable)
+measure_names <- c("Unfaithfulness ↓","Implausibility ↓")
+chosen_source <- "synthetic"
+chosen_data <- c(
+  "Linearly Separable",
+  "Moons",
+  "Circles"
+)
+tab_i <- tab
+
+# Logic:
+tab_i <- tab_i[variable %in% measures]
+tab_i <- tab_i[source == chosen_source]
+tab_i <- tab_i[dataname %in% chosen_data]
+tab_i[,dataname:=factor(dataname,levels=chosen_data)]
+tab_i <- dcast(tab_i, model + generator ~ dataname + variable)
 col_names <- c(
   "Model",
   "Generator",
-  rep(c("Unfaithfulness ↓","Implausibility ↓"),n_data)
+  rep(measure_names,length(chosen_data))
 )
+caption <- sprintf(
+  "Results for %s datasets. Standard deviations across samples are shown in parentheses. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-%s} \\newline",
+  chosen_source,
+  chosen_source
+)
+file_name <- sprintf(
+  "paper/contents/table-%s.tex",
+  chosen_source
+)
+sub_header <- rep(length(measures), length(chosen_data))
+names(sub_header) <- chosen_data
+header <- c(
+  " " = 2, sub_header
+)
+line_sep <- c(rep("",length(measures)-1),"\\addlinespace")
 kbl(
-  tab, caption = "Results for synthetic datasets. Standard deviations across samples are shown in parentheses. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-synth} \\newline", 
+  tab_i, caption = caption, 
   align = "c", col.names=col_names, booktabs = T, escape=F, 
-  format="latex", linesep = c("", "", "", "\\addlinespace") 
+  format="latex", linesep = line_sep 
 ) %>%
   kable_styling(latex_options = c("scale_down")) %>%
   kable_paper(full_width = F) %>%
-  add_header_above(c(" " = 2, "Circles" = 2, "Linearly Separable" = 2, "Moons" = 2)) %>%
+  add_header_above(header) %>%
   column_spec(1, bold = T) %>%
   collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
-  save_kable("paper/contents/table_synth.tex")
+  save_kable(file_name)
 ```
