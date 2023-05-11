@@ -40,10 +40,10 @@ end
 
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=10, niter=500, from_buffer=true, agg=mean, 
+    n::Int=50, niter=500, from_buffer=true, agg=mean, 
     choose_lowest_energy=true,
     choose_random=false,
-    nmin::Int=50,
+    nmin::Int=25,
     return_conditionals=false,
     kwargs...
 )

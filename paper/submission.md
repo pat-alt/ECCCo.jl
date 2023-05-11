@@ -15,11 +15,11 @@
 
 **Code of Ethics**: Yes
 
-**Broader Impacts**: Any work on Explainable AI should be conducted by carefully considering its potential societal impacts. We take this very seriously by formalising the need for Counterfactual Explanations to faithfully describe model behaviour. We argue that a narrow focus on generating plausible counterfactuals may lead practitioners and researchers to believe that even a highly vulnerable black-box model has learned plausible representations of the data. This is precisely the kind of broader societal impact we aim to mitigate through our work. 
+**Broader Impacts**: A narrow focus on generating plausible counterfactuals may lead practitioners and researchers to believe that even a highly vulnerable black-box model has learned plausible data representations. Our work aims to mitigate this.
 
 **Limitations**: Yes
 
-**Theory**: n/a
+**Theory**: While we do not include any theoretical results in terms of formal proofs, we have approached the topic of Counterfactual Explanations from a new theoretical angle in this work. Where necessary we have clearly stated our assumptions. 
 
 **Experiments**: Yes
 
@@ -27,7 +27,7 @@
 
 **Error Bars**: Yes
 
-**Compute**: ?
+**Compute**: All of our experiments could be run locally on a personal machine. We will provide details regarding training times and compute in the supplementary material.
 
 **Reproducibility**: Yes
 
@@ -40,4 +40,6 @@
 **Human Subjects**: n/a
 
 **IRB Approvals**: n/a
+
+**TLDR**: We leverage ideas from energy-based modelling and conformal prediction to generate faithful Counterfactual Explanations that can distinguish trustworthy from unreliable models.
 
