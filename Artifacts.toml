@@ -3,5 +3,5 @@ git-tree-sha1 = "e3f16ca5d1a5e2563b71b2193bfc879500366f50"
 lazy = true
 
     [[artifacts-.download]]
-    sha256 = "4623c6d009fd0329d5b0b801e74a5c27ea62e4bcb114074f39df90b0d5ca1af2"
-    url = "https://github.com/pat-alt/conformal-counterfactual-explanations.git/releases/download/artifacts-1.8/artifacts-.tar.gz"
+    sha256 = "7eb03f2ebe00b238c8f6986009ff13c1870be04e79da4a72131ad11fc9a58623"
+    url = "https://github.com/pat-alt/ECCCo.jl.git/releases/download/artifacts-1.8/artifacts-.tar.gz"
