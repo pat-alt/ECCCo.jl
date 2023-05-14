@@ -204,21 +204,22 @@ end
 ## Benchmark
 
 ```{julia}
-λ₁ = 0.1
-λ₂ = 0.4
-λ₃ = 1.0
+λ₁ = 0.25
+λ₂ = 0.75
+λ₃ = 0.75
 Λ = [λ₁, λ₂, λ₃]
 
 opt = Flux.Optimise.Descent(0.01)
+use_class_loss = false
 
 # Benchmark generators:
 generator_dict = Dict(
     "Wachter" => WachterGenerator(λ=λ₁, opt=opt),
     "REVISE" => REVISEGenerator(λ=λ₁, opt=opt),
     "Schut" => GreedyGenerator(),
-    "ECCCo" => ECCCoGenerator(λ=Λ, opt=opt),
-    "ECCCo (no CP)" => ECCCoGenerator(λ=[λ₁, 0.0, λ₃], opt=opt),
-    "ECCCo (no EBM)" => ECCCoGenerator(λ=[λ₁, λ₂, 0.0], opt=opt),
+    "ECCCo" => ECCCoGenerator(λ=Λ, opt=opt, use_class_loss=use_class_loss),
+    "ECCCo (no CP)" => ECCCoGenerator(λ=[λ₁, 0.0, λ₃], opt=opt, use_class_loss=use_class_loss),
+    "ECCCo (no EBM)" => ECCCoGenerator(λ=[λ₁, λ₂, 0.0], opt=opt, use_class_loss=use_class_loss),
 )
 ```
 
@@ -229,9 +230,9 @@ Random.seed!(2023)
 
 M = model_dict["JEM"]
 X = X isa Matrix ? X : Float32.(permutedims(matrix(X)))
-factual_label =  levels(labels)[2]
+factual_label =  levels(labels)[1]
 x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target =  levels(labels)[1]
+target =  levels(labels)[2]
 factual = predict_label(M, counterfactual_data, x_factual)[1]
 
 ces = Dict{Any,Any}()

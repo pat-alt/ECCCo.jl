@@ -143,11 +143,11 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = false
-_regen = false
+_retrain = true
+_regen = true
 
 # Data:
-n_obs = 1000
+n_obs = 10000
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
 counterfactual_data.generative_model = vae

@@ -11,7 +11,7 @@ _retrain = true
 
 # Data:
 test_size = 0.2
-n_obs = Int(1000 / (1.0 - test_size))
+n_obs = Int(10000 / (1.0 - test_size))
 counterfactual_data, test_data = train_test_split(load_gmsc(n_obs); test_size=test_size)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
@@ -34,8 +34,8 @@ builder = MLJFlux.@builder Flux.Chain(
     Dense(n_hidden, n_out),
 )
 n_ens = 5                                   # number of models in ensemble
-_loss = Flux.Losses.logitcrossentropy       # loss function
-_finaliser = x -> x                         # finaliser function
+_loss = Flux.Losses.crossentropy       # loss function
+_finaliser =  Flux.softmax                       # finaliser function
 ```
 
 ```{julia}
@@ -47,7 +47,7 @@ sampler = ConditionalSampler(
     input_size=(input_dim,), 
     batch_size=50,
 )
-α = [1.0,1.0,1e-2]      # penalty strengths
+α = [1.0,1.0,1e-1]      # penalty strengths
 ```
 
 ```{julia}
@@ -141,17 +141,20 @@ model_performance
 ## Benchmark
 
 ```{julia}
-λ₁ = 0.25
-λ₂ = 0.75
-λ₃ = 0.75
+λ₁ = 0.1
+λ₂ = 0.5
+λ₃ = 0.5
 Λ = [λ₁, λ₂, λ₃]
+
+opt = Flux.Optimise.Descent(0.01)
+use_class_loss = true
 
 # Benchmark generators:
 generator_dict = Dict(
-    "Wachter" => WachterGenerator(),
-    "REVISE" => REVISEGenerator(),
+    "Wachter" => WachterGenerator(λ=λ₁, opt=opt),
+    "REVISE" => REVISEGenerator(λ=λ₁, opt=opt),
     "Schut" => GreedyGenerator(),
-    "ECCCo" => ECCCoGenerator(λ=Λ),
+    "ECCCo" => ECCCoGenerator(λ=Λ, opt=opt, use_class_loss=use_class_loss),
 )
 ```
 
