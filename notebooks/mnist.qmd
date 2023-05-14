@@ -147,7 +147,7 @@ _retrain = true
 _regen = true
 
 # Data:
-n_obs = 10000
+n_obs = 1000
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
 counterfactual_data.generative_model = vae
@@ -173,8 +173,8 @@ builder = MLJFlux.@builder Flux.Chain(
     Dense(n_hidden, n_out),
 )
 n_ens = 5                                   # number of models in ensemble
-_loss = Flux.Losses.logitcrossentropy       # loss function
-_finaliser = x -> x                         # finaliser function
+_loss = Flux.Losses.crossentropy       # loss function
+_finaliser = Flux.softmax                        # finaliser function
 ```
 
 ```{julia}

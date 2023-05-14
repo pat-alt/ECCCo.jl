@@ -93,6 +93,18 @@ end
 
 
 ```{julia}
+#| output: true
+#| echo: false
+#| label: fig-losses
+#| fig-cap: "Illustration of the smooth size loss and the configurable classification loss."
+
+temp = 0.25
+p1 = Plots.contourf(mach.model, mach.fitresult, permutedims(X), labels; plot_set_loss=true, zoom=0, temp=temp)
+p2 = Plots.contourf(mach.model, mach.fitresult, permutedims(X), labels; plot_classification_loss=true, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(2,2))
+display(Plots.plot(p1, p2, size=(800,320)))
+```
+
+```{julia}
 Random.seed!(1234)
 
 λ₁ = 0.1

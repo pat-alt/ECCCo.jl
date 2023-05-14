@@ -36,8 +36,8 @@ builder = MLJFlux.MLP(
     σ=activation
 )
 n_ens = 5                                   # number of models in ensemble
-_loss = Flux.Losses.logitcrossentropy       # loss function
-_finaliser = x -> x                         # finaliser function
+_loss = Flux.Losses.crossentropy       # loss function
+_finaliser = Flux.softmax                   # finaliser function
 ```
 
 ```{julia}
@@ -47,7 +47,7 @@ _finaliser = x -> x                         # finaliser function
 sampler = ConditionalSampler(
     𝒟x, 𝒟y, 
     input_size=(input_dim,), 
-    batch_size=batch_size,
+    batch_size=50,
 )
 α = [1.0,1.0,1e-1]      # penalty strengths
 ```
@@ -140,7 +140,7 @@ model_performance
 ```
 
 ```{julia}
-n_regen = 200
+n_regen = 1000
 n_each = batch_size
 for (mod_name, model) in model_dict
     K = length(counterfactual_data.y_levels)
@@ -184,6 +184,22 @@ for (mod_name, model) in model_dict
 end
 ```
 
+```{julia}
+#| output: true
+#| echo: false
+#| label: fig-losses
+#| fig-cap: "Illustration of the smooth size loss and the configurable classification loss."
+
+X_plot = matrix(X)
+temp = 0.1
+
+for (mod_name, model) in model_dict
+    p1 = Plots.contourf(model.model, model.fitresult, X_plot, labels; plot_set_loss=true, zoom=0, temp=temp)
+    p2 = Plots.contourf(model.model, model.fitresult, X_plot, labels; plot_classification_loss=true, zoom=0, temp=temp, clim=nothing, loss_matrix=ones(2,2))
+    display(Plots.plot(p1, p2, size=(800,320), plot_title=mod_name))
+end
+```
+
 ## Benchmark
 
 ```{julia}
@@ -192,14 +208,16 @@ end
 λ₃ = 0.25
 Λ = [λ₁, λ₂, λ₃]
 
+opt = Flux.Optimise.Descent(0.05)
+
 # Benchmark generators:
 generator_dict = Dict(
-    "Wachter" => WachterGenerator(λ=λ₁),
-    "REVISE" => REVISEGenerator(λ=λ₁),
+    "Wachter" => WachterGenerator(λ=λ₁, opt=opt),
+    "REVISE" => REVISEGenerator(λ=λ₁, opt=opt),
     "Schut" => GreedyGenerator(),
-    "ECCCo" => ECCCoGenerator(λ=Λ),
-    "ECCCo (no CP)" => ECCCoGenerator(λ=[λ₁, 0.0, λ₃]),
-    "ECCCo (no EBM)" => ECCCoGenerator(λ=[λ₁, λ₂, 0.0]),
+    "ECCCo" => ECCCoGenerator(λ=Λ, opt=opt),
+    "ECCCo (no CP)" => ECCCoGenerator(λ=[λ₁, 0.0, λ₃], opt=opt),
+    "ECCCo (no EBM)" => ECCCoGenerator(λ=[λ₁, λ₂, 0.0], opt=opt),
 )
 ```
 
@@ -208,11 +226,11 @@ generator_dict = Dict(
 ```{julia}
 Random.seed!(2023)
 
-M = model_dict["JEM"]
+M = model_dict["MLP"]
 X = X isa Matrix ? X : Float32.(permutedims(matrix(X)))
-factual_label =  levels(labels)[1]
+factual_label =  levels(labels)[2]
 x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target =  levels(labels)[2]
+target =  levels(labels)[1]
 factual = predict_label(M, counterfactual_data, x_factual)[1]
 
 ces = Dict{Any,Any}()
