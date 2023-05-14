@@ -141,13 +141,13 @@ model_performance
 ## Benchmark
 
 ```{julia}
-λ₁ = 0.1
-λ₂ = 0.5
-λ₃ = 0.5
+λ₁ = 0.25
+λ₂ = 0.75
+λ₃ = 0.75
 Λ = [λ₁, λ₂, λ₃]
 
-opt = Flux.Optimise.Descent(0.01)
-use_class_loss = true
+opt = Flux.Optimise.Descent(0.05)
+use_class_loss = false
 
 # Benchmark generators:
 generator_dict = Dict(
