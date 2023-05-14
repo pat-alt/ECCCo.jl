@@ -33,8 +33,8 @@ clf = JointEnergyClassifier(
         σ=Flux.swish
     ),
     batch_size=batch_size,
-    finaliser=x -> x,
-    loss=Flux.Losses.logitcrossentropy,
+    finaliser=Flux.softmax,
+    loss=Flux.Losses.crossentropy,
     jem_training_params=(
         α=[1.0,1.0,1e-1],
         verbosity=10,
@@ -201,7 +201,7 @@ xrange = range(xlims..., length=10)
 yrange = range(ylims..., length=10)
 
 x1, x2 = meshgrid(xrange, yrange)
-inputs = zip(x, y)
+inputs = zip(x1, x2)
 
 u = []
 v = []

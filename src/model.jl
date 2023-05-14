@@ -101,11 +101,6 @@ function ConformalModel(model, fitresult=nothing; likelihood::Union{Nothing,Symb
     # Check if model is fitted and infer likelihood:
     if isnothing(fitresult)
         @info "Conformal Model is not fitted."
-    # else
-    #     outdim = _outdim(fitresult)
-    #     _likelihood = outdim == 2 ? :classification_binary : :classification_multi
-    #     @assert likelihood == _likelihood || isnothing(likelihood) "Specification of `likelihood` does not match the output dimension of the model."
-    #     likelihood = _likelihood
     end
 
     # Default to binary classification, if not specified or inferred:
@@ -119,6 +114,13 @@ function ConformalModel(model, fitresult=nothing; likelihood::Union{Nothing,Symb
     M = ConformalModel(model, fitresult, likelihood)
     return M
 end
+
+"""
+    get_logits(f::Flux.Chain, x)
+
+Helper function to return logits in case final layer is an activation function.
+"""
+get_logits(f::Flux.Chain, x) = f[end] isa Function ? f[1:end-1](x) : f(x)
 
 # Methods
 @doc raw"""
@@ -145,18 +147,13 @@ which follows from the derivation here: https://stats.stackexchange.com/question
 function Models.logits(M::ConformalModel, X::AbstractArray)
     fitresult = M.fitresult
     function predict_logits(fitresult, x)
-        p̂ = MLUtils.stack(map(chain -> chain(x),_get_chains(fitresult))) |> 
-            p -> mean(p, dims=ndims(p)) |>
-            p -> MLUtils.unstack(p, dims=ndims(p))[1]
-        if ndims(p̂) == 2
-            p̂ = [p̂]
+        ŷ = MLUtils.stack(map(chain -> get_logits(chain,x),_get_chains(fitresult))) |> 
+            y -> mean(y, dims=ndims(y)) |>
+            y -> MLUtils.unstack(y, dims=ndims(y))[1]
+        if ndims(ŷ) == 2
+            ŷ = [ŷ]
         end
-        p̂ = reduce(hcat, p̂)
-        if all(0.0 .<= vec(p̂) .<= 1.0)
-            ŷ = reduce(hcat, (map(p -> log.(p) .+ log(sum(exp.(p))), eachcol(p̂))))
-        else
-            ŷ = p̂
-        end
+        ŷ = reduce(hcat, ŷ)
         if M.likelihood == :classification_binary
             ŷ = reduce(hcat, (map(y -> y[2] - y[1], eachcol(ŷ))))
         end

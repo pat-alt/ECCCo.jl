@@ -175,9 +175,13 @@ Surrogate models offer an obvious solution to achieve this objective. Unfortunat
 
 \citet{schut2021generating} show that to meet the plausibility objective we need not explicitly model the input distribution. Pointing to the undesirable engineering overhead induced by surrogate models, they propose that we rely on the implicit minimisation of predictive uncertainty instead. Their proposed methodology solves Equation~\ref{eq:general} by greedily applying JSMA in the feature space with standard cross-entropy loss and no penalty at all. They demonstrate theoretically and empirically that their approach yields counterfactuals for which the model $M_{\theta}$ predicts the target label $\mathbf{y}^+$ with high confidence. Provided the model is well-specified, these counterfactuals are plausible. This idea hinges on the assumption that the black-box model provides well-calibrated predictive uncertainty estimates.
 
+\section{Methodological Framework}\label{meth}
+
+The primary objective of this work has been to develop a methodology for generating maximally plausible counterfactuals under minimal intervention. Our proposed framework is based on the premise that explanations should be plausible but not plausible at all costs. Energy-Constrained Conformal Counterfactuals (ECCCo) achieve this goal in two ways: firstly, they rely on the Black Box itself for the generative task; and, secondly, they involve an approach to predictive uncertainty quantification that is model-agnostic. In this section, we first formalise our notion of faithfulness in the context of CE. We then explain how exactly ECCCos are generated.
+
 \subsection{From Fidelity to Model Faithfulness}
 
-Above we explained that since Counterfactual Explanations work directly with the Black Box model, the fidelity of explanations as we defined it earlier is not a concern. This may explain why research has primarily focused on other desiderata, most notably plausibility (Definition~\ref{def:plausible}). Enquiring about the plausibility of a counterfactual essentially boils down to the following question: `Is this counterfactual consistent with the data'? We ask a related question: `Is this counterfactual consistent with what the model has learned about the data'? To answer this question and propose a novel way to assess if explanations conform with model behaviour. 
+Above we explained that since Counterfactual Explanations work directly with the black-box model, the fidelity of explanations as we defined it earlier is not a concern. This may explain why research has primarily focused on other desiderata, most notably plausibility (Definition~\ref{def:plausible}). Enquiring about the plausibility of a counterfactual essentially boils down to the following question: `Is this counterfactual consistent with the data'? We ask a related question: `Is this counterfactual consistent with what the model has learned about the data'? To answer this question and propose a novel way to assess if explanations conform with model behaviour. 
 
 The word \textit{fidelity} stems from the Latin word `fidelis', which means `faithful, loyal, trustworthy'~\citep{mw2023fidelity}. As we explained in Section~\ref{background}, model explanations are generally considered faithful if their corresponding predictions coincide with the predictions made by the model itself. Since this definition of faithfulness is not useful in the context of CE, we propose the following definition: 
 
@@ -187,10 +191,6 @@ The word \textit{fidelity} stems from the Latin word `fidelis', which means `fai
 \end{definition}
 
 To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need to be able to quantify the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$. This is very much at the core of our proposed methodological framework, which we will introduce next.
-
-\section{Methodological Framework}\label{meth}
-
-The primary objective of this work has been to develop a methodology for generating maximally plausible counterfactuals under minimal intervention. Our proposed framework is based on the premise that explanations should be plausible but not plausible at all costs. Energy-Constrained Conformal Counterfactuals (ECCCo) achieve this goal in two ways: firstly, they rely on the Black Box itself for the generative task; and, secondly, they involve an approach to predictive uncertainty quantification that is model-agnostic.
 
 \subsection{Quantifying the Model's Generative Property}
 
@@ -235,7 +235,7 @@ Our framework for generating ECCCos combines the ideas introduced in the previou
 
 where $\hat{\mathbf{x}}_{\theta}$ denotes samples generated using SGLD (Equation~\ref{eq:sgld}) and $\text{dist}(\cdot)$ is a generic term for a distance metric. Our default choice for $\text{dist}(\cdot)$ is the L1 Norm since it induces sparsity.
 
-The first two terms in Equation~\ref{eq:eccco} correspond to the counterfactual search objective defined in~\citet{wachter2017counterfactual} which merely penalises the distance of counterfactuals from their factual values. The additional two penalties in ECCCo ensure that counterfactuals conform with the model's generative property and lead to minimally uncertain predictions, respectively. The hyperparameters $\lambda_1, ..., \lambda_3$ can be used to balance the different objectives: for example, we may choose to incur larger deviations from the factual in favour of faithfulness with the model's generative property by choosing lower values of $\lambda_1$ and relatively higher values of $\lambda_2$. Figure~\ref{fig:eccco} illustrates this balancing act for an example involving synthetic data: vector fields indicate the direction of gradients with respect to the different components our proposed objective function (Equation~\ref{eq:eccco}).
+The first two terms in Equation~\ref{eq:eccco} correspond to the counterfactual search objective defined in~\citet{wachter2017counterfactual} which merely penalises the distance of counterfactuals from their factual values. The additional two penalties in ECCCo ensure that counterfactuals conform with the model's generative property and lead to minimally uncertain predictions, respectively. The hyperparameters $\lambda_1, ..., \lambda_3$ can be used to balance the different objectives: for example, we may choose to incur larger deviations from the factual in favour of faithfulness with the model's generative property by choosing lower values of $\lambda_1$ and relatively higher values of $\lambda_2$.
 
 \medskip
 
@@ -244,8 +244,8 @@ The first two terms in Equation~\ref{eq:eccco} correspond to the counterfactual 
   
 \begin{minipage}[c]{0.45\textwidth}
   \centering
-  \includegraphics[width=0.8\textwidth]{../artifacts/results/images/poc.png}
-  \captionof{figure}{[PLACEHOLDER; may swap for:] Vector fields indicating the direction of gradients with respect to the different components of the ECCCo objective (Equation~\ref{eq:eccco}).} \label{fig:eccco}
+  \includegraphics[width=0.8\textwidth]{../artifacts/results/images/mnist_eccco.png}
+  \captionof{figure}{ECCCos for turning a 9 (nine) into a 7 (seven) for different black-box models from left to right: Multi-Layer Perceptron (a), Ensemble of MLPs (b), Joint Energy Model (c), Ensemble of JEMs (d).}\label{fig:eccco-mnist}
 \end{minipage}  
 \hfill
 \begin{minipage}[c]{0.45\textwidth}
@@ -268,11 +268,11 @@ The first two terms in Equation~\ref{eq:eccco} correspond to the counterfactual 
 
 \medskip
 
-\begin{minipage}[c]{\textwidth}
-  \centering
-  \includegraphics[width=0.8\textwidth]{../artifacts/results/images/mnist_eccco.png}
-  \captionof{figure}{Original image (left) and ECCCos for turning a 9 (nine) into a 7 (seven) for different black-box models from left to right: Multi-Layer Perceptron (MLP), Ensemble of MLPs, Joint Energy Model (JEM), Ensemble of JEMs.}\label{fig:eccco-mnist}
-\end{minipage}
+% \begin{minipage}[c]{\textwidth}
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{../artifacts/results/images/mnist_eccco.png}
+%   \captionof{figure}{Original image (left) and ECCCos for turning a 9 (nine) into a 7 (seven) for different black-box models from left to right: Multi-Layer Perceptron (MLP), Ensemble of MLPs, Joint Energy Model (JEM), Ensemble of JEMs.}\label{fig:eccco-mnist}
+% \end{minipage}
 
 \medskip
 

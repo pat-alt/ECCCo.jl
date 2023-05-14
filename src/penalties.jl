@@ -11,7 +11,7 @@ Penalty for smooth conformal set size.
 """
 function set_size_penalty(
     ce::AbstractCounterfactualExplanation; 
-    κ::Real=0.0, temp::Real=0.05, agg=mean
+    κ::Real=1.0, temp::Real=0.1, agg=mean
 )
 
     _loss = 0.0

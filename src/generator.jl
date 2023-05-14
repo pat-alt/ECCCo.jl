@@ -21,17 +21,31 @@ function ECCCoGenerator(;
     κ::Real=1.0, 
     temp::Real=0.1, 
     opt::Union{Nothing,Flux.Optimise.AbstractOptimiser}=nothing,
+    use_class_loss::Bool=false,
     kwargs...
 )
+
+    # Default optimiser
     if isnothing(opt)
         opt = CounterfactualExplanations.Generators.Descent(0.1)
     end
+
+    # Loss function
+    if use_class_loss
+        loss_fun(ce::AbstractCounterfactualExplanation) = conformal_training_loss(ce; temp=temp)
+    else
+        loss_fun = nothing
+    end
+
+    # Set size penalty
     function _set_size_penalty(ce::AbstractCounterfactualExplanation)
         return ECCCo.set_size_penalty(ce; κ=κ, temp=temp)
     end
     _penalties = [Objectives.distance_l1, _set_size_penalty, ECCCo.distance_from_energy]
     λ = λ isa AbstractFloat ? [0.0, λ, λ] : λ
-    return Generator(; penalty=_penalties, λ=λ, opt=opt, kwargs...)
+
+    # Generator
+    return Generator(; loss=loss_fun, penalty=_penalties, λ=λ, opt=opt, kwargs...)
 end
 
 "Constructor for `EnergyDrivenGenerator`."

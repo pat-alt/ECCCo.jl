@@ -143,8 +143,8 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = true
-_regen = true
+_retrain = false
+_regen = false
 
 # Data:
 n_obs = 1000
@@ -186,7 +186,7 @@ sampler = ConditionalSampler(
     input_size=(input_dim,), 
     batch_size=10,
 )
-α = [1.0,1.0,2e-2]      # penalty strengths
+α = [1.0,1.0,1e-2]      # penalty strengths
 ```
 
 ```{julia}
@@ -319,12 +319,13 @@ model_performance
 ```{julia}
 function _plot_eccco_mnist(
     x::Union{AbstractArray, Int}=x_factual, target::Int=target;
-    λ=[0.1,0.25,0.25],
+    λ=[0.1,0.4,0.4],
     temp=0.1,
     plt_order = ["MLP", "MLP Ensemble", "JEM", "JEM Ensemble"],
     opt = nothing,
     rng::Union{Int,AbstractRNG}=1234,
     T::Int = 100,
+    use_class_loss::Bool = true,
 )
 
     # Setup:
@@ -338,6 +339,7 @@ function _plot_eccco_mnist(
         λ=λ, 
         temp=temp, 
         opt=opt,
+        use_class_loss=use_class_loss,
     )
 
     ces = Dict()
@@ -361,28 +363,32 @@ function _plot_eccco_mnist(
     )
 
     plts = []
-    for (_name,ce) in ces
+    letters = collect('a':'z')[1:length(ces)]
+    _count = 1
+
+    for (_name,ce) in collect(ces)[_plt_order]
         _x = CounterfactualExplanations.counterfactual(ce)
         _phat = target_probs(ce)
-        _title = "$_name (p̂=$(round(_phat[1]; digits=3)))"
+        _title = "($(letters[_count]))"
         plt = Plots.plot(
             convert2image(MNIST, reshape(_x,28,28)),
-            axis=nothing, 
+            axis=([], false), 
             size=(img_height, img_height),
             title=_title
         )
         plts = [plts..., plt]
+        _count += 1
     end
-    plts = plts[_plt_order]
-    plts = [p1, plts...]
-    plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
+    # plts = plts[_plt_order]
+    # plts = [p1, plts...]
+    plt = Plots.plot(plts...; size=(img_height,img_height))
     
-    return plt, eccco_generator
+    return plt, eccco_generator, ces
 end
 ```
 
 ```{julia}
-plt, eccco_generator = _plot_eccco_mnist()
+plt, eccco_generator, ces = _plot_eccco_mnist()
 display(plt)
 savefig(plt, joinpath(output_images_path, "mnist_eccco.png"))
 ```
