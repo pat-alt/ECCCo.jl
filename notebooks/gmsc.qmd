@@ -11,7 +11,7 @@ _retrain = true
 
 # Data:
 test_size = 0.2
-n_obs = Int(10000 / (1.0 - test_size))
+n_obs = Int(50000 / (1.0 - test_size))
 counterfactual_data, test_data = train_test_split(load_gmsc(n_obs); test_size=test_size)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
@@ -25,9 +25,9 @@ First, let's create a couple of image classifier architectures:
 ```{julia}
 # Model parameters:
 epochs = 100
-batch_size = minimum([Int(round(n_obs/10)), 128])
+batch_size = minimum([Int(round(n_obs/10)), 250])
 n_hidden = 128
-activation = Flux.relu
+activation = Flux.swish
 builder = MLJFlux.@builder Flux.Chain(
     Dense(n_in, n_hidden, activation),
     Dense(n_hidden, n_hidden, activation),
@@ -45,7 +45,7 @@ _finaliser =  Flux.softmax                       # finaliser function
 sampler = ConditionalSampler(
     𝒟x, 𝒟y, 
     input_size=(input_dim,), 
-    batch_size=50,
+    batch_size=10,
 )
 α = [1.0,1.0,1e-1]      # penalty strengths
 ```
@@ -141,9 +141,9 @@ model_performance
 ## Benchmark
 
 ```{julia}
-λ₁ = 0.25
-λ₂ = 0.75
-λ₃ = 0.75
+λ₁ = 0.1
+λ₂ = 0.1
+λ₃ = 1.0
 Λ = [λ₁, λ₂, λ₃]
 
 opt = Flux.Optimise.Descent(0.05)

@@ -319,7 +319,7 @@ model_performance
 ```{julia}
 function _plot_eccco_mnist(
     x::Union{AbstractArray, Int}=x_factual, target::Int=target;
-    λ=[0.1,0.4,0.4],
+    λ=[0.25,0.75,0.75],
     temp=0.1,
     plt_order = ["MLP", "MLP Ensemble", "JEM", "JEM Ensemble"],
     opt = nothing,
@@ -468,17 +468,14 @@ end
 ## Benchmark
 
 ```{julia}
-λ₁ = 0.1
-λ₂ = 0.25
-λ₃ = 0.25
-Λ = [λ₁, λ₂, λ₃]
+Λ = eccco_generator.λ
 
 # Benchmark generators:
 generator_dict = Dict(
-    "Wachter" => WachterGenerator(λ=λ₁),
-    "REVISE" => REVISEGenerator(λ=λ₁),
+    "Wachter" => WachterGenerator(λ=Λ[1]),
+    "REVISE" => REVISEGenerator(λ=Λ[1]),
     "Schut" => GreedyGenerator(),
-    "ECCCo" => ECCCoGenerator(λ=Λ),
+    "ECCCo" => eccco_generator,
 )
 ```
 
