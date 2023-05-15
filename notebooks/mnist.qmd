@@ -131,6 +131,27 @@ display(plt)
 savefig(plt, joinpath(output_images_path, "surrogate_gone_wrong.png"))
 ```
 
+```{julia}
+ces = zip([ce_wachter, ce_jsma, ce_strong])
+counterfactuals = reduce((x,y)->cat(x,y,dims=3),map(ce -> CounterfactualExplanations.counterfactual(ce[1]), ces))
+phat = reduce((x,y) -> cat(x,y,dims=3), map(ce -> target_probs(ce[1]), ces))
+plts = [p1]
+for x in zip(eachslice(counterfactuals; dims=3), eachslice(phat; dims=3), ["Wachter","Schut","REVISE"])
+    ce, _phat, _name = (x[1],x[2],x[3])
+    _title = "$(_name) (p=$(round(_phat[1]; digits=2)))"
+    plt = Plots.plot(
+        convert2image(MNIST, reshape(ce,28,28)),
+        axis=nothing, 
+        size=(img_height, img_height),
+        title=_title
+    )
+    plts = [plts..., plt]
+end
+plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
+display(plt)
+savefig(plt, joinpath(output_images_path, "mnist_motivation.png"))
+```
+
 ### ECCCo
 
 ```{julia}
