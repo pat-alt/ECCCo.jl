@@ -116,15 +116,20 @@ Counterfactual Explanations (CE) provide a powerful, flexible and intuitive way 
 
 This is typically implemented by defining a target outcome $\mathbf{y}^+ \in \mathcal{Y}$ for some individual $\mathbf{x} \in \mathcal{X}=\mathbb{R}^D$ described by $D$ attributes, for which the model $M_{\theta}:\mathcal{X}\mapsto\mathcal{Y}$ initially predicts a different outcome: $M_{\theta}(\mathbf{x})\ne \mathbf{y}^+$. Counterfactuals are then searched by minimizing a loss function that compares the predicted model output to the target outcome: $\text{yloss}(M_{\theta}(\mathbf{x}),\mathbf{y}^+)$. Since Counterfactual Explanations work directly with the black-box model, valid counterfactuals always have full local fidelity by construction where fidelity is defined as the degree to which explanations approximate the predictions of a black-box model~\citep{mothilal2020explaining,molnar2020interpretable}. 
 
-In situations where full fidelity is a requirement, CE offers a more appropriate solution to Explainable Artificial Intelligence (XAI) than other popular approaches like LIME~\citep{ribeiro2016why} and SHAP~\citep{lundberg2017unified}, which involve local surrogate models. But even full fidelity is not a sufficient condition for ensuring that an explanation faithfully describes the behaviour of a model. That is because multiple very distinct explanations can all lead to the same model prediction, especially when dealing with heavily parameterized models like deep neural networks which are typically underspecified by the data~\citep{wilson2020case}.
+In situations where full fidelity is a requirement, CE offers a more appropriate solution to Explainable Artificial Intelligence (XAI) than other popular approaches like LIME~\citep{ribeiro2016why} and SHAP~\citep{lundberg2017unified}, which involve local surrogate models. But even full fidelity is not a sufficient condition for ensuring that an explanation faithfully describes the behaviour of a model. That is because multiple very distinct explanations can all lead to the same model prediction, especially when dealing with heavily parameterized models like deep neural networks, which are typically underspecified by the data~\citep{wilson2020case}.
 
-In the context of CE, the idea that no two explanations are the same arises almost naturally. A key focus in the literature has therefore been to identify those explanations and algorithmic recourses that are most appropriate based on a myriad of desiderata such as sparsity, actionability and plausibility. In this work, we draw closer attention to model faithfulness as a desideratum for counterfactuals. Our key contributions are as follows: firstly, we propose a definition of faithfulness that is suitable for counterfactuals; secondly, we introduce a novel algorithmic approach for generating Energy-Constrained Conformal Counterfactuals (ECCCos) that explicitly addresses the need for faithfulness; finally, we provide extensive empirical evidence demonstrating that ECCCos faithfully explain model behaviour without sacrificing plausibility.
+In the context of CE, the idea that no two explanations are the same arises almost naturally. A key focus in the literature has therefore been to identify those explanations and algorithmic recourses that are most appropriate based on a myriad of desiderata such as sparsity, actionability and plausibility. In this work, we draw closer attention to model faithfulness rather than fidelity as a desideratum for counterfactuals. Our key contributions are as follows: 
 
-\section{Background and Related Work}\label{background}
+\begin{itemize}
+  \item We demonstrate that a narrow focus on plausibility can yield counterfactuals that are unfaithful to model behaviour despite having full fidelity (Section~\ref{fidelity}).
+  \item We propose a definition of faithfulness that gives rise to a more suitable evaluation metric for counterfactuals than fidelity (Section~\ref{faithfulness}).
+  \item We introduce a novel algorithmic approach for generating Energy-Constrained Conformal Counterfactuals (ECCCos) in Section~\ref{meth}.
+  \item We provide extensive empirical evidence demonstrating that ECCCos faithfully explain model behaviour without sacrificing plausibility (Section~\ref{emp}).
+\end{itemize}
 
-In this section, we provide some background on CE and our motivation for this work. To start, we briefly introduce the methodology underlying most state-of-the-art (SOTA) counterfactual generators.
+Thus, we believe that our work opens avenues for researchers and practitioners seeking tools to better distinguish trustworthy from unreliable models.
 
-\subsection{Gradient-Based Counterfactual Search}\label{gradient}
+\section{Background}\label{background}
 
 While Counterfactual Explanations can be generated for arbitrary regression models~\citep{spooner2021counterfactual}, existing work has primarily focused on classification problems. Let $\mathcal{Y}=(0,1)^K$ denote the one-hot-encoded output domain with $K$ classes. Then most counterfactual generators rely on gradient descent to optimize different flavours of the following counterfactual search objective:
 
@@ -135,27 +140,9 @@ While Counterfactual Explanations can be generated for arbitrary regression mode
 \end{equation}
 
 Here $\text{yloss}$ denotes the primary loss function already introduced above and $\text{cost}$ is either a single penalty or a collection of penalties that are used to impose constraints through regularization. Equation~\ref{eq:general} restates the baseline approach to gradient-based counterfactual search proposed by~\citet{wachter2017counterfactual} in general form where $\mathbf{Z}^\prime=\{ \mathbf{z}_l\}_L$ denotes an $L$-dimensional array of counterfactual states~\citep{altmeyer2023endogenous}. This is to explicitly account for the multiplicity of explanations and the fact that we may choose to generate multiple counterfactuals and traverse a latent encoding $\mathcal{Z}$ of the feature space $\mathcal{X}$ where we denote $f^{-1}: \mathcal{X} \mapsto \mathcal{Z}$. Encodings may involve simple feature transformations or more advanced techniques involving generative models, as we will discuss further below. The baseline approach, which we will simply refer to as \textbf{Wachter}~\citep{wachter2017counterfactual}, searches a single counterfactual directly in the feature space and penalises its distance to the original factual. 
+\section{Why Fidelity is not Enough}\label{fidelity}
 
-Solutions to Equation~\ref{eq:general} are considered valid as soon as the predicted label matches the target label. A stripped-down counterfactual explanation is therefore little different from an adversarial example. In Figure~\ref{fig:adv}, for example, we have applied Wachter to MNIST data (centre panel) where the underlying classifier $M_{\theta}$ is a simple Multi-Layer Perceptron (MLP) with above 90 percent test accuracy. For the generated counterfactual $\mathbf{x}^{\prime}$ the model predicts the target label with high confidence (centre panel in Figure~\ref{fig:adv}). The explanation is valid by definition, even though it looks a lot like an Adversarial Example~\citep{goodfellow2014explaining}. \citet{schut2021generating} make the connection between Adversarial Examples and Counterfactual Explanations explicit and propose using a Jacobian-Based Saliency Map Attack (JSMA) to solve Equation~\ref{eq:general}. They demonstrate that this approach yields realistic and sparse counterfactuals for Bayesian, adversarially robust classifiers. Applying their approach to our simple MNIST classifier does not yield a realistic counterfactual but this one, too, is valid (right panel in Figure~\ref{fig:adv}). 
-
-\subsection{From Adversial Examples to Plausible Explanations}
-
-The crucial difference between Adversarial Examples (AE) and Counterfactual Explanations is one of intent. While an AE is intended to go unnoticed, a CE should have certain desirable properties. The literature has made this explicit by introducing various so-called \textit{desiderata} that counterfactuals should meet in order to properly serve both AI practitioners and individuals affected by AI decision-making systems. The list of desiderate includes but is not limited to the following: sparsity, proximity~\citep{wachter2017counterfactual}, actionability~\citep{ustun2019actionable}, diversity~\citep{mothilal2020explaining}, plausibility~\citep{joshi2019realistic,poyiadzi2020face,schut2021generating}, robustness~\citep{upadhyay2021robust,pawelczyk2022probabilistically,altmeyer2023endogenous} and causality~\citep{karimi2021algorithmic}.
-
-Researchers have come up with various ways to meet these desiderata, which have been extensively surveyed and evaluated in various studies~\citep{verma2020counterfactual,karimi2020survey,pawelczyk2021carla,artelt2021evaluating,guidotti2022counterfactual}. Perhaps unsurprisingly, the different desiderata are often positively correlated. For example, \citet{artelt2021evaluating} find that plausibility typically also leads to improved robustness. Similarly, plausibility has also been connected to causality in the sense that plausible counterfactuals respect causal relationships~\citep{mahajan2020preserving}. 
-
-\subsubsection{Plausibility through Surrogates}
-
-Arguably, the plausibility of counterfactuals has been among the primary concerns and some have focused explicitly on this goal. \citet{joshi2019realistic}, for example, were among the first to suggest that instead of searching counterfactuals in the feature space $\mathcal{X}$, we can instead traverse a latent embedding $\mathcal{Z}$ (Equation~\ref{eq:general}) that implicitly codifies the data generating process (DGP) of $\mathbf{x}\sim\mathcal{X}$. To learn the latent embedding, they introduce a surrogate model. In particular, they propose to use the latent embedding of a Variational Autoencoder (VAE) trained to generate samples $\mathbf{x}^* \leftarrow \mathcal{G}(\mathbf{z})$ where $\mathcal{G}$ denotes the decoder part of the VAE. Provided the surrogate model is well-trained, their proposed approach ---\textbf{REVISE}--- can yield plausible explanations like the one in the centre panel of Figure~\ref{fig:vae}. 
-
-Others have proposed similar approaches. \citet{dombrowski2021diffeomorphic} traverse the base space of a normalizing flow to solve Equation~\ref{eq:general}, essentially relying on a different surrogate model for the generative task. \citet{poyiadzi2020face} use density estimators ($\hat{p}: \mathcal{X} \mapsto [0,1]$) to constrain the counterfactuals to dense regions in the feature space. \citet{karimi2021algorithmic} argue that counterfactuals should comply with the causal model that generates the data. All of these different approaches share a common goal: ensuring that the generated counterfactuals comply with the true and unobserved DGP. To summarize this broad objective, we propose the following definition:
-
-\begin{definition}[Plausible Counterfactuals]
-  \label{def:plausible}
-  Let $\mathcal{X}|\mathbf{y}^+$ denote the true conditional distribution of samples in the target class $\mathbf{y}^+$. Then for $\mathbf{x}^{\prime}$ to be considered a plausible counterfactual, we need: $\mathbf{x}^{\prime} \sim \mathcal{X}|\mathbf{y}^+$.
-\end{definition}
-
-Surrogate models offer an obvious solution to achieve this objective. Unfortunately, surrogates also introduce a dependency: the generated explanations no longer depend exclusively on the black-box model itself, but also on the surrogate model. This is not necessarily problematic if the primary objective is not to explain the behaviour of the model but to offer recourse to individuals affected by it. It may become problematic even in this context if the dependency turns into a vulnerability. To illustrate this point, we have used REVISE~\citep{joshi2019realistic} with an underfitted VAE to generate the counterfactual in the right panel of Figure~\ref{fig:vae}: in this case, the decoder step of the VAE fails to yield plausible values ($\{\mathbf{x}^{\prime} \leftarrow \mathcal{G}(\mathbf{z})\} \not\sim \mathcal{X}|\mathbf{y}^+$) and hence the counterfactual search in the learned latent space is doomed.
+Counterfactual Explanations have full fidelity by construction as long as they are valid. Solutions to Equation~\ref{eq:general} are considered valid as soon as the predicted label matches the target label. A stripped-down counterfactual explanation is therefore little different from an adversarial example. In Figure~\ref{fig:adv}, for example, we have applied Wachter to MNIST data (centre panel) where the underlying classifier $M_{\theta}$ is a simple Multi-Layer Perceptron (MLP) with above 90 percent test accuracy. For the generated counterfactual $\mathbf{x}^{\prime}$ the model predicts the target label with high confidence (centre panel in Figure~\ref{fig:adv}). The explanation is valid by definition and therefore has full fidelity, even though it looks a lot like an Adversarial Example~\citep{goodfellow2014explaining}. \citet{schut2021generating} make the connection between Adversarial Examples and Counterfactual Explanations explicit and propose using a Jacobian-Based Saliency Map Attack (JSMA) to solve Equation~\ref{eq:general}. They demonstrate that this approach yields plausible counterfactuals for Bayesian, adversarially robust classifiers. Applying their approach to our simple MNIST classifier does not yield a realistic counterfactual but this one, too, is valid (right panel in Figure~\ref{fig:adv}). 
 
 \begin{figure}
   \centering
@@ -171,32 +158,35 @@ Surrogate models offer an obvious solution to achieve this objective. Unfortunat
   \end{minipage}
 \end{figure}
 
-\subsubsection{Plausibility through Minimal Predictive Uncertainty}
+The crucial difference between Adversarial Examples (AE) and Counterfactual Explanations is one of intent. While an AE is intended to go unnoticed, a CE should have certain desirable properties. The literature has made this explicit by introducing various so-called \textit{desiderata} that counterfactuals should meet in order to properly serve both AI practitioners and individuals affected by AI decision-making systems. The list of desiderate includes but is not limited to the following: sparsity, proximity~\citep{wachter2017counterfactual}, actionability~\citep{ustun2019actionable}, diversity~\citep{mothilal2020explaining}, plausibility~\citep{joshi2019realistic,poyiadzi2020face,schut2021generating}, robustness~\citep{upadhyay2021robust,pawelczyk2022probabilistically,altmeyer2023endogenous} and causality~\citep{karimi2021algorithmic}.
 
-\citet{schut2021generating} show that to meet the plausibility objective we need not explicitly model the input distribution. Pointing to the undesirable engineering overhead induced by surrogate models, they propose that we rely on the implicit minimisation of predictive uncertainty instead. Their proposed methodology solves Equation~\ref{eq:general} by greedily applying JSMA in the feature space with standard cross-entropy loss and no penalty at all. They demonstrate theoretically and empirically that their approach yields counterfactuals for which the model $M_{\theta}$ predicts the target label $\mathbf{y}^+$ with high confidence. Provided the model is well-specified, these counterfactuals are plausible. This idea hinges on the assumption that the black-box model provides well-calibrated predictive uncertainty estimates.
+Researchers have come up with various ways to meet these desiderata, which have been extensively surveyed and evaluated in various studies~\citep{verma2020counterfactual,karimi2020survey,pawelczyk2021carla,artelt2021evaluating,guidotti2022counterfactual}. Perhaps unsurprisingly, the different desiderata are often positively correlated. For example, \citet{artelt2021evaluating} find that plausibility typically also leads to improved robustness. Similarly, plausibility has also been connected to causality in the sense that plausible counterfactuals respect causal relationships~\citep{mahajan2020preserving}. Consequently, the plausibility of counterfactuals has been among the primary concerns for researchers. 
 
-\section{Methodological Framework}\label{meth}
+Achieving plausibility is equivalent to ensuring that the generated counterfactuals comply with the true and unobserved data-generating process (DGP). Formally, this can be defined as follows:
 
-The primary objective of this work has been to develop a methodology for generating maximally plausible counterfactuals under minimal intervention. Our proposed framework is based on the premise that explanations should be plausible but not plausible at all costs. Energy-Constrained Conformal Counterfactuals (ECCCo) achieve this goal in two ways: firstly, they rely on the Black Box itself for the generative task; and, secondly, they involve an approach to predictive uncertainty quantification that is model-agnostic. In this section, we first formalise our notion of faithfulness in the context of CE. We then explain how exactly ECCCos are generated.
+\begin{definition}[Plausible Counterfactuals]
+  \label{def:plausible}
+  Let $\mathcal{X}|\mathbf{y}^+$ denote the true conditional distribution of samples in the target class $\mathbf{y}^+$. Then for $\mathbf{x}^{\prime}$ to be considered a plausible counterfactual, we need: $\mathbf{x}^{\prime} \sim \mathcal{X}|\mathbf{y}^+$.
+\end{definition}
 
-\subsection{From Fidelity to Model Faithfulness}
+To generate plausible counterfactuals, we need to be able to quantify the DGP: $\mathcal{X}|\mathbf{y}^+$. One straightforward way to do this is to use surrogate models for the task. \citet{joshi2019realistic}, for example, suggest that instead of searching counterfactuals in the feature space $\mathcal{X}$, we can instead traverse a latent embedding $\mathcal{Z}$ (Equation~\ref{eq:general}) that implicitly codifies the DGP. To learn the latent embedding, they propose using a generative model such as a Variational Autoencoder (VAE). Provided the surrogate model is well-trained, their proposed approach ---\textbf{REVISE}--- can yield plausible explanations like the one in the centre panel of Figure~\ref{fig:vae}. Others have proposed similar approaches: \citet{dombrowski2021diffeomorphic} traverse the base space of a normalizing flow to solve Equation~\ref{eq:general}; \citet{poyiadzi2020face} use density estimators ($\hat{p}: \mathcal{X} \mapsto [0,1]$) to constrain the counterfactuals to dense regions in the feature space; and, finally, \citet{karimi2021algorithmic} assume knowledge about the structural causal model that generates the data. 
 
-Above we explained that since Counterfactual Explanations work directly with the black-box model, the fidelity of explanations as we defined it earlier is not a concern. This may explain why research has primarily focused on other desiderata, most notably plausibility (Definition~\ref{def:plausible}). Enquiring about the plausibility of a counterfactual essentially boils down to the following question: `Is this counterfactual consistent with the data'? We ask a related question: `Is this counterfactual consistent with what the model has learned about the data'? To answer this question and propose a novel way to assess if explanations conform with model behaviour. 
+While surrogates offer an easy way to address the need for plausibility, they also introduce friction: the generated explanations no longer depend exclusively on the black-box model itself. The counterfactual in the centre panel of Figure~\ref{fig:vae}, for example, looks more plausible than the corresponding counterfactuals generated by \textbf{Wachter} and \textbf{Schut}. But is it also more faithful to the behaviour of our MNIST classifier? Fidelity cannot help us to make that judgement, because all of these counterfactuals have full fidelity. To bridge this gap, we introduce a new notion of faithfulness in the following section.
 
-The word \textit{fidelity} stems from the Latin word `fidelis', which means `faithful, loyal, trustworthy'~\citep{mw2023fidelity}. As we explained in Section~\ref{background}, model explanations are generally considered faithful if their corresponding predictions coincide with the predictions made by the model itself. Since this definition of faithfulness is not useful in the context of CE, we propose the following definition: 
+\section{A new Notion of Faithfulness}\label{faithfulness}
+
+Analogous to Definition~\ref{def:plausible}, we propose to define faithfulness in the context of Counterfactual Explanations as follows:
 
 \begin{definition}[Faithful Counterfactuals]
   \label{def:faithful}
   Let $\mathcal{X}_{\theta}|\mathbf{y}^+ = p_{\theta}(\mathbf{X}_{\mathbf{y}^+})$ denote the conditional distribution of $\mathbf{x}$ in the target class $\mathbf{y}^+$, where $\theta$ denotes the parameters of model $M_{\theta}$. Then for $\mathbf{x}^{\prime}$ to be considered a conformal counterfactual, we need: $\mathbf{x}^{\prime} \sim \mathcal{X}_{\theta}|\mathbf{y}^+$.
 \end{definition}
 
-To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need to be able to quantify the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$. This is very much at the core of our proposed methodological framework, which we will introduce next.
+In doing this, we merge in and nuance the concept of plausibility (Definition~\ref{def:plausible}) where the notion of `consistent with the data' becomes `consistent with what the model has learned about the data'.
 
 \subsection{Quantifying the Model's Generative Property}
 
-Recent work by~\citet{grathwohl2020your} on Energy-Based Models (EBM) has shown that there is a `generative model hidden within every standard discriminative model'. They use Stochastic Gradient Langevin Dynamics (SGLD) to estimate the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y})$ using and leverage this to train classifiers jointly for the discriminative and generative task. 
-
-Crucially for our purpose, SGLD can be applied during inference to essentially any standard discriminative model. Even models that are not explicitly trained for the joint objective learn about the distribution of inputs $X$ by learning to make conditional predictions about the output $y$. We can leverage this observation to quantify the generative property of models. In particular, note that if we fix $\mathbf{y}$ to our target value $\mathbf{y}^+$, we can sample from $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$ using SGLD as follows, 
+To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need a way to quantify the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$. To this end, we draw on recent advances in Energy-Based Modelling (EBM), a subdomain of machine learning that is concerned with generative or hybrid modelling~\citep{grathwohl2020your,}. In particular, note that if we fix $\mathbf{y}$ to our target value $\mathbf{y}^+$, we can conditionally draw from $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$ using Stochastic Gradient Langevin Dynamics (SGLD) as follows, 
 
 \begin{equation}\label{eq:sgld}
   \begin{aligned}
@@ -204,9 +194,39 @@ Crucially for our purpose, SGLD can be applied during inference to essentially a
   \end{aligned}
 \end{equation}
 
-where $\mathbf{r}_j \sim \mathcal{N}(\mathbf{0},\mathbf{I})$ is the stochastic term and the step-size $\epsilon$ is typically polynomially decayed. The term $\mathcal{E}(\mathbf{x}_j|\mathbf{y}^+)$ denotes the model energy conditioned on the target class label $\mathbf{y}^+$. Generating multiple samples in this manner yields an empirical distribution $\hat{\mathbf{X}}_{\theta,\mathbf{y}^+}$ that we use in our search for plausible counterfactuals, as discussed in more detail below. Appendix~\ref{app-jem} provides additional implementation details for any tasks related to energy-based modelling. 
+where $\mathbf{r}_j \sim \mathcal{N}(\mathbf{0},\mathbf{I})$ is the stochastic term and the step-size $\epsilon$ is typically polynomially decayed~\citep{welling2011bayesian}. The term $\mathcal{E}(\mathbf{x}_j|\mathbf{y}^+)$ denotes the model energy conditioned on the target class label $\mathbf{y}^+$. To allow for faster sampling, we follow the common practice of choosing the step-size $\epsilon$ and the standard deviation of $\mathbf{r}_j$ separately. While $\mathbf{x}_J$ is only guaranteed to distribute as $p_{\theta}(\mathbf{x}|\mathbf{y}^*)$ if $\epsilon \rightarrow 0$ and $J \rightarrow \infty$, the bias introduced for a small finite $\epsilon$ is negligible in practice \citep{murphy2023probabilistic,grathwohl2020your}. Appendix~\ref{app-jem} provides additional implementation details for any tasks related to energy-based modelling. 
+
+Generating multiple samples using SGLD thus yields an empirical distribution $\hat{\mathbf{X}}_{\theta,\mathbf{y}^+}$ that approximates what the model has learned about the input data. While in the context of Energy-Based Modelling, this is usually done during training, we propose to use SGLD during inference in order to evaluate and generate faithful model explanations.
+
+\subsection{Evaluating Plausibility and Faithfulness}
+
+The parallels between our definitions of plausibility and faithfulness imply that we can also use similar evaluation metrics in both cases. Since existing work has focused heavily on plausibility, it offers a useful starting point. In particular,~\citet{guidotti2022counterfactual} have proposed an implausibility metric that measures the distance of the counterfactual from its nearest neighbour in the target class. As this distance is reduced, counterfactuals get more plausible under the assumption that the nearest neighbour itself is plausible in the sense of Definition~\ref{def:plausible}. In this work, we use the following adapted implausibility metric that relaxes this assumption,
+
+\begin{equation}\label{eq:impl}
+  \begin{aligned}
+    \text{impl} = \frac{1}{\lvert\mathbf{x} \in \mathbf{X}_{\mathbf{y}^+}\rvert} \sum_{\mathbf{x} \in \mathbf{X}_{\mathbf{y}^+}} \text{dist}(\mathbf{x}^{\prime},\mathbf{x})
+  \end{aligned}
+\end{equation}
+
+where $\mathbf{X}_{\mathbf{y}^+}$ is a subsample of the training data in the target class $\mathbf{y}^+$. 
+
+This gives rise to a very similar evaluation metric for unfaithfulness. We merely swap out the subsample of individuals in the target class for a subset $\hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}$ of the generated conditional samples:
+
+\begin{equation}\label{eq:faith}
+  \begin{aligned}
+    \text{unfaith} = \frac{1}{\lvert\mathbf{x} \in \hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}\rvert} \sum_{\mathbf{x} \in \hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}} \text{dist}(\mathbf{x}^{\prime},\mathbf{x})
+  \end{aligned}
+\end{equation}
+
+Specifically, we form this subset based on the $n_E$ generated samples with the lowest energy. 
+
+\section{Methodological Framework}\label{meth}
+
+The primary objective of this work has been to develop a methodology for generating maximally plausible counterfactuals under minimal intervention. Our proposed framework is based on the premise that explanations should be plausible but not plausible at all costs. Energy-Constrained Conformal Counterfactuals (ECCCo) achieve this goal in two ways: firstly, they rely on the Black Box itself for the generative task; and, secondly, they involve an approach to predictive uncertainty quantification that is model-agnostic. In this section, we first formalise our notion of faithfulness in the context of CE. We then explain how exactly ECCCos are generated.
 
 \subsection{Quantifying the Model's Predictive Uncertainty}
+
+\citet{schut2021generating} show that to meet the plausibility objective we need not explicitly model the input distribution. Pointing to the undesirable engineering overhead induced by surrogate models, they propose that we rely on the implicit minimisation of predictive uncertainty instead. Their proposed methodology solves Equation~\ref{eq:general} by greedily applying JSMA in the feature space with standard cross-entropy loss and no penalty at all. They demonstrate theoretically and empirically that their approach yields counterfactuals for which the model $M_{\theta}$ predicts the target label $\mathbf{y}^+$ with high confidence. Provided the model is well-specified, these counterfactuals are plausible. This idea hinges on the assumption that the black-box model provides well-calibrated predictive uncertainty estimates.
 
 To quantify the model's predictive uncertainty we use Conformal Prediction (CP), an approach that has recently gained popularity in the Machine Learning community~\citep{angelopoulos2021gentle,manokhin2022awesome}. Crucially for our intended application, CP is model-agnostic and can be applied during inference without placing any restrictions on model training. Intuitively, CP works under the premise of turning heuristic notions of uncertainty into rigorous uncertainty estimates by repeatedly sifting through the training data or a dedicated calibration dataset. Conformal classifiers produce prediction sets for individual inputs that include all output labels that can be reasonably attributed to the input. These sets tend to be larger for inputs that do not conform with the training data and are therefore characterized by high predictive uncertainty. 
 
@@ -297,24 +317,6 @@ Our goal in this section is to shed light on the following research questions:
 We first briefly describe our experimental setup, before presenting our main results.
 
 \subsection{Key Evaluation Metrics}\label{evaluation}
-
-Above we have defined plausibility (Definition~\ref{def:plausible}) and faithfulness (Definition~\ref{def:faithful}) for Counterfactual Explanations. These are the main criteria we use to evaluate counterfactuals in this study. In order to quantify the plausibility of counterfactuals we use a slightly adapted version of the implausibility metric proposed in~\citet{guidotti2022counterfactual}. Formally, we define implausibility as follows,
-
-\begin{equation}\label{eq:impl}
-  \begin{aligned}
-    \text{impl} = \frac{1}{\lvert\mathbf{x} \in \mathbf{X}_{\mathbf{y}^+}\rvert} \sum_{\mathbf{x} \in \mathbf{X}_{\mathbf{y}^+}} \text{dist}(\mathbf{x}^{\prime},\mathbf{x})
-  \end{aligned}
-\end{equation}
-
-where $\mathbf{X}_{\mathbf{y}^+}$ is a subsample of the training data in the target class $\mathbf{y}^+$. This gives rise to a very similar evaluation metric for unfaithfulness. We merely swap out the subsample of individuals in the target class for a subset $\hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}$ of the generated conditional samples:
-
-\begin{equation}\label{eq:faith}
-  \begin{aligned}
-    \text{unfaith} = \frac{1}{\lvert\mathbf{x} \in \hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}\rvert} \sum_{\mathbf{x} \in \hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}} \text{dist}(\mathbf{x}^{\prime},\mathbf{x})
-  \end{aligned}
-\end{equation}
-
-Specifically, we form this subset based on the $n_E$ generated samples with the lowest energy. 
 
 While we focus on these key evaluation metrics in the body of this paper, we also sporadically discuss outcomes with respect to other common measures used to evaluate the validity, proximity and sparsity of counterfactuals. Details can be found in Appendix~\ref{app:results}.
 
