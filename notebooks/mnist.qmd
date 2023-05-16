@@ -50,7 +50,7 @@ ce_jsma = generate_counterfactual(
 ```{julia}
 p1 = Plots.plot(
     convert2image(MNIST, reshape(x_factual,28,28)),
-    axis=nothing, 
+    axis=([], false), 
     size=(img_height, img_height),
     title="Factual"
 )
@@ -64,7 +64,7 @@ for x in zip(eachslice(counterfactuals; dims=3), eachslice(phat; dims=3), ["Wach
     _title = "$(_name) (p=$(round(_phat[1]; digits=2)))"
     plt = Plots.plot(
         convert2image(MNIST, reshape(ce,28,28)),
-        axis=nothing, 
+        axis=([], false), 
         size=(img_height, img_height),
         title=_title
     )
@@ -120,7 +120,7 @@ for x in zip(eachslice(counterfactuals; dims=3), eachslice(phat; dims=3), ["Stro
     _title = "$(_name) (p=$(round(_phat[1]; digits=2)))"
     plt = Plots.plot(
         convert2image(MNIST, reshape(ce,28,28)),
-        axis=nothing, 
+        axis=([], false), 
         size=(img_height, img_height),
         title=_title
     )
@@ -141,13 +141,13 @@ for x in zip(eachslice(counterfactuals; dims=3), eachslice(phat; dims=3), ["Wach
     _title = "$(_name) (p=$(round(_phat[1]; digits=2)))"
     plt = Plots.plot(
         convert2image(MNIST, reshape(ce,28,28)),
-        axis=nothing, 
+        axis=([], false), 
         size=(img_height, img_height),
         title=_title
     )
     plts = [plts..., plt]
 end
-plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
+plt = Plots.plot(plts...; size=(0.8*panel_height*length(plts),0.8*panel_height), layout=(1,length(plts)), dpi=400)
 display(plt)
 savefig(plt, joinpath(output_images_path, "mnist_motivation.png"))
 ```

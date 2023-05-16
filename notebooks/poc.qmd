@@ -161,7 +161,7 @@ Random.seed!(1234)
 using CounterfactualExplanations.Generators: ∇
 
 λ₁ = 0.1
-λ₂ = 1.0
+λ₂ = 0.5
 λ₃ = 0.5
 Λ = [λ₁, λ₂, λ₃]
 η = 0.01
@@ -197,6 +197,20 @@ yrange = range(ylims..., length=10)
 x1, x2 = meshgrid(xrange, yrange)
 inputs = zip(x1, x2)
 
+function arrow0!(x, y, u, v; as=0.2, lw=1, lc=:black, la=1)
+    nuv = sqrt(u^2 + v^2)
+    v1, v2 = [u;v] / nuv,  [-v;u] / nuv
+    v4 = (3*v1 + v2)/3.1623  # sqrt(10) to get unit vector
+    v5 = v4 - 2*(v4'*v2)*v2
+    v4, v5 = as*nuv*v4, as*nuv*v5
+    println(v4)
+    println(v5)
+    Plots.plot!([x,x+u], [y,y+v], lw=lw, lc=lc, la=la)
+    Plots.plot!([x+u,x+u-v5[1]], [y+v,y+v-v5[2]], lw=lw, lc=lc, la=la)
+    Plots.plot!([x+u,x+u-v4[1]], [y+v,y+v-v4[2]], lw=lw, lc=lc, la=la)
+end
+
+GR.setarrowsize(0.5)
 # Plot:
 ces = Dict{Any,Any}()
 plts = []
@@ -235,16 +249,15 @@ for (name, generator) in generator_dict
         push!(v, η * g[2])
     end
     Plots.quiver!(x1, x2, quiver=(u, v), color=col_pal[5])
-
+    # arrow0!.(x1, x2, u, v; as=0.2, lw=1.0,lc=col_pal[5], la=1)
     push!(plts, plt)
     ces[name] = ce
 end
-plt = Plots.plot(plts..., size=(500,520))
+plt = Plots.plot(plts...; size=(panel_height*length(plts),panel_height), layout=(1,length(plts)), dpi=300)
+# plt = Plots.plot(plts..., size=(1000,250), layout=(1,4), dpi=300)
 display(plt)
 savefig(plt, joinpath(output_images_path, "poc_gradient_fields.png"))
 ```
-
-
 
 
 ```{julia}

@@ -44,5 +44,6 @@ setup_notebooks = quote
     output_path = "artifacts/results"
     output_images_path = "artifacts/results/images"
     img_height = 300
+    panel_height = 250
 
 end;
