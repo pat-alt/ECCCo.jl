@@ -143,8 +143,8 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = true
-_regen = true
+_retrain = false
+_regen = false
 
 # Data:
 n_obs = 10000
@@ -319,7 +319,7 @@ model_performance
 ```{julia}
 function _plot_eccco_mnist(
     x::Union{AbstractArray, Int}=x_factual, target::Int=target;
-    λ=[0.25,0.75,0.75],
+    λ=[0.1,0.25,0.25],
     temp=0.1,
     plt_order = ["MLP", "MLP Ensemble", "JEM", "JEM Ensemble"],
     opt = nothing,
@@ -340,6 +340,8 @@ function _plot_eccco_mnist(
         temp=temp, 
         opt=opt,
         use_class_loss=use_class_loss,
+        nsamples=10,
+        nmin=10,
     )
 
     ces = Dict()
@@ -446,7 +448,8 @@ end
 ```
 
 ```{julia}
-if _regen
+_regen_all_digits = false
+if _regen_all_digits
     function plot_all_digits(rng=123;verbose=true,kwargs...)
         plts = []
         for i in 0:9

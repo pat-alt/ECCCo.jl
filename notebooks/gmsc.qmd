@@ -7,7 +7,7 @@ eval(setup_notebooks)
 
 ```{julia}
 # Hyper:
-_retrain = true
+_retrain = false
 
 # Data:
 test_size = 0.2
@@ -142,8 +142,8 @@ model_performance
 
 ```{julia}
 λ₁ = 0.1
-λ₂ = 0.1
-λ₃ = 1.0
+λ₂ = 0.5
+λ₃ = 0.5
 Λ = [λ₁, λ₂, λ₃]
 
 opt = Flux.Optimise.Descent(0.05)
@@ -154,7 +154,10 @@ generator_dict = Dict(
     "Wachter" => WachterGenerator(λ=λ₁, opt=opt),
     "REVISE" => REVISEGenerator(λ=λ₁, opt=opt),
     "Schut" => GreedyGenerator(),
-    "ECCCo" => ECCCoGenerator(λ=Λ, opt=opt, use_class_loss=use_class_loss),
+    "ECCCo" => ECCCoGenerator(
+        λ=Λ, opt=opt, use_class_loss=use_class_loss,
+        nsamples=10, nmin=10,
+    ),
 )
 ```
 

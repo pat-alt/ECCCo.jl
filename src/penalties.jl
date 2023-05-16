@@ -61,6 +61,7 @@ function distance_from_energy(
         end
         eng_sampler = _dict[:energy_sampler]
         if choose_lowest_energy
+            nmin = minimum([nmin, size(eng_sampler.buffer)[end]])
             xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n=nmin)
             push!(conditional_samples, xmin)
         elseif choose_random

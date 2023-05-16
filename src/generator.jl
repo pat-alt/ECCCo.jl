@@ -22,6 +22,8 @@ function ECCCoGenerator(;
     temp::Real=0.1, 
     opt::Union{Nothing,Flux.Optimise.AbstractOptimiser}=nothing,
     use_class_loss::Bool=false,
+    nsamples::Int=50,
+    nmin::Int=25,
     kwargs...
 )
 
@@ -41,7 +43,13 @@ function ECCCoGenerator(;
     function _set_size_penalty(ce::AbstractCounterfactualExplanation)
         return ECCCo.set_size_penalty(ce; κ=κ, temp=temp)
     end
-    _penalties = [Objectives.distance_l1, _set_size_penalty, ECCCo.distance_from_energy]
+
+    # Energy penalty
+    function _energy_penalty(ce::AbstractCounterfactualExplanation)
+        return ECCCo.distance_from_energy(ce; n=nsamples, nmin=nmin, kwargs...)
+    end
+
+    _penalties = [Objectives.distance_l1, _set_size_penalty, _energy_penalty]
     λ = λ isa AbstractFloat ? [0.0, λ, λ] : λ
 
     # Generator
