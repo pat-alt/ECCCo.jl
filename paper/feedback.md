@@ -1,0 +1,2 @@
+- don't understand why last two paragraphs of the results section are scratched through, they seem important to me
+- 

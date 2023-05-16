@@ -2763,4 +2763,45 @@
   abstract = {A (very) gentle introduction to Conformal Prediction in Julia using my new package ConformalPrediction.jl.},
 }
 
+@InProceedings{welling2011bayesian,
+  author     = {Welling, M. and Teh, Y.},
+  date       = {2011-06},
+  title      = {Bayesian {Learning} via {Stochastic} {Gradient} {Langevin} {Dynamics}},
+  url        = {https://www.semanticscholar.org/paper/Bayesian-Learning-via-Stochastic-Gradient-Langevin-Welling-Teh/aeed631d6a84100b5e9a021ec1914095c66de415},
+  urldate    = {2023-05-15},
+  abstract   = {In this paper we propose a new framework for learning from large scale datasets based on iterative learning from small mini-batches. By adding the right amount of noise to a standard stochastic gradient optimization algorithm we show that the iterates will converge to samples from the true posterior distribution as we anneal the stepsize. This seamless transition between optimization and Bayesian posterior sampling provides an inbuilt protection against overfitting. We also propose a practical method for Monte Carlo estimates of posterior statistics which monitors a "sampling threshold" and collects samples after it has been surpassed. We apply the method to three models: a mixture of Gaussians, logistic regression and ICA with natural gradients.},
+  annotation = {[TLDR] This paper proposes a new framework for learning from large scale datasets based on iterative learning from small mini-batches by adding the right amount of noise to a standard stochastic gradient optimization algorithm and shows that the iterates will converge to samples from the true posterior distribution as the authors anneal the stepsize.},
+  file       = {:welling_bayesian_2011 - Bayesian Learning Via Stochastic Gradient Langevin Dynamics.html:URL;:welling2011bayesian - Bayesian Learning Via Stochastic Gradient Langevin Dynamics.pdf:PDF},
+}
+
+@Article{gill2010circular,
+  author       = {Gill, Jeff and Hangartner, Dominik},
+  date         = {2010},
+  journaltitle = {Political Analysis},
+  title        = {Circular {Data} in {Political} {Science} and {How} to {Handle} {It}},
+  doi          = {10.1093/pan/mpq009},
+  issn         = {1047-1987, 1476-4989},
+  language     = {en},
+  number       = {3},
+  pages        = {316--336},
+  url          = {https://www.cambridge.org/core/journals/political-analysis/article/circular-data-in-political-science-and-how-to-handle-it/6DF2D9DA60C455E6A48FFB0FF011F747},
+  urldate      = {2023-05-15},
+  volume       = {18},
+  abstract     = {There has been no attention to circular (purely cyclical) data in political science research. We show that such data exist and are mishandled by models that do not take into account the inherently recycling nature of some phenomenon. Clock and calendar effects are the obvious cases, but directional data are observed as well. We describe a standard maximum likelihood regression modeling framework based on the von Mises distribution, then develop a general Bayesian regression procedure for the first time, providing an easy-to-use Metropolis-Hastings sampler for this approach. Applications include a chronographic analysis of U.S. domestic terrorism and directional party preferences in a two-dimensional ideological space for German Bundestag elections. The results demonstrate the importance of circular models to handle periodic and directional data in political science.},
+  file         = {Full Text PDF:https\://www.cambridge.org/core/services/aop-cambridge-core/content/view/6DF2D9DA60C455E6A48FFB0FF011F747/S1047198700012493a.pdf/div-class-title-circular-data-in-political-science-and-how-to-handle-it-div.pdf:application/pdf},
+  publisher    = {Cambridge University Press},
+}
+
+@InProceedings{liu2023goggle,
+  author     = {Liu, Tennison and Qian, Zhaozhi and Berrevoets, Jeroen and Schaar, Mihaela van der},
+  date       = {2023-02},
+  title      = {{GOGGLE}: {Generative} {Modelling} for {Tabular} {Data} by {Learning} {Relational} {Structure}},
+  language   = {en},
+  url        = {https://openreview.net/forum?id=fPVRcJqspu},
+  urldate    = {2023-05-15},
+  abstract   = {Deep generative models learn highly complex and non-linear representations to generate realistic synthetic data. While they have achieved notable success in computer vision and natural language processing, similar advances have been less demonstrable in the tabular domain. This is partially because generative modelling of tabular data entails a particular set of challenges, including heterogeneous relationships, limited number of samples, and difficulties in incorporating prior knowledge. Additionally, unlike their counterparts in image and sequence domain, deep generative models for tabular data almost exclusively employ fully-connected layers, which encode weak inductive biases about relationships between inputs. Real-world data generating processes can often be represented using relational structures, which encode sparse, heterogeneous relationships between variables. In this work, we learn and exploit relational structure underlying tabular data to better model variable dependence, and as a natural means to introduce regularization on relationships and include prior knowledge. Specifically, we introduce GOGGLE, an end-to-end message passing scheme that jointly learns the relational structure and corresponding functional relationships as the basis of generating synthetic samples. Using real-world datasets, we provide empirical evidence that the proposed method is effective in generating realistic synthetic data and exploiting domain knowledge for downstream tasks.},
+  file       = {Full Text PDF:https\://openreview.net/pdf?id=fPVRcJqspu:application/pdf},
+  shorttitle = {{GOGGLE}},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}
