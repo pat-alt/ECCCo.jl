@@ -154,6 +154,98 @@ display(plt)
 savefig(plt, joinpath(output_images_path, "poc.png"))
 ```
 
+```{julia}
+using Colors
+col_pal = palette(:seaborn_colorblind)
+Random.seed!(1234)
+using CounterfactualExplanations.Generators: ∇
+
+λ₁ = 0.1
+λ₂ = 1.0
+λ₃ = 0.5
+Λ = [λ₁, λ₂, λ₃]
+η = 0.01
+
+M = ECCCo.ConformalModel(mach.model, mach.fitresult)
+factual_label =  levels(labels)[2]
+x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
+target =  levels(labels)[1]
+factual = predict_label(M, counterfactual_data, x_factual)[1]
+
+opt = Flux.Optimise.Descent(η)
+
+generator_dict = OrderedDict(
+    "Wachter" => WachterGenerator(λ = 0.3, opt=opt),
+    "ECCCo (no EBM)" => ECCCoGenerator(λ = [λ₁,λ₂,0.0], opt=opt),
+    "ECCCo (no CP)" => ECCCoGenerator(λ = [λ₁,0.0,λ₃], opt=opt),
+    "ECCCo" => ECCCoGenerator(λ = Λ, opt=opt),
+)
+
+# Gradient field:
+function loss_grads(generator, model, ce, x)
+    x = Float32.(x)
+    _ce = deepcopy(ce)
+    _ce.s′ = x
+    return ∇(generator,M,_ce)
+end
+
+meshgrid(x, y) = (repeat(x, outer=length(y)), repeat(y, inner=length(x)))
+
+xlims, ylims = extrema(X, dims=2)
+xrange = range(xlims..., length=10)
+yrange = range(ylims..., length=10)
+x1, x2 = meshgrid(xrange, yrange)
+inputs = zip(x1, x2)
+
+# Plot:
+ces = Dict{Any,Any}()
+plts = []
+for (name, generator) in generator_dict
+
+    # CE:
+    ce = generate_counterfactual(
+        x_factual, target, counterfactual_data, M, generator;
+        initialization=:identity, 
+        converge_when=:generator_conditions,
+    )
+
+    # Main plot (path):
+    plt = Plots.plot(
+        ce, title=name, alpha=0.1, cbar=false, 
+        axis=nothing, length_out=10, contour_alpha=0.0,
+        legend = false,
+        palette = col_pal,
+    )
+
+    # Generated samples:
+    if name ∈ ["ECCCo","ECCCo (no CP)"]
+        _X = distance_from_energy(ce, return_conditionals=true)
+        Plots.scatter!(
+            _X[1,:],_X[2,:], color=col_pal[end-1], shape=:star5, 
+            ms=10, label="x̂|$target", alpha=0.1
+        )
+    end
+
+    # Gradient field:
+    u = []
+    v = []
+    for (x, y) in inputs
+        g = -loss_grads(generator, M, ce, [x, y][:,:])
+        push!(u, η * g[1])
+        push!(v, η * g[2])
+    end
+    Plots.quiver!(x1, x2, quiver=(u, v), color=col_pal[5])
+
+    push!(plts, plt)
+    ces[name] = ce
+end
+plt = Plots.plot(plts..., size=(500,520))
+display(plt)
+savefig(plt, joinpath(output_images_path, "poc_gradient_fields.png"))
+```
+
+
+
 
 ```{julia}
 ce = ces["ECCCo"]
@@ -206,7 +298,7 @@ inputs = zip(x1, x2)
 u = []
 v = []
 
-scale = 0.1
+
 for (x, y) in inputs
     push!(u, scale * gradient(f1, [x, y][:,:])[1][1])
     push!(v, scale * gradient(f1, [x, y][:,:])[1][2])
