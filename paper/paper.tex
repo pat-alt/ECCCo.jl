@@ -254,13 +254,13 @@ In addition to the smooth set size penalty, we have also experimented with the u
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
   
-\begin{minipage}[c]{0.50\textwidth}
+\begin{minipage}[c]{0.45\textwidth}
   \centering
-  \includegraphics[width=0.8\textwidth]{../artifacts/results/images/poc.png}
-  \captionof{figure}{An example involving linearly separable synthetic data and illustrating how ECCCo compares to Wachter, Schut and REVISE. The factual class is 2 and the target class is 1. Contours indicate the predicted probability given by a Joint Energy Model that the counterfactual belongs to the target class.}\label{fig:poc}
+  \includegraphics[width=1.0\textwidth]{../artifacts/results/images/poc_gradient_fields.png}
+  \captionof{figure}{Gradient fields and counterfactual paths for different generators. The objective is to generate a counterfual in the `blue' class for a sample from the `orange' class. Bright yellow stars indicate conditional samples generated through SGLD. The underlying classifier is a Joint Energy Model.}\label{fig:poc}
 \end{minipage}  
 \hfill
-\begin{minipage}[c]{0.40\textwidth}
+\begin{minipage}[c]{0.45\textwidth}
 \captionof{algorithm}{Generating ECCCos (For more details, see Appendix~\ref{app:eccco})}\label{alg:eccco}
 \begin{algorithmic}[1]
   \Require $\mathbf{x}, \mathbf{y}^+, M_{\theta}, f, \Lambda, \alpha, \mathcal{D}, T, \eta, n_{\mathcal{B}}, N_{\mathcal{B}}$ \linebreak where $M_{\theta}(\mathbf{x})\neq\mathbf{y}^+$
@@ -277,14 +277,6 @@ In addition to the smooth set size penalty, we have also experimented with the u
   \State $\mathbf{x}^\prime \gets f(\mathbf{z}^\prime)$
 \end{algorithmic}
 \end{minipage}
-
-\medskip
-
-% \begin{minipage}[c]{\textwidth}
-%   \centering
-%   \includegraphics[width=0.8\textwidth]{../artifacts/results/images/mnist_eccco.png}
-%   \captionof{figure}{Original image (left) and ECCCos for turning a 9 (nine) into a 7 (seven) for different black-box models from left to right: Multi-Layer Perceptron (MLP), Ensemble of MLPs, Joint Energy Model (JEM), Ensemble of JEMs.}\label{fig:eccco-mnist}
-% \end{minipage}
 
 \medskip
 
