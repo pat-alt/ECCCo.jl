@@ -1,6 +1,6 @@
 \begin{table}
 
-\caption{Results for synthetic datasets: sample averages plus/minus one standard deviation. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \label{tab:results-synthetic} \newline}
+\caption{Results for synthetic datasets: sample averages +/- one standard deviation over all valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \label{tab:results-synthetic} \newline}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llcccccc}
@@ -15,21 +15,21 @@ Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Unfaithfulness ↓
 
  & ECCCo (no EBM) & 0.16 ± 0.11\hphantom{*}\hphantom{*} & 0.34 ± 0.19\hphantom{*}\hphantom{*} & 0.91 ± 0.32\hphantom{*}\hphantom{*} & 1.71 ± 0.25\hphantom{*}\hphantom{*} & 0.70 ± 0.33\hphantom{*}\hphantom{*} & 1.30 ± 0.37\hphantom{*}\hphantom{*}\\
 
- & REVISE & 0.19 ± 0.03\hphantom{*}\hphantom{*} & 0.41 ± 0.01** & 0.78 ± 0.23\hphantom{*}\hphantom{*} & 1.57 ± 0.26\hphantom{*}\hphantom{*} & \textbf{0.48 ± 0.16}*\hphantom{*} & \textbf{0.95 ± 0.32}*\hphantom{*}\\
+ & REVISE & 0.15 ± 0.00** & 0.41 ± 0.01** & 0.78 ± 0.23\hphantom{*}\hphantom{*} & 1.57 ± 0.26\hphantom{*}\hphantom{*} & \textbf{0.33 ± 0.01}** & \textbf{0.64 ± 0.00}**\\
 
- & Schut & 0.39 ± 0.07\hphantom{*}\hphantom{*} & 0.73 ± 0.17\hphantom{*}\hphantom{*} & 0.67 ± 0.27\hphantom{*}\hphantom{*} & 1.50 ± 0.22*\hphantom{*} & 0.54 ± 0.43\hphantom{*}\hphantom{*} & 1.28 ± 0.53\hphantom{*}\hphantom{*}\\
+ & Schut & 0.39 ± 0.07\hphantom{*}\hphantom{*} & 0.73 ± 0.17\hphantom{*}\hphantom{*} & 0.66 ± 0.25\hphantom{*}\hphantom{*} & 1.47 ± 0.10** & 0.54 ± 0.43\hphantom{*}\hphantom{*} & 1.28 ± 0.53\hphantom{*}\hphantom{*}\\
 
-\multirow{-6}{*}{\raggedright\arraybackslash JEM} & Wachter & 0.18 ± 0.10\hphantom{*}\hphantom{*} & 0.44 ± 0.17\hphantom{*}\hphantom{*} & 0.80 ± 0.27\hphantom{*}\hphantom{*} & 1.78 ± 0.24\hphantom{*}\hphantom{*} & 0.68 ± 0.34\hphantom{*}\hphantom{*} & 1.33 ± 0.32\hphantom{*}\hphantom{*}\\
+\multirow{-6}{*}{\raggedright\arraybackslash JEM} & Wachter & 0.18 ± 0.10\hphantom{*}\hphantom{*} & 0.44 ± 0.17\hphantom{*}\hphantom{*} & 0.78 ± 0.23\hphantom{*}\hphantom{*} & 1.75 ± 0.19\hphantom{*}\hphantom{*} & 0.68 ± 0.34\hphantom{*}\hphantom{*} & 1.33 ± 0.32\hphantom{*}\hphantom{*}\\
 \cmidrule{1-8}
  & ECCCo & \textbf{0.29 ± 0.05}** & 0.23 ± 0.06** & 0.80 ± 0.62\hphantom{*}\hphantom{*} & 1.69 ± 0.40\hphantom{*}\hphantom{*} & 0.65 ± 0.53\hphantom{*}\hphantom{*} & 1.17 ± 0.41\hphantom{*}\hphantom{*}\\
 
- & ECCCo (no CP) & 0.29 ± 0.05** & \textbf{0.23 ± 0.07}** & \textbf{0.79 ± 0.62}\hphantom{*}\hphantom{*} & 1.68 ± 0.42\hphantom{*}\hphantom{*} & \textbf{0.49 ± 0.35}\hphantom{*}\hphantom{*} & 1.19 ± 0.44\hphantom{*}\hphantom{*}\\
+ & ECCCo (no CP) & 0.29 ± 0.05** & \textbf{0.23 ± 0.07}** & \textbf{0.79 ± 0.62}\hphantom{*}\hphantom{*} & 1.68 ± 0.42\hphantom{*}\hphantom{*} & 0.49 ± 0.35\hphantom{*}\hphantom{*} & 1.19 ± 0.44\hphantom{*}\hphantom{*}\\
 
  & ECCCo (no EBM) & 0.46 ± 0.05\hphantom{*}\hphantom{*} & 0.28 ± 0.04** & 1.34 ± 0.47\hphantom{*}\hphantom{*} & 1.68 ± 0.47\hphantom{*}\hphantom{*} & 0.84 ± 0.51\hphantom{*}\hphantom{*} & 1.23 ± 0.31\hphantom{*}\hphantom{*}\\
 
- & REVISE & 0.56 ± 0.05\hphantom{*}\hphantom{*} & 0.41 ± 0.01\hphantom{*}\hphantom{*} & 1.45 ± 0.44\hphantom{*}\hphantom{*} & \textbf{1.64 ± 0.31}\hphantom{*}\hphantom{*} & 0.58 ± 0.52\hphantom{*}\hphantom{*} & \textbf{0.95 ± 0.32}\hphantom{*}\hphantom{*}\\
+ & REVISE & 0.52 ± 0.04\hphantom{*}\hphantom{*} & 0.41 ± 0.01\hphantom{*}\hphantom{*} & 1.45 ± 0.44\hphantom{*}\hphantom{*} & 1.64 ± 0.31\hphantom{*}\hphantom{*} & \textbf{0.06 ± 0.01}** & \textbf{0.64 ± 0.00}**\\
 
- & Schut & 0.43 ± 0.06*\hphantom{*} & 0.47 ± 0.36\hphantom{*}\hphantom{*} & 1.45 ± 0.55\hphantom{*}\hphantom{*} & 1.73 ± 0.48\hphantom{*}\hphantom{*} & 0.58 ± 0.37\hphantom{*}\hphantom{*} & 1.23 ± 0.43\hphantom{*}\hphantom{*}\\
+ & Schut & 0.43 ± 0.06*\hphantom{*} & 0.47 ± 0.36\hphantom{*}\hphantom{*} & 1.39 ± 0.50\hphantom{*}\hphantom{*} & \textbf{1.59 ± 0.26}\hphantom{*}\hphantom{*} & 0.58 ± 0.37\hphantom{*}\hphantom{*} & 1.23 ± 0.43\hphantom{*}\hphantom{*}\\
 
 \multirow{-6}{*}{\raggedright\arraybackslash MLP} & Wachter & 0.51 ± 0.04\hphantom{*}\hphantom{*} & 0.40 ± 0.08\hphantom{*}\hphantom{*} & 1.32 ± 0.41\hphantom{*}\hphantom{*} & 1.69 ± 0.32\hphantom{*}\hphantom{*} & 0.83 ± 0.50\hphantom{*}\hphantom{*} & 1.24 ± 0.29\hphantom{*}\hphantom{*}\\
 \bottomrule
