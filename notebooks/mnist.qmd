@@ -498,7 +498,7 @@ end
 generator_dict = Dict(
     "Wachter" => WachterGenerator(λ=Λ[1]),
     "REVISE" => REVISEGenerator(λ=Λ[1]),
-    "Schut" => GreedyGenerator(),
+    "Schut" => greedy_generator,
     "ECCCo" => eccco_generator,
 )
 ```
