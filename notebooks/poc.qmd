@@ -236,7 +236,7 @@ for (name, generator) in generator_dict
         _X = distance_from_energy(ce, return_conditionals=true)
         Plots.scatter!(
             _X[1,:],_X[2,:], color=col_pal[end-1], shape=:star5, 
-            ms=10, label="x̂|$target", alpha=0.1
+            ms=10, label="x̂|$target", alpha=0.5
         )
     end
 
