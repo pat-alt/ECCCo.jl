@@ -141,7 +141,7 @@ chosen_data <- c(
   "MNIST",
   "GMSC"
 )
-tab_i <- tab_valid
+tab_i <- tab
 
 # Logic:
 tab_i <- tab_i[variable %in% measures]
@@ -155,7 +155,7 @@ col_names <- c(
   rep(measure_names,length(chosen_data))
 )
 caption <- sprintf(
-  "Results for %s datasets: sample averages +/- one standard deviation over all valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-%s} \\newline",
+  "Results for %s datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-%s} \\newline",
   chosen_source,
   chosen_source
 )
@@ -192,7 +192,7 @@ chosen_data <- c(
   "Moons",
   "Circles"
 )
-tab_i <- tab_valid
+tab_i <- tab
 
 # Logic:
 tab_i <- tab_i[variable %in% measures]
@@ -206,7 +206,7 @@ col_names <- c(
   rep(measure_names,length(chosen_data))
 )
 caption <- sprintf(
-  "Results for %s datasets: sample averages +/- one standard deviation over all valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-%s} \\newline",
+  "Results for %s datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-%s} \\newline",
   chosen_source,
   chosen_source
 )
