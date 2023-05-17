@@ -337,6 +337,8 @@ collaboration.
 
 \bibliography{bib}
 
+\pagebreak
+
 \appendix
 \section*{Appendices}
 \renewcommand{\thesubsection}{\Alph{subsection}}
@@ -390,15 +392,15 @@ Contrary to existing work, we have not typically used the entire minibatch of tr
 \end{figure}
 \subsubsection{Inference: Quantifying Models' Generative Property}
 
-At inference time, we assume no prior knowledge about the model's generative property. This means that we do not tab into the existing buffer of generated samples for our Joint Energy Models, but instead generate conditional samples from scratch. While have relied on the default values $\epsilon=2$ and $\sigma=0.01$ also during inference, the number of total SGLD steps was set to $J=500$ in all cases, so significantly higher than during training. For all of our synthetic datasets and models, we generated 50 conditional samples and then formed subsets containing the $n_{E}=25$ lowest-energy samples. While in practice it would be sufficient to do this once for each model and dataset, we have chosen to perform sampling separately for each individual counterfactual in our experiment to account for stochasticity. To help reduce the computational burden for our real-world datasets we have generated only 10 conditional samples each time and used all of them in our counterfactual search. Using more samples, as we originally did, had no substantial impact on our results.
+At inference time, we assume no prior knowledge about the model's generative property. This means that we do not tab into the existing buffer of generated samples for our Joint Energy Models, but instead generate conditional samples from scratch. While we have relied on the default values $\epsilon=2$ and $\sigma=0.01$ also during inference, the number of total SGLD steps was set to $J=500$ in all cases, so significantly higher than during training. For all of our synthetic datasets and models, we generated 50 conditional samples and then formed subsets containing the $n_{E}=25$ lowest-energy samples. While in practice it would be sufficient to do this once for each model and dataset, we have chosen to perform sampling separately for each individual counterfactual in our experiments to account for stochasticity. To help reduce the computational burden for our real-world datasets we have generated only 10 conditional samples each time and used all of them in our counterfactual search. Using more samples, as we originally did, had no substantial impact on our results.
 
 \subsection{Conformal Prediction}\label{app:cp}
 
-In this Appendix we provide some more background on CP and explain in some more detail how we have used recent advances in Conformal Training for our purposes.
+In this Appendix~\ref{app:cp} we provide some more background on CP and explain in some more detail how we have used recent advances in Conformal Training for our purposes.
 
 \subsubsection{Background on CP}
 
-Intuitively, CP works under the premise of turning heuristic notions of uncertainty into rigorous uncertainty estimates by repeatedly sifting through the data. It can be used to generate prediction intervals for regression models and prediction sets for classification models~\citep{altmeyer2022conformal}. Since the literature on CE and AR is typically concerned with classification problems, we focus on the latter. A particular variant of CP called Split Conformal Prediction (SCP) is well-suited for our purposes, because it imposes only minimal restrictions on model training. 
+Intuitively, CP works under the premise of turning heuristic notions of uncertainty into rigorous uncertainty estimates by repeatedly sifting through the data. It can be used to generate prediction intervals for regression models and prediction sets for classification models. Since the literature on CE and AR is typically concerned with classification problems, we focus on the latter. A particular variant of CP called Split Conformal Prediction (SCP) is well-suited for our purposes, because it imposes only minimal restrictions on model training. 
 
 Specifically, SCP involves splitting the data $\mathcal{D}_n=\{(\mathbf{x}_i,\mathbf{y}_i)\}_{i=1,...,n}$ into a proper training set $\mathcal{D}_{\text{train}}$ and a calibration set $\mathcal{D}_{\text{cal}}$. The former is used to train the classifier in any conventional fashion. The latter is then used to compute so-called nonconformity scores: $\mathcal{S}=\{s(\mathbf{x}_i,\mathbf{y}_i)\}_{i \in \mathcal{D}_{\text{cal}}}$ where $s: (\mathcal{X},\mathcal{Y}) \mapsto \mathbb{R}$ is referred to as \textit{score function}. In the context of classification, a common choice for the score function is just $s_i=1-M_{\theta}(\mathbf{x}_i)[\mathbf{y}_i]$, that is one minus the softmax output corresponding to the observed label $\mathbf{y}_i$~\citep{angelopoulos2021gentle}. 
 
@@ -418,7 +420,7 @@ Observe from Equation~\ref{eq:scp} that Conformal Prediction works on an instanc
 
 The fact that conformal classifiers produce set-valued predictions introduces a challenge: it is not immediately obvious how to use such classifiers in the context of gradient-based counterfactual search. Put differently, it is not clear how to use prediction sets in Equation~\ref{eq:general}. Fortunately, \citet{stutz2022learning} have recently proposed a framework for Conformal Training that also hinges on differentiability. Specifically, they show how Stochastic Gradient Descent can be used to train classifiers not only for the discriminative task but also for additional objectives related to Conformal Prediction. One such objective is \textit{efficiency}: for a given target error rate $\alpha$, the efficiency of a conformal classifier improves as its average prediction set size decreases. To this end, the authors introduce a smooth set size penalty defined in Equation~\ref{eq:setsize} in the body of this paper. Formally, it is defined as $C_{\theta,\mathbf{y}}(\mathbf{x}_i;\alpha):=\sigma\left((s(\mathbf{x}_i,\mathbf{y})-\alpha) T^{-1}\right)$ for $\mathbf{y}\in\mathcal{Y}$, where $\sigma$ is the sigmoid function and $T$ is a hyper-parameter used for temperature scaling~\citep{stutz2022learning}.
 
-In addition to the smooth set size penalty,~\citet{stutz2022learning} also propose a configurable classification loss function, that can be used to enforce coverage. For \textit{MNIST} data, we found that using this function generally improved the visual quality of the generated counterfactuals, so we used it in our experiments involving real-world data. For the synthetic dataset, visual inspection of the counterfactuals showed that using the configurable loss function sometimes led to overshooting: counterfactuals would end up deep inside the target domain but far away from the observed samples. For this reason, we instead relied on standard cross-entropy loss for our synthetic datasets. As we have noted in the body of the paper, more experimental work is certainly needed in this context. Figure~\ref{fig:cp-diff} shows the prediction set size (left), smooth set size loss (centre) and configurable classification loss (right) for a JEM trained on our \textit{Linearly Separable} data.
+In addition to the smooth set size penalty,~\citet{stutz2022learning} also propose a configurable classification loss function, that can be used to enforce coverage. For \textit{MNIST} data, we found that using this function generally improved the visual quality of the generated counterfactuals, so we used it in our experiments involving real-world data. For the synthetic dataset, visual inspection of the counterfactuals showed that using the configurable loss function sometimes led to overshooting: counterfactuals would end up deep inside the target domain but far away from the observed samples. For this reason, we instead relied on standard cross-entropy loss for our synthetic datasets. As we have noted in the body of the paper, more experimental work is certainly needed in this context. Figure~\ref{fig:cp-diff} shows the prediction set size (left), smooth set size loss (centre) and configurable classification loss (right) for a \textit{JEM} trained on our \textit{Linearly Separable} data.
 
 \begin{figure}
   \centering
@@ -428,7 +430,7 @@ In addition to the smooth set size penalty,~\citet{stutz2022learning} also propo
 
 \subsection{ECCCo}\label{app:eccco}
 
-In this section, we briefly discuss convergence conditions for CE and provide details concerning the actual implementation of our framework in Julia.  
+In this section, we briefly discuss convergence conditions for CE and provide details concerning the actual implementation of our framework in \texttt{Julia}.  
 \subsubsection{A Note on Convergence}
 
 Convergence is not typically discussed much in the context of CE, even though it has important implications on outcomes. One intuitive way to specify convergence is in terms of threshold probabilities: once the predicted probability $p(\mathbf{y}^+|\mathbf{x}^{\prime})$ exceeds some user-defined threshold $\gamma$ such that the counterfactual is valid, we could consider the search to have converged. In the binary case, for example, convergence could be defined as $p(\mathbf{y}^+|\mathbf{x}^{\prime})>0.5$ in this sense. Note, however, how this can be expected to yield counterfactuals in the proximity of the decision boundary, a region characterized by high aleatoric uncertainty. In other words, counterfactuals generated in this way would generally not be plausible. To avoid this from happening, we specify convergence in terms of gradients approaching zero for all our experiments and all of our generators. This is allows us to get a cleaner read on how the different counterfactual search objectives affect counterfactual outcomes. 
@@ -439,7 +441,7 @@ The core part of our code base is integrated into a larger ecosystem of \texttt{
 
 \subsection{Experimental Setup}\label{app:setup}
 
-Table~\ref{tab:params} provides an overview of all parameters related to our experiments. The \textit{GMSC} data were randomly undersampled for balancing purposes and all features were standardized. \textit{MNIST} data was also randomly undersampled for reasons outlined below. Pixel values were preprocessed to fall in the range of $[-1,1]$ and a small Gaussian noise component ($\sigma=0.03$) was added to training samples following common practice in the EBM literature. Table~\ref{tab:perf} shows standard evaluation metrics measuring the predictive performance of our different models grouped by dataset. These measures were computed over test datasets. 
+Table~\ref{tab:params} provides an overview of all parameters related to our experiments. The \textit{GMSC} data were randomly undersampled for balancing purposes and all features were standardized. \textit{MNIST} data was also randomly undersampled for reasons outlined below. Pixel values were preprocessed to fall in the range of $[-1,1]$ and a small Gaussian noise component ($\sigma=0.03$) was added to training samples following common practice in the EBM literature. All of our models were trained through mini-batch training using the Adam optimiser (\citet{kingma2017adam}). Table~\ref{tab:perf} shows standard evaluation metrics measuring the predictive performance of our different models grouped by dataset. These measures were computed on test data. 
 
 Table~\ref{tab:genparams} summarises our hyperparameter choices for the counterfactual generators where $\eta$ denotes the learning rate used for Stochastic Gradient Descent (SGD) and $\lambda_1$, $\lambda_2$, $\lambda_3$ represent the chosen penalty strengths (Equations~\ref{eq:general} and~\ref{eq:eccco}). Here $\lambda_1$ also refers to the chosen penalty for the distance from factual values that applies to both \textit{Wachter} and \textit{REVISE}, but not \textit{Schut} which is penalty-free. \textit{Schut} is also the only generator that uses JSMA instead of SGD for optimization.
 
@@ -451,17 +453,15 @@ Table~\ref{tab:genparams} summarises our hyperparameter choices for the counterf
 
 \subsubsection{Compute}
 
-To enable others to easily replicate our experiments, we have chosen to work with small neural network architectures and randomly undersampled large datasets where appropriate. All of our experiments could then be run locally on a personal machine. The longest runtimes we experienced for model training and counterfactual benchmarking were on the order of 8-12 hours (\textit{MNIST} data). For the synthetic data, all experiments could be completed in less than an hour. 
+To enable others to easily replicate our experiments, we have chosen to work with small neural network architectures and randomly undersampled the \textit{MNIST} dataset (maintaining class balance). All of our experiments could then be run locally on a personal machine. The longest runtimes we experienced for model training and counterfactual benchmarking were on the order of 8-12 hours (\textit{MNIST} data). For the synthetic data, all experiments could be completed in less than an hour. 
 
-We have summarised the system information below:
+We have summarised our system information below:
 
 \textbf{Software}:
 
 \begin{itemize}
   \item System Version: macOS 13.3.1
   \item Kernel Version: Darwin 22.4.0
-  \item Boot Volume: Macintosh HD
-  \item Boot Mode: Normal
 \end{itemize}
 
 \textbf{Hardware}:
@@ -490,7 +490,7 @@ Figure~\ref{fig:mnist-eccco} shows examples of counterfactuals for \textit{MNIST
   \caption{Counterfactuals for \textit{MNIST} data and our \textit{JEM Ensemble}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-eccco}
 \end{figure}
 
-Table~\ref{tab:results-full} reports all of the evaluation metrics we have computed. Table~\ref{tab:results-full} reports the same metric for the subset of valid counterfactuals. The `Unfaithfulness' and `Implausibility' metrics have been discussed extensively in the body of the paper. The `Cost' metric relates to the distance between the factual and the counterfactual. The `Redundancy' metric measures sparsity as the percentage of features that remain unperturbed (higher is better). The `Uncertainty' metric is just the average value of the smooth set size penalty (Equation~\ref{eq:setsize}). Finally, `Validity' is the percentage of valid counterfactuals. 
+Table~\ref{tab:results-full} reports all of the evaluation metrics we have computed. Table~\ref{tab:results-full-valid} reports the same metrics for the subset of valid counterfactuals. The `Unfaithfulness' and `Implausibility' metrics have been discussed extensively in the body of the paper. The `Cost' metric relates to the distance between the factual and the counterfactual. The `Redundancy' metric measures sparsity in is defined as the percentage of features that remain unperturbed (higher is better). The `Uncertainty' metric is just the average value of the smooth set size penalty (Equation~\ref{eq:setsize}). Finally, `Validity' is the percentage of valid counterfactuals. 
 
 \import{contents/}{table_all.tex}
 
