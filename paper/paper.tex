@@ -361,7 +361,7 @@ As mentioned in the body of the paper, we rely on a biased sampler involving sep
   \end{aligned}
 \end{equation}
 
-Consistent with~\citet{grathwohl2020your}, we have specified $\epsilon=2$ and $\sigma=0.01$ as the default values for all of our experiments. The number of total SGLD steps $J$ varies by dataset. Following best practices, we initialize $\mathbf{x}_0$ randomly in 5\% of all cases and sample from a buffer in all other cases. The buffer itself is randomly initialised and gradually grows to a maximum of 10,000 samples during training as $\hat{\mathbf{x}}_{J}$ is stored in each epoch~\citep{du2020implicit,grathwohl2020your}. 
+Consistent with~\citet{grathwohl2020your}, we have specified $\epsilon=2$ and $\sigma=0.01$ as the default values for all of our experiments. The number of total SGLD steps $J$ varies by dataset (Table~\ref{tab:ebmparams}). Following best practices, we initialize $\mathbf{x}_0$ randomly in 5\% of all cases and sample from a buffer in all other cases. The buffer itself is randomly initialised and gradually grows to a maximum of 10,000 samples during training as $\hat{\mathbf{x}}_{J}$ is stored in each epoch~\citep{du2020implicit,grathwohl2020your}. 
 
 It is important to realise that sampling is done during each training epoch, which makes training Joint Energy Models significantly harder than conventional neural classifiers. In each epoch the generated (batch of) sample(s) $\hat{\mathbf{x}}_{J}$ is used as part of the generative loss component, which compares its energy to that of observed samples $\mathbf{x}$: $L_{\text{gen}}(\theta)=\mu_{\theta}(\mathbf{x})[\mathbf{y}]-\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}]$. Our full training objective can be summarized as follows,
 
@@ -371,9 +371,11 @@ It is important to realise that sampling is done during each training epoch, whi
   \end{aligned}
 \end{equation}
 
-where $L_{\text{reg}}(\theta)$ is a Ridge penalty (L2 norm) that regularises energy magnitudes for both observed and generated samples~\citep{du2020implicit}. We have used varying degrees of regularization depending on the dataset. 
+where $L_{\text{reg}}(\theta)$ is a Ridge penalty (L2 norm) that regularises energy magnitudes for both observed and generated samples~\citep{du2020implicit}. We have used varying degrees of regularization depending on the dataset ($\lambda$ in Table~\ref{tab:ebmparams}). 
 
-Contrary to existing work, we have not typically used the entire minibatch of training data for the generative loss component but found that using a subset of the minibatch was often sufficient in attaining decent generative performance. This has helped to reduce the computational burden for our models, which should make it easier for others to reproduce our findings. Figures~\ref{fig:mnist-gen} and~\ref{fig:moons-gen} show generated samples for our \textit{MNIST} and \textit{Moons} data, to provide a sense of their generative property.
+Contrary to existing work, we have not typically used the entire minibatch of training data for the generative loss component but found that using a subset of the minibatch was often sufficient in attaining decent generative performance (Table~\ref{tab:ebmparams}). This has helped to reduce the computational burden for our models, which should make it easier for others to reproduce our findings. Figures~\ref{fig:mnist-gen} and~\ref{fig:moons-gen} show generated samples for our \textit{MNIST} and \textit{Moons} data, to provide a sense of their generative property.
+
+\import{contents/}{table_ebm_params.tex}
 
 \begin{figure}
   \centering
@@ -386,7 +388,6 @@ Contrary to existing work, we have not typically used the entire minibatch of tr
   \includegraphics[width=0.5\textwidth]{../artifacts/results/images/moons_generated_JEM.png}
   \caption{Conditionally generated samples (stars) for our \textit{Moons} data using a JEM.}\label{fig:moons-gen}
 \end{figure}
-
 \subsubsection{Inference: Quantifying Models' Generative Property}
 
 At inference time, we assume no prior knowledge about the model's generative property. This means that we do not tab into the existing buffer of generated samples for our Joint Energy Models, but instead generate conditional samples from scratch. While have relied on the default values $\epsilon=2$ and $\sigma=0.01$ also during inference, the number of total SGLD steps was set to $J=500$ in all cases, so significantly higher than during training. For all of our synthetic datasets and models, we generated 50 conditional samples and then formed subsets containing the $n_{E}=25$ lowest-energy samples. While in practice it would be sufficient to do this once for each model and dataset, we have chosen to perform sampling separately for each individual counterfactual in our experiment to account for stochasticity. To help reduce the computational burden for our real-world datasets we have generated only 10 conditional samples each time and used all of them in our counterfactual search. Using more samples, as we originally did, had no substantial impact on our results.
@@ -438,8 +439,50 @@ The core part of our code base is integrated into a larger ecosystem of \texttt{
 
 \subsection{Experimental Setup}\label{app:setup}
 
+Table~\ref{tab:params} provides an overview of all parameters related to our experiments. The \textit{GMSC} data were randomly undersampled for balancing purposes and all features were standardized. \textit{MNIST} data was also randomly undersampled for reasons outlined below. Pixel values were preprocessed to fall in the range of $[-1,1]$ and a small Gaussian noise component ($\sigma=0.03$) was added to training samples following common practices in the EBM literature. 
 
+\subsubsection{Compute}
+
+To enable others to easily replicate our experiments, we have chosen to work with small neural network architectures and randomly undersampled large datasets where appropriate. All of our experiments could then be run locally on a personal machine. The longest runtimes we experienced for model training and counterfactual benchmarking were on the order of 8-12 hours (\textit{MNIST} data). For the synthetic data, all experiments could be completed in less than an hour. 
+
+We have summarised the system information below:
+
+\textbf{Software}:
+
+\begin{itemize}
+  \item System Version: macOS 13.3.1
+  \item Kernel Version: Darwin 22.4.0
+  \item Boot Volume: Macintosh HD
+  \item Boot Mode: Normal
+\end{itemize}
+
+\textbf{Hardware}:
+
+\begin{itemize}
+  \item Model Name: MacBook Pro
+  \item Model Identifier: MacBookPro16,1
+  \item Processor Name: 8-Core Intel Core i9
+  \item Processor Speed: 2.3 GHz
+  \item Number of Processors: 1
+  \item Total Number of Cores: 8
+  \item L2 Cache (per Core): 256 KB
+  \item L3 Cache: 16 MB
+  \item Hyper-Threading Technology: Enabled
+  \item Memory: 32 GB
+\end{itemize}
+
+\import{contents/}{table_params.tex}
 \subsection{Results}\label{app:results}
+
+Figure~\ref{fig:mnist-eccco} shows examples of counterfactuals for \textit{MNIST} data where the underlying model is our \textit{JEM Ensemble}. Original images are shown on the diagonal and the corresponding counterfactuals are plotted across rows.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{../artifacts/results/images/mnist_eccco_all_digits.png}
+  \caption{Counterfactuals for \textit{MNIST} data and our \textit{JEM Ensemble}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-eccco}
+\end{figure}
+
+Table~\ref{tab:results-full} reports all of the evaluation metrics we have computed. Table~\ref{tab:results-full} reports the same metric for the subset of valid counterfactuals. The `Unfaithfulness' and `Implausibility' metrics have been discussed extensively in the body of the paper. The `Cost' metric relates to the distance between the factual and the counterfactual. The `Redundancy' metric measures sparsity as the percentage of features that remain unperturbed (higher is better). The `Uncertainty' metric is just the average value of the smooth set size penalty (Equation~\ref{eq:setsize}). Finally, `Validity' is the percentage of valid counterfactuals. 
 
 \import{contents/}{table_all.tex}
 

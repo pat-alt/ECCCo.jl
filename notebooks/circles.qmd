@@ -7,7 +7,7 @@ eval(setup_notebooks)
 
 ```{julia}
 # Hyper:
-_retrain = true
+_retrain = false
 
 # Data:
 test_size = 0.2
@@ -237,6 +237,20 @@ generator_dict = Dict(
     "ECCCo (no CP)" => ECCCoGenerator(λ=[λ₁, 0.0, λ₃], opt=opt, use_class_loss=use_class_loss),
     "ECCCo (no EBM)" => ECCCoGenerator(λ=[λ₁, λ₂, 0.0], opt=opt, use_class_loss=use_class_loss),
 )
+```
+
+```{julia}
+generator_params = DataFrame(
+    Dict(
+        :λ1 => λ₁,
+        :λ2 => λ₂,
+        :λ3 => λ₃,
+        :opt => string(typeof(opt)),
+        :eta => opt.eta,
+        :dataname => "Circles",
+    )
+)
+CSV.write(joinpath(params_path, "generator/circles.csv"), generator_params)
 ```
 
 ### POC

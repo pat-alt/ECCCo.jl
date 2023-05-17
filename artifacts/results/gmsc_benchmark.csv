@@ -1,1921 +1,1921 @@
 sample,variable,value,dataname,generator,model,target,factual
-1,distance,105.5668716430664,GMSC,Wachter,JEM Ensemble,0,1
-1,distance_from_energy,199.6616973876953,GMSC,Wachter,JEM Ensemble,0,1
-1,distance_from_targets,109.25230407714844,GMSC,Wachter,JEM Ensemble,0,1
+1,distance,120.9355697631836,GMSC,Wachter,JEM Ensemble,0,1
+1,distance_from_energy,116.66268920898438,GMSC,Wachter,JEM Ensemble,0,1
+1,distance_from_targets,124.76456451416016,GMSC,Wachter,JEM Ensemble,0,1
 1,redundancy,0.0,GMSC,Wachter,JEM Ensemble,0,1
-1,set_size_penalty,0.1362070375872364,GMSC,Wachter,JEM Ensemble,0,1
+1,set_size_penalty,0.077483517932599,GMSC,Wachter,JEM Ensemble,0,1
 1,validity,1.0,GMSC,Wachter,JEM Ensemble,0,1
-2,distance,105.49590301513672,GMSC,Wachter,JEM Ensemble,0,1
-2,distance_from_energy,191.6537628173828,GMSC,Wachter,JEM Ensemble,0,1
-2,distance_from_targets,109.5181655883789,GMSC,Wachter,JEM Ensemble,0,1
+2,distance,120.515625,GMSC,Wachter,JEM Ensemble,0,1
+2,distance_from_energy,133.9053955078125,GMSC,Wachter,JEM Ensemble,0,1
+2,distance_from_targets,125.28216552734375,GMSC,Wachter,JEM Ensemble,0,1
 2,redundancy,0.0,GMSC,Wachter,JEM Ensemble,0,1
-2,set_size_penalty,0.1472804936118055,GMSC,Wachter,JEM Ensemble,0,1
+2,set_size_penalty,0.07748352678476467,GMSC,Wachter,JEM Ensemble,0,1
 2,validity,1.0,GMSC,Wachter,JEM Ensemble,0,1
-3,distance,105.89042663574219,GMSC,Wachter,JEM Ensemble,0,1
-3,distance_from_energy,173.0655059814453,GMSC,Wachter,JEM Ensemble,0,1
-3,distance_from_targets,108.87983703613281,GMSC,Wachter,JEM Ensemble,0,1
+3,distance,120.837646484375,GMSC,Wachter,JEM Ensemble,0,1
+3,distance_from_energy,134.5688018798828,GMSC,Wachter,JEM Ensemble,0,1
+3,distance_from_targets,124.26130676269531,GMSC,Wachter,JEM Ensemble,0,1
 3,redundancy,0.0,GMSC,Wachter,JEM Ensemble,0,1
-3,set_size_penalty,0.11311508321699781,GMSC,Wachter,JEM Ensemble,0,1
+3,set_size_penalty,0.07748349340979566,GMSC,Wachter,JEM Ensemble,0,1
 3,validity,1.0,GMSC,Wachter,JEM Ensemble,0,1
-4,distance,105.82109832763672,GMSC,Wachter,JEM Ensemble,0,1
-4,distance_from_energy,125.50739288330078,GMSC,Wachter,JEM Ensemble,0,1
-4,distance_from_targets,108.32563018798828,GMSC,Wachter,JEM Ensemble,0,1
+4,distance,120.8486328125,GMSC,Wachter,JEM Ensemble,0,1
+4,distance_from_energy,178.9120330810547,GMSC,Wachter,JEM Ensemble,0,1
+4,distance_from_targets,123.93437194824219,GMSC,Wachter,JEM Ensemble,0,1
 4,redundancy,0.0,GMSC,Wachter,JEM Ensemble,0,1
-4,set_size_penalty,0.12034941092331475,GMSC,Wachter,JEM Ensemble,0,1
+4,set_size_penalty,0.0774834961823323,GMSC,Wachter,JEM Ensemble,0,1
 4,validity,1.0,GMSC,Wachter,JEM Ensemble,0,1
-5,distance,106.42188262939453,GMSC,Wachter,JEM Ensemble,0,1
-5,distance_from_energy,169.12806701660156,GMSC,Wachter,JEM Ensemble,0,1
-5,distance_from_targets,107.23700714111328,GMSC,Wachter,JEM Ensemble,0,1
+5,distance,120.73995971679688,GMSC,Wachter,JEM Ensemble,0,1
+5,distance_from_energy,106.9113540649414,GMSC,Wachter,JEM Ensemble,0,1
+5,distance_from_targets,123.8321304321289,GMSC,Wachter,JEM Ensemble,0,1
 5,redundancy,0.0,GMSC,Wachter,JEM Ensemble,0,1
-5,set_size_penalty,0.13734679027445362,GMSC,Wachter,JEM Ensemble,0,1
+5,set_size_penalty,0.0774835099277329,GMSC,Wachter,JEM Ensemble,0,1
 5,validity,1.0,GMSC,Wachter,JEM Ensemble,0,1
-6,distance,105.92036437988281,GMSC,Wachter,JEM Ensemble,0,1
-6,distance_from_energy,169.34536743164062,GMSC,Wachter,JEM Ensemble,0,1
-6,distance_from_targets,107.96342468261719,GMSC,Wachter,JEM Ensemble,0,1
+6,distance,120.7047119140625,GMSC,Wachter,JEM Ensemble,0,1
+6,distance_from_energy,125.97723388671875,GMSC,Wachter,JEM Ensemble,0,1
+6,distance_from_targets,123.89594268798828,GMSC,Wachter,JEM Ensemble,0,1
 6,redundancy,0.0,GMSC,Wachter,JEM Ensemble,0,1
-6,set_size_penalty,0.13368183511455434,GMSC,Wachter,JEM Ensemble,0,1
+6,set_size_penalty,0.07748349433187451,GMSC,Wachter,JEM Ensemble,0,1
 6,validity,1.0,GMSC,Wachter,JEM Ensemble,0,1
-7,distance,105.90818786621094,GMSC,Wachter,JEM Ensemble,0,1
-7,distance_from_energy,184.94619750976562,GMSC,Wachter,JEM Ensemble,0,1
-7,distance_from_targets,108.85952758789062,GMSC,Wachter,JEM Ensemble,0,1
+7,distance,120.7022705078125,GMSC,Wachter,JEM Ensemble,0,1
+7,distance_from_energy,117.71065521240234,GMSC,Wachter,JEM Ensemble,0,1
+7,distance_from_targets,123.71855163574219,GMSC,Wachter,JEM Ensemble,0,1
 7,redundancy,0.0,GMSC,Wachter,JEM Ensemble,0,1
-7,set_size_penalty,0.11847063662079638,GMSC,Wachter,JEM Ensemble,0,1
+7,set_size_penalty,0.07748349786114961,GMSC,Wachter,JEM Ensemble,0,1
 7,validity,1.0,GMSC,Wachter,JEM Ensemble,0,1
-8,distance,105.93956756591797,GMSC,Wachter,JEM Ensemble,0,1
-8,distance_from_energy,186.37974548339844,GMSC,Wachter,JEM Ensemble,0,1
-8,distance_from_targets,108.95744323730469,GMSC,Wachter,JEM Ensemble,0,1
+8,distance,120.85230255126953,GMSC,Wachter,JEM Ensemble,0,1
+8,distance_from_energy,111.71875762939453,GMSC,Wachter,JEM Ensemble,0,1
+8,distance_from_targets,124.75959014892578,GMSC,Wachter,JEM Ensemble,0,1
 8,redundancy,0.0,GMSC,Wachter,JEM Ensemble,0,1
-8,set_size_penalty,0.11592570274157277,GMSC,Wachter,JEM Ensemble,0,1
+8,set_size_penalty,0.07748381916584535,GMSC,Wachter,JEM Ensemble,0,1
 8,validity,1.0,GMSC,Wachter,JEM Ensemble,0,1
-9,distance,105.75850677490234,GMSC,Wachter,JEM Ensemble,0,1
-9,distance_from_energy,154.72340393066406,GMSC,Wachter,JEM Ensemble,0,1
-9,distance_from_targets,107.80846405029297,GMSC,Wachter,JEM Ensemble,0,1
+9,distance,120.8716812133789,GMSC,Wachter,JEM Ensemble,0,1
+9,distance_from_energy,115.29434204101562,GMSC,Wachter,JEM Ensemble,0,1
+9,distance_from_targets,124.07660675048828,GMSC,Wachter,JEM Ensemble,0,1
 9,redundancy,0.0,GMSC,Wachter,JEM Ensemble,0,1
-9,set_size_penalty,0.12076038969007197,GMSC,Wachter,JEM Ensemble,0,1
+9,set_size_penalty,0.07748350521190273,GMSC,Wachter,JEM Ensemble,0,1
 9,validity,1.0,GMSC,Wachter,JEM Ensemble,0,1
-10,distance,105.70622253417969,GMSC,Wachter,JEM Ensemble,0,1
-10,distance_from_energy,174.47503662109375,GMSC,Wachter,JEM Ensemble,0,1
-10,distance_from_targets,107.2823257446289,GMSC,Wachter,JEM Ensemble,0,1
+10,distance,120.90988159179688,GMSC,Wachter,JEM Ensemble,0,1
+10,distance_from_energy,137.1524658203125,GMSC,Wachter,JEM Ensemble,0,1
+10,distance_from_targets,123.83634185791016,GMSC,Wachter,JEM Ensemble,0,1
 10,redundancy,0.0,GMSC,Wachter,JEM Ensemble,0,1
-10,set_size_penalty,0.1543441391866398,GMSC,Wachter,JEM Ensemble,0,1
+10,set_size_penalty,0.07748359340906008,GMSC,Wachter,JEM Ensemble,0,1
 10,validity,1.0,GMSC,Wachter,JEM Ensemble,0,1
-1,distance,2.094165325164795,GMSC,REVISE,JEM Ensemble,0,1
-1,distance_from_energy,164.5673828125,GMSC,REVISE,JEM Ensemble,0,1
-1,distance_from_targets,4.851550579071045,GMSC,REVISE,JEM Ensemble,0,1
+1,distance,4.055413246154785,GMSC,REVISE,JEM Ensemble,0,1
+1,distance_from_energy,166.26927185058594,GMSC,REVISE,JEM Ensemble,0,1
+1,distance_from_targets,5.747004508972168,GMSC,REVISE,JEM Ensemble,0,1
 1,redundancy,0.0,GMSC,REVISE,JEM Ensemble,0,1
-1,set_size_penalty,0.13210783206045473,GMSC,REVISE,JEM Ensemble,0,1
+1,set_size_penalty,0.23025500064549886,GMSC,REVISE,JEM Ensemble,0,1
 1,validity,1.0,GMSC,REVISE,JEM Ensemble,0,1
-2,distance,2.4094643592834473,GMSC,REVISE,JEM Ensemble,0,1
-2,distance_from_energy,247.4547119140625,GMSC,REVISE,JEM Ensemble,0,1
-2,distance_from_targets,5.100176811218262,GMSC,REVISE,JEM Ensemble,0,1
+2,distance,3.9664549827575684,GMSC,REVISE,JEM Ensemble,0,1
+2,distance_from_energy,199.83734130859375,GMSC,REVISE,JEM Ensemble,0,1
+2,distance_from_targets,5.425376892089844,GMSC,REVISE,JEM Ensemble,0,1
 2,redundancy,0.0,GMSC,REVISE,JEM Ensemble,0,1
-2,set_size_penalty,0.12827590688964374,GMSC,REVISE,JEM Ensemble,0,1
+2,set_size_penalty,0.12525923654465165,GMSC,REVISE,JEM Ensemble,0,1
 2,validity,1.0,GMSC,REVISE,JEM Ensemble,0,1
-3,distance,3.35227108001709,GMSC,REVISE,JEM Ensemble,0,1
-3,distance_from_energy,185.65357971191406,GMSC,REVISE,JEM Ensemble,0,1
-3,distance_from_targets,4.843108654022217,GMSC,REVISE,JEM Ensemble,0,1
+3,distance,3.842813014984131,GMSC,REVISE,JEM Ensemble,0,1
+3,distance_from_energy,190.78485107421875,GMSC,REVISE,JEM Ensemble,0,1
+3,distance_from_targets,4.735615253448486,GMSC,REVISE,JEM Ensemble,0,1
 3,redundancy,0.0,GMSC,REVISE,JEM Ensemble,0,1
-3,set_size_penalty,0.5618452799176383,GMSC,REVISE,JEM Ensemble,0,1
+3,set_size_penalty,0.12995306645573979,GMSC,REVISE,JEM Ensemble,0,1
 3,validity,1.0,GMSC,REVISE,JEM Ensemble,0,1
-4,distance,2.9281983375549316,GMSC,REVISE,JEM Ensemble,0,1
-4,distance_from_energy,188.00340270996094,GMSC,REVISE,JEM Ensemble,0,1
-4,distance_from_targets,5.057042121887207,GMSC,REVISE,JEM Ensemble,0,1
+4,distance,2.590496063232422,GMSC,REVISE,JEM Ensemble,0,1
+4,distance_from_energy,193.66888427734375,GMSC,REVISE,JEM Ensemble,0,1
+4,distance_from_targets,5.316659927368164,GMSC,REVISE,JEM Ensemble,0,1
 4,redundancy,0.0,GMSC,REVISE,JEM Ensemble,0,1
-4,set_size_penalty,0.6506105632164478,GMSC,REVISE,JEM Ensemble,0,1
+4,set_size_penalty,0.2792700473914178,GMSC,REVISE,JEM Ensemble,0,1
 4,validity,1.0,GMSC,REVISE,JEM Ensemble,0,1
-5,distance,3.4930672645568848,GMSC,REVISE,JEM Ensemble,0,1
-5,distance_from_energy,201.88702392578125,GMSC,REVISE,JEM Ensemble,0,1
-5,distance_from_targets,5.540608882904053,GMSC,REVISE,JEM Ensemble,0,1
+5,distance,2.3345422744750977,GMSC,REVISE,JEM Ensemble,0,1
+5,distance_from_energy,127.73902130126953,GMSC,REVISE,JEM Ensemble,0,1
+5,distance_from_targets,4.835436820983887,GMSC,REVISE,JEM Ensemble,0,1
 5,redundancy,0.0,GMSC,REVISE,JEM Ensemble,0,1
-5,set_size_penalty,0.16287100395709708,GMSC,REVISE,JEM Ensemble,0,1
+5,set_size_penalty,0.12793251137677775,GMSC,REVISE,JEM Ensemble,0,1
 5,validity,1.0,GMSC,REVISE,JEM Ensemble,0,1
-6,distance,2.5731427669525146,GMSC,REVISE,JEM Ensemble,0,1
-6,distance_from_energy,201.2608642578125,GMSC,REVISE,JEM Ensemble,0,1
-6,distance_from_targets,4.463589191436768,GMSC,REVISE,JEM Ensemble,0,1
+6,distance,1.7605600357055664,GMSC,REVISE,JEM Ensemble,0,1
+6,distance_from_energy,176.43556213378906,GMSC,REVISE,JEM Ensemble,0,1
+6,distance_from_targets,4.754206657409668,GMSC,REVISE,JEM Ensemble,0,1
 6,redundancy,0.0,GMSC,REVISE,JEM Ensemble,0,1
-6,set_size_penalty,0.570092794410213,GMSC,REVISE,JEM Ensemble,0,1
+6,set_size_penalty,0.12658353742407558,GMSC,REVISE,JEM Ensemble,0,1
 6,validity,1.0,GMSC,REVISE,JEM Ensemble,0,1
-7,distance,2.281126022338867,GMSC,REVISE,JEM Ensemble,0,1
-7,distance_from_energy,191.06202697753906,GMSC,REVISE,JEM Ensemble,0,1
-7,distance_from_targets,4.983875751495361,GMSC,REVISE,JEM Ensemble,0,1
+7,distance,1.3501567840576172,GMSC,REVISE,JEM Ensemble,0,1
+7,distance_from_energy,145.21527099609375,GMSC,REVISE,JEM Ensemble,0,1
+7,distance_from_targets,4.902959823608398,GMSC,REVISE,JEM Ensemble,0,1
 7,redundancy,0.0,GMSC,REVISE,JEM Ensemble,0,1
-7,set_size_penalty,0.5885771581076631,GMSC,REVISE,JEM Ensemble,0,1
+7,set_size_penalty,0.1314115334533652,GMSC,REVISE,JEM Ensemble,0,1
 7,validity,1.0,GMSC,REVISE,JEM Ensemble,0,1
-8,distance,3.307147264480591,GMSC,REVISE,JEM Ensemble,0,1
-8,distance_from_energy,319.2303161621094,GMSC,REVISE,JEM Ensemble,0,1
-8,distance_from_targets,4.549928188323975,GMSC,REVISE,JEM Ensemble,0,1
+8,distance,2.5670971870422363,GMSC,REVISE,JEM Ensemble,0,1
+8,distance_from_energy,171.54661560058594,GMSC,REVISE,JEM Ensemble,0,1
+8,distance_from_targets,5.672773838043213,GMSC,REVISE,JEM Ensemble,0,1
 8,redundancy,0.0,GMSC,REVISE,JEM Ensemble,0,1
-8,set_size_penalty,0.5696287704152976,GMSC,REVISE,JEM Ensemble,0,1
+8,set_size_penalty,0.10350805027528454,GMSC,REVISE,JEM Ensemble,0,1
 8,validity,1.0,GMSC,REVISE,JEM Ensemble,0,1
-9,distance,2.8511033058166504,GMSC,REVISE,JEM Ensemble,0,1
-9,distance_from_energy,165.27011108398438,GMSC,REVISE,JEM Ensemble,0,1
-9,distance_from_targets,5.0394368171691895,GMSC,REVISE,JEM Ensemble,0,1
+9,distance,1.9663565158843994,GMSC,REVISE,JEM Ensemble,0,1
+9,distance_from_energy,127.55165100097656,GMSC,REVISE,JEM Ensemble,0,1
+9,distance_from_targets,4.710921287536621,GMSC,REVISE,JEM Ensemble,0,1
 9,redundancy,0.0,GMSC,REVISE,JEM Ensemble,0,1
-9,set_size_penalty,0.14108501882907776,GMSC,REVISE,JEM Ensemble,0,1
+9,set_size_penalty,0.09454010974920868,GMSC,REVISE,JEM Ensemble,0,1
 9,validity,1.0,GMSC,REVISE,JEM Ensemble,0,1
-10,distance,3.1808087825775146,GMSC,REVISE,JEM Ensemble,0,1
-10,distance_from_energy,169.67726135253906,GMSC,REVISE,JEM Ensemble,0,1
-10,distance_from_targets,5.150926113128662,GMSC,REVISE,JEM Ensemble,0,1
+10,distance,1.385732889175415,GMSC,REVISE,JEM Ensemble,0,1
+10,distance_from_energy,176.263671875,GMSC,REVISE,JEM Ensemble,0,1
+10,distance_from_targets,4.640195369720459,GMSC,REVISE,JEM Ensemble,0,1
 10,redundancy,0.0,GMSC,REVISE,JEM Ensemble,0,1
-10,set_size_penalty,0.64214089658267,GMSC,REVISE,JEM Ensemble,0,1
+10,set_size_penalty,0.0950693305398933,GMSC,REVISE,JEM Ensemble,0,1
 10,validity,1.0,GMSC,REVISE,JEM Ensemble,0,1
-1,distance,26.532283782958984,GMSC,ECCCo,JEM Ensemble,0,1
-1,distance_from_energy,73.6549072265625,GMSC,ECCCo,JEM Ensemble,0,1
-1,distance_from_targets,23.793611526489258,GMSC,ECCCo,JEM Ensemble,0,1
+1,distance,20.23847198486328,GMSC,ECCCo,JEM Ensemble,0,1
+1,distance_from_energy,51.52045440673828,GMSC,ECCCo,JEM Ensemble,0,1
+1,distance_from_targets,19.36852264404297,GMSC,ECCCo,JEM Ensemble,0,1
 1,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,0,1
-1,set_size_penalty,0.436539612241454,GMSC,ECCCo,JEM Ensemble,0,1
+1,set_size_penalty,0.11593749577431,GMSC,ECCCo,JEM Ensemble,0,1
 1,validity,1.0,GMSC,ECCCo,JEM Ensemble,0,1
-2,distance,27.16414451599121,GMSC,ECCCo,JEM Ensemble,0,1
-2,distance_from_energy,82.6563491821289,GMSC,ECCCo,JEM Ensemble,0,1
-2,distance_from_targets,24.67755126953125,GMSC,ECCCo,JEM Ensemble,0,1
+2,distance,18.757320404052734,GMSC,ECCCo,JEM Ensemble,0,1
+2,distance_from_energy,45.657081604003906,GMSC,ECCCo,JEM Ensemble,0,1
+2,distance_from_targets,22.134897232055664,GMSC,ECCCo,JEM Ensemble,0,1
 2,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,0,1
-2,set_size_penalty,0.3922689372528212,GMSC,ECCCo,JEM Ensemble,0,1
+2,set_size_penalty,0.0777215700641376,GMSC,ECCCo,JEM Ensemble,0,1
 2,validity,1.0,GMSC,ECCCo,JEM Ensemble,0,1
-3,distance,19.269609451293945,GMSC,ECCCo,JEM Ensemble,0,1
-3,distance_from_energy,94.34121704101562,GMSC,ECCCo,JEM Ensemble,0,1
-3,distance_from_targets,23.24142837524414,GMSC,ECCCo,JEM Ensemble,0,1
+3,distance,20.286090850830078,GMSC,ECCCo,JEM Ensemble,0,1
+3,distance_from_energy,70.91785430908203,GMSC,ECCCo,JEM Ensemble,0,1
+3,distance_from_targets,22.134408950805664,GMSC,ECCCo,JEM Ensemble,0,1
 3,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,0,1
-3,set_size_penalty,0.09765415625037077,GMSC,ECCCo,JEM Ensemble,0,1
+3,set_size_penalty,0.10495044027454559,GMSC,ECCCo,JEM Ensemble,0,1
 3,validity,1.0,GMSC,ECCCo,JEM Ensemble,0,1
-4,distance,16.21961212158203,GMSC,ECCCo,JEM Ensemble,0,1
-4,distance_from_energy,83.6130599975586,GMSC,ECCCo,JEM Ensemble,0,1
-4,distance_from_targets,21.146099090576172,GMSC,ECCCo,JEM Ensemble,0,1
+4,distance,19.707653045654297,GMSC,ECCCo,JEM Ensemble,0,1
+4,distance_from_energy,36.05720138549805,GMSC,ECCCo,JEM Ensemble,0,1
+4,distance_from_targets,20.424360275268555,GMSC,ECCCo,JEM Ensemble,0,1
 4,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,0,1
-4,set_size_penalty,0.09866411883297133,GMSC,ECCCo,JEM Ensemble,0,1
+4,set_size_penalty,0.07761348497581855,GMSC,ECCCo,JEM Ensemble,0,1
 4,validity,1.0,GMSC,ECCCo,JEM Ensemble,0,1
-5,distance,15.946751594543457,GMSC,ECCCo,JEM Ensemble,0,1
-5,distance_from_energy,66.07173919677734,GMSC,ECCCo,JEM Ensemble,0,1
-5,distance_from_targets,18.117191314697266,GMSC,ECCCo,JEM Ensemble,0,1
+5,distance,20.570974349975586,GMSC,ECCCo,JEM Ensemble,0,1
+5,distance_from_energy,54.10948181152344,GMSC,ECCCo,JEM Ensemble,0,1
+5,distance_from_targets,19.96177101135254,GMSC,ECCCo,JEM Ensemble,0,1
 5,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,0,1
-5,set_size_penalty,0.09978563976706889,GMSC,ECCCo,JEM Ensemble,0,1
+5,set_size_penalty,0.11493731770486959,GMSC,ECCCo,JEM Ensemble,0,1
 5,validity,1.0,GMSC,ECCCo,JEM Ensemble,0,1
-6,distance,18.705732345581055,GMSC,ECCCo,JEM Ensemble,0,1
-6,distance_from_energy,94.09888458251953,GMSC,ECCCo,JEM Ensemble,0,1
-6,distance_from_targets,18.408191680908203,GMSC,ECCCo,JEM Ensemble,0,1
+6,distance,19.26055908203125,GMSC,ECCCo,JEM Ensemble,0,1
+6,distance_from_energy,38.77009582519531,GMSC,ECCCo,JEM Ensemble,0,1
+6,distance_from_targets,19.698774337768555,GMSC,ECCCo,JEM Ensemble,0,1
 6,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,0,1
-6,set_size_penalty,0.09795838788034428,GMSC,ECCCo,JEM Ensemble,0,1
+6,set_size_penalty,0.07782437452457458,GMSC,ECCCo,JEM Ensemble,0,1
 6,validity,1.0,GMSC,ECCCo,JEM Ensemble,0,1
-7,distance,18.920063018798828,GMSC,ECCCo,JEM Ensemble,0,1
-7,distance_from_energy,79.81282043457031,GMSC,ECCCo,JEM Ensemble,0,1
-7,distance_from_targets,22.584314346313477,GMSC,ECCCo,JEM Ensemble,0,1
+7,distance,20.254549026489258,GMSC,ECCCo,JEM Ensemble,0,1
+7,distance_from_energy,55.441349029541016,GMSC,ECCCo,JEM Ensemble,0,1
+7,distance_from_targets,21.511409759521484,GMSC,ECCCo,JEM Ensemble,0,1
 7,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,0,1
-7,set_size_penalty,0.09792753622786687,GMSC,ECCCo,JEM Ensemble,0,1
+7,set_size_penalty,0.11741408064190106,GMSC,ECCCo,JEM Ensemble,0,1
 7,validity,1.0,GMSC,ECCCo,JEM Ensemble,0,1
-8,distance,23.81421661376953,GMSC,ECCCo,JEM Ensemble,0,1
-8,distance_from_energy,75.320556640625,GMSC,ECCCo,JEM Ensemble,0,1
-8,distance_from_targets,26.006345748901367,GMSC,ECCCo,JEM Ensemble,0,1
+8,distance,20.51303482055664,GMSC,ECCCo,JEM Ensemble,0,1
+8,distance_from_energy,79.66751861572266,GMSC,ECCCo,JEM Ensemble,0,1
+8,distance_from_targets,17.615543365478516,GMSC,ECCCo,JEM Ensemble,0,1
 8,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,0,1
-8,set_size_penalty,0.8461790288533977,GMSC,ECCCo,JEM Ensemble,0,1
+8,set_size_penalty,0.11962647905755319,GMSC,ECCCo,JEM Ensemble,0,1
 8,validity,1.0,GMSC,ECCCo,JEM Ensemble,0,1
-9,distance,21.280052185058594,GMSC,ECCCo,JEM Ensemble,0,1
-9,distance_from_energy,81.20247650146484,GMSC,ECCCo,JEM Ensemble,0,1
-9,distance_from_targets,21.45929527282715,GMSC,ECCCo,JEM Ensemble,0,1
+9,distance,20.74236297607422,GMSC,ECCCo,JEM Ensemble,0,1
+9,distance_from_energy,81.89608764648438,GMSC,ECCCo,JEM Ensemble,0,1
+9,distance_from_targets,20.333202362060547,GMSC,ECCCo,JEM Ensemble,0,1
 9,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,0,1
-9,set_size_penalty,0.1779206625210481,GMSC,ECCCo,JEM Ensemble,0,1
+9,set_size_penalty,0.11082196717393855,GMSC,ECCCo,JEM Ensemble,0,1
 9,validity,1.0,GMSC,ECCCo,JEM Ensemble,0,1
-10,distance,19.897411346435547,GMSC,ECCCo,JEM Ensemble,0,1
-10,distance_from_energy,60.3786735534668,GMSC,ECCCo,JEM Ensemble,0,1
-10,distance_from_targets,23.464265823364258,GMSC,ECCCo,JEM Ensemble,0,1
+10,distance,18.80431365966797,GMSC,ECCCo,JEM Ensemble,0,1
+10,distance_from_energy,45.836395263671875,GMSC,ECCCo,JEM Ensemble,0,1
+10,distance_from_targets,19.0665225982666,GMSC,ECCCo,JEM Ensemble,0,1
 10,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,0,1
-10,set_size_penalty,0.10922131815101688,GMSC,ECCCo,JEM Ensemble,0,1
+10,set_size_penalty,0.11940480609446835,GMSC,ECCCo,JEM Ensemble,0,1
 10,validity,1.0,GMSC,ECCCo,JEM Ensemble,0,1
-1,distance,1.5,GMSC,Schut,JEM Ensemble,0,1
-1,distance_from_energy,230.72181701660156,GMSC,Schut,JEM Ensemble,0,1
-1,distance_from_targets,6.206462383270264,GMSC,Schut,JEM Ensemble,0,1
-1,redundancy,0.6,GMSC,Schut,JEM Ensemble,0,1
-1,set_size_penalty,0.19613453661524027,GMSC,Schut,JEM Ensemble,0,1
+1,distance,0.800000011920929,GMSC,Schut,JEM Ensemble,0,1
+1,distance_from_energy,146.56332397460938,GMSC,Schut,JEM Ensemble,0,1
+1,distance_from_targets,5.726475715637207,GMSC,Schut,JEM Ensemble,0,1
+1,redundancy,0.9,GMSC,Schut,JEM Ensemble,0,1
+1,set_size_penalty,0.08512159562401922,GMSC,Schut,JEM Ensemble,0,1
 1,validity,1.0,GMSC,Schut,JEM Ensemble,0,1
-2,distance,1.2000000476837158,GMSC,Schut,JEM Ensemble,0,1
-2,distance_from_energy,187.0094757080078,GMSC,Schut,JEM Ensemble,0,1
-2,distance_from_targets,6.381436347961426,GMSC,Schut,JEM Ensemble,0,1
-2,redundancy,0.7,GMSC,Schut,JEM Ensemble,0,1
-2,set_size_penalty,0.09624726441295706,GMSC,Schut,JEM Ensemble,0,1
+2,distance,0.699999988079071,GMSC,Schut,JEM Ensemble,0,1
+2,distance_from_energy,150.42845153808594,GMSC,Schut,JEM Ensemble,0,1
+2,distance_from_targets,6.553066253662109,GMSC,Schut,JEM Ensemble,0,1
+2,redundancy,0.9,GMSC,Schut,JEM Ensemble,0,1
+2,set_size_penalty,0.08632502791928087,GMSC,Schut,JEM Ensemble,0,1
 2,validity,1.0,GMSC,Schut,JEM Ensemble,0,1
-3,distance,1.4000000953674316,GMSC,Schut,JEM Ensemble,0,1
-3,distance_from_energy,141.83322143554688,GMSC,Schut,JEM Ensemble,0,1
-3,distance_from_targets,7.427859306335449,GMSC,Schut,JEM Ensemble,0,1
-3,redundancy,0.7,GMSC,Schut,JEM Ensemble,0,1
-3,set_size_penalty,0.10346709138269894,GMSC,Schut,JEM Ensemble,0,1
+3,distance,0.800000011920929,GMSC,Schut,JEM Ensemble,0,1
+3,distance_from_energy,115.37447357177734,GMSC,Schut,JEM Ensemble,0,1
+3,distance_from_targets,5.8068366050720215,GMSC,Schut,JEM Ensemble,0,1
+3,redundancy,0.9,GMSC,Schut,JEM Ensemble,0,1
+3,set_size_penalty,0.08772800325175623,GMSC,Schut,JEM Ensemble,0,1
 3,validity,1.0,GMSC,Schut,JEM Ensemble,0,1
-4,distance,1.6000001430511475,GMSC,Schut,JEM Ensemble,0,1
-4,distance_from_energy,206.59523010253906,GMSC,Schut,JEM Ensemble,0,1
-4,distance_from_targets,8.072128295898438,GMSC,Schut,JEM Ensemble,0,1
-4,redundancy,0.7,GMSC,Schut,JEM Ensemble,0,1
-4,set_size_penalty,0.11942090099643998,GMSC,Schut,JEM Ensemble,0,1
+4,distance,0.800000011920929,GMSC,Schut,JEM Ensemble,0,1
+4,distance_from_energy,179.65737915039062,GMSC,Schut,JEM Ensemble,0,1
+4,distance_from_targets,5.393759250640869,GMSC,Schut,JEM Ensemble,0,1
+4,redundancy,0.9,GMSC,Schut,JEM Ensemble,0,1
+4,set_size_penalty,0.08548753037807821,GMSC,Schut,JEM Ensemble,0,1
 4,validity,1.0,GMSC,Schut,JEM Ensemble,0,1
-5,distance,1.600000023841858,GMSC,Schut,JEM Ensemble,0,1
-5,distance_from_energy,163.54588317871094,GMSC,Schut,JEM Ensemble,0,1
-5,distance_from_targets,6.189071178436279,GMSC,Schut,JEM Ensemble,0,1
-5,redundancy,0.6,GMSC,Schut,JEM Ensemble,0,1
-5,set_size_penalty,0.24782669296361504,GMSC,Schut,JEM Ensemble,0,1
+5,distance,0.800000011920929,GMSC,Schut,JEM Ensemble,0,1
+5,distance_from_energy,217.8952178955078,GMSC,Schut,JEM Ensemble,0,1
+5,distance_from_targets,5.1878156661987305,GMSC,Schut,JEM Ensemble,0,1
+5,redundancy,0.9,GMSC,Schut,JEM Ensemble,0,1
+5,set_size_penalty,0.08227519278754714,GMSC,Schut,JEM Ensemble,0,1
 5,validity,1.0,GMSC,Schut,JEM Ensemble,0,1
-6,distance,1.600000023841858,GMSC,Schut,JEM Ensemble,0,1
-6,distance_from_energy,279.4451904296875,GMSC,Schut,JEM Ensemble,0,1
-6,distance_from_targets,5.4592180252075195,GMSC,Schut,JEM Ensemble,0,1
-6,redundancy,0.6,GMSC,Schut,JEM Ensemble,0,1
-6,set_size_penalty,0.2284297111747764,GMSC,Schut,JEM Ensemble,0,1
+6,distance,0.800000011920929,GMSC,Schut,JEM Ensemble,0,1
+6,distance_from_energy,152.4193878173828,GMSC,Schut,JEM Ensemble,0,1
+6,distance_from_targets,5.247786045074463,GMSC,Schut,JEM Ensemble,0,1
+6,redundancy,0.9,GMSC,Schut,JEM Ensemble,0,1
+6,set_size_penalty,0.08505100160498613,GMSC,Schut,JEM Ensemble,0,1
 6,validity,1.0,GMSC,Schut,JEM Ensemble,0,1
-7,distance,1.5,GMSC,Schut,JEM Ensemble,0,1
-7,distance_from_energy,164.71511840820312,GMSC,Schut,JEM Ensemble,0,1
-7,distance_from_targets,7.1352972984313965,GMSC,Schut,JEM Ensemble,0,1
-7,redundancy,0.7,GMSC,Schut,JEM Ensemble,0,1
-7,set_size_penalty,0.10296932338703768,GMSC,Schut,JEM Ensemble,0,1
+7,distance,0.800000011920929,GMSC,Schut,JEM Ensemble,0,1
+7,distance_from_energy,132.87957763671875,GMSC,Schut,JEM Ensemble,0,1
+7,distance_from_targets,5.197673797607422,GMSC,Schut,JEM Ensemble,0,1
+7,redundancy,0.9,GMSC,Schut,JEM Ensemble,0,1
+7,set_size_penalty,0.08538380013745295,GMSC,Schut,JEM Ensemble,0,1
 7,validity,1.0,GMSC,Schut,JEM Ensemble,0,1
-8,distance,1.5,GMSC,Schut,JEM Ensemble,0,1
-8,distance_from_energy,197.28921508789062,GMSC,Schut,JEM Ensemble,0,1
-8,distance_from_targets,6.115926265716553,GMSC,Schut,JEM Ensemble,0,1
-8,redundancy,0.6,GMSC,Schut,JEM Ensemble,0,1
-8,set_size_penalty,0.16330732556116923,GMSC,Schut,JEM Ensemble,0,1
+8,distance,0.699999988079071,GMSC,Schut,JEM Ensemble,0,1
+8,distance_from_energy,137.5053253173828,GMSC,Schut,JEM Ensemble,0,1
+8,distance_from_targets,5.699422836303711,GMSC,Schut,JEM Ensemble,0,1
+8,redundancy,0.9,GMSC,Schut,JEM Ensemble,0,1
+8,set_size_penalty,0.0837398379419747,GMSC,Schut,JEM Ensemble,0,1
 8,validity,1.0,GMSC,Schut,JEM Ensemble,0,1
-9,distance,1.399999976158142,GMSC,Schut,JEM Ensemble,0,1
-9,distance_from_energy,203.93861389160156,GMSC,Schut,JEM Ensemble,0,1
-9,distance_from_targets,5.498232364654541,GMSC,Schut,JEM Ensemble,0,1
-9,redundancy,0.7,GMSC,Schut,JEM Ensemble,0,1
-9,set_size_penalty,0.1699468859425295,GMSC,Schut,JEM Ensemble,0,1
+9,distance,0.800000011920929,GMSC,Schut,JEM Ensemble,0,1
+9,distance_from_energy,221.02378845214844,GMSC,Schut,JEM Ensemble,0,1
+9,distance_from_targets,4.976169109344482,GMSC,Schut,JEM Ensemble,0,1
+9,redundancy,0.9,GMSC,Schut,JEM Ensemble,0,1
+9,set_size_penalty,0.08363503078671397,GMSC,Schut,JEM Ensemble,0,1
 9,validity,1.0,GMSC,Schut,JEM Ensemble,0,1
-10,distance,1.5999999046325684,GMSC,Schut,JEM Ensemble,0,1
-10,distance_from_energy,189.07342529296875,GMSC,Schut,JEM Ensemble,0,1
-10,distance_from_targets,7.3654913902282715,GMSC,Schut,JEM Ensemble,0,1
-10,redundancy,0.6,GMSC,Schut,JEM Ensemble,0,1
-10,set_size_penalty,0.2872386438109489,GMSC,Schut,JEM Ensemble,0,1
+10,distance,0.800000011920929,GMSC,Schut,JEM Ensemble,0,1
+10,distance_from_energy,96.83663177490234,GMSC,Schut,JEM Ensemble,0,1
+10,distance_from_targets,4.933088779449463,GMSC,Schut,JEM Ensemble,0,1
+10,redundancy,0.9,GMSC,Schut,JEM Ensemble,0,1
+10,set_size_penalty,0.08314140631504419,GMSC,Schut,JEM Ensemble,0,1
 10,validity,1.0,GMSC,Schut,JEM Ensemble,0,1
-11,distance,134.41043090820312,GMSC,Wachter,MLP,0,1
-11,distance_from_energy,152.2567901611328,GMSC,Wachter,MLP,0,1
-11,distance_from_targets,135.04469299316406,GMSC,Wachter,MLP,0,1
+11,distance,150.530517578125,GMSC,Wachter,MLP,0,1
+11,distance_from_energy,152.51622009277344,GMSC,Wachter,MLP,0,1
+11,distance_from_targets,150.36412048339844,GMSC,Wachter,MLP,0,1
 11,redundancy,0.0,GMSC,Wachter,MLP,0,1
-11,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,0,1
-11,validity,1.0,GMSC,Wachter,MLP,0,1
-12,distance,134.5246124267578,GMSC,Wachter,MLP,0,1
-12,distance_from_energy,245.79994201660156,GMSC,Wachter,MLP,0,1
-12,distance_from_targets,136.53656005859375,GMSC,Wachter,MLP,0,1
+11,set_size_penalty,0.0,GMSC,Wachter,MLP,0,1
+11,validity,0.0,GMSC,Wachter,MLP,0,1
+12,distance,150.55593872070312,GMSC,Wachter,MLP,0,1
+12,distance_from_energy,171.1038055419922,GMSC,Wachter,MLP,0,1
+12,distance_from_targets,150.78497314453125,GMSC,Wachter,MLP,0,1
 12,redundancy,0.0,GMSC,Wachter,MLP,0,1
-12,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,0,1
-12,validity,1.0,GMSC,Wachter,MLP,0,1
-13,distance,134.48391723632812,GMSC,Wachter,MLP,0,1
-13,distance_from_energy,218.60903930664062,GMSC,Wachter,MLP,0,1
-13,distance_from_targets,136.6478729248047,GMSC,Wachter,MLP,0,1
+12,set_size_penalty,0.0,GMSC,Wachter,MLP,0,1
+12,validity,0.0,GMSC,Wachter,MLP,0,1
+13,distance,151.73622131347656,GMSC,Wachter,MLP,0,1
+13,distance_from_energy,161.98780822753906,GMSC,Wachter,MLP,0,1
+13,distance_from_targets,155.22555541992188,GMSC,Wachter,MLP,0,1
 13,redundancy,0.0,GMSC,Wachter,MLP,0,1
-13,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,0,1
-13,validity,1.0,GMSC,Wachter,MLP,0,1
-14,distance,134.43765258789062,GMSC,Wachter,MLP,0,1
-14,distance_from_energy,198.9350128173828,GMSC,Wachter,MLP,0,1
-14,distance_from_targets,132.22064208984375,GMSC,Wachter,MLP,0,1
+13,set_size_penalty,0.0,GMSC,Wachter,MLP,0,1
+13,validity,0.0,GMSC,Wachter,MLP,0,1
+14,distance,148.99607849121094,GMSC,Wachter,MLP,0,1
+14,distance_from_energy,182.12765502929688,GMSC,Wachter,MLP,0,1
+14,distance_from_targets,146.66064453125,GMSC,Wachter,MLP,0,1
 14,redundancy,0.0,GMSC,Wachter,MLP,0,1
-14,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,0,1
-14,validity,1.0,GMSC,Wachter,MLP,0,1
-15,distance,134.43899536132812,GMSC,Wachter,MLP,0,1
-15,distance_from_energy,182.77874755859375,GMSC,Wachter,MLP,0,1
-15,distance_from_targets,133.42491149902344,GMSC,Wachter,MLP,0,1
+14,set_size_penalty,0.0,GMSC,Wachter,MLP,0,1
+14,validity,0.0,GMSC,Wachter,MLP,0,1
+15,distance,149.592041015625,GMSC,Wachter,MLP,0,1
+15,distance_from_energy,180.07559204101562,GMSC,Wachter,MLP,0,1
+15,distance_from_targets,150.45814514160156,GMSC,Wachter,MLP,0,1
 15,redundancy,0.0,GMSC,Wachter,MLP,0,1
-15,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,0,1
-15,validity,1.0,GMSC,Wachter,MLP,0,1
-16,distance,134.4551544189453,GMSC,Wachter,MLP,0,1
-16,distance_from_energy,175.8405303955078,GMSC,Wachter,MLP,0,1
-16,distance_from_targets,135.94740295410156,GMSC,Wachter,MLP,0,1
+15,set_size_penalty,0.0,GMSC,Wachter,MLP,0,1
+15,validity,0.0,GMSC,Wachter,MLP,0,1
+16,distance,150.0099334716797,GMSC,Wachter,MLP,0,1
+16,distance_from_energy,199.5347137451172,GMSC,Wachter,MLP,0,1
+16,distance_from_targets,148.81295776367188,GMSC,Wachter,MLP,0,1
 16,redundancy,0.0,GMSC,Wachter,MLP,0,1
-16,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,0,1
-16,validity,1.0,GMSC,Wachter,MLP,0,1
-17,distance,134.3840789794922,GMSC,Wachter,MLP,0,1
-17,distance_from_energy,143.33738708496094,GMSC,Wachter,MLP,0,1
-17,distance_from_targets,133.7336883544922,GMSC,Wachter,MLP,0,1
+16,set_size_penalty,0.0,GMSC,Wachter,MLP,0,1
+16,validity,0.0,GMSC,Wachter,MLP,0,1
+17,distance,149.17063903808594,GMSC,Wachter,MLP,0,1
+17,distance_from_energy,180.37403869628906,GMSC,Wachter,MLP,0,1
+17,distance_from_targets,149.2356414794922,GMSC,Wachter,MLP,0,1
 17,redundancy,0.0,GMSC,Wachter,MLP,0,1
-17,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,0,1
-17,validity,1.0,GMSC,Wachter,MLP,0,1
-18,distance,134.47935485839844,GMSC,Wachter,MLP,0,1
-18,distance_from_energy,194.64894104003906,GMSC,Wachter,MLP,0,1
-18,distance_from_targets,134.2291259765625,GMSC,Wachter,MLP,0,1
+17,set_size_penalty,0.0,GMSC,Wachter,MLP,0,1
+17,validity,0.0,GMSC,Wachter,MLP,0,1
+18,distance,150.6320037841797,GMSC,Wachter,MLP,0,1
+18,distance_from_energy,215.69065856933594,GMSC,Wachter,MLP,0,1
+18,distance_from_targets,151.0371856689453,GMSC,Wachter,MLP,0,1
 18,redundancy,0.0,GMSC,Wachter,MLP,0,1
-18,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,0,1
-18,validity,1.0,GMSC,Wachter,MLP,0,1
-19,distance,134.3907470703125,GMSC,Wachter,MLP,0,1
-19,distance_from_energy,175.88873291015625,GMSC,Wachter,MLP,0,1
-19,distance_from_targets,132.63388061523438,GMSC,Wachter,MLP,0,1
+18,set_size_penalty,0.0,GMSC,Wachter,MLP,0,1
+18,validity,0.0,GMSC,Wachter,MLP,0,1
+19,distance,150.72166442871094,GMSC,Wachter,MLP,0,1
+19,distance_from_energy,174.57119750976562,GMSC,Wachter,MLP,0,1
+19,distance_from_targets,153.82473754882812,GMSC,Wachter,MLP,0,1
 19,redundancy,0.0,GMSC,Wachter,MLP,0,1
-19,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,0,1
-19,validity,1.0,GMSC,Wachter,MLP,0,1
-20,distance,134.43612670898438,GMSC,Wachter,MLP,0,1
-20,distance_from_energy,166.4049835205078,GMSC,Wachter,MLP,0,1
-20,distance_from_targets,133.70338439941406,GMSC,Wachter,MLP,0,1
+19,set_size_penalty,0.0,GMSC,Wachter,MLP,0,1
+19,validity,0.0,GMSC,Wachter,MLP,0,1
+20,distance,149.93199157714844,GMSC,Wachter,MLP,0,1
+20,distance_from_energy,147.11834716796875,GMSC,Wachter,MLP,0,1
+20,distance_from_targets,152.86790466308594,GMSC,Wachter,MLP,0,1
 20,redundancy,0.0,GMSC,Wachter,MLP,0,1
-20,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,0,1
-20,validity,1.0,GMSC,Wachter,MLP,0,1
-11,distance,1.1677640676498413,GMSC,REVISE,MLP,0,1
-11,distance_from_energy,218.6702880859375,GMSC,REVISE,MLP,0,1
-11,distance_from_targets,5.024075031280518,GMSC,REVISE,MLP,0,1
+20,set_size_penalty,0.0,GMSC,Wachter,MLP,0,1
+20,validity,0.0,GMSC,Wachter,MLP,0,1
+11,distance,3.8078646659851074,GMSC,REVISE,MLP,0,1
+11,distance_from_energy,193.06112670898438,GMSC,REVISE,MLP,0,1
+11,distance_from_targets,6.3507466316223145,GMSC,REVISE,MLP,0,1
 11,redundancy,0.0,GMSC,REVISE,MLP,0,1
-11,set_size_penalty,0.219637189470699,GMSC,REVISE,MLP,0,1
+11,set_size_penalty,0.2898518980307747,GMSC,REVISE,MLP,0,1
 11,validity,1.0,GMSC,REVISE,MLP,0,1
-12,distance,3.0000998973846436,GMSC,REVISE,MLP,0,1
-12,distance_from_energy,205.4701385498047,GMSC,REVISE,MLP,0,1
-12,distance_from_targets,4.638247966766357,GMSC,REVISE,MLP,0,1
+12,distance,2.0739972591400146,GMSC,REVISE,MLP,0,1
+12,distance_from_energy,182.8617706298828,GMSC,REVISE,MLP,0,1
+12,distance_from_targets,5.392232418060303,GMSC,REVISE,MLP,0,1
 12,redundancy,0.0,GMSC,REVISE,MLP,0,1
-12,set_size_penalty,0.24452117676594654,GMSC,REVISE,MLP,0,1
+12,set_size_penalty,0.36326732114196725,GMSC,REVISE,MLP,0,1
 12,validity,1.0,GMSC,REVISE,MLP,0,1
-13,distance,2.5342226028442383,GMSC,REVISE,MLP,0,1
-13,distance_from_energy,180.31723022460938,GMSC,REVISE,MLP,0,1
-13,distance_from_targets,5.035388946533203,GMSC,REVISE,MLP,0,1
+13,distance,4.860249996185303,GMSC,REVISE,MLP,0,1
+13,distance_from_energy,157.93185424804688,GMSC,REVISE,MLP,0,1
+13,distance_from_targets,6.615262508392334,GMSC,REVISE,MLP,0,1
 13,redundancy,0.0,GMSC,REVISE,MLP,0,1
-13,set_size_penalty,0.43990677103694087,GMSC,REVISE,MLP,0,1
+13,set_size_penalty,0.2585185511158321,GMSC,REVISE,MLP,0,1
 13,validity,1.0,GMSC,REVISE,MLP,0,1
-14,distance,3.88480544090271,GMSC,REVISE,MLP,0,1
-14,distance_from_energy,176.00762939453125,GMSC,REVISE,MLP,0,1
-14,distance_from_targets,6.316153049468994,GMSC,REVISE,MLP,0,1
+14,distance,5.142662525177002,GMSC,REVISE,MLP,0,1
+14,distance_from_energy,157.5816192626953,GMSC,REVISE,MLP,0,1
+14,distance_from_targets,4.60660457611084,GMSC,REVISE,MLP,0,1
 14,redundancy,0.0,GMSC,REVISE,MLP,0,1
-14,set_size_penalty,0.23414240210089599,GMSC,REVISE,MLP,0,1
+14,set_size_penalty,0.20891671673839296,GMSC,REVISE,MLP,0,1
 14,validity,1.0,GMSC,REVISE,MLP,0,1
-15,distance,2.8570404052734375,GMSC,REVISE,MLP,0,1
-15,distance_from_energy,178.71900939941406,GMSC,REVISE,MLP,0,1
-15,distance_from_targets,7.229655742645264,GMSC,REVISE,MLP,0,1
-15,redundancy,0.0,GMSC,REVISE,MLP,0,1
-15,set_size_penalty,0.5858433230586197,GMSC,REVISE,MLP,0,1
+15,distance,2.3015811443328857,GMSC,REVISE,MLP,0,1
+15,distance_from_energy,209.50064086914062,GMSC,REVISE,MLP,0,1
+15,distance_from_targets,4.977578639984131,GMSC,REVISE,MLP,0,1
+15,redundancy,0.1,GMSC,REVISE,MLP,0,1
+15,set_size_penalty,0.11851632221290997,GMSC,REVISE,MLP,0,1
 15,validity,1.0,GMSC,REVISE,MLP,0,1
-16,distance,1.602487564086914,GMSC,REVISE,MLP,0,1
-16,distance_from_energy,208.3625030517578,GMSC,REVISE,MLP,0,1
-16,distance_from_targets,4.636281967163086,GMSC,REVISE,MLP,0,1
+16,distance,2.474579095840454,GMSC,REVISE,MLP,0,1
+16,distance_from_energy,206.16265869140625,GMSC,REVISE,MLP,0,1
+16,distance_from_targets,5.625651836395264,GMSC,REVISE,MLP,0,1
 16,redundancy,0.0,GMSC,REVISE,MLP,0,1
-16,set_size_penalty,0.23949185120056216,GMSC,REVISE,MLP,0,1
+16,set_size_penalty,0.3360172083586095,GMSC,REVISE,MLP,0,1
 16,validity,1.0,GMSC,REVISE,MLP,0,1
-17,distance,1.7265006303787231,GMSC,REVISE,MLP,0,1
-17,distance_from_energy,174.31591796875,GMSC,REVISE,MLP,0,1
-17,distance_from_targets,4.460118770599365,GMSC,REVISE,MLP,0,1
+17,distance,1.6641566753387451,GMSC,REVISE,MLP,0,1
+17,distance_from_energy,146.3950958251953,GMSC,REVISE,MLP,0,1
+17,distance_from_targets,5.4813151359558105,GMSC,REVISE,MLP,0,1
 17,redundancy,0.0,GMSC,REVISE,MLP,0,1
-17,set_size_penalty,0.4663808179887794,GMSC,REVISE,MLP,0,1
+17,set_size_penalty,0.12608197368072283,GMSC,REVISE,MLP,0,1
 17,validity,1.0,GMSC,REVISE,MLP,0,1
-18,distance,4.444501876831055,GMSC,REVISE,MLP,0,1
-18,distance_from_energy,156.30233764648438,GMSC,REVISE,MLP,0,1
-18,distance_from_targets,5.068179607391357,GMSC,REVISE,MLP,0,1
+18,distance,1.927891731262207,GMSC,REVISE,MLP,0,1
+18,distance_from_energy,165.2148895263672,GMSC,REVISE,MLP,0,1
+18,distance_from_targets,5.462256908416748,GMSC,REVISE,MLP,0,1
 18,redundancy,0.0,GMSC,REVISE,MLP,0,1
-18,set_size_penalty,0.48092882411084914,GMSC,REVISE,MLP,0,1
+18,set_size_penalty,0.310650078053335,GMSC,REVISE,MLP,0,1
 18,validity,1.0,GMSC,REVISE,MLP,0,1
-19,distance,4.231472015380859,GMSC,REVISE,MLP,0,1
-19,distance_from_energy,121.54650115966797,GMSC,REVISE,MLP,0,1
-19,distance_from_targets,7.150024890899658,GMSC,REVISE,MLP,0,1
+19,distance,3.7835981845855713,GMSC,REVISE,MLP,0,1
+19,distance_from_energy,177.3547821044922,GMSC,REVISE,MLP,0,1
+19,distance_from_targets,5.103183746337891,GMSC,REVISE,MLP,0,1
 19,redundancy,0.0,GMSC,REVISE,MLP,0,1
-19,set_size_penalty,0.5857862868780006,GMSC,REVISE,MLP,0,1
+19,set_size_penalty,0.3713541134159135,GMSC,REVISE,MLP,0,1
 19,validity,1.0,GMSC,REVISE,MLP,0,1
-20,distance,3.3202390670776367,GMSC,REVISE,MLP,0,1
-20,distance_from_energy,265.3076477050781,GMSC,REVISE,MLP,0,1
-20,distance_from_targets,4.297364711761475,GMSC,REVISE,MLP,0,1
+20,distance,3.2127299308776855,GMSC,REVISE,MLP,0,1
+20,distance_from_energy,181.15887451171875,GMSC,REVISE,MLP,0,1
+20,distance_from_targets,5.172028064727783,GMSC,REVISE,MLP,0,1
 20,redundancy,0.0,GMSC,REVISE,MLP,0,1
-20,set_size_penalty,0.4935108990935393,GMSC,REVISE,MLP,0,1
+20,set_size_penalty,0.1322029039260737,GMSC,REVISE,MLP,0,1
 20,validity,1.0,GMSC,REVISE,MLP,0,1
-11,distance,31.369525909423828,GMSC,ECCCo,MLP,0,1
-11,distance_from_energy,74.60052490234375,GMSC,ECCCo,MLP,0,1
-11,distance_from_targets,28.859615325927734,GMSC,ECCCo,MLP,0,1
+11,distance,20.426342010498047,GMSC,ECCCo,MLP,0,1
+11,distance_from_energy,63.56825637817383,GMSC,ECCCo,MLP,0,1
+11,distance_from_targets,20.649145126342773,GMSC,ECCCo,MLP,0,1
 11,redundancy,0.0,GMSC,ECCCo,MLP,0,1
-11,set_size_penalty,0.13461903947494935,GMSC,ECCCo,MLP,0,1
+11,set_size_penalty,0.10355394528997164,GMSC,ECCCo,MLP,0,1
 11,validity,1.0,GMSC,ECCCo,MLP,0,1
-12,distance,30.633012771606445,GMSC,ECCCo,MLP,0,1
-12,distance_from_energy,83.12982177734375,GMSC,ECCCo,MLP,0,1
-12,distance_from_targets,29.362348556518555,GMSC,ECCCo,MLP,0,1
+12,distance,21.029521942138672,GMSC,ECCCo,MLP,0,1
+12,distance_from_energy,50.2912483215332,GMSC,ECCCo,MLP,0,1
+12,distance_from_targets,22.51658058166504,GMSC,ECCCo,MLP,0,1
 12,redundancy,0.0,GMSC,ECCCo,MLP,0,1
-12,set_size_penalty,0.13461903947494935,GMSC,ECCCo,MLP,0,1
+12,set_size_penalty,0.1035569135609753,GMSC,ECCCo,MLP,0,1
 12,validity,1.0,GMSC,ECCCo,MLP,0,1
-13,distance,30.1500244140625,GMSC,ECCCo,MLP,0,1
-13,distance_from_energy,80.87191009521484,GMSC,ECCCo,MLP,0,1
-13,distance_from_targets,29.46896743774414,GMSC,ECCCo,MLP,0,1
+13,distance,20.781164169311523,GMSC,ECCCo,MLP,0,1
+13,distance_from_energy,64.0570297241211,GMSC,ECCCo,MLP,0,1
+13,distance_from_targets,25.89754295349121,GMSC,ECCCo,MLP,0,1
 13,redundancy,0.0,GMSC,ECCCo,MLP,0,1
-13,set_size_penalty,0.13461903947494935,GMSC,ECCCo,MLP,0,1
+13,set_size_penalty,0.10357031001279982,GMSC,ECCCo,MLP,0,1
 13,validity,1.0,GMSC,ECCCo,MLP,0,1
-14,distance,23.810842514038086,GMSC,ECCCo,MLP,0,1
-14,distance_from_energy,57.847503662109375,GMSC,ECCCo,MLP,0,1
-14,distance_from_targets,24.69259262084961,GMSC,ECCCo,MLP,0,1
+14,distance,21.52716064453125,GMSC,ECCCo,MLP,0,1
+14,distance_from_energy,67.52346801757812,GMSC,ECCCo,MLP,0,1
+14,distance_from_targets,21.003131866455078,GMSC,ECCCo,MLP,0,1
 14,redundancy,0.0,GMSC,ECCCo,MLP,0,1
-14,set_size_penalty,0.13461903948244291,GMSC,ECCCo,MLP,0,1
+14,set_size_penalty,0.10355398423186868,GMSC,ECCCo,MLP,0,1
 14,validity,1.0,GMSC,ECCCo,MLP,0,1
-15,distance,23.16397476196289,GMSC,ECCCo,MLP,0,1
-15,distance_from_energy,79.81061553955078,GMSC,ECCCo,MLP,0,1
-15,distance_from_targets,24.72797203063965,GMSC,ECCCo,MLP,0,1
+15,distance,20.413433074951172,GMSC,ECCCo,MLP,0,1
+15,distance_from_energy,60.8974494934082,GMSC,ECCCo,MLP,0,1
+15,distance_from_targets,18.116268157958984,GMSC,ECCCo,MLP,0,1
 15,redundancy,0.0,GMSC,ECCCo,MLP,0,1
-15,set_size_penalty,0.13461903948600384,GMSC,ECCCo,MLP,0,1
+15,set_size_penalty,0.10355392933522523,GMSC,ECCCo,MLP,0,1
 15,validity,1.0,GMSC,ECCCo,MLP,0,1
-16,distance,30.178625106811523,GMSC,ECCCo,MLP,0,1
-16,distance_from_energy,98.65656280517578,GMSC,ECCCo,MLP,0,1
-16,distance_from_targets,27.242965698242188,GMSC,ECCCo,MLP,0,1
+16,distance,21.690948486328125,GMSC,ECCCo,MLP,0,1
+16,distance_from_energy,58.3388786315918,GMSC,ECCCo,MLP,0,1
+16,distance_from_targets,23.897096633911133,GMSC,ECCCo,MLP,0,1
 16,redundancy,0.0,GMSC,ECCCo,MLP,0,1
-16,set_size_penalty,0.13461903947494935,GMSC,ECCCo,MLP,0,1
+16,set_size_penalty,0.10355409017071016,GMSC,ECCCo,MLP,0,1
 16,validity,1.0,GMSC,ECCCo,MLP,0,1
-17,distance,26.049293518066406,GMSC,ECCCo,MLP,0,1
-17,distance_from_energy,76.98807525634766,GMSC,ECCCo,MLP,0,1
-17,distance_from_targets,27.294891357421875,GMSC,ECCCo,MLP,0,1
+17,distance,20.30307388305664,GMSC,ECCCo,MLP,0,1
+17,distance_from_energy,62.430294036865234,GMSC,ECCCo,MLP,0,1
+17,distance_from_targets,18.703643798828125,GMSC,ECCCo,MLP,0,1
 17,redundancy,0.0,GMSC,ECCCo,MLP,0,1
-17,set_size_penalty,0.1346190394749598,GMSC,ECCCo,MLP,0,1
+17,set_size_penalty,0.10355426133714585,GMSC,ECCCo,MLP,0,1
 17,validity,1.0,GMSC,ECCCo,MLP,0,1
-18,distance,29.84705924987793,GMSC,ECCCo,MLP,0,1
-18,distance_from_energy,105.34037017822266,GMSC,ECCCo,MLP,0,1
-18,distance_from_targets,33.26164627075195,GMSC,ECCCo,MLP,0,1
+18,distance,21.06852912902832,GMSC,ECCCo,MLP,0,1
+18,distance_from_energy,75.43244934082031,GMSC,ECCCo,MLP,0,1
+18,distance_from_targets,22.90538787841797,GMSC,ECCCo,MLP,0,1
 18,redundancy,0.0,GMSC,ECCCo,MLP,0,1
-18,set_size_penalty,0.13461903947494935,GMSC,ECCCo,MLP,0,1
+18,set_size_penalty,0.10355733021322822,GMSC,ECCCo,MLP,0,1
 18,validity,1.0,GMSC,ECCCo,MLP,0,1
-19,distance,26.293790817260742,GMSC,ECCCo,MLP,0,1
-19,distance_from_energy,84.11135864257812,GMSC,ECCCo,MLP,0,1
-19,distance_from_targets,26.490144729614258,GMSC,ECCCo,MLP,0,1
+19,distance,21.003173828125,GMSC,ECCCo,MLP,0,1
+19,distance_from_energy,52.219566345214844,GMSC,ECCCo,MLP,0,1
+19,distance_from_targets,25.928112030029297,GMSC,ECCCo,MLP,0,1
 19,redundancy,0.0,GMSC,ECCCo,MLP,0,1
-19,set_size_penalty,0.13461903947511233,GMSC,ECCCo,MLP,0,1
+19,set_size_penalty,0.10355715334504234,GMSC,ECCCo,MLP,0,1
 19,validity,1.0,GMSC,ECCCo,MLP,0,1
-20,distance,27.24888801574707,GMSC,ECCCo,MLP,0,1
-20,distance_from_energy,88.7206802368164,GMSC,ECCCo,MLP,0,1
-20,distance_from_targets,27.663497924804688,GMSC,ECCCo,MLP,0,1
+20,distance,19.20783805847168,GMSC,ECCCo,MLP,0,1
+20,distance_from_energy,61.7314338684082,GMSC,ECCCo,MLP,0,1
+20,distance_from_targets,21.21350860595703,GMSC,ECCCo,MLP,0,1
 20,redundancy,0.0,GMSC,ECCCo,MLP,0,1
-20,set_size_penalty,0.13461903947495002,GMSC,ECCCo,MLP,0,1
+20,set_size_penalty,0.10355502603434696,GMSC,ECCCo,MLP,0,1
 20,validity,1.0,GMSC,ECCCo,MLP,0,1
-11,distance,2.700000286102295,GMSC,Schut,MLP,0,1
-11,distance_from_energy,240.6787567138672,GMSC,Schut,MLP,0,1
-11,distance_from_targets,7.1047797203063965,GMSC,Schut,MLP,0,1
-11,redundancy,0.6,GMSC,Schut,MLP,0,1
-11,set_size_penalty,0.13788638946285747,GMSC,Schut,MLP,0,1
+11,distance,1.0,GMSC,Schut,MLP,0,1
+11,distance_from_energy,207.74435424804688,GMSC,Schut,MLP,0,1
+11,distance_from_targets,6.654955863952637,GMSC,Schut,MLP,0,1
+11,redundancy,0.9,GMSC,Schut,MLP,0,1
+11,set_size_penalty,0.10510589617576471,GMSC,Schut,MLP,0,1
 11,validity,1.0,GMSC,Schut,MLP,0,1
-12,distance,2.9000000953674316,GMSC,Schut,MLP,0,1
-12,distance_from_energy,165.634765625,GMSC,Schut,MLP,0,1
-12,distance_from_targets,7.0707316398620605,GMSC,Schut,MLP,0,1
-12,redundancy,0.7,GMSC,Schut,MLP,0,1
-12,set_size_penalty,0.13762386546316607,GMSC,Schut,MLP,0,1
+12,distance,1.0,GMSC,Schut,MLP,0,1
+12,distance_from_energy,168.42848205566406,GMSC,Schut,MLP,0,1
+12,distance_from_targets,6.42194128036499,GMSC,Schut,MLP,0,1
+12,redundancy,0.9,GMSC,Schut,MLP,0,1
+12,set_size_penalty,0.10511510385370126,GMSC,Schut,MLP,0,1
 12,validity,1.0,GMSC,Schut,MLP,0,1
-13,distance,3.0999999046325684,GMSC,Schut,MLP,0,1
-13,distance_from_energy,267.4205017089844,GMSC,Schut,MLP,0,1
-13,distance_from_targets,7.207406044006348,GMSC,Schut,MLP,0,1
-13,redundancy,0.6,GMSC,Schut,MLP,0,1
-13,set_size_penalty,0.1376093609737945,GMSC,Schut,MLP,0,1
+13,distance,2.0,GMSC,Schut,MLP,0,1
+13,distance_from_energy,125.62174987792969,GMSC,Schut,MLP,0,1
+13,distance_from_targets,9.566078186035156,GMSC,Schut,MLP,0,1
+13,redundancy,0.8,GMSC,Schut,MLP,0,1
+13,set_size_penalty,0.10699712000860906,GMSC,Schut,MLP,0,1
 13,validity,1.0,GMSC,Schut,MLP,0,1
-14,distance,2.5,GMSC,Schut,MLP,0,1
-14,distance_from_energy,159.25262451171875,GMSC,Schut,MLP,0,1
-14,distance_from_targets,8.551107406616211,GMSC,Schut,MLP,0,1
-14,redundancy,0.7,GMSC,Schut,MLP,0,1
-14,set_size_penalty,0.13738333919311252,GMSC,Schut,MLP,0,1
+14,distance,0.699999988079071,GMSC,Schut,MLP,0,1
+14,distance_from_energy,163.57565307617188,GMSC,Schut,MLP,0,1
+14,distance_from_targets,5.799732685089111,GMSC,Schut,MLP,0,1
+14,redundancy,0.9,GMSC,Schut,MLP,0,1
+14,set_size_penalty,0.10449800706627621,GMSC,Schut,MLP,0,1
 14,validity,1.0,GMSC,Schut,MLP,0,1
-15,distance,2.4000000953674316,GMSC,Schut,MLP,0,1
-15,distance_from_energy,243.5364990234375,GMSC,Schut,MLP,0,1
-15,distance_from_targets,9.35167407989502,GMSC,Schut,MLP,0,1
-15,redundancy,0.7,GMSC,Schut,MLP,0,1
-15,set_size_penalty,0.13826051863542266,GMSC,Schut,MLP,0,1
+15,distance,0.9000000357627869,GMSC,Schut,MLP,0,1
+15,distance_from_energy,166.7544403076172,GMSC,Schut,MLP,0,1
+15,distance_from_targets,5.584476947784424,GMSC,Schut,MLP,0,1
+15,redundancy,0.9,GMSC,Schut,MLP,0,1
+15,set_size_penalty,0.10464970566411824,GMSC,Schut,MLP,0,1
 15,validity,1.0,GMSC,Schut,MLP,0,1
-16,distance,3.3000001907348633,GMSC,Schut,MLP,0,1
-16,distance_from_energy,249.37208557128906,GMSC,Schut,MLP,0,1
-16,distance_from_targets,7.295600891113281,GMSC,Schut,MLP,0,1
-16,redundancy,0.6,GMSC,Schut,MLP,0,1
-16,set_size_penalty,0.1376008743861279,GMSC,Schut,MLP,0,1
+16,distance,0.9000000357627869,GMSC,Schut,MLP,0,1
+16,distance_from_energy,157.87164306640625,GMSC,Schut,MLP,0,1
+16,distance_from_targets,5.850956916809082,GMSC,Schut,MLP,0,1
+16,redundancy,0.9,GMSC,Schut,MLP,0,1
+16,set_size_penalty,0.10423621277379658,GMSC,Schut,MLP,0,1
 16,validity,1.0,GMSC,Schut,MLP,0,1
-17,distance,2.299999952316284,GMSC,Schut,MLP,0,1
-17,distance_from_energy,104.4462890625,GMSC,Schut,MLP,0,1
-17,distance_from_targets,6.404825210571289,GMSC,Schut,MLP,0,1
-17,redundancy,0.7,GMSC,Schut,MLP,0,1
-17,set_size_penalty,0.13754853146368484,GMSC,Schut,MLP,0,1
+17,distance,0.800000011920929,GMSC,Schut,MLP,0,1
+17,distance_from_energy,141.67576599121094,GMSC,Schut,MLP,0,1
+17,distance_from_targets,5.3374457359313965,GMSC,Schut,MLP,0,1
+17,redundancy,0.9,GMSC,Schut,MLP,0,1
+17,set_size_penalty,0.10462192862625175,GMSC,Schut,MLP,0,1
 17,validity,1.0,GMSC,Schut,MLP,0,1
-18,distance,2.4000000953674316,GMSC,Schut,MLP,0,1
-18,distance_from_energy,223.7933349609375,GMSC,Schut,MLP,0,1
-18,distance_from_targets,8.222742080688477,GMSC,Schut,MLP,0,1
-18,redundancy,0.7,GMSC,Schut,MLP,0,1
-18,set_size_penalty,0.13779437989965349,GMSC,Schut,MLP,0,1
+18,distance,1.0,GMSC,Schut,MLP,0,1
+18,distance_from_energy,138.1586456298828,GMSC,Schut,MLP,0,1
+18,distance_from_targets,6.094152927398682,GMSC,Schut,MLP,0,1
+18,redundancy,0.9,GMSC,Schut,MLP,0,1
+18,set_size_penalty,0.10536879584387115,GMSC,Schut,MLP,0,1
 18,validity,1.0,GMSC,Schut,MLP,0,1
-19,distance,2.4000000953674316,GMSC,Schut,MLP,0,1
-19,distance_from_energy,275.7413024902344,GMSC,Schut,MLP,0,1
-19,distance_from_targets,6.926004409790039,GMSC,Schut,MLP,0,1
-19,redundancy,0.7,GMSC,Schut,MLP,0,1
-19,set_size_penalty,0.13742927448597753,GMSC,Schut,MLP,0,1
+19,distance,1.2000000476837158,GMSC,Schut,MLP,0,1
+19,distance_from_energy,190.6909942626953,GMSC,Schut,MLP,0,1
+19,distance_from_targets,7.600019454956055,GMSC,Schut,MLP,0,1
+19,redundancy,0.8,GMSC,Schut,MLP,0,1
+19,set_size_penalty,0.10564701346619088,GMSC,Schut,MLP,0,1
 19,validity,1.0,GMSC,Schut,MLP,0,1
-20,distance,2.5999999046325684,GMSC,Schut,MLP,0,1
-20,distance_from_energy,197.8609619140625,GMSC,Schut,MLP,0,1
-20,distance_from_targets,7.103572845458984,GMSC,Schut,MLP,0,1
-20,redundancy,0.7,GMSC,Schut,MLP,0,1
-20,set_size_penalty,0.13751503771398688,GMSC,Schut,MLP,0,1
+20,distance,0.9000000357627869,GMSC,Schut,MLP,0,1
+20,distance_from_energy,178.70948791503906,GMSC,Schut,MLP,0,1
+20,distance_from_targets,7.049120903015137,GMSC,Schut,MLP,0,1
+20,redundancy,0.9,GMSC,Schut,MLP,0,1
+20,set_size_penalty,0.104823594735445,GMSC,Schut,MLP,0,1
 20,validity,1.0,GMSC,Schut,MLP,0,1
-21,distance,112.56338500976562,GMSC,Wachter,MLP Ensemble,0,1
-21,distance_from_energy,219.60366821289062,GMSC,Wachter,MLP Ensemble,0,1
-21,distance_from_targets,115.02887725830078,GMSC,Wachter,MLP Ensemble,0,1
+21,distance,105.58062744140625,GMSC,Wachter,MLP Ensemble,0,1
+21,distance_from_energy,133.23468017578125,GMSC,Wachter,MLP Ensemble,0,1
+21,distance_from_targets,108.29503631591797,GMSC,Wachter,MLP Ensemble,0,1
 21,redundancy,0.0,GMSC,Wachter,MLP Ensemble,0,1
-21,set_size_penalty,0.0,GMSC,Wachter,MLP Ensemble,0,1
-21,validity,0.0,GMSC,Wachter,MLP Ensemble,0,1
-22,distance,112.27911376953125,GMSC,Wachter,MLP Ensemble,0,1
-22,distance_from_energy,306.07550048828125,GMSC,Wachter,MLP Ensemble,0,1
-22,distance_from_targets,115.64669799804688,GMSC,Wachter,MLP Ensemble,0,1
+21,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,0,1
+21,validity,1.0,GMSC,Wachter,MLP Ensemble,0,1
+22,distance,105.98393249511719,GMSC,Wachter,MLP Ensemble,0,1
+22,distance_from_energy,163.48373413085938,GMSC,Wachter,MLP Ensemble,0,1
+22,distance_from_targets,106.45831298828125,GMSC,Wachter,MLP Ensemble,0,1
 22,redundancy,0.0,GMSC,Wachter,MLP Ensemble,0,1
-22,set_size_penalty,0.0,GMSC,Wachter,MLP Ensemble,0,1
-22,validity,0.0,GMSC,Wachter,MLP Ensemble,0,1
-23,distance,115.15518188476562,GMSC,Wachter,MLP Ensemble,0,1
-23,distance_from_energy,272.4479064941406,GMSC,Wachter,MLP Ensemble,0,1
-23,distance_from_targets,120.24344635009766,GMSC,Wachter,MLP Ensemble,0,1
+22,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,0,1
+22,validity,1.0,GMSC,Wachter,MLP Ensemble,0,1
+23,distance,106.17737579345703,GMSC,Wachter,MLP Ensemble,0,1
+23,distance_from_energy,140.43093872070312,GMSC,Wachter,MLP Ensemble,0,1
+23,distance_from_targets,105.75172424316406,GMSC,Wachter,MLP Ensemble,0,1
 23,redundancy,0.0,GMSC,Wachter,MLP Ensemble,0,1
-23,set_size_penalty,0.0,GMSC,Wachter,MLP Ensemble,0,1
-23,validity,0.0,GMSC,Wachter,MLP Ensemble,0,1
-24,distance,112.88492584228516,GMSC,Wachter,MLP Ensemble,0,1
-24,distance_from_energy,205.41078186035156,GMSC,Wachter,MLP Ensemble,0,1
-24,distance_from_targets,117.27914428710938,GMSC,Wachter,MLP Ensemble,0,1
+23,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,0,1
+23,validity,1.0,GMSC,Wachter,MLP Ensemble,0,1
+24,distance,106.15534973144531,GMSC,Wachter,MLP Ensemble,0,1
+24,distance_from_energy,94.56826782226562,GMSC,Wachter,MLP Ensemble,0,1
+24,distance_from_targets,104.89314270019531,GMSC,Wachter,MLP Ensemble,0,1
 24,redundancy,0.0,GMSC,Wachter,MLP Ensemble,0,1
-24,set_size_penalty,0.0,GMSC,Wachter,MLP Ensemble,0,1
-24,validity,0.0,GMSC,Wachter,MLP Ensemble,0,1
-25,distance,112.46756744384766,GMSC,Wachter,MLP Ensemble,0,1
-25,distance_from_energy,204.4910888671875,GMSC,Wachter,MLP Ensemble,0,1
-25,distance_from_targets,115.61875915527344,GMSC,Wachter,MLP Ensemble,0,1
+24,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,0,1
+24,validity,1.0,GMSC,Wachter,MLP Ensemble,0,1
+25,distance,105.89472198486328,GMSC,Wachter,MLP Ensemble,0,1
+25,distance_from_energy,170.22314453125,GMSC,Wachter,MLP Ensemble,0,1
+25,distance_from_targets,103.91720581054688,GMSC,Wachter,MLP Ensemble,0,1
 25,redundancy,0.0,GMSC,Wachter,MLP Ensemble,0,1
-25,set_size_penalty,0.0,GMSC,Wachter,MLP Ensemble,0,1
-25,validity,0.0,GMSC,Wachter,MLP Ensemble,0,1
-26,distance,112.20379638671875,GMSC,Wachter,MLP Ensemble,0,1
-26,distance_from_energy,218.1835479736328,GMSC,Wachter,MLP Ensemble,0,1
-26,distance_from_targets,113.03952026367188,GMSC,Wachter,MLP Ensemble,0,1
+25,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,0,1
+25,validity,1.0,GMSC,Wachter,MLP Ensemble,0,1
+26,distance,106.10923767089844,GMSC,Wachter,MLP Ensemble,0,1
+26,distance_from_energy,174.30177307128906,GMSC,Wachter,MLP Ensemble,0,1
+26,distance_from_targets,106.36929321289062,GMSC,Wachter,MLP Ensemble,0,1
 26,redundancy,0.0,GMSC,Wachter,MLP Ensemble,0,1
-26,set_size_penalty,0.0,GMSC,Wachter,MLP Ensemble,0,1
-26,validity,0.0,GMSC,Wachter,MLP Ensemble,0,1
-27,distance,112.559326171875,GMSC,Wachter,MLP Ensemble,0,1
-27,distance_from_energy,216.50091552734375,GMSC,Wachter,MLP Ensemble,0,1
-27,distance_from_targets,116.138671875,GMSC,Wachter,MLP Ensemble,0,1
+26,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,0,1
+26,validity,1.0,GMSC,Wachter,MLP Ensemble,0,1
+27,distance,105.99072265625,GMSC,Wachter,MLP Ensemble,0,1
+27,distance_from_energy,159.8148956298828,GMSC,Wachter,MLP Ensemble,0,1
+27,distance_from_targets,105.63548278808594,GMSC,Wachter,MLP Ensemble,0,1
 27,redundancy,0.0,GMSC,Wachter,MLP Ensemble,0,1
-27,set_size_penalty,0.0,GMSC,Wachter,MLP Ensemble,0,1
-27,validity,0.0,GMSC,Wachter,MLP Ensemble,0,1
-28,distance,112.72186279296875,GMSC,Wachter,MLP Ensemble,0,1
-28,distance_from_energy,254.2226104736328,GMSC,Wachter,MLP Ensemble,0,1
-28,distance_from_targets,114.52091979980469,GMSC,Wachter,MLP Ensemble,0,1
+27,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,0,1
+27,validity,1.0,GMSC,Wachter,MLP Ensemble,0,1
+28,distance,105.67845153808594,GMSC,Wachter,MLP Ensemble,0,1
+28,distance_from_energy,88.95234680175781,GMSC,Wachter,MLP Ensemble,0,1
+28,distance_from_targets,107.47697448730469,GMSC,Wachter,MLP Ensemble,0,1
 28,redundancy,0.0,GMSC,Wachter,MLP Ensemble,0,1
-28,set_size_penalty,0.0,GMSC,Wachter,MLP Ensemble,0,1
-28,validity,0.0,GMSC,Wachter,MLP Ensemble,0,1
-29,distance,112.07091522216797,GMSC,Wachter,MLP Ensemble,0,1
-29,distance_from_energy,268.936279296875,GMSC,Wachter,MLP Ensemble,0,1
-29,distance_from_targets,111.86625671386719,GMSC,Wachter,MLP Ensemble,0,1
+28,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,0,1
+28,validity,1.0,GMSC,Wachter,MLP Ensemble,0,1
+29,distance,105.91191101074219,GMSC,Wachter,MLP Ensemble,0,1
+29,distance_from_energy,141.83511352539062,GMSC,Wachter,MLP Ensemble,0,1
+29,distance_from_targets,107.9659652709961,GMSC,Wachter,MLP Ensemble,0,1
 29,redundancy,0.0,GMSC,Wachter,MLP Ensemble,0,1
-29,set_size_penalty,0.0,GMSC,Wachter,MLP Ensemble,0,1
-29,validity,0.0,GMSC,Wachter,MLP Ensemble,0,1
-30,distance,112.31974792480469,GMSC,Wachter,MLP Ensemble,0,1
-30,distance_from_energy,229.97886657714844,GMSC,Wachter,MLP Ensemble,0,1
-30,distance_from_targets,114.25609588623047,GMSC,Wachter,MLP Ensemble,0,1
+29,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,0,1
+29,validity,1.0,GMSC,Wachter,MLP Ensemble,0,1
+30,distance,106.27774810791016,GMSC,Wachter,MLP Ensemble,0,1
+30,distance_from_energy,149.38722229003906,GMSC,Wachter,MLP Ensemble,0,1
+30,distance_from_targets,105.8693618774414,GMSC,Wachter,MLP Ensemble,0,1
 30,redundancy,0.0,GMSC,Wachter,MLP Ensemble,0,1
-30,set_size_penalty,0.0,GMSC,Wachter,MLP Ensemble,0,1
-30,validity,0.0,GMSC,Wachter,MLP Ensemble,0,1
-21,distance,2.2695910930633545,GMSC,REVISE,MLP Ensemble,0,1
-21,distance_from_energy,158.12673950195312,GMSC,REVISE,MLP Ensemble,0,1
-21,distance_from_targets,4.7150959968566895,GMSC,REVISE,MLP Ensemble,0,1
+30,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,0,1
+30,validity,1.0,GMSC,Wachter,MLP Ensemble,0,1
+21,distance,3.931187391281128,GMSC,REVISE,MLP Ensemble,0,1
+21,distance_from_energy,146.76922607421875,GMSC,REVISE,MLP Ensemble,0,1
+21,distance_from_targets,4.701954364776611,GMSC,REVISE,MLP Ensemble,0,1
 21,redundancy,0.0,GMSC,REVISE,MLP Ensemble,0,1
-21,set_size_penalty,0.2536747229031455,GMSC,REVISE,MLP Ensemble,0,1
+21,set_size_penalty,0.17991231070551694,GMSC,REVISE,MLP Ensemble,0,1
 21,validity,1.0,GMSC,REVISE,MLP Ensemble,0,1
-22,distance,2.5891828536987305,GMSC,REVISE,MLP Ensemble,0,1
-22,distance_from_energy,181.8498992919922,GMSC,REVISE,MLP Ensemble,0,1
-22,distance_from_targets,4.299990653991699,GMSC,REVISE,MLP Ensemble,0,1
+22,distance,1.1410781145095825,GMSC,REVISE,MLP Ensemble,0,1
+22,distance_from_energy,107.7453842163086,GMSC,REVISE,MLP Ensemble,0,1
+22,distance_from_targets,4.758004665374756,GMSC,REVISE,MLP Ensemble,0,1
 22,redundancy,0.0,GMSC,REVISE,MLP Ensemble,0,1
-22,set_size_penalty,0.3706380937961864,GMSC,REVISE,MLP Ensemble,0,1
+22,set_size_penalty,0.1581955174579337,GMSC,REVISE,MLP Ensemble,0,1
 22,validity,1.0,GMSC,REVISE,MLP Ensemble,0,1
-23,distance,3.102555751800537,GMSC,REVISE,MLP Ensemble,0,1
-23,distance_from_energy,213.50723266601562,GMSC,REVISE,MLP Ensemble,0,1
-23,distance_from_targets,5.101123809814453,GMSC,REVISE,MLP Ensemble,0,1
+23,distance,1.3551290035247803,GMSC,REVISE,MLP Ensemble,0,1
+23,distance_from_energy,200.3207244873047,GMSC,REVISE,MLP Ensemble,0,1
+23,distance_from_targets,4.664431095123291,GMSC,REVISE,MLP Ensemble,0,1
 23,redundancy,0.0,GMSC,REVISE,MLP Ensemble,0,1
-23,set_size_penalty,0.4789773028935822,GMSC,REVISE,MLP Ensemble,0,1
+23,set_size_penalty,0.10407721659130775,GMSC,REVISE,MLP Ensemble,0,1
 23,validity,1.0,GMSC,REVISE,MLP Ensemble,0,1
-24,distance,4.276791095733643,GMSC,REVISE,MLP Ensemble,0,1
-24,distance_from_energy,238.06756591796875,GMSC,REVISE,MLP Ensemble,0,1
-24,distance_from_targets,4.540836811065674,GMSC,REVISE,MLP Ensemble,0,1
+24,distance,4.163272380828857,GMSC,REVISE,MLP Ensemble,0,1
+24,distance_from_energy,140.95750427246094,GMSC,REVISE,MLP Ensemble,0,1
+24,distance_from_targets,4.810295581817627,GMSC,REVISE,MLP Ensemble,0,1
 24,redundancy,0.0,GMSC,REVISE,MLP Ensemble,0,1
-24,set_size_penalty,0.42596270644114753,GMSC,REVISE,MLP Ensemble,0,1
+24,set_size_penalty,0.24419254088516018,GMSC,REVISE,MLP Ensemble,0,1
 24,validity,1.0,GMSC,REVISE,MLP Ensemble,0,1
-25,distance,3.3383946418762207,GMSC,REVISE,MLP Ensemble,0,1
-25,distance_from_energy,152.9335174560547,GMSC,REVISE,MLP Ensemble,0,1
-25,distance_from_targets,6.149192810058594,GMSC,REVISE,MLP Ensemble,0,1
+25,distance,2.753408670425415,GMSC,REVISE,MLP Ensemble,0,1
+25,distance_from_energy,122.63333129882812,GMSC,REVISE,MLP Ensemble,0,1
+25,distance_from_targets,4.894418716430664,GMSC,REVISE,MLP Ensemble,0,1
 25,redundancy,0.0,GMSC,REVISE,MLP Ensemble,0,1
-25,set_size_penalty,0.28133671509355507,GMSC,REVISE,MLP Ensemble,0,1
+25,set_size_penalty,0.10358201804174416,GMSC,REVISE,MLP Ensemble,0,1
 25,validity,1.0,GMSC,REVISE,MLP Ensemble,0,1
-26,distance,3.0675301551818848,GMSC,REVISE,MLP Ensemble,0,1
-26,distance_from_energy,199.63197326660156,GMSC,REVISE,MLP Ensemble,0,1
-26,distance_from_targets,5.159683704376221,GMSC,REVISE,MLP Ensemble,0,1
+26,distance,3.4259145259857178,GMSC,REVISE,MLP Ensemble,0,1
+26,distance_from_energy,90.77168273925781,GMSC,REVISE,MLP Ensemble,0,1
+26,distance_from_targets,5.099706172943115,GMSC,REVISE,MLP Ensemble,0,1
 26,redundancy,0.0,GMSC,REVISE,MLP Ensemble,0,1
-26,set_size_penalty,0.42947387849593266,GMSC,REVISE,MLP Ensemble,0,1
+26,set_size_penalty,0.11077624364176408,GMSC,REVISE,MLP Ensemble,0,1
 26,validity,1.0,GMSC,REVISE,MLP Ensemble,0,1
-27,distance,4.605419635772705,GMSC,REVISE,MLP Ensemble,0,1
-27,distance_from_energy,187.8633270263672,GMSC,REVISE,MLP Ensemble,0,1
-27,distance_from_targets,4.6281962394714355,GMSC,REVISE,MLP Ensemble,0,1
+27,distance,4.901891708374023,GMSC,REVISE,MLP Ensemble,0,1
+27,distance_from_energy,161.77554321289062,GMSC,REVISE,MLP Ensemble,0,1
+27,distance_from_targets,5.017455101013184,GMSC,REVISE,MLP Ensemble,0,1
 27,redundancy,0.0,GMSC,REVISE,MLP Ensemble,0,1
-27,set_size_penalty,0.3694106387921561,GMSC,REVISE,MLP Ensemble,0,1
+27,set_size_penalty,0.34477576440058866,GMSC,REVISE,MLP Ensemble,0,1
 27,validity,1.0,GMSC,REVISE,MLP Ensemble,0,1
-28,distance,1.1881325244903564,GMSC,REVISE,MLP Ensemble,0,1
-28,distance_from_energy,182.1370086669922,GMSC,REVISE,MLP Ensemble,0,1
-28,distance_from_targets,4.788013935089111,GMSC,REVISE,MLP Ensemble,0,1
+28,distance,4.228402614593506,GMSC,REVISE,MLP Ensemble,0,1
+28,distance_from_energy,219.5977325439453,GMSC,REVISE,MLP Ensemble,0,1
+28,distance_from_targets,5.592450141906738,GMSC,REVISE,MLP Ensemble,0,1
 28,redundancy,0.0,GMSC,REVISE,MLP Ensemble,0,1
-28,set_size_penalty,0.23969705408753916,GMSC,REVISE,MLP Ensemble,0,1
+28,set_size_penalty,0.32933596322856573,GMSC,REVISE,MLP Ensemble,0,1
 28,validity,1.0,GMSC,REVISE,MLP Ensemble,0,1
-29,distance,3.604860305786133,GMSC,REVISE,MLP Ensemble,0,1
-29,distance_from_energy,193.6376495361328,GMSC,REVISE,MLP Ensemble,0,1
-29,distance_from_targets,7.186156749725342,GMSC,REVISE,MLP Ensemble,0,1
+29,distance,5.071354389190674,GMSC,REVISE,MLP Ensemble,0,1
+29,distance_from_energy,162.65037536621094,GMSC,REVISE,MLP Ensemble,0,1
+29,distance_from_targets,4.4497904777526855,GMSC,REVISE,MLP Ensemble,0,1
 29,redundancy,0.0,GMSC,REVISE,MLP Ensemble,0,1
-29,set_size_penalty,0.3202050799076297,GMSC,REVISE,MLP Ensemble,0,1
+29,set_size_penalty,0.2580101773324819,GMSC,REVISE,MLP Ensemble,0,1
 29,validity,1.0,GMSC,REVISE,MLP Ensemble,0,1
-30,distance,2.8451263904571533,GMSC,REVISE,MLP Ensemble,0,1
-30,distance_from_energy,172.6426544189453,GMSC,REVISE,MLP Ensemble,0,1
-30,distance_from_targets,4.312168121337891,GMSC,REVISE,MLP Ensemble,0,1
+30,distance,3.3549790382385254,GMSC,REVISE,MLP Ensemble,0,1
+30,distance_from_energy,162.1710205078125,GMSC,REVISE,MLP Ensemble,0,1
+30,distance_from_targets,4.694949150085449,GMSC,REVISE,MLP Ensemble,0,1
 30,redundancy,0.0,GMSC,REVISE,MLP Ensemble,0,1
-30,set_size_penalty,0.3665118160407659,GMSC,REVISE,MLP Ensemble,0,1
+30,set_size_penalty,0.16235351297781841,GMSC,REVISE,MLP Ensemble,0,1
 30,validity,1.0,GMSC,REVISE,MLP Ensemble,0,1
-21,distance,31.797203063964844,GMSC,ECCCo,MLP Ensemble,0,1
-21,distance_from_energy,110.40451049804688,GMSC,ECCCo,MLP Ensemble,0,1
-21,distance_from_targets,29.268310546875,GMSC,ECCCo,MLP Ensemble,0,1
+21,distance,20.760299682617188,GMSC,ECCCo,MLP Ensemble,0,1
+21,distance_from_energy,65.13960266113281,GMSC,ECCCo,MLP Ensemble,0,1
+21,distance_from_targets,21.87138557434082,GMSC,ECCCo,MLP Ensemble,0,1
 21,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,0,1
-21,set_size_penalty,0.12671722219059633,GMSC,ECCCo,MLP Ensemble,0,1
+21,set_size_penalty,0.09074723178524535,GMSC,ECCCo,MLP Ensemble,0,1
 21,validity,1.0,GMSC,ECCCo,MLP Ensemble,0,1
-22,distance,28.225400924682617,GMSC,ECCCo,MLP Ensemble,0,1
-22,distance_from_energy,71.50569915771484,GMSC,ECCCo,MLP Ensemble,0,1
-22,distance_from_targets,28.186513900756836,GMSC,ECCCo,MLP Ensemble,0,1
+22,distance,20.583045959472656,GMSC,ECCCo,MLP Ensemble,0,1
+22,distance_from_energy,60.39395523071289,GMSC,ECCCo,MLP Ensemble,0,1
+22,distance_from_targets,21.549217224121094,GMSC,ECCCo,MLP Ensemble,0,1
 22,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,0,1
-22,set_size_penalty,0.12679707077438596,GMSC,ECCCo,MLP Ensemble,0,1
+22,set_size_penalty,0.09074388479089213,GMSC,ECCCo,MLP Ensemble,0,1
 22,validity,1.0,GMSC,ECCCo,MLP Ensemble,0,1
-23,distance,25.622480392456055,GMSC,ECCCo,MLP Ensemble,0,1
-23,distance_from_energy,63.113319396972656,GMSC,ECCCo,MLP Ensemble,0,1
-23,distance_from_targets,30.64834213256836,GMSC,ECCCo,MLP Ensemble,0,1
+23,distance,19.067785263061523,GMSC,ECCCo,MLP Ensemble,0,1
+23,distance_from_energy,58.56257247924805,GMSC,ECCCo,MLP Ensemble,0,1
+23,distance_from_targets,18.29118537902832,GMSC,ECCCo,MLP Ensemble,0,1
 23,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,0,1
-23,set_size_penalty,0.12680227529288546,GMSC,ECCCo,MLP Ensemble,0,1
+23,set_size_penalty,0.09074388195037097,GMSC,ECCCo,MLP Ensemble,0,1
 23,validity,1.0,GMSC,ECCCo,MLP Ensemble,0,1
-24,distance,32.80044174194336,GMSC,ECCCo,MLP Ensemble,0,1
-24,distance_from_energy,62.7068977355957,GMSC,ECCCo,MLP Ensemble,0,1
-24,distance_from_targets,31.1120662689209,GMSC,ECCCo,MLP Ensemble,0,1
+24,distance,21.335041046142578,GMSC,ECCCo,MLP Ensemble,0,1
+24,distance_from_energy,51.4084358215332,GMSC,ECCCo,MLP Ensemble,0,1
+24,distance_from_targets,20.951515197753906,GMSC,ECCCo,MLP Ensemble,0,1
 24,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,0,1
-24,set_size_penalty,0.12663697162461696,GMSC,ECCCo,MLP Ensemble,0,1
+24,set_size_penalty,0.09074388300531044,GMSC,ECCCo,MLP Ensemble,0,1
 24,validity,1.0,GMSC,ECCCo,MLP Ensemble,0,1
-25,distance,27.777009963989258,GMSC,ECCCo,MLP Ensemble,0,1
-25,distance_from_energy,76.1004867553711,GMSC,ECCCo,MLP Ensemble,0,1
-25,distance_from_targets,30.000307083129883,GMSC,ECCCo,MLP Ensemble,0,1
+25,distance,21.12618637084961,GMSC,ECCCo,MLP Ensemble,0,1
+25,distance_from_energy,41.392303466796875,GMSC,ECCCo,MLP Ensemble,0,1
+25,distance_from_targets,19.346054077148438,GMSC,ECCCo,MLP Ensemble,0,1
 25,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,0,1
-25,set_size_penalty,0.12726568668160176,GMSC,ECCCo,MLP Ensemble,0,1
+25,set_size_penalty,0.09074388207376938,GMSC,ECCCo,MLP Ensemble,0,1
 25,validity,1.0,GMSC,ECCCo,MLP Ensemble,0,1
-26,distance,32.64925003051758,GMSC,ECCCo,MLP Ensemble,0,1
-26,distance_from_energy,67.7835464477539,GMSC,ECCCo,MLP Ensemble,0,1
-26,distance_from_targets,34.71409606933594,GMSC,ECCCo,MLP Ensemble,0,1
+26,distance,20.490402221679688,GMSC,ECCCo,MLP Ensemble,0,1
+26,distance_from_energy,56.367225646972656,GMSC,ECCCo,MLP Ensemble,0,1
+26,distance_from_targets,22.555828094482422,GMSC,ECCCo,MLP Ensemble,0,1
 26,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,0,1
-26,set_size_penalty,0.12650897246637172,GMSC,ECCCo,MLP Ensemble,0,1
+26,set_size_penalty,0.0907439076833394,GMSC,ECCCo,MLP Ensemble,0,1
 26,validity,1.0,GMSC,ECCCo,MLP Ensemble,0,1
-27,distance,32.921485900878906,GMSC,ECCCo,MLP Ensemble,0,1
-27,distance_from_energy,82.82604217529297,GMSC,ECCCo,MLP Ensemble,0,1
-27,distance_from_targets,32.144813537597656,GMSC,ECCCo,MLP Ensemble,0,1
+27,distance,21.075693130493164,GMSC,ECCCo,MLP Ensemble,0,1
+27,distance_from_energy,68.0303955078125,GMSC,ECCCo,MLP Ensemble,0,1
+27,distance_from_targets,21.853485107421875,GMSC,ECCCo,MLP Ensemble,0,1
 27,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,0,1
-27,set_size_penalty,0.1264455936818658,GMSC,ECCCo,MLP Ensemble,0,1
+27,set_size_penalty,0.09074388898858765,GMSC,ECCCo,MLP Ensemble,0,1
 27,validity,1.0,GMSC,ECCCo,MLP Ensemble,0,1
-28,distance,34.729984283447266,GMSC,ECCCo,MLP Ensemble,0,1
-28,distance_from_energy,65.39269256591797,GMSC,ECCCo,MLP Ensemble,0,1
-28,distance_from_targets,32.54936599731445,GMSC,ECCCo,MLP Ensemble,0,1
+28,distance,20.835309982299805,GMSC,ECCCo,MLP Ensemble,0,1
+28,distance_from_energy,103.52434539794922,GMSC,ECCCo,MLP Ensemble,0,1
+28,distance_from_targets,20.286319732666016,GMSC,ECCCo,MLP Ensemble,0,1
 28,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,0,1
-28,set_size_penalty,0.12654055778172313,GMSC,ECCCo,MLP Ensemble,0,1
+28,set_size_penalty,0.09074571106539997,GMSC,ECCCo,MLP Ensemble,0,1
 28,validity,1.0,GMSC,ECCCo,MLP Ensemble,0,1
-29,distance,29.840869903564453,GMSC,ECCCo,MLP Ensemble,0,1
-29,distance_from_energy,104.47795867919922,GMSC,ECCCo,MLP Ensemble,0,1
-29,distance_from_targets,30.650503158569336,GMSC,ECCCo,MLP Ensemble,0,1
+29,distance,21.011302947998047,GMSC,ECCCo,MLP Ensemble,0,1
+29,distance_from_energy,63.23723602294922,GMSC,ECCCo,MLP Ensemble,0,1
+29,distance_from_targets,20.87093734741211,GMSC,ECCCo,MLP Ensemble,0,1
 29,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,0,1
-29,set_size_penalty,0.12669768040888818,GMSC,ECCCo,MLP Ensemble,0,1
+29,set_size_penalty,0.09074396028442444,GMSC,ECCCo,MLP Ensemble,0,1
 29,validity,1.0,GMSC,ECCCo,MLP Ensemble,0,1
-30,distance,27.873985290527344,GMSC,ECCCo,MLP Ensemble,0,1
-30,distance_from_energy,77.9927749633789,GMSC,ECCCo,MLP Ensemble,0,1
-30,distance_from_targets,28.23881721496582,GMSC,ECCCo,MLP Ensemble,0,1
+30,distance,21.370594024658203,GMSC,ECCCo,MLP Ensemble,0,1
+30,distance_from_energy,83.90924835205078,GMSC,ECCCo,MLP Ensemble,0,1
+30,distance_from_targets,23.491268157958984,GMSC,ECCCo,MLP Ensemble,0,1
 30,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,0,1
-30,set_size_penalty,0.12721238082517616,GMSC,ECCCo,MLP Ensemble,0,1
+30,set_size_penalty,0.09074388462606531,GMSC,ECCCo,MLP Ensemble,0,1
 30,validity,1.0,GMSC,ECCCo,MLP Ensemble,0,1
-21,distance,0.699999988079071,GMSC,Schut,MLP Ensemble,0,1
-21,distance_from_energy,211.37525939941406,GMSC,Schut,MLP Ensemble,0,1
-21,distance_from_targets,5.217215061187744,GMSC,Schut,MLP Ensemble,0,1
-21,redundancy,0.9,GMSC,Schut,MLP Ensemble,0,1
-21,set_size_penalty,0.13061618140736297,GMSC,Schut,MLP Ensemble,0,1
+21,distance,1.2000000476837158,GMSC,Schut,MLP Ensemble,0,1
+21,distance_from_energy,144.15896606445312,GMSC,Schut,MLP Ensemble,0,1
+21,distance_from_targets,6.078024387359619,GMSC,Schut,MLP Ensemble,0,1
+21,redundancy,0.8,GMSC,Schut,MLP Ensemble,0,1
+21,set_size_penalty,0.09294289996344385,GMSC,Schut,MLP Ensemble,0,1
 21,validity,1.0,GMSC,Schut,MLP Ensemble,0,1
-22,distance,0.7000000476837158,GMSC,Schut,MLP Ensemble,0,1
-22,distance_from_energy,253.06991577148438,GMSC,Schut,MLP Ensemble,0,1
-22,distance_from_targets,5.252706527709961,GMSC,Schut,MLP Ensemble,0,1
+22,distance,0.9000000357627869,GMSC,Schut,MLP Ensemble,0,1
+22,distance_from_energy,174.20001220703125,GMSC,Schut,MLP Ensemble,0,1
+22,distance_from_targets,5.141372203826904,GMSC,Schut,MLP Ensemble,0,1
 22,redundancy,0.9,GMSC,Schut,MLP Ensemble,0,1
-22,set_size_penalty,0.13097136181790403,GMSC,Schut,MLP Ensemble,0,1
+22,set_size_penalty,0.0918467498461557,GMSC,Schut,MLP Ensemble,0,1
 22,validity,1.0,GMSC,Schut,MLP Ensemble,0,1
-23,distance,1.2999999523162842,GMSC,Schut,MLP Ensemble,0,1
-23,distance_from_energy,222.4209442138672,GMSC,Schut,MLP Ensemble,0,1
-23,distance_from_targets,8.544870376586914,GMSC,Schut,MLP Ensemble,0,1
-23,redundancy,0.8,GMSC,Schut,MLP Ensemble,0,1
-23,set_size_penalty,0.12865757607268158,GMSC,Schut,MLP Ensemble,0,1
+23,distance,0.9000000357627869,GMSC,Schut,MLP Ensemble,0,1
+23,distance_from_energy,176.90249633789062,GMSC,Schut,MLP Ensemble,0,1
+23,distance_from_targets,5.019460678100586,GMSC,Schut,MLP Ensemble,0,1
+23,redundancy,0.9,GMSC,Schut,MLP Ensemble,0,1
+23,set_size_penalty,0.09157202493943806,GMSC,Schut,MLP Ensemble,0,1
 23,validity,1.0,GMSC,Schut,MLP Ensemble,0,1
-24,distance,0.6000000238418579,GMSC,Schut,MLP Ensemble,0,1
-24,distance_from_energy,135.89039611816406,GMSC,Schut,MLP Ensemble,0,1
-24,distance_from_targets,5.888286590576172,GMSC,Schut,MLP Ensemble,0,1
+24,distance,0.800000011920929,GMSC,Schut,MLP Ensemble,0,1
+24,distance_from_energy,176.17523193359375,GMSC,Schut,MLP Ensemble,0,1
+24,distance_from_targets,5.47968053817749,GMSC,Schut,MLP Ensemble,0,1
 24,redundancy,0.9,GMSC,Schut,MLP Ensemble,0,1
-24,set_size_penalty,0.13038520895668748,GMSC,Schut,MLP Ensemble,0,1
+24,set_size_penalty,0.09177077276806767,GMSC,Schut,MLP Ensemble,0,1
 24,validity,1.0,GMSC,Schut,MLP Ensemble,0,1
-25,distance,0.8000000715255737,GMSC,Schut,MLP Ensemble,0,1
-25,distance_from_energy,182.12570190429688,GMSC,Schut,MLP Ensemble,0,1
-25,distance_from_targets,6.304649829864502,GMSC,Schut,MLP Ensemble,0,1
+25,distance,0.699999988079071,GMSC,Schut,MLP Ensemble,0,1
+25,distance_from_energy,192.4169921875,GMSC,Schut,MLP Ensemble,0,1
+25,distance_from_targets,5.7770867347717285,GMSC,Schut,MLP Ensemble,0,1
 25,redundancy,0.9,GMSC,Schut,MLP Ensemble,0,1
-25,set_size_penalty,0.13272962015737422,GMSC,Schut,MLP Ensemble,0,1
+25,set_size_penalty,0.0918122884878323,GMSC,Schut,MLP Ensemble,0,1
 25,validity,1.0,GMSC,Schut,MLP Ensemble,0,1
-26,distance,0.7000000476837158,GMSC,Schut,MLP Ensemble,0,1
-26,distance_from_energy,239.93235778808594,GMSC,Schut,MLP Ensemble,0,1
-26,distance_from_targets,6.476973056793213,GMSC,Schut,MLP Ensemble,0,1
+26,distance,1.0,GMSC,Schut,MLP Ensemble,0,1
+26,distance_from_energy,120.57683563232422,GMSC,Schut,MLP Ensemble,0,1
+26,distance_from_targets,5.62857723236084,GMSC,Schut,MLP Ensemble,0,1
 26,redundancy,0.9,GMSC,Schut,MLP Ensemble,0,1
-26,set_size_penalty,0.1290075581129837,GMSC,Schut,MLP Ensemble,0,1
+26,set_size_penalty,0.09155225715174575,GMSC,Schut,MLP Ensemble,0,1
 26,validity,1.0,GMSC,Schut,MLP Ensemble,0,1
-27,distance,0.5999999642372131,GMSC,Schut,MLP Ensemble,0,1
-27,distance_from_energy,162.86497497558594,GMSC,Schut,MLP Ensemble,0,1
-27,distance_from_targets,6.131818771362305,GMSC,Schut,MLP Ensemble,0,1
+27,distance,0.800000011920929,GMSC,Schut,MLP Ensemble,0,1
+27,distance_from_energy,218.9853057861328,GMSC,Schut,MLP Ensemble,0,1
+27,distance_from_targets,5.669541358947754,GMSC,Schut,MLP Ensemble,0,1
 27,redundancy,0.9,GMSC,Schut,MLP Ensemble,0,1
-27,set_size_penalty,0.12994143756408238,GMSC,Schut,MLP Ensemble,0,1
+27,set_size_penalty,0.09178873463370651,GMSC,Schut,MLP Ensemble,0,1
 27,validity,1.0,GMSC,Schut,MLP Ensemble,0,1
-28,distance,0.6000000238418579,GMSC,Schut,MLP Ensemble,0,1
-28,distance_from_energy,187.80352783203125,GMSC,Schut,MLP Ensemble,0,1
-28,distance_from_targets,5.074121952056885,GMSC,Schut,MLP Ensemble,0,1
-28,redundancy,0.9,GMSC,Schut,MLP Ensemble,0,1
-28,set_size_penalty,0.12893248736775798,GMSC,Schut,MLP Ensemble,0,1
+28,distance,1.100000023841858,GMSC,Schut,MLP Ensemble,0,1
+28,distance_from_energy,139.2754364013672,GMSC,Schut,MLP Ensemble,0,1
+28,distance_from_targets,5.815952777862549,GMSC,Schut,MLP Ensemble,0,1
+28,redundancy,0.8,GMSC,Schut,MLP Ensemble,0,1
+28,set_size_penalty,0.09250140763074977,GMSC,Schut,MLP Ensemble,0,1
 28,validity,1.0,GMSC,Schut,MLP Ensemble,0,1
-29,distance,0.8000000715255737,GMSC,Schut,MLP Ensemble,0,1
-29,distance_from_energy,221.12554931640625,GMSC,Schut,MLP Ensemble,0,1
-29,distance_from_targets,6.8082685470581055,GMSC,Schut,MLP Ensemble,0,1
-29,redundancy,0.8,GMSC,Schut,MLP Ensemble,0,1
-29,set_size_penalty,0.13259767837003622,GMSC,Schut,MLP Ensemble,0,1
+29,distance,1.0,GMSC,Schut,MLP Ensemble,0,1
+29,distance_from_energy,144.68460083007812,GMSC,Schut,MLP Ensemble,0,1
+29,distance_from_targets,6.729792594909668,GMSC,Schut,MLP Ensemble,0,1
+29,redundancy,0.9,GMSC,Schut,MLP Ensemble,0,1
+29,set_size_penalty,0.09221457188247317,GMSC,Schut,MLP Ensemble,0,1
 29,validity,1.0,GMSC,Schut,MLP Ensemble,0,1
-30,distance,0.7000000476837158,GMSC,Schut,MLP Ensemble,0,1
-30,distance_from_energy,272.0096435546875,GMSC,Schut,MLP Ensemble,0,1
-30,distance_from_targets,5.532607555389404,GMSC,Schut,MLP Ensemble,0,1
+30,distance,0.9000000357627869,GMSC,Schut,MLP Ensemble,0,1
+30,distance_from_energy,198.9640655517578,GMSC,Schut,MLP Ensemble,0,1
+30,distance_from_targets,6.042641639709473,GMSC,Schut,MLP Ensemble,0,1
 30,redundancy,0.9,GMSC,Schut,MLP Ensemble,0,1
-30,set_size_penalty,0.13599340145226524,GMSC,Schut,MLP Ensemble,0,1
+30,set_size_penalty,0.09194749812704117,GMSC,Schut,MLP Ensemble,0,1
 30,validity,1.0,GMSC,Schut,MLP Ensemble,0,1
-31,distance,125.2723617553711,GMSC,Wachter,JEM,0,1
-31,distance_from_energy,189.8167724609375,GMSC,Wachter,JEM,0,1
-31,distance_from_targets,126.35050964355469,GMSC,Wachter,JEM,0,1
+31,distance,147.1470489501953,GMSC,Wachter,JEM,0,1
+31,distance_from_energy,162.1785888671875,GMSC,Wachter,JEM,0,1
+31,distance_from_targets,151.0920867919922,GMSC,Wachter,JEM,0,1
 31,redundancy,0.0,GMSC,Wachter,JEM,0,1
-31,set_size_penalty,0.08360338746231655,GMSC,Wachter,JEM,0,1
+31,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,0,1
 31,validity,1.0,GMSC,Wachter,JEM,0,1
-32,distance,124.89327239990234,GMSC,Wachter,JEM,0,1
-32,distance_from_energy,213.68280029296875,GMSC,Wachter,JEM,0,1
-32,distance_from_targets,127.44503784179688,GMSC,Wachter,JEM,0,1
+32,distance,150.41392517089844,GMSC,Wachter,JEM,0,1
+32,distance_from_energy,158.7882080078125,GMSC,Wachter,JEM,0,1
+32,distance_from_targets,151.1291961669922,GMSC,Wachter,JEM,0,1
 32,redundancy,0.0,GMSC,Wachter,JEM,0,1
-32,set_size_penalty,0.08360339288497798,GMSC,Wachter,JEM,0,1
+32,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,0,1
 32,validity,1.0,GMSC,Wachter,JEM,0,1
-33,distance,126.86563873291016,GMSC,Wachter,JEM,0,1
-33,distance_from_energy,196.20498657226562,GMSC,Wachter,JEM,0,1
-33,distance_from_targets,128.458251953125,GMSC,Wachter,JEM,0,1
+33,distance,147.2664337158203,GMSC,Wachter,JEM,0,1
+33,distance_from_energy,186.38067626953125,GMSC,Wachter,JEM,0,1
+33,distance_from_targets,150.49478149414062,GMSC,Wachter,JEM,0,1
 33,redundancy,0.0,GMSC,Wachter,JEM,0,1
-33,set_size_penalty,0.08360577203658659,GMSC,Wachter,JEM,0,1
+33,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,0,1
 33,validity,1.0,GMSC,Wachter,JEM,0,1
-34,distance,124.71805572509766,GMSC,Wachter,JEM,0,1
-34,distance_from_energy,235.84341430664062,GMSC,Wachter,JEM,0,1
-34,distance_from_targets,128.79098510742188,GMSC,Wachter,JEM,0,1
+34,distance,147.11602783203125,GMSC,Wachter,JEM,0,1
+34,distance_from_energy,151.45867919921875,GMSC,Wachter,JEM,0,1
+34,distance_from_targets,149.62889099121094,GMSC,Wachter,JEM,0,1
 34,redundancy,0.0,GMSC,Wachter,JEM,0,1
-34,set_size_penalty,0.08360345720574114,GMSC,Wachter,JEM,0,1
+34,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,0,1
 34,validity,1.0,GMSC,Wachter,JEM,0,1
-35,distance,125.03185272216797,GMSC,Wachter,JEM,0,1
-35,distance_from_energy,176.50425720214844,GMSC,Wachter,JEM,0,1
-35,distance_from_targets,125.77671813964844,GMSC,Wachter,JEM,0,1
+35,distance,147.6806640625,GMSC,Wachter,JEM,0,1
+35,distance_from_energy,219.103515625,GMSC,Wachter,JEM,0,1
+35,distance_from_targets,150.05303955078125,GMSC,Wachter,JEM,0,1
 35,redundancy,0.0,GMSC,Wachter,JEM,0,1
-35,set_size_penalty,0.08360337281465013,GMSC,Wachter,JEM,0,1
+35,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,0,1
 35,validity,1.0,GMSC,Wachter,JEM,0,1
-36,distance,125.14330291748047,GMSC,Wachter,JEM,0,1
-36,distance_from_energy,150.79559326171875,GMSC,Wachter,JEM,0,1
-36,distance_from_targets,127.39503479003906,GMSC,Wachter,JEM,0,1
+36,distance,149.13148498535156,GMSC,Wachter,JEM,0,1
+36,distance_from_energy,156.90740966796875,GMSC,Wachter,JEM,0,1
+36,distance_from_targets,153.16331481933594,GMSC,Wachter,JEM,0,1
 36,redundancy,0.0,GMSC,Wachter,JEM,0,1
-36,set_size_penalty,0.08360336307448102,GMSC,Wachter,JEM,0,1
+36,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,0,1
 36,validity,1.0,GMSC,Wachter,JEM,0,1
-37,distance,124.96346282958984,GMSC,Wachter,JEM,0,1
-37,distance_from_energy,137.15838623046875,GMSC,Wachter,JEM,0,1
-37,distance_from_targets,126.9117202758789,GMSC,Wachter,JEM,0,1
+37,distance,147.00611877441406,GMSC,Wachter,JEM,0,1
+37,distance_from_energy,198.3781280517578,GMSC,Wachter,JEM,0,1
+37,distance_from_targets,150.87286376953125,GMSC,Wachter,JEM,0,1
 37,redundancy,0.0,GMSC,Wachter,JEM,0,1
-37,set_size_penalty,0.08360333790083785,GMSC,Wachter,JEM,0,1
+37,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,0,1
 37,validity,1.0,GMSC,Wachter,JEM,0,1
-38,distance,125.12704467773438,GMSC,Wachter,JEM,0,1
-38,distance_from_energy,152.1995849609375,GMSC,Wachter,JEM,0,1
-38,distance_from_targets,126.68732452392578,GMSC,Wachter,JEM,0,1
+38,distance,146.68914794921875,GMSC,Wachter,JEM,0,1
+38,distance_from_energy,149.0802001953125,GMSC,Wachter,JEM,0,1
+38,distance_from_targets,147.92506408691406,GMSC,Wachter,JEM,0,1
 38,redundancy,0.0,GMSC,Wachter,JEM,0,1
-38,set_size_penalty,0.08360335618744696,GMSC,Wachter,JEM,0,1
+38,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,0,1
 38,validity,1.0,GMSC,Wachter,JEM,0,1
-39,distance,126.24029541015625,GMSC,Wachter,JEM,0,1
-39,distance_from_energy,130.03286743164062,GMSC,Wachter,JEM,0,1
-39,distance_from_targets,127.97891998291016,GMSC,Wachter,JEM,0,1
+39,distance,150.55491638183594,GMSC,Wachter,JEM,0,1
+39,distance_from_energy,172.03660583496094,GMSC,Wachter,JEM,0,1
+39,distance_from_targets,151.0771942138672,GMSC,Wachter,JEM,0,1
 39,redundancy,0.0,GMSC,Wachter,JEM,0,1
-39,set_size_penalty,0.08360340085123497,GMSC,Wachter,JEM,0,1
+39,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,0,1
 39,validity,1.0,GMSC,Wachter,JEM,0,1
-40,distance,124.9157485961914,GMSC,Wachter,JEM,0,1
-40,distance_from_energy,208.74609375,GMSC,Wachter,JEM,0,1
-40,distance_from_targets,128.6337890625,GMSC,Wachter,JEM,0,1
+40,distance,146.93728637695312,GMSC,Wachter,JEM,0,1
+40,distance_from_energy,198.22482299804688,GMSC,Wachter,JEM,0,1
+40,distance_from_targets,148.9375762939453,GMSC,Wachter,JEM,0,1
 40,redundancy,0.0,GMSC,Wachter,JEM,0,1
-40,set_size_penalty,0.08360336216424447,GMSC,Wachter,JEM,0,1
+40,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,0,1
 40,validity,1.0,GMSC,Wachter,JEM,0,1
-31,distance,2.7082324028015137,GMSC,REVISE,JEM,0,1
-31,distance_from_energy,191.2901153564453,GMSC,REVISE,JEM,0,1
-31,distance_from_targets,5.0729079246521,GMSC,REVISE,JEM,0,1
+31,distance,2.583052635192871,GMSC,REVISE,JEM,0,1
+31,distance_from_energy,189.87918090820312,GMSC,REVISE,JEM,0,1
+31,distance_from_targets,5.825050354003906,GMSC,REVISE,JEM,0,1
 31,redundancy,0.0,GMSC,REVISE,JEM,0,1
-31,set_size_penalty,0.13788397840638877,GMSC,REVISE,JEM,0,1
+31,set_size_penalty,0.1220373181886727,GMSC,REVISE,JEM,0,1
 31,validity,1.0,GMSC,REVISE,JEM,0,1
-32,distance,2.8839635848999023,GMSC,REVISE,JEM,0,1
-32,distance_from_energy,178.7728271484375,GMSC,REVISE,JEM,0,1
-32,distance_from_targets,4.84244966506958,GMSC,REVISE,JEM,0,1
+32,distance,1.752718210220337,GMSC,REVISE,JEM,0,1
+32,distance_from_energy,128.98321533203125,GMSC,REVISE,JEM,0,1
+32,distance_from_targets,5.484547138214111,GMSC,REVISE,JEM,0,1
 32,redundancy,0.0,GMSC,REVISE,JEM,0,1
-32,set_size_penalty,0.5841064845574193,GMSC,REVISE,JEM,0,1
+32,set_size_penalty,0.2363627448437109,GMSC,REVISE,JEM,0,1
 32,validity,1.0,GMSC,REVISE,JEM,0,1
-33,distance,4.068944931030273,GMSC,REVISE,JEM,0,1
-33,distance_from_energy,171.47727966308594,GMSC,REVISE,JEM,0,1
-33,distance_from_targets,5.273431777954102,GMSC,REVISE,JEM,0,1
+33,distance,5.0952324867248535,GMSC,REVISE,JEM,0,1
+33,distance_from_energy,96.53240966796875,GMSC,REVISE,JEM,0,1
+33,distance_from_targets,5.236557483673096,GMSC,REVISE,JEM,0,1
 33,redundancy,0.0,GMSC,REVISE,JEM,0,1
-33,set_size_penalty,0.13666348408394757,GMSC,REVISE,JEM,0,1
+33,set_size_penalty,0.2748202246270428,GMSC,REVISE,JEM,0,1
 33,validity,1.0,GMSC,REVISE,JEM,0,1
-34,distance,2.7703499794006348,GMSC,REVISE,JEM,0,1
-34,distance_from_energy,191.40411376953125,GMSC,REVISE,JEM,0,1
-34,distance_from_targets,5.051303863525391,GMSC,REVISE,JEM,0,1
+34,distance,2.7388243675231934,GMSC,REVISE,JEM,0,1
+34,distance_from_energy,170.5394744873047,GMSC,REVISE,JEM,0,1
+34,distance_from_targets,4.612767696380615,GMSC,REVISE,JEM,0,1
 34,redundancy,0.0,GMSC,REVISE,JEM,0,1
-34,set_size_penalty,0.10698135875682002,GMSC,REVISE,JEM,0,1
+34,set_size_penalty,0.12885457395081623,GMSC,REVISE,JEM,0,1
 34,validity,1.0,GMSC,REVISE,JEM,0,1
-35,distance,2.732527732849121,GMSC,REVISE,JEM,0,1
-35,distance_from_energy,179.81590270996094,GMSC,REVISE,JEM,0,1
-35,distance_from_targets,4.689635753631592,GMSC,REVISE,JEM,0,1
+35,distance,5.162737846374512,GMSC,REVISE,JEM,0,1
+35,distance_from_energy,141.50611877441406,GMSC,REVISE,JEM,0,1
+35,distance_from_targets,5.5323357582092285,GMSC,REVISE,JEM,0,1
 35,redundancy,0.0,GMSC,REVISE,JEM,0,1
-35,set_size_penalty,0.5660981312801363,GMSC,REVISE,JEM,0,1
+35,set_size_penalty,0.3280068557916316,GMSC,REVISE,JEM,0,1
 35,validity,1.0,GMSC,REVISE,JEM,0,1
-36,distance,2.7406129837036133,GMSC,REVISE,JEM,0,1
-36,distance_from_energy,171.1737518310547,GMSC,REVISE,JEM,0,1
-36,distance_from_targets,4.71160364151001,GMSC,REVISE,JEM,0,1
+36,distance,4.503020286560059,GMSC,REVISE,JEM,0,1
+36,distance_from_energy,166.23150634765625,GMSC,REVISE,JEM,0,1
+36,distance_from_targets,6.0250091552734375,GMSC,REVISE,JEM,0,1
 36,redundancy,0.0,GMSC,REVISE,JEM,0,1
-36,set_size_penalty,0.590352529845638,GMSC,REVISE,JEM,0,1
+36,set_size_penalty,0.22326091633404532,GMSC,REVISE,JEM,0,1
 36,validity,1.0,GMSC,REVISE,JEM,0,1
-37,distance,2.198179006576538,GMSC,REVISE,JEM,0,1
-37,distance_from_energy,196.29908752441406,GMSC,REVISE,JEM,0,1
-37,distance_from_targets,4.702785968780518,GMSC,REVISE,JEM,0,1
+37,distance,3.685098171234131,GMSC,REVISE,JEM,0,1
+37,distance_from_energy,145.0665283203125,GMSC,REVISE,JEM,0,1
+37,distance_from_targets,5.231470108032227,GMSC,REVISE,JEM,0,1
 37,redundancy,0.0,GMSC,REVISE,JEM,0,1
-37,set_size_penalty,0.54479535800607,GMSC,REVISE,JEM,0,1
+37,set_size_penalty,0.2464533278965384,GMSC,REVISE,JEM,0,1
 37,validity,1.0,GMSC,REVISE,JEM,0,1
-38,distance,2.2208032608032227,GMSC,REVISE,JEM,0,1
-38,distance_from_energy,169.24708557128906,GMSC,REVISE,JEM,0,1
-38,distance_from_targets,4.782431125640869,GMSC,REVISE,JEM,0,1
+38,distance,2.6673409938812256,GMSC,REVISE,JEM,0,1
+38,distance_from_energy,166.1162872314453,GMSC,REVISE,JEM,0,1
+38,distance_from_targets,5.643026828765869,GMSC,REVISE,JEM,0,1
 38,redundancy,0.0,GMSC,REVISE,JEM,0,1
-38,set_size_penalty,0.626322347558129,GMSC,REVISE,JEM,0,1
+38,set_size_penalty,0.2936301903674985,GMSC,REVISE,JEM,0,1
 38,validity,1.0,GMSC,REVISE,JEM,0,1
-39,distance,4.1323699951171875,GMSC,REVISE,JEM,0,1
-39,distance_from_energy,133.43374633789062,GMSC,REVISE,JEM,0,1
-39,distance_from_targets,4.3663330078125,GMSC,REVISE,JEM,0,1
+39,distance,4.279446125030518,GMSC,REVISE,JEM,0,1
+39,distance_from_energy,125.6210708618164,GMSC,REVISE,JEM,0,1
+39,distance_from_targets,5.403849124908447,GMSC,REVISE,JEM,0,1
 39,redundancy,0.0,GMSC,REVISE,JEM,0,1
-39,set_size_penalty,0.5632241207712685,GMSC,REVISE,JEM,0,1
+39,set_size_penalty,0.23557012829474422,GMSC,REVISE,JEM,0,1
 39,validity,1.0,GMSC,REVISE,JEM,0,1
-40,distance,3.392481565475464,GMSC,REVISE,JEM,0,1
-40,distance_from_energy,253.94424438476562,GMSC,REVISE,JEM,0,1
-40,distance_from_targets,4.472559452056885,GMSC,REVISE,JEM,0,1
+40,distance,3.478090524673462,GMSC,REVISE,JEM,0,1
+40,distance_from_energy,163.38580322265625,GMSC,REVISE,JEM,0,1
+40,distance_from_targets,5.509814739227295,GMSC,REVISE,JEM,0,1
 40,redundancy,0.0,GMSC,REVISE,JEM,0,1
-40,set_size_penalty,0.5468748494183062,GMSC,REVISE,JEM,0,1
+40,set_size_penalty,0.3278854609500592,GMSC,REVISE,JEM,0,1
 40,validity,1.0,GMSC,REVISE,JEM,0,1
-31,distance,25.81157684326172,GMSC,ECCCo,JEM,0,1
-31,distance_from_energy,56.7867317199707,GMSC,ECCCo,JEM,0,1
-31,distance_from_targets,25.439035415649414,GMSC,ECCCo,JEM,0,1
+31,distance,19.08899688720703,GMSC,ECCCo,JEM,0,1
+31,distance_from_energy,74.71760559082031,GMSC,ECCCo,JEM,0,1
+31,distance_from_targets,20.097198486328125,GMSC,ECCCo,JEM,0,1
 31,redundancy,0.0,GMSC,ECCCo,JEM,0,1
-31,set_size_penalty,0.08631811005449186,GMSC,ECCCo,JEM,0,1
+31,set_size_penalty,0.1220361515697006,GMSC,ECCCo,JEM,0,1
 31,validity,1.0,GMSC,ECCCo,JEM,0,1
-32,distance,22.840564727783203,GMSC,ECCCo,JEM,0,1
-32,distance_from_energy,77.49480438232422,GMSC,ECCCo,JEM,0,1
-32,distance_from_targets,26.540170669555664,GMSC,ECCCo,JEM,0,1
+32,distance,20.15215301513672,GMSC,ECCCo,JEM,0,1
+32,distance_from_energy,64.6098403930664,GMSC,ECCCo,JEM,0,1
+32,distance_from_targets,22.141508102416992,GMSC,ECCCo,JEM,0,1
 32,redundancy,0.0,GMSC,ECCCo,JEM,0,1
-32,set_size_penalty,0.0861478281170911,GMSC,ECCCo,JEM,0,1
+32,set_size_penalty,0.12203609732656107,GMSC,ECCCo,JEM,0,1
 32,validity,1.0,GMSC,ECCCo,JEM,0,1
-33,distance,21.756511688232422,GMSC,ECCCo,JEM,0,1
-33,distance_from_energy,81.86779022216797,GMSC,ECCCo,JEM,0,1
-33,distance_from_targets,23.457426071166992,GMSC,ECCCo,JEM,0,1
+33,distance,19.076313018798828,GMSC,ECCCo,JEM,0,1
+33,distance_from_energy,72.52938079833984,GMSC,ECCCo,JEM,0,1
+33,distance_from_targets,19.312957763671875,GMSC,ECCCo,JEM,0,1
 33,redundancy,0.0,GMSC,ECCCo,JEM,0,1
-33,set_size_penalty,0.08368716538837617,GMSC,ECCCo,JEM,0,1
+33,set_size_penalty,0.1243744016522268,GMSC,ECCCo,JEM,0,1
 33,validity,1.0,GMSC,ECCCo,JEM,0,1
-34,distance,25.605131149291992,GMSC,ECCCo,JEM,0,1
-34,distance_from_energy,79.2525405883789,GMSC,ECCCo,JEM,0,1
-34,distance_from_targets,21.80984115600586,GMSC,ECCCo,JEM,0,1
+34,distance,20.122297286987305,GMSC,ECCCo,JEM,0,1
+34,distance_from_energy,54.885955810546875,GMSC,ECCCo,JEM,0,1
+34,distance_from_targets,18.850929260253906,GMSC,ECCCo,JEM,0,1
 34,redundancy,0.0,GMSC,ECCCo,JEM,0,1
-34,set_size_penalty,0.09027782101011628,GMSC,ECCCo,JEM,0,1
+34,set_size_penalty,0.12203609246722102,GMSC,ECCCo,JEM,0,1
 34,validity,1.0,GMSC,ECCCo,JEM,0,1
-35,distance,22.74761199951172,GMSC,ECCCo,JEM,0,1
-35,distance_from_energy,73.79229736328125,GMSC,ECCCo,JEM,0,1
-35,distance_from_targets,24.736433029174805,GMSC,ECCCo,JEM,0,1
+35,distance,20.094512939453125,GMSC,ECCCo,JEM,0,1
+35,distance_from_energy,72.73259735107422,GMSC,ECCCo,JEM,0,1
+35,distance_from_targets,18.220020294189453,GMSC,ECCCo,JEM,0,1
 35,redundancy,0.0,GMSC,ECCCo,JEM,0,1
-35,set_size_penalty,0.08610575010695487,GMSC,ECCCo,JEM,0,1
+35,set_size_penalty,0.12206051289835407,GMSC,ECCCo,JEM,0,1
 35,validity,1.0,GMSC,ECCCo,JEM,0,1
-36,distance,22.596263885498047,GMSC,ECCCo,JEM,0,1
-36,distance_from_energy,93.31759643554688,GMSC,ECCCo,JEM,0,1
-36,distance_from_targets,24.687297821044922,GMSC,ECCCo,JEM,0,1
+36,distance,20.242084503173828,GMSC,ECCCo,JEM,0,1
+36,distance_from_energy,45.9271125793457,GMSC,ECCCo,JEM,0,1
+36,distance_from_targets,26.21039390563965,GMSC,ECCCo,JEM,0,1
 36,redundancy,0.0,GMSC,ECCCo,JEM,0,1
-36,set_size_penalty,0.08596262765167229,GMSC,ECCCo,JEM,0,1
+36,set_size_penalty,0.12203610256437036,GMSC,ECCCo,JEM,0,1
 36,validity,1.0,GMSC,ECCCo,JEM,0,1
-37,distance,20.303226470947266,GMSC,ECCCo,JEM,0,1
-37,distance_from_energy,79.87920379638672,GMSC,ECCCo,JEM,0,1
-37,distance_from_targets,21.535911560058594,GMSC,ECCCo,JEM,0,1
+37,distance,20.13547706604004,GMSC,ECCCo,JEM,0,1
+37,distance_from_energy,52.47157287597656,GMSC,ECCCo,JEM,0,1
+37,distance_from_targets,22.096729278564453,GMSC,ECCCo,JEM,0,1
 37,redundancy,0.0,GMSC,ECCCo,JEM,0,1
-37,set_size_penalty,0.08620098494261397,GMSC,ECCCo,JEM,0,1
+37,set_size_penalty,0.12203616061685318,GMSC,ECCCo,JEM,0,1
 37,validity,1.0,GMSC,ECCCo,JEM,0,1
-38,distance,22.20551300048828,GMSC,ECCCo,JEM,0,1
-38,distance_from_energy,87.91091918945312,GMSC,ECCCo,JEM,0,1
-38,distance_from_targets,25.789583206176758,GMSC,ECCCo,JEM,0,1
+38,distance,20.136581420898438,GMSC,ECCCo,JEM,0,1
+38,distance_from_energy,40.43132400512695,GMSC,ECCCo,JEM,0,1
+38,distance_from_targets,20.4110164642334,GMSC,ECCCo,JEM,0,1
 38,redundancy,0.0,GMSC,ECCCo,JEM,0,1
-38,set_size_penalty,0.08605577091527161,GMSC,ECCCo,JEM,0,1
+38,set_size_penalty,0.12203630699082146,GMSC,ECCCo,JEM,0,1
 38,validity,1.0,GMSC,ECCCo,JEM,0,1
-39,distance,22.13006591796875,GMSC,ECCCo,JEM,0,1
-39,distance_from_energy,62.524566650390625,GMSC,ECCCo,JEM,0,1
-39,distance_from_targets,25.02528190612793,GMSC,ECCCo,JEM,0,1
+39,distance,20.13104820251465,GMSC,ECCCo,JEM,0,1
+39,distance_from_energy,64.75125122070312,GMSC,ECCCo,JEM,0,1
+39,distance_from_targets,19.436498641967773,GMSC,ECCCo,JEM,0,1
 39,redundancy,0.0,GMSC,ECCCo,JEM,0,1
-39,set_size_penalty,0.0837421781530816,GMSC,ECCCo,JEM,0,1
+39,set_size_penalty,0.12203663712160973,GMSC,ECCCo,JEM,0,1
 39,validity,1.0,GMSC,ECCCo,JEM,0,1
-40,distance,24.076858520507812,GMSC,ECCCo,JEM,0,1
-40,distance_from_energy,90.24894714355469,GMSC,ECCCo,JEM,0,1
-40,distance_from_targets,25.398462295532227,GMSC,ECCCo,JEM,0,1
+40,distance,20.138460159301758,GMSC,ECCCo,JEM,0,1
+40,distance_from_energy,49.757843017578125,GMSC,ECCCo,JEM,0,1
+40,distance_from_targets,19.551002502441406,GMSC,ECCCo,JEM,0,1
 40,redundancy,0.0,GMSC,ECCCo,JEM,0,1
-40,set_size_penalty,0.0841817451741722,GMSC,ECCCo,JEM,0,1
+40,set_size_penalty,0.12203609224559497,GMSC,ECCCo,JEM,0,1
 40,validity,1.0,GMSC,ECCCo,JEM,0,1
-31,distance,0.5,GMSC,Schut,JEM,0,1
-31,distance_from_energy,233.75926208496094,GMSC,Schut,JEM,0,1
-31,distance_from_targets,4.784875392913818,GMSC,Schut,JEM,0,1
-31,redundancy,0.8,GMSC,Schut,JEM,0,1
-31,set_size_penalty,0.08362902632219105,GMSC,Schut,JEM,0,1
+31,distance,0.4999999701976776,GMSC,Schut,JEM,0,1
+31,distance_from_energy,174.26007080078125,GMSC,Schut,JEM,0,1
+31,distance_from_targets,5.918924331665039,GMSC,Schut,JEM,0,1
+31,redundancy,0.9,GMSC,Schut,JEM,0,1
+31,set_size_penalty,0.12205772699769102,GMSC,Schut,JEM,0,1
 31,validity,1.0,GMSC,Schut,JEM,0,1
-32,distance,2.1000001430511475,GMSC,Schut,JEM,0,1
-32,distance_from_energy,201.85670471191406,GMSC,Schut,JEM,0,1
-32,distance_from_targets,7.700577735900879,GMSC,Schut,JEM,0,1
-32,redundancy,0.7,GMSC,Schut,JEM,0,1
-32,set_size_penalty,0.08522566748083804,GMSC,Schut,JEM,0,1
+32,distance,0.4000000059604645,GMSC,Schut,JEM,0,1
+32,distance_from_energy,208.00511169433594,GMSC,Schut,JEM,0,1
+32,distance_from_targets,5.692147254943848,GMSC,Schut,JEM,0,1
+32,redundancy,0.9,GMSC,Schut,JEM,0,1
+32,set_size_penalty,0.12238632742642097,GMSC,Schut,JEM,0,1
 32,validity,1.0,GMSC,Schut,JEM,0,1
-33,distance,0.29999998211860657,GMSC,Schut,JEM,0,1
-33,distance_from_energy,185.365234375,GMSC,Schut,JEM,0,1
-33,distance_from_targets,6.907279014587402,GMSC,Schut,JEM,0,1
+33,distance,0.3999999761581421,GMSC,Schut,JEM,0,1
+33,distance_from_energy,121.5025863647461,GMSC,Schut,JEM,0,1
+33,distance_from_targets,4.779353618621826,GMSC,Schut,JEM,0,1
 33,redundancy,0.9,GMSC,Schut,JEM,0,1
-33,set_size_penalty,0.0838313643190629,GMSC,Schut,JEM,0,1
+33,set_size_penalty,0.12215862893537643,GMSC,Schut,JEM,0,1
 33,validity,1.0,GMSC,Schut,JEM,0,1
-34,distance,0.29999998211860657,GMSC,Schut,JEM,0,1
-34,distance_from_energy,198.24803161621094,GMSC,Schut,JEM,0,1
-34,distance_from_targets,6.203389644622803,GMSC,Schut,JEM,0,1
+34,distance,0.4000000059604645,GMSC,Schut,JEM,0,1
+34,distance_from_energy,160.84243774414062,GMSC,Schut,JEM,0,1
+34,distance_from_targets,5.636500358581543,GMSC,Schut,JEM,0,1
 34,redundancy,0.9,GMSC,Schut,JEM,0,1
-34,set_size_penalty,0.08367013440221238,GMSC,Schut,JEM,0,1
+34,set_size_penalty,0.12239134988887224,GMSC,Schut,JEM,0,1
 34,validity,1.0,GMSC,Schut,JEM,0,1
-35,distance,2.0,GMSC,Schut,JEM,0,1
-35,distance_from_energy,183.63784790039062,GMSC,Schut,JEM,0,1
-35,distance_from_targets,7.028185844421387,GMSC,Schut,JEM,0,1
-35,redundancy,0.6,GMSC,Schut,JEM,0,1
-35,set_size_penalty,0.09404174067311333,GMSC,Schut,JEM,0,1
+35,distance,0.3999999761581421,GMSC,Schut,JEM,0,1
+35,distance_from_energy,145.16006469726562,GMSC,Schut,JEM,0,1
+35,distance_from_targets,5.301877498626709,GMSC,Schut,JEM,0,1
+35,redundancy,0.9,GMSC,Schut,JEM,0,1
+35,set_size_penalty,0.12214447617977875,GMSC,Schut,JEM,0,1
 35,validity,1.0,GMSC,Schut,JEM,0,1
-36,distance,2.799999952316284,GMSC,Schut,JEM,0,1
-36,distance_from_energy,142.5921173095703,GMSC,Schut,JEM,0,1
-36,distance_from_targets,7.625569820404053,GMSC,Schut,JEM,0,1
-36,redundancy,0.6,GMSC,Schut,JEM,0,1
-36,set_size_penalty,0.08551157211127092,GMSC,Schut,JEM,0,1
+36,distance,0.3999999761581421,GMSC,Schut,JEM,0,1
+36,distance_from_energy,150.48516845703125,GMSC,Schut,JEM,0,1
+36,distance_from_targets,8.878849983215332,GMSC,Schut,JEM,0,1
+36,redundancy,0.9,GMSC,Schut,JEM,0,1
+36,set_size_penalty,0.12225118946331337,GMSC,Schut,JEM,0,1
 36,validity,1.0,GMSC,Schut,JEM,0,1
-37,distance,1.9000000953674316,GMSC,Schut,JEM,0,1
-37,distance_from_energy,205.3594970703125,GMSC,Schut,JEM,0,1
-37,distance_from_targets,6.206047058105469,GMSC,Schut,JEM,0,1
-37,redundancy,0.6,GMSC,Schut,JEM,0,1
-37,set_size_penalty,0.09294460061195808,GMSC,Schut,JEM,0,1
+37,distance,0.3999999761581421,GMSC,Schut,JEM,0,1
+37,distance_from_energy,168.58197021484375,GMSC,Schut,JEM,0,1
+37,distance_from_targets,5.724435806274414,GMSC,Schut,JEM,0,1
+37,redundancy,0.9,GMSC,Schut,JEM,0,1
+37,set_size_penalty,0.12239443458895005,GMSC,Schut,JEM,0,1
 37,validity,1.0,GMSC,Schut,JEM,0,1
-38,distance,1.8999998569488525,GMSC,Schut,JEM,0,1
-38,distance_from_energy,204.5406036376953,GMSC,Schut,JEM,0,1
-38,distance_from_targets,7.017611980438232,GMSC,Schut,JEM,0,1
-38,redundancy,0.6,GMSC,Schut,JEM,0,1
-38,set_size_penalty,0.09233105224165583,GMSC,Schut,JEM,0,1
+38,distance,0.3999999761581421,GMSC,Schut,JEM,0,1
+38,distance_from_energy,161.60208129882812,GMSC,Schut,JEM,0,1
+38,distance_from_targets,5.083943843841553,GMSC,Schut,JEM,0,1
+38,redundancy,0.9,GMSC,Schut,JEM,0,1
+38,set_size_penalty,0.12226759202109094,GMSC,Schut,JEM,0,1
 38,validity,1.0,GMSC,Schut,JEM,0,1
 39,distance,0.4000000059604645,GMSC,Schut,JEM,0,1
-39,distance_from_energy,215.4403839111328,GMSC,Schut,JEM,0,1
-39,distance_from_targets,6.729071617126465,GMSC,Schut,JEM,0,1
-39,redundancy,0.8,GMSC,Schut,JEM,0,1
-39,set_size_penalty,0.08381164202915925,GMSC,Schut,JEM,0,1
+39,distance_from_energy,194.05783081054688,GMSC,Schut,JEM,0,1
+39,distance_from_targets,5.064387321472168,GMSC,Schut,JEM,0,1
+39,redundancy,0.9,GMSC,Schut,JEM,0,1
+39,set_size_penalty,0.12217725716088901,GMSC,Schut,JEM,0,1
 39,validity,1.0,GMSC,Schut,JEM,0,1
-40,distance,0.6000000238418579,GMSC,Schut,JEM,0,1
-40,distance_from_energy,145.8154754638672,GMSC,Schut,JEM,0,1
-40,distance_from_targets,5.978761672973633,GMSC,Schut,JEM,0,1
-40,redundancy,0.7,GMSC,Schut,JEM,0,1
-40,set_size_penalty,0.08361588656343955,GMSC,Schut,JEM,0,1
+40,distance,0.3999999761581421,GMSC,Schut,JEM,0,1
+40,distance_from_energy,148.83847045898438,GMSC,Schut,JEM,0,1
+40,distance_from_targets,5.043910503387451,GMSC,Schut,JEM,0,1
+40,redundancy,0.9,GMSC,Schut,JEM,0,1
+40,set_size_penalty,0.12234354405208103,GMSC,Schut,JEM,0,1
 40,validity,1.0,GMSC,Schut,JEM,0,1
-1,distance,10.962320327758789,GMSC,Wachter,JEM Ensemble,1,0
-1,distance_from_energy,174.03453063964844,GMSC,Wachter,JEM Ensemble,1,0
-1,distance_from_targets,18.077898025512695,GMSC,Wachter,JEM Ensemble,1,0
+1,distance,32.48311996459961,GMSC,Wachter,JEM Ensemble,1,0
+1,distance_from_energy,173.3428497314453,GMSC,Wachter,JEM Ensemble,1,0
+1,distance_from_targets,35.372432708740234,GMSC,Wachter,JEM Ensemble,1,0
 1,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
-1,set_size_penalty,0.09276307650043547,GMSC,Wachter,JEM Ensemble,1,0
+1,set_size_penalty,0.07748348722831278,GMSC,Wachter,JEM Ensemble,1,0
 1,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
-2,distance,10.567469596862793,GMSC,Wachter,JEM Ensemble,1,0
-2,distance_from_energy,216.4842987060547,GMSC,Wachter,JEM Ensemble,1,0
-2,distance_from_targets,15.55945873260498,GMSC,Wachter,JEM Ensemble,1,0
+2,distance,32.35841751098633,GMSC,Wachter,JEM Ensemble,1,0
+2,distance_from_energy,197.0752716064453,GMSC,Wachter,JEM Ensemble,1,0
+2,distance_from_targets,38.99054718017578,GMSC,Wachter,JEM Ensemble,1,0
 2,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
-2,set_size_penalty,0.09276307650043547,GMSC,Wachter,JEM Ensemble,1,0
+2,set_size_penalty,0.07748348722831278,GMSC,Wachter,JEM Ensemble,1,0
 2,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
-3,distance,10.951592445373535,GMSC,Wachter,JEM Ensemble,1,0
-3,distance_from_energy,197.99691772460938,GMSC,Wachter,JEM Ensemble,1,0
-3,distance_from_targets,17.919246673583984,GMSC,Wachter,JEM Ensemble,1,0
+3,distance,32.525718688964844,GMSC,Wachter,JEM Ensemble,1,0
+3,distance_from_energy,113.43355560302734,GMSC,Wachter,JEM Ensemble,1,0
+3,distance_from_targets,37.18378829956055,GMSC,Wachter,JEM Ensemble,1,0
 3,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
-3,set_size_penalty,0.09276307650043547,GMSC,Wachter,JEM Ensemble,1,0
+3,set_size_penalty,0.07748348722831278,GMSC,Wachter,JEM Ensemble,1,0
 3,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
-4,distance,10.981293678283691,GMSC,Wachter,JEM Ensemble,1,0
-4,distance_from_energy,200.32650756835938,GMSC,Wachter,JEM Ensemble,1,0
-4,distance_from_targets,15.301785469055176,GMSC,Wachter,JEM Ensemble,1,0
+4,distance,32.47969436645508,GMSC,Wachter,JEM Ensemble,1,0
+4,distance_from_energy,189.95428466796875,GMSC,Wachter,JEM Ensemble,1,0
+4,distance_from_targets,35.71635437011719,GMSC,Wachter,JEM Ensemble,1,0
 4,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
-4,set_size_penalty,0.09276307650043547,GMSC,Wachter,JEM Ensemble,1,0
+4,set_size_penalty,0.07748348722831278,GMSC,Wachter,JEM Ensemble,1,0
 4,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
-5,distance,10.874589920043945,GMSC,Wachter,JEM Ensemble,1,0
-5,distance_from_energy,200.6138153076172,GMSC,Wachter,JEM Ensemble,1,0
-5,distance_from_targets,15.262317657470703,GMSC,Wachter,JEM Ensemble,1,0
+5,distance,32.58662033081055,GMSC,Wachter,JEM Ensemble,1,0
+5,distance_from_energy,164.24771118164062,GMSC,Wachter,JEM Ensemble,1,0
+5,distance_from_targets,37.789546966552734,GMSC,Wachter,JEM Ensemble,1,0
 5,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
-5,set_size_penalty,0.09276307650043547,GMSC,Wachter,JEM Ensemble,1,0
+5,set_size_penalty,0.07748348722831278,GMSC,Wachter,JEM Ensemble,1,0
 5,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
-6,distance,9.84428596496582,GMSC,Wachter,JEM Ensemble,1,0
-6,distance_from_energy,188.76072692871094,GMSC,Wachter,JEM Ensemble,1,0
-6,distance_from_targets,15.502057075500488,GMSC,Wachter,JEM Ensemble,1,0
+6,distance,32.588401794433594,GMSC,Wachter,JEM Ensemble,1,0
+6,distance_from_energy,170.81935119628906,GMSC,Wachter,JEM Ensemble,1,0
+6,distance_from_targets,37.273616790771484,GMSC,Wachter,JEM Ensemble,1,0
 6,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
-6,set_size_penalty,0.09276307650043547,GMSC,Wachter,JEM Ensemble,1,0
+6,set_size_penalty,0.07748348722831278,GMSC,Wachter,JEM Ensemble,1,0
 6,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
-7,distance,11.272551536560059,GMSC,Wachter,JEM Ensemble,1,0
-7,distance_from_energy,186.4609375,GMSC,Wachter,JEM Ensemble,1,0
-7,distance_from_targets,15.064311981201172,GMSC,Wachter,JEM Ensemble,1,0
+7,distance,32.977108001708984,GMSC,Wachter,JEM Ensemble,1,0
+7,distance_from_energy,147.2610321044922,GMSC,Wachter,JEM Ensemble,1,0
+7,distance_from_targets,35.83403778076172,GMSC,Wachter,JEM Ensemble,1,0
 7,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
-7,set_size_penalty,0.09276307650043547,GMSC,Wachter,JEM Ensemble,1,0
+7,set_size_penalty,0.07748348722831278,GMSC,Wachter,JEM Ensemble,1,0
 7,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
-8,distance,5.838912487030029,GMSC,Wachter,JEM Ensemble,1,0
-8,distance_from_energy,191.3226776123047,GMSC,Wachter,JEM Ensemble,1,0
-8,distance_from_targets,10.236042976379395,GMSC,Wachter,JEM Ensemble,1,0
+8,distance,32.512596130371094,GMSC,Wachter,JEM Ensemble,1,0
+8,distance_from_energy,159.04632568359375,GMSC,Wachter,JEM Ensemble,1,0
+8,distance_from_targets,36.208648681640625,GMSC,Wachter,JEM Ensemble,1,0
 8,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
-8,set_size_penalty,0.09276307650068882,GMSC,Wachter,JEM Ensemble,1,0
+8,set_size_penalty,0.07748348722831278,GMSC,Wachter,JEM Ensemble,1,0
 8,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
-9,distance,3.541696071624756,GMSC,Wachter,JEM Ensemble,1,0
-9,distance_from_energy,233.75535583496094,GMSC,Wachter,JEM Ensemble,1,0
-9,distance_from_targets,6.530085563659668,GMSC,Wachter,JEM Ensemble,1,0
+9,distance,32.46283721923828,GMSC,Wachter,JEM Ensemble,1,0
+9,distance_from_energy,200.67796325683594,GMSC,Wachter,JEM Ensemble,1,0
+9,distance_from_targets,36.12730026245117,GMSC,Wachter,JEM Ensemble,1,0
 9,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
-9,set_size_penalty,0.10602267227746331,GMSC,Wachter,JEM Ensemble,1,0
+9,set_size_penalty,0.07748348722831278,GMSC,Wachter,JEM Ensemble,1,0
 9,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
-10,distance,11.083808898925781,GMSC,Wachter,JEM Ensemble,1,0
-10,distance_from_energy,162.45480346679688,GMSC,Wachter,JEM Ensemble,1,0
-10,distance_from_targets,14.481231689453125,GMSC,Wachter,JEM Ensemble,1,0
-10,redundancy,0.1,GMSC,Wachter,JEM Ensemble,1,0
-10,set_size_penalty,0.09276307650043547,GMSC,Wachter,JEM Ensemble,1,0
+10,distance,32.015968322753906,GMSC,Wachter,JEM Ensemble,1,0
+10,distance_from_energy,154.64422607421875,GMSC,Wachter,JEM Ensemble,1,0
+10,distance_from_targets,35.972808837890625,GMSC,Wachter,JEM Ensemble,1,0
+10,redundancy,0.0,GMSC,Wachter,JEM Ensemble,1,0
+10,set_size_penalty,0.07748348722831278,GMSC,Wachter,JEM Ensemble,1,0
 10,validity,1.0,GMSC,Wachter,JEM Ensemble,1,0
-1,distance,4.102359771728516,GMSC,REVISE,JEM Ensemble,1,0
-1,distance_from_energy,208.70550537109375,GMSC,REVISE,JEM Ensemble,1,0
-1,distance_from_targets,8.302726745605469,GMSC,REVISE,JEM Ensemble,1,0
+1,distance,2.6533918380737305,GMSC,REVISE,JEM Ensemble,1,0
+1,distance_from_energy,136.2905731201172,GMSC,REVISE,JEM Ensemble,1,0
+1,distance_from_targets,3.7090635299682617,GMSC,REVISE,JEM Ensemble,1,0
 1,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
-1,set_size_penalty,0.10044893987542025,GMSC,REVISE,JEM Ensemble,1,0
+1,set_size_penalty,0.28192595797150743,GMSC,REVISE,JEM Ensemble,1,0
 1,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
-2,distance,3.081324577331543,GMSC,REVISE,JEM Ensemble,1,0
-2,distance_from_energy,175.06471252441406,GMSC,REVISE,JEM Ensemble,1,0
-2,distance_from_targets,4.707982540130615,GMSC,REVISE,JEM Ensemble,1,0
+2,distance,4.503115177154541,GMSC,REVISE,JEM Ensemble,1,0
+2,distance_from_energy,177.92361450195312,GMSC,REVISE,JEM Ensemble,1,0
+2,distance_from_targets,5.7488274574279785,GMSC,REVISE,JEM Ensemble,1,0
 2,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
-2,set_size_penalty,0.3590078952010862,GMSC,REVISE,JEM Ensemble,1,0
+2,set_size_penalty,0.1126805402967721,GMSC,REVISE,JEM Ensemble,1,0
 2,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
-3,distance,5.4691314697265625,GMSC,REVISE,JEM Ensemble,1,0
-3,distance_from_energy,188.00958251953125,GMSC,REVISE,JEM Ensemble,1,0
-3,distance_from_targets,5.983888149261475,GMSC,REVISE,JEM Ensemble,1,0
+3,distance,2.3695225715637207,GMSC,REVISE,JEM Ensemble,1,0
+3,distance_from_energy,170.60789489746094,GMSC,REVISE,JEM Ensemble,1,0
+3,distance_from_targets,4.504558086395264,GMSC,REVISE,JEM Ensemble,1,0
 3,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
-3,set_size_penalty,0.3473271851463178,GMSC,REVISE,JEM Ensemble,1,0
+3,set_size_penalty,0.14903882290820114,GMSC,REVISE,JEM Ensemble,1,0
 3,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
-4,distance,2.9319238662719727,GMSC,REVISE,JEM Ensemble,1,0
-4,distance_from_energy,187.3934783935547,GMSC,REVISE,JEM Ensemble,1,0
-4,distance_from_targets,4.338851451873779,GMSC,REVISE,JEM Ensemble,1,0
+4,distance,3.7717533111572266,GMSC,REVISE,JEM Ensemble,1,0
+4,distance_from_energy,139.89044189453125,GMSC,REVISE,JEM Ensemble,1,0
+4,distance_from_targets,3.9991888999938965,GMSC,REVISE,JEM Ensemble,1,0
 4,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
-4,set_size_penalty,0.313898316576692,GMSC,REVISE,JEM Ensemble,1,0
+4,set_size_penalty,0.19345512941908116,GMSC,REVISE,JEM Ensemble,1,0
 4,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
-5,distance,2.4223952293395996,GMSC,REVISE,JEM Ensemble,1,0
-5,distance_from_energy,184.02435302734375,GMSC,REVISE,JEM Ensemble,1,0
-5,distance_from_targets,4.211000442504883,GMSC,REVISE,JEM Ensemble,1,0
+5,distance,2.502499580383301,GMSC,REVISE,JEM Ensemble,1,0
+5,distance_from_energy,161.98513793945312,GMSC,REVISE,JEM Ensemble,1,0
+5,distance_from_targets,4.743304252624512,GMSC,REVISE,JEM Ensemble,1,0
 5,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
-5,set_size_penalty,0.31563633482918885,GMSC,REVISE,JEM Ensemble,1,0
+5,set_size_penalty,0.1590167944920735,GMSC,REVISE,JEM Ensemble,1,0
 5,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
-6,distance,2.8733203411102295,GMSC,REVISE,JEM Ensemble,1,0
-6,distance_from_energy,229.76205444335938,GMSC,REVISE,JEM Ensemble,1,0
-6,distance_from_targets,4.207740306854248,GMSC,REVISE,JEM Ensemble,1,0
+6,distance,2.2040138244628906,GMSC,REVISE,JEM Ensemble,1,0
+6,distance_from_energy,123.10900115966797,GMSC,REVISE,JEM Ensemble,1,0
+6,distance_from_targets,4.460301876068115,GMSC,REVISE,JEM Ensemble,1,0
 6,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
-6,set_size_penalty,0.3094676957291378,GMSC,REVISE,JEM Ensemble,1,0
+6,set_size_penalty,0.15871994018260516,GMSC,REVISE,JEM Ensemble,1,0
 6,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
-7,distance,1.2435083389282227,GMSC,REVISE,JEM Ensemble,1,0
-7,distance_from_energy,195.8388214111328,GMSC,REVISE,JEM Ensemble,1,0
-7,distance_from_targets,3.9966681003570557,GMSC,REVISE,JEM Ensemble,1,0
+7,distance,3.818415880203247,GMSC,REVISE,JEM Ensemble,1,0
+7,distance_from_energy,131.44818115234375,GMSC,REVISE,JEM Ensemble,1,0
+7,distance_from_targets,4.206635475158691,GMSC,REVISE,JEM Ensemble,1,0
 7,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
-7,set_size_penalty,0.23434212169110658,GMSC,REVISE,JEM Ensemble,1,0
+7,set_size_penalty,0.12400291835181343,GMSC,REVISE,JEM Ensemble,1,0
 7,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
-8,distance,1.286358118057251,GMSC,REVISE,JEM Ensemble,1,0
-8,distance_from_energy,231.1431121826172,GMSC,REVISE,JEM Ensemble,1,0
-8,distance_from_targets,4.152810573577881,GMSC,REVISE,JEM Ensemble,1,0
+8,distance,1.6009790897369385,GMSC,REVISE,JEM Ensemble,1,0
+8,distance_from_energy,128.0370330810547,GMSC,REVISE,JEM Ensemble,1,0
+8,distance_from_targets,4.379072666168213,GMSC,REVISE,JEM Ensemble,1,0
 8,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
-8,set_size_penalty,0.30750058607290987,GMSC,REVISE,JEM Ensemble,1,0
+8,set_size_penalty,0.15439090217266727,GMSC,REVISE,JEM Ensemble,1,0
 8,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
-9,distance,3.6609396934509277,GMSC,REVISE,JEM Ensemble,1,0
-9,distance_from_energy,240.78216552734375,GMSC,REVISE,JEM Ensemble,1,0
-9,distance_from_targets,4.175826549530029,GMSC,REVISE,JEM Ensemble,1,0
+9,distance,1.6816332340240479,GMSC,REVISE,JEM Ensemble,1,0
+9,distance_from_energy,175.2231903076172,GMSC,REVISE,JEM Ensemble,1,0
+9,distance_from_targets,4.411614894866943,GMSC,REVISE,JEM Ensemble,1,0
 9,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
-9,set_size_penalty,0.33778870362041724,GMSC,REVISE,JEM Ensemble,1,0
+9,set_size_penalty,0.16101807394510326,GMSC,REVISE,JEM Ensemble,1,0
 9,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
-10,distance,3.7913591861724854,GMSC,REVISE,JEM Ensemble,1,0
-10,distance_from_energy,208.02174377441406,GMSC,REVISE,JEM Ensemble,1,0
-10,distance_from_targets,4.346958160400391,GMSC,REVISE,JEM Ensemble,1,0
+10,distance,1.7122546434402466,GMSC,REVISE,JEM Ensemble,1,0
+10,distance_from_energy,155.5806884765625,GMSC,REVISE,JEM Ensemble,1,0
+10,distance_from_targets,4.5938615798950195,GMSC,REVISE,JEM Ensemble,1,0
 10,redundancy,0.0,GMSC,REVISE,JEM Ensemble,1,0
-10,set_size_penalty,0.2953420099832942,GMSC,REVISE,JEM Ensemble,1,0
+10,set_size_penalty,0.15923599399843846,GMSC,REVISE,JEM Ensemble,1,0
 10,validity,1.0,GMSC,REVISE,JEM Ensemble,1,0
-1,distance,13.146553039550781,GMSC,ECCCo,JEM Ensemble,1,0
-1,distance_from_energy,79.29102325439453,GMSC,ECCCo,JEM Ensemble,1,0
-1,distance_from_targets,18.412193298339844,GMSC,ECCCo,JEM Ensemble,1,0
+1,distance,17.98564910888672,GMSC,ECCCo,JEM Ensemble,1,0
+1,distance_from_energy,67.33837890625,GMSC,ECCCo,JEM Ensemble,1,0
+1,distance_from_targets,18.580778121948242,GMSC,ECCCo,JEM Ensemble,1,0
 1,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,1,0
-1,set_size_penalty,0.09517826268624474,GMSC,ECCCo,JEM Ensemble,1,0
+1,set_size_penalty,0.42466621541339356,GMSC,ECCCo,JEM Ensemble,1,0
 1,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
-2,distance,13.099848747253418,GMSC,ECCCo,JEM Ensemble,1,0
-2,distance_from_energy,65.44889831542969,GMSC,ECCCo,JEM Ensemble,1,0
-2,distance_from_targets,13.609829902648926,GMSC,ECCCo,JEM Ensemble,1,0
+2,distance,18.603347778320312,GMSC,ECCCo,JEM Ensemble,1,0
+2,distance_from_energy,85.07437133789062,GMSC,ECCCo,JEM Ensemble,1,0
+2,distance_from_targets,23.429983139038086,GMSC,ECCCo,JEM Ensemble,1,0
 2,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,1,0
-2,set_size_penalty,0.09474907992590365,GMSC,ECCCo,JEM Ensemble,1,0
+2,set_size_penalty,0.4188664253620673,GMSC,ECCCo,JEM Ensemble,1,0
 2,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
-3,distance,12.760686874389648,GMSC,ECCCo,JEM Ensemble,1,0
-3,distance_from_energy,88.59883880615234,GMSC,ECCCo,JEM Ensemble,1,0
-3,distance_from_targets,19.40433120727539,GMSC,ECCCo,JEM Ensemble,1,0
+3,distance,17.775314331054688,GMSC,ECCCo,JEM Ensemble,1,0
+3,distance_from_energy,77.56780242919922,GMSC,ECCCo,JEM Ensemble,1,0
+3,distance_from_targets,15.68657112121582,GMSC,ECCCo,JEM Ensemble,1,0
 3,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,1,0
-3,set_size_penalty,0.09528236897206632,GMSC,ECCCo,JEM Ensemble,1,0
+3,set_size_penalty,0.42297300784743364,GMSC,ECCCo,JEM Ensemble,1,0
 3,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
-4,distance,13.023920059204102,GMSC,ECCCo,JEM Ensemble,1,0
-4,distance_from_energy,104.0976791381836,GMSC,ECCCo,JEM Ensemble,1,0
-4,distance_from_targets,9.970348358154297,GMSC,ECCCo,JEM Ensemble,1,0
+4,distance,17.680110931396484,GMSC,ECCCo,JEM Ensemble,1,0
+4,distance_from_energy,65.18732452392578,GMSC,ECCCo,JEM Ensemble,1,0
+4,distance_from_targets,19.439329147338867,GMSC,ECCCo,JEM Ensemble,1,0
 4,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,1,0
-4,set_size_penalty,0.0950487742227697,GMSC,ECCCo,JEM Ensemble,1,0
+4,set_size_penalty,0.42341197557902266,GMSC,ECCCo,JEM Ensemble,1,0
 4,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
-5,distance,12.858009338378906,GMSC,ECCCo,JEM Ensemble,1,0
-5,distance_from_energy,77.49060821533203,GMSC,ECCCo,JEM Ensemble,1,0
-5,distance_from_targets,10.60970687866211,GMSC,ECCCo,JEM Ensemble,1,0
+5,distance,13.262608528137207,GMSC,ECCCo,JEM Ensemble,1,0
+5,distance_from_energy,52.938716888427734,GMSC,ECCCo,JEM Ensemble,1,0
+5,distance_from_targets,9.575507164001465,GMSC,ECCCo,JEM Ensemble,1,0
 5,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,1,0
-5,set_size_penalty,0.09501720381042933,GMSC,ECCCo,JEM Ensemble,1,0
+5,set_size_penalty,0.32553806542903874,GMSC,ECCCo,JEM Ensemble,1,0
 5,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
-6,distance,13.026199340820312,GMSC,ECCCo,JEM Ensemble,1,0
-6,distance_from_energy,95.58561706542969,GMSC,ECCCo,JEM Ensemble,1,0
-6,distance_from_targets,9.795271873474121,GMSC,ECCCo,JEM Ensemble,1,0
+6,distance,18.483057022094727,GMSC,ECCCo,JEM Ensemble,1,0
+6,distance_from_energy,63.958953857421875,GMSC,ECCCo,JEM Ensemble,1,0
+6,distance_from_targets,17.261093139648438,GMSC,ECCCo,JEM Ensemble,1,0
 6,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,1,0
-6,set_size_penalty,0.0949661457197204,GMSC,ECCCo,JEM Ensemble,1,0
+6,set_size_penalty,0.42323203496688167,GMSC,ECCCo,JEM Ensemble,1,0
 6,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
-7,distance,13.026415824890137,GMSC,ECCCo,JEM Ensemble,1,0
-7,distance_from_energy,78.31891632080078,GMSC,ECCCo,JEM Ensemble,1,0
-7,distance_from_targets,13.99634075164795,GMSC,ECCCo,JEM Ensemble,1,0
+7,distance,13.646242141723633,GMSC,ECCCo,JEM Ensemble,1,0
+7,distance_from_energy,55.991432189941406,GMSC,ECCCo,JEM Ensemble,1,0
+7,distance_from_targets,15.877073287963867,GMSC,ECCCo,JEM Ensemble,1,0
 7,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,1,0
-7,set_size_penalty,0.09551366856551935,GMSC,ECCCo,JEM Ensemble,1,0
+7,set_size_penalty,0.1582467265045855,GMSC,ECCCo,JEM Ensemble,1,0
 7,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
-8,distance,12.99425220489502,GMSC,ECCCo,JEM Ensemble,1,0
-8,distance_from_energy,83.1238784790039,GMSC,ECCCo,JEM Ensemble,1,0
-8,distance_from_targets,10.70651912689209,GMSC,ECCCo,JEM Ensemble,1,0
+8,distance,17.371206283569336,GMSC,ECCCo,JEM Ensemble,1,0
+8,distance_from_energy,57.3765983581543,GMSC,ECCCo,JEM Ensemble,1,0
+8,distance_from_targets,16.170570373535156,GMSC,ECCCo,JEM Ensemble,1,0
 8,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,1,0
-8,set_size_penalty,0.09503116579556004,GMSC,ECCCo,JEM Ensemble,1,0
+8,set_size_penalty,0.4247337092261221,GMSC,ECCCo,JEM Ensemble,1,0
 8,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
-9,distance,13.105120658874512,GMSC,ECCCo,JEM Ensemble,1,0
-9,distance_from_energy,66.88833618164062,GMSC,ECCCo,JEM Ensemble,1,0
-9,distance_from_targets,12.767407417297363,GMSC,ECCCo,JEM Ensemble,1,0
+9,distance,18.377910614013672,GMSC,ECCCo,JEM Ensemble,1,0
+9,distance_from_energy,71.16011047363281,GMSC,ECCCo,JEM Ensemble,1,0
+9,distance_from_targets,17.244924545288086,GMSC,ECCCo,JEM Ensemble,1,0
 9,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,1,0
-9,set_size_penalty,0.0949578593777638,GMSC,ECCCo,JEM Ensemble,1,0
+9,set_size_penalty,0.42386145706615075,GMSC,ECCCo,JEM Ensemble,1,0
 9,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
-10,distance,13.131413459777832,GMSC,ECCCo,JEM Ensemble,1,0
-10,distance_from_energy,62.913021087646484,GMSC,ECCCo,JEM Ensemble,1,0
-10,distance_from_targets,13.99255084991455,GMSC,ECCCo,JEM Ensemble,1,0
+10,distance,17.28556251525879,GMSC,ECCCo,JEM Ensemble,1,0
+10,distance_from_energy,68.54489135742188,GMSC,ECCCo,JEM Ensemble,1,0
+10,distance_from_targets,17.68027114868164,GMSC,ECCCo,JEM Ensemble,1,0
 10,redundancy,0.0,GMSC,ECCCo,JEM Ensemble,1,0
-10,set_size_penalty,0.09547071431419663,GMSC,ECCCo,JEM Ensemble,1,0
+10,set_size_penalty,0.4219626544026429,GMSC,ECCCo,JEM Ensemble,1,0
 10,validity,1.0,GMSC,ECCCo,JEM Ensemble,1,0
-1,distance,1.0,GMSC,Schut,JEM Ensemble,1,0
-1,distance_from_energy,193.31265258789062,GMSC,Schut,JEM Ensemble,1,0
-1,distance_from_targets,8.307337760925293,GMSC,Schut,JEM Ensemble,1,0
-1,redundancy,0.6,GMSC,Schut,JEM Ensemble,1,0
-1,set_size_penalty,0.09758944957996918,GMSC,Schut,JEM Ensemble,1,0
+1,distance,1.0000001192092896,GMSC,Schut,JEM Ensemble,1,0
+1,distance_from_energy,155.93817138671875,GMSC,Schut,JEM Ensemble,1,0
+1,distance_from_targets,5.011312007904053,GMSC,Schut,JEM Ensemble,1,0
+1,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+1,set_size_penalty,0.07909258330256752,GMSC,Schut,JEM Ensemble,1,0
 1,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
-2,distance,1.2000001668930054,GMSC,Schut,JEM Ensemble,1,0
-2,distance_from_energy,170.50741577148438,GMSC,Schut,JEM Ensemble,1,0
-2,distance_from_targets,7.3813652992248535,GMSC,Schut,JEM Ensemble,1,0
-2,redundancy,0.7,GMSC,Schut,JEM Ensemble,1,0
-2,set_size_penalty,0.0957247014905327,GMSC,Schut,JEM Ensemble,1,0
+2,distance,0.6000000238418579,GMSC,Schut,JEM Ensemble,1,0
+2,distance_from_energy,228.1812744140625,GMSC,Schut,JEM Ensemble,1,0
+2,distance_from_targets,7.478402137756348,GMSC,Schut,JEM Ensemble,1,0
+2,redundancy,0.8,GMSC,Schut,JEM Ensemble,1,0
+2,set_size_penalty,0.09018004005441682,GMSC,Schut,JEM Ensemble,1,0
 2,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
-3,distance,0.8999999761581421,GMSC,Schut,JEM Ensemble,1,0
-3,distance_from_energy,132.07574462890625,GMSC,Schut,JEM Ensemble,1,0
-3,distance_from_targets,8.588065147399902,GMSC,Schut,JEM Ensemble,1,0
-3,redundancy,0.8,GMSC,Schut,JEM Ensemble,1,0
-3,set_size_penalty,0.09370910819847866,GMSC,Schut,JEM Ensemble,1,0
+3,distance,0.6000000238418579,GMSC,Schut,JEM Ensemble,1,0
+3,distance_from_energy,112.29666900634766,GMSC,Schut,JEM Ensemble,1,0
+3,distance_from_targets,5.60277795791626,GMSC,Schut,JEM Ensemble,1,0
+3,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+3,set_size_penalty,0.07901844295461169,GMSC,Schut,JEM Ensemble,1,0
 3,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
-4,distance,1.0,GMSC,Schut,JEM Ensemble,1,0
-4,distance_from_energy,164.43087768554688,GMSC,Schut,JEM Ensemble,1,0
-4,distance_from_targets,5.499488353729248,GMSC,Schut,JEM Ensemble,1,0
-4,redundancy,0.6,GMSC,Schut,JEM Ensemble,1,0
-4,set_size_penalty,0.10428377258832167,GMSC,Schut,JEM Ensemble,1,0
+4,distance,0.9000000357627869,GMSC,Schut,JEM Ensemble,1,0
+4,distance_from_energy,198.9362335205078,GMSC,Schut,JEM Ensemble,1,0
+4,distance_from_targets,4.670046806335449,GMSC,Schut,JEM Ensemble,1,0
+4,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+4,set_size_penalty,0.07813651172928071,GMSC,Schut,JEM Ensemble,1,0
 4,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
-5,distance,0.7999999523162842,GMSC,Schut,JEM Ensemble,1,0
-5,distance_from_energy,175.24520874023438,GMSC,Schut,JEM Ensemble,1,0
-5,distance_from_targets,5.161324501037598,GMSC,Schut,JEM Ensemble,1,0
-5,redundancy,0.7,GMSC,Schut,JEM Ensemble,1,0
-5,set_size_penalty,0.09596958522660515,GMSC,Schut,JEM Ensemble,1,0
+5,distance,0.6000000238418579,GMSC,Schut,JEM Ensemble,1,0
+5,distance_from_energy,159.59385681152344,GMSC,Schut,JEM Ensemble,1,0
+5,distance_from_targets,6.118206977844238,GMSC,Schut,JEM Ensemble,1,0
+5,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+5,set_size_penalty,0.08017032128428059,GMSC,Schut,JEM Ensemble,1,0
 5,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
-6,distance,0.7999999523162842,GMSC,Schut,JEM Ensemble,1,0
-6,distance_from_energy,207.35464477539062,GMSC,Schut,JEM Ensemble,1,0
-6,distance_from_targets,6.704767227172852,GMSC,Schut,JEM Ensemble,1,0
-6,redundancy,0.7,GMSC,Schut,JEM Ensemble,1,0
-6,set_size_penalty,0.09348847477877431,GMSC,Schut,JEM Ensemble,1,0
+6,distance,0.7000000476837158,GMSC,Schut,JEM Ensemble,1,0
+6,distance_from_energy,127.55443572998047,GMSC,Schut,JEM Ensemble,1,0
+6,distance_from_targets,5.627406120300293,GMSC,Schut,JEM Ensemble,1,0
+6,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+6,set_size_penalty,0.07873197684623845,GMSC,Schut,JEM Ensemble,1,0
 6,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
-7,distance,0.8999999165534973,GMSC,Schut,JEM Ensemble,1,0
-7,distance_from_energy,139.45684814453125,GMSC,Schut,JEM Ensemble,1,0
-7,distance_from_targets,4.630350589752197,GMSC,Schut,JEM Ensemble,1,0
-7,redundancy,0.7,GMSC,Schut,JEM Ensemble,1,0
-7,set_size_penalty,0.09486142613553183,GMSC,Schut,JEM Ensemble,1,0
+7,distance,1.3000000715255737,GMSC,Schut,JEM Ensemble,1,0
+7,distance_from_energy,116.63195037841797,GMSC,Schut,JEM Ensemble,1,0
+7,distance_from_targets,6.216463565826416,GMSC,Schut,JEM Ensemble,1,0
+7,redundancy,0.8,GMSC,Schut,JEM Ensemble,1,0
+7,set_size_penalty,0.16043179871793378,GMSC,Schut,JEM Ensemble,1,0
 7,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
-8,distance,0.7999999523162842,GMSC,Schut,JEM Ensemble,1,0
-8,distance_from_energy,224.72830200195312,GMSC,Schut,JEM Ensemble,1,0
-8,distance_from_targets,5.226358413696289,GMSC,Schut,JEM Ensemble,1,0
-8,redundancy,0.7,GMSC,Schut,JEM Ensemble,1,0
-8,set_size_penalty,0.09440220261376919,GMSC,Schut,JEM Ensemble,1,0
+8,distance,0.6000000238418579,GMSC,Schut,JEM Ensemble,1,0
+8,distance_from_energy,138.72862243652344,GMSC,Schut,JEM Ensemble,1,0
+8,distance_from_targets,4.646355628967285,GMSC,Schut,JEM Ensemble,1,0
+8,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+8,set_size_penalty,0.07933412965423381,GMSC,Schut,JEM Ensemble,1,0
 8,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
-9,distance,1.2999999523162842,GMSC,Schut,JEM Ensemble,1,0
-9,distance_from_energy,143.08050537109375,GMSC,Schut,JEM Ensemble,1,0
-9,distance_from_targets,4.574854850769043,GMSC,Schut,JEM Ensemble,1,0
-9,redundancy,0.6,GMSC,Schut,JEM Ensemble,1,0
-9,set_size_penalty,0.09896735611889951,GMSC,Schut,JEM Ensemble,1,0
+9,distance,0.6000000238418579,GMSC,Schut,JEM Ensemble,1,0
+9,distance_from_energy,188.24757385253906,GMSC,Schut,JEM Ensemble,1,0
+9,distance_from_targets,4.399374961853027,GMSC,Schut,JEM Ensemble,1,0
+9,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+9,set_size_penalty,0.07907819428948781,GMSC,Schut,JEM Ensemble,1,0
 9,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
-10,distance,1.0,GMSC,Schut,JEM Ensemble,1,0
-10,distance_from_energy,210.4648895263672,GMSC,Schut,JEM Ensemble,1,0
-10,distance_from_targets,5.138777256011963,GMSC,Schut,JEM Ensemble,1,0
-10,redundancy,0.6,GMSC,Schut,JEM Ensemble,1,0
-10,set_size_penalty,0.09876251095147981,GMSC,Schut,JEM Ensemble,1,0
+10,distance,0.7000000476837158,GMSC,Schut,JEM Ensemble,1,0
+10,distance_from_energy,121.29080200195312,GMSC,Schut,JEM Ensemble,1,0
+10,distance_from_targets,5.283843517303467,GMSC,Schut,JEM Ensemble,1,0
+10,redundancy,0.9,GMSC,Schut,JEM Ensemble,1,0
+10,set_size_penalty,0.08043485032248587,GMSC,Schut,JEM Ensemble,1,0
 10,validity,1.0,GMSC,Schut,JEM Ensemble,1,0
-11,distance,25.33397102355957,GMSC,Wachter,MLP,1,0
-11,distance_from_energy,252.83815002441406,GMSC,Wachter,MLP,1,0
-11,distance_from_targets,27.485708236694336,GMSC,Wachter,MLP,1,0
+11,distance,24.514240264892578,GMSC,Wachter,MLP,1,0
+11,distance_from_energy,147.398193359375,GMSC,Wachter,MLP,1,0
+11,distance_from_targets,26.94304084777832,GMSC,Wachter,MLP,1,0
 11,redundancy,0.0,GMSC,Wachter,MLP,1,0
-11,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,1,0
+11,set_size_penalty,0.10355392416217768,GMSC,Wachter,MLP,1,0
 11,validity,1.0,GMSC,Wachter,MLP,1,0
-12,distance,25.633960723876953,GMSC,Wachter,MLP,1,0
-12,distance_from_energy,196.9423065185547,GMSC,Wachter,MLP,1,0
-12,distance_from_targets,32.691131591796875,GMSC,Wachter,MLP,1,0
+12,distance,24.571327209472656,GMSC,Wachter,MLP,1,0
+12,distance_from_energy,195.64662170410156,GMSC,Wachter,MLP,1,0
+12,distance_from_targets,26.813013076782227,GMSC,Wachter,MLP,1,0
 12,redundancy,0.0,GMSC,Wachter,MLP,1,0
-12,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,1,0
+12,set_size_penalty,0.10355392416217768,GMSC,Wachter,MLP,1,0
 12,validity,1.0,GMSC,Wachter,MLP,1,0
-13,distance,46.88511276245117,GMSC,Wachter,MLP,1,0
-13,distance_from_energy,193.01065063476562,GMSC,Wachter,MLP,1,0
-13,distance_from_targets,28.70818519592285,GMSC,Wachter,MLP,1,0
+13,distance,24.59735679626465,GMSC,Wachter,MLP,1,0
+13,distance_from_energy,135.1667022705078,GMSC,Wachter,MLP,1,0
+13,distance_from_targets,25.395307540893555,GMSC,Wachter,MLP,1,0
 13,redundancy,0.0,GMSC,Wachter,MLP,1,0
-13,set_size_penalty,0.0,GMSC,Wachter,MLP,1,0
-13,validity,0.0,GMSC,Wachter,MLP,1,0
-14,distance,25.19309425354004,GMSC,Wachter,MLP,1,0
-14,distance_from_energy,222.10694885253906,GMSC,Wachter,MLP,1,0
-14,distance_from_targets,28.358030319213867,GMSC,Wachter,MLP,1,0
+13,set_size_penalty,0.10355392416217768,GMSC,Wachter,MLP,1,0
+13,validity,1.0,GMSC,Wachter,MLP,1,0
+14,distance,24.767635345458984,GMSC,Wachter,MLP,1,0
+14,distance_from_energy,143.27227783203125,GMSC,Wachter,MLP,1,0
+14,distance_from_targets,23.593978881835938,GMSC,Wachter,MLP,1,0
 14,redundancy,0.0,GMSC,Wachter,MLP,1,0
-14,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,1,0
+14,set_size_penalty,0.10355392416217768,GMSC,Wachter,MLP,1,0
 14,validity,1.0,GMSC,Wachter,MLP,1,0
-15,distance,24.85731315612793,GMSC,Wachter,MLP,1,0
-15,distance_from_energy,184.68226623535156,GMSC,Wachter,MLP,1,0
-15,distance_from_targets,29.868879318237305,GMSC,Wachter,MLP,1,0
+15,distance,24.509803771972656,GMSC,Wachter,MLP,1,0
+15,distance_from_energy,171.6912078857422,GMSC,Wachter,MLP,1,0
+15,distance_from_targets,26.188844680786133,GMSC,Wachter,MLP,1,0
 15,redundancy,0.0,GMSC,Wachter,MLP,1,0
-15,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,1,0
+15,set_size_penalty,0.10355392416217768,GMSC,Wachter,MLP,1,0
 15,validity,1.0,GMSC,Wachter,MLP,1,0
-16,distance,25.128196716308594,GMSC,Wachter,MLP,1,0
-16,distance_from_energy,172.33250427246094,GMSC,Wachter,MLP,1,0
-16,distance_from_targets,28.08981704711914,GMSC,Wachter,MLP,1,0
+16,distance,24.57332992553711,GMSC,Wachter,MLP,1,0
+16,distance_from_energy,147.0906219482422,GMSC,Wachter,MLP,1,0
+16,distance_from_targets,26.298118591308594,GMSC,Wachter,MLP,1,0
 16,redundancy,0.0,GMSC,Wachter,MLP,1,0
-16,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,1,0
+16,set_size_penalty,0.10355392416217768,GMSC,Wachter,MLP,1,0
 16,validity,1.0,GMSC,Wachter,MLP,1,0
-17,distance,24.88615608215332,GMSC,Wachter,MLP,1,0
-17,distance_from_energy,174.59255981445312,GMSC,Wachter,MLP,1,0
-17,distance_from_targets,26.680105209350586,GMSC,Wachter,MLP,1,0
+17,distance,25.105575561523438,GMSC,Wachter,MLP,1,0
+17,distance_from_energy,185.64779663085938,GMSC,Wachter,MLP,1,0
+17,distance_from_targets,28.21589469909668,GMSC,Wachter,MLP,1,0
 17,redundancy,0.0,GMSC,Wachter,MLP,1,0
-17,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,1,0
+17,set_size_penalty,0.10355392416217768,GMSC,Wachter,MLP,1,0
 17,validity,1.0,GMSC,Wachter,MLP,1,0
-18,distance,25.16050910949707,GMSC,Wachter,MLP,1,0
-18,distance_from_energy,253.83265686035156,GMSC,Wachter,MLP,1,0
-18,distance_from_targets,28.743539810180664,GMSC,Wachter,MLP,1,0
+18,distance,24.28082847595215,GMSC,Wachter,MLP,1,0
+18,distance_from_energy,251.1734161376953,GMSC,Wachter,MLP,1,0
+18,distance_from_targets,29.00533676147461,GMSC,Wachter,MLP,1,0
 18,redundancy,0.0,GMSC,Wachter,MLP,1,0
-18,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,1,0
+18,set_size_penalty,0.10355392416217768,GMSC,Wachter,MLP,1,0
 18,validity,1.0,GMSC,Wachter,MLP,1,0
-19,distance,25.447378158569336,GMSC,Wachter,MLP,1,0
-19,distance_from_energy,222.10568237304688,GMSC,Wachter,MLP,1,0
-19,distance_from_targets,29.248523712158203,GMSC,Wachter,MLP,1,0
+19,distance,24.43196678161621,GMSC,Wachter,MLP,1,0
+19,distance_from_energy,198.7627410888672,GMSC,Wachter,MLP,1,0
+19,distance_from_targets,26.503293991088867,GMSC,Wachter,MLP,1,0
 19,redundancy,0.0,GMSC,Wachter,MLP,1,0
-19,set_size_penalty,0.13461903947494935,GMSC,Wachter,MLP,1,0
+19,set_size_penalty,0.10355392416217768,GMSC,Wachter,MLP,1,0
 19,validity,1.0,GMSC,Wachter,MLP,1,0
-20,distance,46.54597091674805,GMSC,Wachter,MLP,1,0
-20,distance_from_energy,203.2139129638672,GMSC,Wachter,MLP,1,0
-20,distance_from_targets,26.029497146606445,GMSC,Wachter,MLP,1,0
+20,distance,24.62322235107422,GMSC,Wachter,MLP,1,0
+20,distance_from_energy,140.534423828125,GMSC,Wachter,MLP,1,0
+20,distance_from_targets,25.06941032409668,GMSC,Wachter,MLP,1,0
 20,redundancy,0.0,GMSC,Wachter,MLP,1,0
-20,set_size_penalty,0.0,GMSC,Wachter,MLP,1,0
-20,validity,0.0,GMSC,Wachter,MLP,1,0
-11,distance,1.911832571029663,GMSC,REVISE,MLP,1,0
-11,distance_from_energy,196.2797393798828,GMSC,REVISE,MLP,1,0
-11,distance_from_targets,4.5929274559021,GMSC,REVISE,MLP,1,0
+20,set_size_penalty,0.10355392416217768,GMSC,Wachter,MLP,1,0
+20,validity,1.0,GMSC,Wachter,MLP,1,0
+11,distance,3.1781110763549805,GMSC,REVISE,MLP,1,0
+11,distance_from_energy,171.23207092285156,GMSC,REVISE,MLP,1,0
+11,distance_from_targets,3.915163516998291,GMSC,REVISE,MLP,1,0
 11,redundancy,0.0,GMSC,REVISE,MLP,1,0
-11,set_size_penalty,0.21246815799383412,GMSC,REVISE,MLP,1,0
+11,set_size_penalty,0.22169189194022443,GMSC,REVISE,MLP,1,0
 11,validity,1.0,GMSC,REVISE,MLP,1,0
-12,distance,10.265792846679688,GMSC,REVISE,MLP,1,0
-12,distance_from_energy,199.14004516601562,GMSC,REVISE,MLP,1,0
-12,distance_from_targets,4.146925926208496,GMSC,REVISE,MLP,1,0
+12,distance,4.141427040100098,GMSC,REVISE,MLP,1,0
+12,distance_from_energy,147.4489288330078,GMSC,REVISE,MLP,1,0
+12,distance_from_targets,6.12349271774292,GMSC,REVISE,MLP,1,0
 12,redundancy,0.0,GMSC,REVISE,MLP,1,0
-12,set_size_penalty,0.256276721118599,GMSC,REVISE,MLP,1,0
+12,set_size_penalty,0.1263405100532351,GMSC,REVISE,MLP,1,0
 12,validity,1.0,GMSC,REVISE,MLP,1,0
-13,distance,44.56296157836914,GMSC,REVISE,MLP,1,0
-13,distance_from_energy,184.1011962890625,GMSC,REVISE,MLP,1,0
-13,distance_from_targets,4.299476146697998,GMSC,REVISE,MLP,1,0
+13,distance,4.726682662963867,GMSC,REVISE,MLP,1,0
+13,distance_from_energy,171.5518341064453,GMSC,REVISE,MLP,1,0
+13,distance_from_targets,5.443820476531982,GMSC,REVISE,MLP,1,0
 13,redundancy,0.0,GMSC,REVISE,MLP,1,0
-13,set_size_penalty,0.2248383833437395,GMSC,REVISE,MLP,1,0
+13,set_size_penalty,0.13045851644471718,GMSC,REVISE,MLP,1,0
 13,validity,1.0,GMSC,REVISE,MLP,1,0
-14,distance,3.0543007850646973,GMSC,REVISE,MLP,1,0
-14,distance_from_energy,187.56298828125,GMSC,REVISE,MLP,1,0
-14,distance_from_targets,4.652456283569336,GMSC,REVISE,MLP,1,0
+14,distance,2.40303111076355,GMSC,REVISE,MLP,1,0
+14,distance_from_energy,189.01470947265625,GMSC,REVISE,MLP,1,0
+14,distance_from_targets,3.9972457885742188,GMSC,REVISE,MLP,1,0
 14,redundancy,0.0,GMSC,REVISE,MLP,1,0
-14,set_size_penalty,0.24112835668619859,GMSC,REVISE,MLP,1,0
+14,set_size_penalty,0.24918067521143406,GMSC,REVISE,MLP,1,0
 14,validity,1.0,GMSC,REVISE,MLP,1,0
-15,distance,1.4015028476715088,GMSC,REVISE,MLP,1,0
-15,distance_from_energy,161.8467254638672,GMSC,REVISE,MLP,1,0
-15,distance_from_targets,7.315324783325195,GMSC,REVISE,MLP,1,0
+15,distance,3.041701555252075,GMSC,REVISE,MLP,1,0
+15,distance_from_energy,135.78221130371094,GMSC,REVISE,MLP,1,0
+15,distance_from_targets,3.794546127319336,GMSC,REVISE,MLP,1,0
 15,redundancy,0.0,GMSC,REVISE,MLP,1,0
-15,set_size_penalty,0.14494801085809783,GMSC,REVISE,MLP,1,0
+15,set_size_penalty,0.21016438543375449,GMSC,REVISE,MLP,1,0
 15,validity,1.0,GMSC,REVISE,MLP,1,0
-16,distance,1.5720818042755127,GMSC,REVISE,MLP,1,0
-16,distance_from_energy,156.35980224609375,GMSC,REVISE,MLP,1,0
-16,distance_from_targets,4.210696220397949,GMSC,REVISE,MLP,1,0
+16,distance,4.285254955291748,GMSC,REVISE,MLP,1,0
+16,distance_from_energy,149.6641082763672,GMSC,REVISE,MLP,1,0
+16,distance_from_targets,3.8698623180389404,GMSC,REVISE,MLP,1,0
 16,redundancy,0.0,GMSC,REVISE,MLP,1,0
-16,set_size_penalty,0.262281170386518,GMSC,REVISE,MLP,1,0
+16,set_size_penalty,0.22835676735428234,GMSC,REVISE,MLP,1,0
 16,validity,1.0,GMSC,REVISE,MLP,1,0
-17,distance,2.8719513416290283,GMSC,REVISE,MLP,1,0
-17,distance_from_energy,156.35781860351562,GMSC,REVISE,MLP,1,0
-17,distance_from_targets,4.4765706062316895,GMSC,REVISE,MLP,1,0
+17,distance,4.452467918395996,GMSC,REVISE,MLP,1,0
+17,distance_from_energy,164.02259826660156,GMSC,REVISE,MLP,1,0
+17,distance_from_targets,3.6568446159362793,GMSC,REVISE,MLP,1,0
 17,redundancy,0.0,GMSC,REVISE,MLP,1,0
-17,set_size_penalty,0.2123153776629283,GMSC,REVISE,MLP,1,0
+17,set_size_penalty,0.20924409852237513,GMSC,REVISE,MLP,1,0
 17,validity,1.0,GMSC,REVISE,MLP,1,0
-18,distance,2.9115471839904785,GMSC,REVISE,MLP,1,0
-18,distance_from_energy,169.41908264160156,GMSC,REVISE,MLP,1,0
-18,distance_from_targets,4.4952521324157715,GMSC,REVISE,MLP,1,0
+18,distance,2.735748767852783,GMSC,REVISE,MLP,1,0
+18,distance_from_energy,177.76564025878906,GMSC,REVISE,MLP,1,0
+18,distance_from_targets,6.777472972869873,GMSC,REVISE,MLP,1,0
 18,redundancy,0.0,GMSC,REVISE,MLP,1,0
-18,set_size_penalty,0.22079426499347998,GMSC,REVISE,MLP,1,0
+18,set_size_penalty,0.11863396864756015,GMSC,REVISE,MLP,1,0
 18,validity,1.0,GMSC,REVISE,MLP,1,0
-19,distance,4.35683536529541,GMSC,REVISE,MLP,1,0
-19,distance_from_energy,147.83480834960938,GMSC,REVISE,MLP,1,0
-19,distance_from_targets,4.6274027824401855,GMSC,REVISE,MLP,1,0
+19,distance,2.9477081298828125,GMSC,REVISE,MLP,1,0
+19,distance_from_energy,198.0435333251953,GMSC,REVISE,MLP,1,0
+19,distance_from_targets,3.585224151611328,GMSC,REVISE,MLP,1,0
 19,redundancy,0.0,GMSC,REVISE,MLP,1,0
-19,set_size_penalty,0.2143018257995668,GMSC,REVISE,MLP,1,0
+19,set_size_penalty,0.2255964903964136,GMSC,REVISE,MLP,1,0
 19,validity,1.0,GMSC,REVISE,MLP,1,0
-20,distance,44.09001541137695,GMSC,REVISE,MLP,1,0
-20,distance_from_energy,159.65029907226562,GMSC,REVISE,MLP,1,0
-20,distance_from_targets,4.349728584289551,GMSC,REVISE,MLP,1,0
+20,distance,2.851454973220825,GMSC,REVISE,MLP,1,0
+20,distance_from_energy,140.3278045654297,GMSC,REVISE,MLP,1,0
+20,distance_from_targets,3.8190231323242188,GMSC,REVISE,MLP,1,0
 20,redundancy,0.0,GMSC,REVISE,MLP,1,0
-20,set_size_penalty,0.21747257364096684,GMSC,REVISE,MLP,1,0
+20,set_size_penalty,0.2392849191095623,GMSC,REVISE,MLP,1,0
 20,validity,1.0,GMSC,REVISE,MLP,1,0
-11,distance,14.57139778137207,GMSC,ECCCo,MLP,1,0
-11,distance_from_energy,76.77841186523438,GMSC,ECCCo,MLP,1,0
-11,distance_from_targets,15.089334487915039,GMSC,ECCCo,MLP,1,0
+11,distance,14.662605285644531,GMSC,ECCCo,MLP,1,0
+11,distance_from_energy,41.79664993286133,GMSC,ECCCo,MLP,1,0
+11,distance_from_targets,16.104970932006836,GMSC,ECCCo,MLP,1,0
 11,redundancy,0.0,GMSC,ECCCo,MLP,1,0
-11,set_size_penalty,0.13648712923629325,GMSC,ECCCo,MLP,1,0
+11,set_size_penalty,0.1543115550025953,GMSC,ECCCo,MLP,1,0
 11,validity,1.0,GMSC,ECCCo,MLP,1,0
-12,distance,18.430662155151367,GMSC,ECCCo,MLP,1,0
-12,distance_from_energy,81.10828399658203,GMSC,ECCCo,MLP,1,0
-12,distance_from_targets,24.137447357177734,GMSC,ECCCo,MLP,1,0
+12,distance,14.4710693359375,GMSC,ECCCo,MLP,1,0
+12,distance_from_energy,66.001953125,GMSC,ECCCo,MLP,1,0
+12,distance_from_targets,13.513514518737793,GMSC,ECCCo,MLP,1,0
 12,redundancy,0.0,GMSC,ECCCo,MLP,1,0
-12,set_size_penalty,0.0,GMSC,ECCCo,MLP,1,0
-12,validity,0.0,GMSC,ECCCo,MLP,1,0
-13,distance,16.255081176757812,GMSC,ECCCo,MLP,1,0
-13,distance_from_energy,86.8906021118164,GMSC,ECCCo,MLP,1,0
-13,distance_from_targets,53.92852020263672,GMSC,ECCCo,MLP,1,0
+12,set_size_penalty,0.13460782833733287,GMSC,ECCCo,MLP,1,0
+12,validity,1.0,GMSC,ECCCo,MLP,1,0
+13,distance,16.87537956237793,GMSC,ECCCo,MLP,1,0
+13,distance_from_energy,28.49602699279785,GMSC,ECCCo,MLP,1,0
+13,distance_from_targets,17.463512420654297,GMSC,ECCCo,MLP,1,0
 13,redundancy,0.0,GMSC,ECCCo,MLP,1,0
-13,set_size_penalty,0.0,GMSC,ECCCo,MLP,1,0
-13,validity,0.0,GMSC,ECCCo,MLP,1,0
-14,distance,15.011516571044922,GMSC,ECCCo,MLP,1,0
-14,distance_from_energy,120.41119384765625,GMSC,ECCCo,MLP,1,0
-14,distance_from_targets,16.208337783813477,GMSC,ECCCo,MLP,1,0
+13,set_size_penalty,0.138961521832488,GMSC,ECCCo,MLP,1,0
+13,validity,1.0,GMSC,ECCCo,MLP,1,0
+14,distance,14.633848190307617,GMSC,ECCCo,MLP,1,0
+14,distance_from_energy,44.80876922607422,GMSC,ECCCo,MLP,1,0
+14,distance_from_targets,13.78580093383789,GMSC,ECCCo,MLP,1,0
 14,redundancy,0.0,GMSC,ECCCo,MLP,1,0
-14,set_size_penalty,0.13659835902077733,GMSC,ECCCo,MLP,1,0
+14,set_size_penalty,0.13745215102777486,GMSC,ECCCo,MLP,1,0
 14,validity,1.0,GMSC,ECCCo,MLP,1,0
-15,distance,16.159496307373047,GMSC,ECCCo,MLP,1,0
-15,distance_from_energy,83.34455871582031,GMSC,ECCCo,MLP,1,0
-15,distance_from_targets,21.450733184814453,GMSC,ECCCo,MLP,1,0
+15,distance,15.793941497802734,GMSC,ECCCo,MLP,1,0
+15,distance_from_energy,44.69728088378906,GMSC,ECCCo,MLP,1,0
+15,distance_from_targets,17.64597511291504,GMSC,ECCCo,MLP,1,0
 15,redundancy,0.0,GMSC,ECCCo,MLP,1,0
-15,set_size_penalty,0.13609729971382634,GMSC,ECCCo,MLP,1,0
+15,set_size_penalty,0.14556278008064139,GMSC,ECCCo,MLP,1,0
 15,validity,1.0,GMSC,ECCCo,MLP,1,0
-16,distance,15.311888694763184,GMSC,ECCCo,MLP,1,0
-16,distance_from_energy,67.73120880126953,GMSC,ECCCo,MLP,1,0
-16,distance_from_targets,13.200936317443848,GMSC,ECCCo,MLP,1,0
+16,distance,14.637983322143555,GMSC,ECCCo,MLP,1,0
+16,distance_from_energy,80.8972396850586,GMSC,ECCCo,MLP,1,0
+16,distance_from_targets,15.036014556884766,GMSC,ECCCo,MLP,1,0
 16,redundancy,0.0,GMSC,ECCCo,MLP,1,0
-16,set_size_penalty,0.1360714608421858,GMSC,ECCCo,MLP,1,0
+16,set_size_penalty,0.13802466020526616,GMSC,ECCCo,MLP,1,0
 16,validity,1.0,GMSC,ECCCo,MLP,1,0
-17,distance,17.1417236328125,GMSC,ECCCo,MLP,1,0
-17,distance_from_energy,70.33493041992188,GMSC,ECCCo,MLP,1,0
-17,distance_from_targets,17.79706573486328,GMSC,ECCCo,MLP,1,0
+17,distance,15.136537551879883,GMSC,ECCCo,MLP,1,0
+17,distance_from_energy,69.48934936523438,GMSC,ECCCo,MLP,1,0
+17,distance_from_targets,16.28082847595215,GMSC,ECCCo,MLP,1,0
 17,redundancy,0.0,GMSC,ECCCo,MLP,1,0
-17,set_size_penalty,0.13631072211308393,GMSC,ECCCo,MLP,1,0
+17,set_size_penalty,0.18974445270628992,GMSC,ECCCo,MLP,1,0
 17,validity,1.0,GMSC,ECCCo,MLP,1,0
-18,distance,18.042577743530273,GMSC,ECCCo,MLP,1,0
-18,distance_from_energy,66.5510025024414,GMSC,ECCCo,MLP,1,0
-18,distance_from_targets,15.680635452270508,GMSC,ECCCo,MLP,1,0
+18,distance,14.323807716369629,GMSC,ECCCo,MLP,1,0
+18,distance_from_energy,60.8382682800293,GMSC,ECCCo,MLP,1,0
+18,distance_from_targets,19.5727596282959,GMSC,ECCCo,MLP,1,0
 18,redundancy,0.0,GMSC,ECCCo,MLP,1,0
-18,set_size_penalty,0.1362784516951332,GMSC,ECCCo,MLP,1,0
+18,set_size_penalty,0.15590369435282225,GMSC,ECCCo,MLP,1,0
 18,validity,1.0,GMSC,ECCCo,MLP,1,0
-19,distance,19.71758460998535,GMSC,ECCCo,MLP,1,0
-19,distance_from_energy,53.41437530517578,GMSC,ECCCo,MLP,1,0
-19,distance_from_targets,19.863866806030273,GMSC,ECCCo,MLP,1,0
+19,distance,14.291566848754883,GMSC,ECCCo,MLP,1,0
+19,distance_from_energy,83.05650329589844,GMSC,ECCCo,MLP,1,0
+19,distance_from_targets,15.148009300231934,GMSC,ECCCo,MLP,1,0
 19,redundancy,0.0,GMSC,ECCCo,MLP,1,0
-19,set_size_penalty,0.13461903947494935,GMSC,ECCCo,MLP,1,0
+19,set_size_penalty,0.14079350062182283,GMSC,ECCCo,MLP,1,0
 19,validity,1.0,GMSC,ECCCo,MLP,1,0
-20,distance,20.050128936767578,GMSC,ECCCo,MLP,1,0
-20,distance_from_energy,60.218841552734375,GMSC,ECCCo,MLP,1,0
-20,distance_from_targets,59.16793441772461,GMSC,ECCCo,MLP,1,0
+20,distance,18.153169631958008,GMSC,ECCCo,MLP,1,0
+20,distance_from_energy,27.32659149169922,GMSC,ECCCo,MLP,1,0
+20,distance_from_targets,18.077260971069336,GMSC,ECCCo,MLP,1,0
 20,redundancy,0.0,GMSC,ECCCo,MLP,1,0
-20,set_size_penalty,0.0,GMSC,ECCCo,MLP,1,0
-20,validity,0.0,GMSC,ECCCo,MLP,1,0
-11,distance,0.3999999761581421,GMSC,Schut,MLP,1,0
-11,distance_from_energy,166.4434051513672,GMSC,Schut,MLP,1,0
-11,distance_from_targets,5.271069526672363,GMSC,Schut,MLP,1,0
-11,redundancy,0.9,GMSC,Schut,MLP,1,0
-11,set_size_penalty,0.13484721515446263,GMSC,Schut,MLP,1,0
+20,set_size_penalty,0.1268529567758212,GMSC,ECCCo,MLP,1,0
+20,validity,1.0,GMSC,ECCCo,MLP,1,0
+11,distance,1.1000001430511475,GMSC,Schut,MLP,1,0
+11,distance_from_energy,82.4139175415039,GMSC,Schut,MLP,1,0
+11,distance_from_targets,5.388556957244873,GMSC,Schut,MLP,1,0
+11,redundancy,0.8,GMSC,Schut,MLP,1,0
+11,set_size_penalty,0.10380292591098428,GMSC,Schut,MLP,1,0
 11,validity,1.0,GMSC,Schut,MLP,1,0
-12,distance,2.700000286102295,GMSC,Schut,MLP,1,0
-12,distance_from_energy,170.22186279296875,GMSC,Schut,MLP,1,0
-12,distance_from_targets,13.18221378326416,GMSC,Schut,MLP,1,0
-12,redundancy,0.7,GMSC,Schut,MLP,1,0
-12,set_size_penalty,0.13503436062789564,GMSC,Schut,MLP,1,0
+12,distance,0.8000000715255737,GMSC,Schut,MLP,1,0
+12,distance_from_energy,134.21099853515625,GMSC,Schut,MLP,1,0
+12,distance_from_targets,6.505355358123779,GMSC,Schut,MLP,1,0
+12,redundancy,0.9,GMSC,Schut,MLP,1,0
+12,set_size_penalty,0.10375980193107837,GMSC,Schut,MLP,1,0
 12,validity,1.0,GMSC,Schut,MLP,1,0
-13,distance,10.000011444091797,GMSC,Schut,MLP,1,0
-13,distance_from_energy,141.03436279296875,GMSC,Schut,MLP,1,0
-13,distance_from_targets,47.64191818237305,GMSC,Schut,MLP,1,0
-13,redundancy,0.0,GMSC,Schut,MLP,1,0
-13,set_size_penalty,0.0,GMSC,Schut,MLP,1,0
-13,validity,0.0,GMSC,Schut,MLP,1,0
-14,distance,0.3999999761581421,GMSC,Schut,MLP,1,0
-14,distance_from_energy,177.05169677734375,GMSC,Schut,MLP,1,0
-14,distance_from_targets,5.865505218505859,GMSC,Schut,MLP,1,0
-14,redundancy,0.9,GMSC,Schut,MLP,1,0
-14,set_size_penalty,0.1347939656298096,GMSC,Schut,MLP,1,0
+13,distance,0.9000000357627869,GMSC,Schut,MLP,1,0
+13,distance_from_energy,198.3398895263672,GMSC,Schut,MLP,1,0
+13,distance_from_targets,4.969177722930908,GMSC,Schut,MLP,1,0
+13,redundancy,0.9,GMSC,Schut,MLP,1,0
+13,set_size_penalty,0.10377656884498632,GMSC,Schut,MLP,1,0
+13,validity,1.0,GMSC,Schut,MLP,1,0
+14,distance,1.2000001668930054,GMSC,Schut,MLP,1,0
+14,distance_from_energy,139.56991577148438,GMSC,Schut,MLP,1,0
+14,distance_from_targets,6.079288959503174,GMSC,Schut,MLP,1,0
+14,redundancy,0.8,GMSC,Schut,MLP,1,0
+14,set_size_penalty,0.10386199997359924,GMSC,Schut,MLP,1,0
 14,validity,1.0,GMSC,Schut,MLP,1,0
-15,distance,0.5,GMSC,Schut,MLP,1,0
-15,distance_from_energy,160.8240509033203,GMSC,Schut,MLP,1,0
-15,distance_from_targets,7.732944488525391,GMSC,Schut,MLP,1,0
+15,distance,0.7000000476837158,GMSC,Schut,MLP,1,0
+15,distance_from_energy,150.95143127441406,GMSC,Schut,MLP,1,0
+15,distance_from_targets,5.457068920135498,GMSC,Schut,MLP,1,0
 15,redundancy,0.9,GMSC,Schut,MLP,1,0
-15,set_size_penalty,0.13483863932211082,GMSC,Schut,MLP,1,0
+15,set_size_penalty,0.10395112257721406,GMSC,Schut,MLP,1,0
 15,validity,1.0,GMSC,Schut,MLP,1,0
-16,distance,0.6000000238418579,GMSC,Schut,MLP,1,0
-16,distance_from_energy,191.9586944580078,GMSC,Schut,MLP,1,0
-16,distance_from_targets,4.474494457244873,GMSC,Schut,MLP,1,0
-16,redundancy,0.9,GMSC,Schut,MLP,1,0
-16,set_size_penalty,0.1346520224979808,GMSC,Schut,MLP,1,0
+16,distance,1.1000001430511475,GMSC,Schut,MLP,1,0
+16,distance_from_energy,190.2047119140625,GMSC,Schut,MLP,1,0
+16,distance_from_targets,5.975912094116211,GMSC,Schut,MLP,1,0
+16,redundancy,0.8,GMSC,Schut,MLP,1,0
+16,set_size_penalty,0.10392859701891344,GMSC,Schut,MLP,1,0
 16,validity,1.0,GMSC,Schut,MLP,1,0
-17,distance,0.699999988079071,GMSC,Schut,MLP,1,0
-17,distance_from_energy,238.53424072265625,GMSC,Schut,MLP,1,0
-17,distance_from_targets,6.120673179626465,GMSC,Schut,MLP,1,0
-17,redundancy,0.8,GMSC,Schut,MLP,1,0
-17,set_size_penalty,0.13469145646374892,GMSC,Schut,MLP,1,0
+17,distance,2.200000286102295,GMSC,Schut,MLP,1,0
+17,distance_from_energy,129.03240966796875,GMSC,Schut,MLP,1,0
+17,distance_from_targets,7.53389835357666,GMSC,Schut,MLP,1,0
+17,redundancy,0.7,GMSC,Schut,MLP,1,0
+17,set_size_penalty,0.10389630112634762,GMSC,Schut,MLP,1,0
 17,validity,1.0,GMSC,Schut,MLP,1,0
-18,distance,0.6000000238418579,GMSC,Schut,MLP,1,0
-18,distance_from_energy,193.99000549316406,GMSC,Schut,MLP,1,0
-18,distance_from_targets,6.406264305114746,GMSC,Schut,MLP,1,0
-18,redundancy,0.8,GMSC,Schut,MLP,1,0
-18,set_size_penalty,0.1346953067832184,GMSC,Schut,MLP,1,0
+18,distance,0.9000000357627869,GMSC,Schut,MLP,1,0
+18,distance_from_energy,159.32931518554688,GMSC,Schut,MLP,1,0
+18,distance_from_targets,8.293578147888184,GMSC,Schut,MLP,1,0
+18,redundancy,0.9,GMSC,Schut,MLP,1,0
+18,set_size_penalty,0.10382592713280236,GMSC,Schut,MLP,1,0
 18,validity,1.0,GMSC,Schut,MLP,1,0
-19,distance,0.7999999523162842,GMSC,Schut,MLP,1,0
-19,distance_from_energy,171.03204345703125,GMSC,Schut,MLP,1,0
-19,distance_from_targets,6.174549579620361,GMSC,Schut,MLP,1,0
-19,redundancy,0.8,GMSC,Schut,MLP,1,0
-19,set_size_penalty,0.13493551230178236,GMSC,Schut,MLP,1,0
+19,distance,0.7000000476837158,GMSC,Schut,MLP,1,0
+19,distance_from_energy,211.7281494140625,GMSC,Schut,MLP,1,0
+19,distance_from_targets,4.594631195068359,GMSC,Schut,MLP,1,0
+19,redundancy,0.9,GMSC,Schut,MLP,1,0
+19,set_size_penalty,0.10386681620284444,GMSC,Schut,MLP,1,0
 19,validity,1.0,GMSC,Schut,MLP,1,0
-20,distance,10.000011444091797,GMSC,Schut,MLP,1,0
-20,distance_from_energy,198.3094482421875,GMSC,Schut,MLP,1,0
-20,distance_from_targets,45.18755340576172,GMSC,Schut,MLP,1,0
-20,redundancy,0.0,GMSC,Schut,MLP,1,0
-20,set_size_penalty,0.0,GMSC,Schut,MLP,1,0
-20,validity,0.0,GMSC,Schut,MLP,1,0
-21,distance,14.82697582244873,GMSC,Wachter,MLP Ensemble,1,0
-21,distance_from_energy,271.980712890625,GMSC,Wachter,MLP Ensemble,1,0
-21,distance_from_targets,18.23801612854004,GMSC,Wachter,MLP Ensemble,1,0
+20,distance,0.7000000476837158,GMSC,Schut,MLP,1,0
+20,distance_from_energy,172.58349609375,GMSC,Schut,MLP,1,0
+20,distance_from_targets,4.964179039001465,GMSC,Schut,MLP,1,0
+20,redundancy,0.9,GMSC,Schut,MLP,1,0
+20,set_size_penalty,0.10373192221050043,GMSC,Schut,MLP,1,0
+20,validity,1.0,GMSC,Schut,MLP,1,0
+21,distance,38.61869812011719,GMSC,Wachter,MLP Ensemble,1,0
+21,distance_from_energy,150.12957763671875,GMSC,Wachter,MLP Ensemble,1,0
+21,distance_from_targets,41.690189361572266,GMSC,Wachter,MLP Ensemble,1,0
 21,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
-21,set_size_penalty,0.12468882188913666,GMSC,Wachter,MLP Ensemble,1,0
+21,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,1,0
 21,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
-22,distance,3.0822882652282715,GMSC,Wachter,MLP Ensemble,1,0
-22,distance_from_energy,176.6368408203125,GMSC,Wachter,MLP Ensemble,1,0
-22,distance_from_targets,9.81289005279541,GMSC,Wachter,MLP Ensemble,1,0
+22,distance,39.57089614868164,GMSC,Wachter,MLP Ensemble,1,0
+22,distance_from_energy,125.86210632324219,GMSC,Wachter,MLP Ensemble,1,0
+22,distance_from_targets,39.51952362060547,GMSC,Wachter,MLP Ensemble,1,0
 22,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
-22,set_size_penalty,0.12468883054923285,GMSC,Wachter,MLP Ensemble,1,0
+22,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,1,0
 22,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
-23,distance,3.3217267990112305,GMSC,Wachter,MLP Ensemble,1,0
-23,distance_from_energy,163.77899169921875,GMSC,Wachter,MLP Ensemble,1,0
-23,distance_from_targets,7.496311187744141,GMSC,Wachter,MLP Ensemble,1,0
+23,distance,38.9205436706543,GMSC,Wachter,MLP Ensemble,1,0
+23,distance_from_energy,165.9473114013672,GMSC,Wachter,MLP Ensemble,1,0
+23,distance_from_targets,39.520442962646484,GMSC,Wachter,MLP Ensemble,1,0
 23,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
-23,set_size_penalty,0.12468882189728214,GMSC,Wachter,MLP Ensemble,1,0
+23,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,1,0
 23,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
-24,distance,3.1768417358398438,GMSC,Wachter,MLP Ensemble,1,0
-24,distance_from_energy,202.8009033203125,GMSC,Wachter,MLP Ensemble,1,0
-24,distance_from_targets,7.246669769287109,GMSC,Wachter,MLP Ensemble,1,0
+24,distance,38.90656661987305,GMSC,Wachter,MLP Ensemble,1,0
+24,distance_from_energy,184.65016174316406,GMSC,Wachter,MLP Ensemble,1,0
+24,distance_from_targets,39.7557373046875,GMSC,Wachter,MLP Ensemble,1,0
 24,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
-24,set_size_penalty,0.12468882188913688,GMSC,Wachter,MLP Ensemble,1,0
+24,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,1,0
 24,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
-25,distance,14.335925102233887,GMSC,Wachter,MLP Ensemble,1,0
-25,distance_from_energy,164.96751403808594,GMSC,Wachter,MLP Ensemble,1,0
-25,distance_from_targets,16.928762435913086,GMSC,Wachter,MLP Ensemble,1,0
+25,distance,38.47969436645508,GMSC,Wachter,MLP Ensemble,1,0
+25,distance_from_energy,166.49249267578125,GMSC,Wachter,MLP Ensemble,1,0
+25,distance_from_targets,43.584686279296875,GMSC,Wachter,MLP Ensemble,1,0
 25,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
-25,set_size_penalty,0.12468882188913666,GMSC,Wachter,MLP Ensemble,1,0
+25,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,1,0
 25,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
-26,distance,14.519217491149902,GMSC,Wachter,MLP Ensemble,1,0
-26,distance_from_energy,147.05152893066406,GMSC,Wachter,MLP Ensemble,1,0
-26,distance_from_targets,17.393186569213867,GMSC,Wachter,MLP Ensemble,1,0
+26,distance,38.873023986816406,GMSC,Wachter,MLP Ensemble,1,0
+26,distance_from_energy,143.97308349609375,GMSC,Wachter,MLP Ensemble,1,0
+26,distance_from_targets,42.40708923339844,GMSC,Wachter,MLP Ensemble,1,0
 26,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
-26,set_size_penalty,0.12468882188913666,GMSC,Wachter,MLP Ensemble,1,0
+26,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,1,0
 26,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
-27,distance,1.668196201324463,GMSC,Wachter,MLP Ensemble,1,0
-27,distance_from_energy,220.38722229003906,GMSC,Wachter,MLP Ensemble,1,0
-27,distance_from_targets,6.182799816131592,GMSC,Wachter,MLP Ensemble,1,0
+27,distance,38.857704162597656,GMSC,Wachter,MLP Ensemble,1,0
+27,distance_from_energy,142.06256103515625,GMSC,Wachter,MLP Ensemble,1,0
+27,distance_from_targets,38.9438362121582,GMSC,Wachter,MLP Ensemble,1,0
 27,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
-27,set_size_penalty,0.12808230541240562,GMSC,Wachter,MLP Ensemble,1,0
+27,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,1,0
 27,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
-28,distance,15.138057708740234,GMSC,Wachter,MLP Ensemble,1,0
-28,distance_from_energy,200.67417907714844,GMSC,Wachter,MLP Ensemble,1,0
-28,distance_from_targets,15.979928970336914,GMSC,Wachter,MLP Ensemble,1,0
+28,distance,38.857704162597656,GMSC,Wachter,MLP Ensemble,1,0
+28,distance_from_energy,165.43350219726562,GMSC,Wachter,MLP Ensemble,1,0
+28,distance_from_targets,38.856231689453125,GMSC,Wachter,MLP Ensemble,1,0
 28,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
-28,set_size_penalty,0.12468882188913666,GMSC,Wachter,MLP Ensemble,1,0
+28,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,1,0
 28,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
-29,distance,2.944491386413574,GMSC,Wachter,MLP Ensemble,1,0
-29,distance_from_energy,184.27439880371094,GMSC,Wachter,MLP Ensemble,1,0
-29,distance_from_targets,10.409393310546875,GMSC,Wachter,MLP Ensemble,1,0
+29,distance,38.398643493652344,GMSC,Wachter,MLP Ensemble,1,0
+29,distance_from_energy,197.0886688232422,GMSC,Wachter,MLP Ensemble,1,0
+29,distance_from_targets,41.65066146850586,GMSC,Wachter,MLP Ensemble,1,0
 29,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
-29,set_size_penalty,0.1246896115852183,GMSC,Wachter,MLP Ensemble,1,0
+29,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,1,0
 29,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
-30,distance,14.238211631774902,GMSC,Wachter,MLP Ensemble,1,0
-30,distance_from_energy,201.50259399414062,GMSC,Wachter,MLP Ensemble,1,0
-30,distance_from_targets,17.379932403564453,GMSC,Wachter,MLP Ensemble,1,0
+30,distance,38.427337646484375,GMSC,Wachter,MLP Ensemble,1,0
+30,distance_from_energy,157.76181030273438,GMSC,Wachter,MLP Ensemble,1,0
+30,distance_from_targets,41.55174255371094,GMSC,Wachter,MLP Ensemble,1,0
 30,redundancy,0.0,GMSC,Wachter,MLP Ensemble,1,0
-30,set_size_penalty,0.12468882188913666,GMSC,Wachter,MLP Ensemble,1,0
+30,set_size_penalty,0.0907438818584474,GMSC,Wachter,MLP Ensemble,1,0
 30,validity,1.0,GMSC,Wachter,MLP Ensemble,1,0
-21,distance,2.405106544494629,GMSC,REVISE,MLP Ensemble,1,0
-21,distance_from_energy,178.4713897705078,GMSC,REVISE,MLP Ensemble,1,0
-21,distance_from_targets,4.575623512268066,GMSC,REVISE,MLP Ensemble,1,0
+21,distance,4.729133129119873,GMSC,REVISE,MLP Ensemble,1,0
+21,distance_from_energy,115.45748138427734,GMSC,REVISE,MLP Ensemble,1,0
+21,distance_from_targets,7.255688190460205,GMSC,REVISE,MLP Ensemble,1,0
 21,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
-21,set_size_penalty,0.1711814043179909,GMSC,REVISE,MLP Ensemble,1,0
+21,set_size_penalty,0.11062756430006693,GMSC,REVISE,MLP Ensemble,1,0
 21,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
-22,distance,4.006242752075195,GMSC,REVISE,MLP Ensemble,1,0
-22,distance_from_energy,154.802734375,GMSC,REVISE,MLP Ensemble,1,0
-22,distance_from_targets,7.782023906707764,GMSC,REVISE,MLP Ensemble,1,0
+22,distance,4.230850696563721,GMSC,REVISE,MLP Ensemble,1,0
+22,distance_from_energy,151.57154846191406,GMSC,REVISE,MLP Ensemble,1,0
+22,distance_from_targets,4.0077314376831055,GMSC,REVISE,MLP Ensemble,1,0
 22,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
-22,set_size_penalty,0.13186280068269673,GMSC,REVISE,MLP Ensemble,1,0
+22,set_size_penalty,0.23703776047782288,GMSC,REVISE,MLP Ensemble,1,0
 22,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
-23,distance,4.975425720214844,GMSC,REVISE,MLP Ensemble,1,0
-23,distance_from_energy,185.16531372070312,GMSC,REVISE,MLP Ensemble,1,0
-23,distance_from_targets,7.556672096252441,GMSC,REVISE,MLP Ensemble,1,0
+23,distance,1.9876978397369385,GMSC,REVISE,MLP Ensemble,1,0
+23,distance_from_energy,148.1638641357422,GMSC,REVISE,MLP Ensemble,1,0
+23,distance_from_targets,4.254519939422607,GMSC,REVISE,MLP Ensemble,1,0
 23,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
-23,set_size_penalty,0.18755225646837115,GMSC,REVISE,MLP Ensemble,1,0
+23,set_size_penalty,0.276541717527075,GMSC,REVISE,MLP Ensemble,1,0
 23,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
-24,distance,2.9953269958496094,GMSC,REVISE,MLP Ensemble,1,0
-24,distance_from_energy,180.2871551513672,GMSC,REVISE,MLP Ensemble,1,0
-24,distance_from_targets,4.512654781341553,GMSC,REVISE,MLP Ensemble,1,0
+24,distance,2.6859116554260254,GMSC,REVISE,MLP Ensemble,1,0
+24,distance_from_energy,162.4076690673828,GMSC,REVISE,MLP Ensemble,1,0
+24,distance_from_targets,4.136280059814453,GMSC,REVISE,MLP Ensemble,1,0
 24,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
-24,set_size_penalty,0.1556971706602981,GMSC,REVISE,MLP Ensemble,1,0
+24,set_size_penalty,0.2745874266781858,GMSC,REVISE,MLP Ensemble,1,0
 24,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
-25,distance,4.1038737297058105,GMSC,REVISE,MLP Ensemble,1,0
-25,distance_from_energy,227.43283081054688,GMSC,REVISE,MLP Ensemble,1,0
-25,distance_from_targets,4.397034168243408,GMSC,REVISE,MLP Ensemble,1,0
+25,distance,5.9599504470825195,GMSC,REVISE,MLP Ensemble,1,0
+25,distance_from_energy,143.21774291992188,GMSC,REVISE,MLP Ensemble,1,0
+25,distance_from_targets,3.8472423553466797,GMSC,REVISE,MLP Ensemble,1,0
 25,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
-25,set_size_penalty,0.2025543411590054,GMSC,REVISE,MLP Ensemble,1,0
+25,set_size_penalty,0.2185277515976598,GMSC,REVISE,MLP Ensemble,1,0
 25,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
-26,distance,2.2056195735931396,GMSC,REVISE,MLP Ensemble,1,0
-26,distance_from_energy,229.85406494140625,GMSC,REVISE,MLP Ensemble,1,0
-26,distance_from_targets,4.24589204788208,GMSC,REVISE,MLP Ensemble,1,0
+26,distance,3.4770584106445312,GMSC,REVISE,MLP Ensemble,1,0
+26,distance_from_energy,170.33494567871094,GMSC,REVISE,MLP Ensemble,1,0
+26,distance_from_targets,5.4658026695251465,GMSC,REVISE,MLP Ensemble,1,0
 26,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
-26,set_size_penalty,0.23344931631821542,GMSC,REVISE,MLP Ensemble,1,0
+26,set_size_penalty,0.10402386540531805,GMSC,REVISE,MLP Ensemble,1,0
 26,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
-27,distance,2.6714322566986084,GMSC,REVISE,MLP Ensemble,1,0
-27,distance_from_energy,164.13070678710938,GMSC,REVISE,MLP Ensemble,1,0
-27,distance_from_targets,4.196249008178711,GMSC,REVISE,MLP Ensemble,1,0
+27,distance,1.3183921575546265,GMSC,REVISE,MLP Ensemble,1,0
+27,distance_from_energy,188.57122802734375,GMSC,REVISE,MLP Ensemble,1,0
+27,distance_from_targets,3.9992504119873047,GMSC,REVISE,MLP Ensemble,1,0
 27,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
-27,set_size_penalty,0.19770763200742092,GMSC,REVISE,MLP Ensemble,1,0
+27,set_size_penalty,0.23564155962159905,GMSC,REVISE,MLP Ensemble,1,0
 27,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
-28,distance,3.3290233612060547,GMSC,REVISE,MLP Ensemble,1,0
-28,distance_from_energy,182.24545288085938,GMSC,REVISE,MLP Ensemble,1,0
-28,distance_from_targets,4.654871940612793,GMSC,REVISE,MLP Ensemble,1,0
+28,distance,1.319669246673584,GMSC,REVISE,MLP Ensemble,1,0
+28,distance_from_energy,153.30697631835938,GMSC,REVISE,MLP Ensemble,1,0
+28,distance_from_targets,3.951373815536499,GMSC,REVISE,MLP Ensemble,1,0
 28,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
-28,set_size_penalty,0.20396778518042935,GMSC,REVISE,MLP Ensemble,1,0
+28,set_size_penalty,0.23538850928348398,GMSC,REVISE,MLP Ensemble,1,0
 28,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
-29,distance,2.7377963066101074,GMSC,REVISE,MLP Ensemble,1,0
-29,distance_from_energy,184.06982421875,GMSC,REVISE,MLP Ensemble,1,0
-29,distance_from_targets,8.051325798034668,GMSC,REVISE,MLP Ensemble,1,0
+29,distance,3.858957529067993,GMSC,REVISE,MLP Ensemble,1,0
+29,distance_from_energy,143.9274139404297,GMSC,REVISE,MLP Ensemble,1,0
+29,distance_from_targets,5.902108669281006,GMSC,REVISE,MLP Ensemble,1,0
 29,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
-29,set_size_penalty,0.12468944674421367,GMSC,REVISE,MLP Ensemble,1,0
+29,set_size_penalty,0.11254243585234636,GMSC,REVISE,MLP Ensemble,1,0
 29,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
-30,distance,2.795323371887207,GMSC,REVISE,MLP Ensemble,1,0
-30,distance_from_energy,113.88810729980469,GMSC,REVISE,MLP Ensemble,1,0
-30,distance_from_targets,4.143706798553467,GMSC,REVISE,MLP Ensemble,1,0
+30,distance,4.522109508514404,GMSC,REVISE,MLP Ensemble,1,0
+30,distance_from_energy,177.2160186767578,GMSC,REVISE,MLP Ensemble,1,0
+30,distance_from_targets,4.592713356018066,GMSC,REVISE,MLP Ensemble,1,0
 30,redundancy,0.0,GMSC,REVISE,MLP Ensemble,1,0
-30,set_size_penalty,0.2334331585916405,GMSC,REVISE,MLP Ensemble,1,0
+30,set_size_penalty,0.16824236498553802,GMSC,REVISE,MLP Ensemble,1,0
 30,validity,1.0,GMSC,REVISE,MLP Ensemble,1,0
-21,distance,15.083745956420898,GMSC,ECCCo,MLP Ensemble,1,0
-21,distance_from_energy,82.7380142211914,GMSC,ECCCo,MLP Ensemble,1,0
-21,distance_from_targets,16.368024826049805,GMSC,ECCCo,MLP Ensemble,1,0
+21,distance,13.592674255371094,GMSC,ECCCo,MLP Ensemble,1,0
+21,distance_from_energy,46.351749420166016,GMSC,ECCCo,MLP Ensemble,1,0
+21,distance_from_targets,16.988014221191406,GMSC,ECCCo,MLP Ensemble,1,0
 21,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,1,0
-21,set_size_penalty,0.12468882190032482,GMSC,ECCCo,MLP Ensemble,1,0
+21,set_size_penalty,0.2018885977505136,GMSC,ECCCo,MLP Ensemble,1,0
 21,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
-22,distance,14.18804931640625,GMSC,ECCCo,MLP Ensemble,1,0
-22,distance_from_energy,59.79274368286133,GMSC,ECCCo,MLP Ensemble,1,0
-22,distance_from_targets,16.048662185668945,GMSC,ECCCo,MLP Ensemble,1,0
+22,distance,15.54676628112793,GMSC,ECCCo,MLP Ensemble,1,0
+22,distance_from_energy,46.915409088134766,GMSC,ECCCo,MLP Ensemble,1,0
+22,distance_from_targets,12.875682830810547,GMSC,ECCCo,MLP Ensemble,1,0
 22,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,1,0
-22,set_size_penalty,0.1266127456044741,GMSC,ECCCo,MLP Ensemble,1,0
+22,set_size_penalty,0.16525858001140126,GMSC,ECCCo,MLP Ensemble,1,0
 22,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
-23,distance,15.254722595214844,GMSC,ECCCo,MLP Ensemble,1,0
-23,distance_from_energy,68.58147430419922,GMSC,ECCCo,MLP Ensemble,1,0
-23,distance_from_targets,16.48609161376953,GMSC,ECCCo,MLP Ensemble,1,0
+23,distance,14.330802917480469,GMSC,ECCCo,MLP Ensemble,1,0
+23,distance_from_energy,50.430423736572266,GMSC,ECCCo,MLP Ensemble,1,0
+23,distance_from_targets,13.162732124328613,GMSC,ECCCo,MLP Ensemble,1,0
 23,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,1,0
-23,set_size_penalty,0.1246888218891371,GMSC,ECCCo,MLP Ensemble,1,0
+23,set_size_penalty,0.18030122458618658,GMSC,ECCCo,MLP Ensemble,1,0
 23,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
-24,distance,13.8463716506958,GMSC,ECCCo,MLP Ensemble,1,0
-24,distance_from_energy,58.40119934082031,GMSC,ECCCo,MLP Ensemble,1,0
-24,distance_from_targets,13.497103691101074,GMSC,ECCCo,MLP Ensemble,1,0
+24,distance,16.45749855041504,GMSC,ECCCo,MLP Ensemble,1,0
+24,distance_from_energy,66.84326934814453,GMSC,ECCCo,MLP Ensemble,1,0
+24,distance_from_targets,14.021686553955078,GMSC,ECCCo,MLP Ensemble,1,0
 24,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,1,0
-24,set_size_penalty,0.12596482710966317,GMSC,ECCCo,MLP Ensemble,1,0
+24,set_size_penalty,0.15345576990266818,GMSC,ECCCo,MLP Ensemble,1,0
 24,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
-25,distance,15.640868186950684,GMSC,ECCCo,MLP Ensemble,1,0
-25,distance_from_energy,75.69971466064453,GMSC,ECCCo,MLP Ensemble,1,0
-25,distance_from_targets,14.715819358825684,GMSC,ECCCo,MLP Ensemble,1,0
+25,distance,13.842923164367676,GMSC,ECCCo,MLP Ensemble,1,0
+25,distance_from_energy,71.1212158203125,GMSC,ECCCo,MLP Ensemble,1,0
+25,distance_from_targets,16.960859298706055,GMSC,ECCCo,MLP Ensemble,1,0
 25,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,1,0
-25,set_size_penalty,0.12468882188913666,GMSC,ECCCo,MLP Ensemble,1,0
+25,set_size_penalty,0.17336919487852742,GMSC,ECCCo,MLP Ensemble,1,0
 25,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
-26,distance,14.732202529907227,GMSC,ECCCo,MLP Ensemble,1,0
-26,distance_from_energy,99.05758666992188,GMSC,ECCCo,MLP Ensemble,1,0
-26,distance_from_targets,11.554644584655762,GMSC,ECCCo,MLP Ensemble,1,0
+26,distance,14.825446128845215,GMSC,ECCCo,MLP Ensemble,1,0
+26,distance_from_energy,66.4383316040039,GMSC,ECCCo,MLP Ensemble,1,0
+26,distance_from_targets,18.59011459350586,GMSC,ECCCo,MLP Ensemble,1,0
 26,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,1,0
-26,set_size_penalty,0.12606116769215348,GMSC,ECCCo,MLP Ensemble,1,0
+26,set_size_penalty,0.18502865309138405,GMSC,ECCCo,MLP Ensemble,1,0
 26,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
-27,distance,13.58454704284668,GMSC,ECCCo,MLP Ensemble,1,0
-27,distance_from_energy,68.20764923095703,GMSC,ECCCo,MLP Ensemble,1,0
-27,distance_from_targets,14.445378303527832,GMSC,ECCCo,MLP Ensemble,1,0
+27,distance,12.361674308776855,GMSC,ECCCo,MLP Ensemble,1,0
+27,distance_from_energy,62.34442901611328,GMSC,ECCCo,MLP Ensemble,1,0
+27,distance_from_targets,11.567222595214844,GMSC,ECCCo,MLP Ensemble,1,0
 27,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,1,0
-27,set_size_penalty,0.12706823844389992,GMSC,ECCCo,MLP Ensemble,1,0
+27,set_size_penalty,0.16590136546616185,GMSC,ECCCo,MLP Ensemble,1,0
 27,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
-28,distance,13.922090530395508,GMSC,ECCCo,MLP Ensemble,1,0
-28,distance_from_energy,66.93880462646484,GMSC,ECCCo,MLP Ensemble,1,0
-28,distance_from_targets,15.104194641113281,GMSC,ECCCo,MLP Ensemble,1,0
+28,distance,14.076927185058594,GMSC,ECCCo,MLP Ensemble,1,0
+28,distance_from_energy,76.75687408447266,GMSC,ECCCo,MLP Ensemble,1,0
+28,distance_from_targets,12.295710563659668,GMSC,ECCCo,MLP Ensemble,1,0
 28,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,1,0
-28,set_size_penalty,0.12656835304534608,GMSC,ECCCo,MLP Ensemble,1,0
+28,set_size_penalty,0.15338613863922146,GMSC,ECCCo,MLP Ensemble,1,0
 28,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
-29,distance,15.101703643798828,GMSC,ECCCo,MLP Ensemble,1,0
-29,distance_from_energy,84.8246841430664,GMSC,ECCCo,MLP Ensemble,1,0
-29,distance_from_targets,21.64548110961914,GMSC,ECCCo,MLP Ensemble,1,0
+29,distance,16.675569534301758,GMSC,ECCCo,MLP Ensemble,1,0
+29,distance_from_energy,50.88893508911133,GMSC,ECCCo,MLP Ensemble,1,0
+29,distance_from_targets,19.112817764282227,GMSC,ECCCo,MLP Ensemble,1,0
 29,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,1,0
-29,set_size_penalty,0.1279050099043353,GMSC,ECCCo,MLP Ensemble,1,0
+29,set_size_penalty,0.1862521128386594,GMSC,ECCCo,MLP Ensemble,1,0
 29,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
-30,distance,13.463369369506836,GMSC,ECCCo,MLP Ensemble,1,0
-30,distance_from_energy,79.84722900390625,GMSC,ECCCo,MLP Ensemble,1,0
-30,distance_from_targets,12.442831039428711,GMSC,ECCCo,MLP Ensemble,1,0
+30,distance,17.724136352539062,GMSC,ECCCo,MLP Ensemble,1,0
+30,distance_from_energy,51.172149658203125,GMSC,ECCCo,MLP Ensemble,1,0
+30,distance_from_targets,20.87166976928711,GMSC,ECCCo,MLP Ensemble,1,0
 30,redundancy,0.0,GMSC,ECCCo,MLP Ensemble,1,0
-30,set_size_penalty,0.1264033205202888,GMSC,ECCCo,MLP Ensemble,1,0
+30,set_size_penalty,0.25529370889425707,GMSC,ECCCo,MLP Ensemble,1,0
 30,validity,1.0,GMSC,ECCCo,MLP Ensemble,1,0
-21,distance,0.3999999761581421,GMSC,Schut,MLP Ensemble,1,0
-21,distance_from_energy,177.41929626464844,GMSC,Schut,MLP Ensemble,1,0
-21,distance_from_targets,5.855179786682129,GMSC,Schut,MLP Ensemble,1,0
+21,distance,1.0000001192092896,GMSC,Schut,MLP Ensemble,1,0
+21,distance_from_energy,164.7144012451172,GMSC,Schut,MLP Ensemble,1,0
+21,distance_from_targets,6.866466522216797,GMSC,Schut,MLP Ensemble,1,0
 21,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
-21,set_size_penalty,0.12473611744467594,GMSC,Schut,MLP Ensemble,1,0
+21,set_size_penalty,0.09169994817369242,GMSC,Schut,MLP Ensemble,1,0
 21,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
-22,distance,0.5,GMSC,Schut,MLP Ensemble,1,0
-22,distance_from_energy,211.8150177001953,GMSC,Schut,MLP Ensemble,1,0
-22,distance_from_targets,8.298186302185059,GMSC,Schut,MLP Ensemble,1,0
-22,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
-22,set_size_penalty,0.12565991281179967,GMSC,Schut,MLP Ensemble,1,0
+22,distance,2.200000286102295,GMSC,Schut,MLP Ensemble,1,0
+22,distance_from_energy,161.03555297851562,GMSC,Schut,MLP Ensemble,1,0
+22,distance_from_targets,6.778209209442139,GMSC,Schut,MLP Ensemble,1,0
+22,redundancy,0.7,GMSC,Schut,MLP Ensemble,1,0
+22,set_size_penalty,0.0919176006053124,GMSC,Schut,MLP Ensemble,1,0
 22,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
-23,distance,0.30000001192092896,GMSC,Schut,MLP Ensemble,1,0
-23,distance_from_energy,256.959716796875,GMSC,Schut,MLP Ensemble,1,0
-23,distance_from_targets,5.690122127532959,GMSC,Schut,MLP Ensemble,1,0
-23,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
-23,set_size_penalty,0.12569130441061227,GMSC,Schut,MLP Ensemble,1,0
+23,distance,1.1000001430511475,GMSC,Schut,MLP Ensemble,1,0
+23,distance_from_energy,147.09738159179688,GMSC,Schut,MLP Ensemble,1,0
+23,distance_from_targets,5.084745407104492,GMSC,Schut,MLP Ensemble,1,0
+23,redundancy,0.8,GMSC,Schut,MLP Ensemble,1,0
+23,set_size_penalty,0.09103335378932709,GMSC,Schut,MLP Ensemble,1,0
 23,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
-24,distance,0.4000000059604645,GMSC,Schut,MLP Ensemble,1,0
-24,distance_from_energy,208.5451202392578,GMSC,Schut,MLP Ensemble,1,0
-24,distance_from_targets,5.468411445617676,GMSC,Schut,MLP Ensemble,1,0
-24,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
-24,set_size_penalty,0.12551932022129852,GMSC,Schut,MLP Ensemble,1,0
+24,distance,1.1000001430511475,GMSC,Schut,MLP Ensemble,1,0
+24,distance_from_energy,179.69163513183594,GMSC,Schut,MLP Ensemble,1,0
+24,distance_from_targets,5.766415119171143,GMSC,Schut,MLP Ensemble,1,0
+24,redundancy,0.8,GMSC,Schut,MLP Ensemble,1,0
+24,set_size_penalty,0.09114042304377312,GMSC,Schut,MLP Ensemble,1,0
 24,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
-25,distance,0.29999998211860657,GMSC,Schut,MLP Ensemble,1,0
-25,distance_from_energy,228.97671508789062,GMSC,Schut,MLP Ensemble,1,0
-25,distance_from_targets,5.120174884796143,GMSC,Schut,MLP Ensemble,1,0
+25,distance,0.9000000953674316,GMSC,Schut,MLP Ensemble,1,0
+25,distance_from_energy,172.99761962890625,GMSC,Schut,MLP Ensemble,1,0
+25,distance_from_targets,7.04946756362915,GMSC,Schut,MLP Ensemble,1,0
 25,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
-25,set_size_penalty,0.12542938097826384,GMSC,Schut,MLP Ensemble,1,0
+25,set_size_penalty,0.09108824499822887,GMSC,Schut,MLP Ensemble,1,0
 25,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
-26,distance,0.4000000059604645,GMSC,Schut,MLP Ensemble,1,0
-26,distance_from_energy,237.15805053710938,GMSC,Schut,MLP Ensemble,1,0
-26,distance_from_targets,5.036626815795898,GMSC,Schut,MLP Ensemble,1,0
-26,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
-26,set_size_penalty,0.12492377592137904,GMSC,Schut,MLP Ensemble,1,0
+26,distance,1.399999976158142,GMSC,Schut,MLP Ensemble,1,0
+26,distance_from_energy,145.95094299316406,GMSC,Schut,MLP Ensemble,1,0
+26,distance_from_targets,6.5535078048706055,GMSC,Schut,MLP Ensemble,1,0
+26,redundancy,0.8,GMSC,Schut,MLP Ensemble,1,0
+26,set_size_penalty,0.09119627505862016,GMSC,Schut,MLP Ensemble,1,0
 26,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
-27,distance,0.9000000953674316,GMSC,Schut,MLP Ensemble,1,0
-27,distance_from_energy,258.93731689453125,GMSC,Schut,MLP Ensemble,1,0
-27,distance_from_targets,5.819031715393066,GMSC,Schut,MLP Ensemble,1,0
+27,distance,0.8000000715255737,GMSC,Schut,MLP Ensemble,1,0
+27,distance_from_energy,205.85240173339844,GMSC,Schut,MLP Ensemble,1,0
+27,distance_from_targets,4.830505847930908,GMSC,Schut,MLP Ensemble,1,0
 27,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
-27,set_size_penalty,0.13558363601475065,GMSC,Schut,MLP Ensemble,1,0
+27,set_size_penalty,0.0911278071231243,GMSC,Schut,MLP Ensemble,1,0
 27,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
-28,distance,0.5,GMSC,Schut,MLP Ensemble,1,0
-28,distance_from_energy,196.93394470214844,GMSC,Schut,MLP Ensemble,1,0
-28,distance_from_targets,6.806474208831787,GMSC,Schut,MLP Ensemble,1,0
+28,distance,0.8000000715255737,GMSC,Schut,MLP Ensemble,1,0
+28,distance_from_energy,157.89280700683594,GMSC,Schut,MLP Ensemble,1,0
+28,distance_from_targets,4.678446292877197,GMSC,Schut,MLP Ensemble,1,0
 28,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
-28,set_size_penalty,0.12496996475491007,GMSC,Schut,MLP Ensemble,1,0
+28,set_size_penalty,0.0911278071231243,GMSC,Schut,MLP Ensemble,1,0
 28,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
-29,distance,0.5,GMSC,Schut,MLP Ensemble,1,0
-29,distance_from_energy,212.83990478515625,GMSC,Schut,MLP Ensemble,1,0
-29,distance_from_targets,8.92090892791748,GMSC,Schut,MLP Ensemble,1,0
+29,distance,0.9000000357627869,GMSC,Schut,MLP Ensemble,1,0
+29,distance_from_energy,201.6503143310547,GMSC,Schut,MLP Ensemble,1,0
+29,distance_from_targets,5.855453014373779,GMSC,Schut,MLP Ensemble,1,0
 29,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
-29,set_size_penalty,0.12560308434413425,GMSC,Schut,MLP Ensemble,1,0
+29,set_size_penalty,0.09131113907310939,GMSC,Schut,MLP Ensemble,1,0
 29,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
-30,distance,0.4000000059604645,GMSC,Schut,MLP Ensemble,1,0
-30,distance_from_energy,216.5072784423828,GMSC,Schut,MLP Ensemble,1,0
-30,distance_from_targets,5.452671051025391,GMSC,Schut,MLP Ensemble,1,0
-30,redundancy,0.9,GMSC,Schut,MLP Ensemble,1,0
-30,set_size_penalty,0.12480794622553204,GMSC,Schut,MLP Ensemble,1,0
+30,distance,1.1000001430511475,GMSC,Schut,MLP Ensemble,1,0
+30,distance_from_energy,113.80062866210938,GMSC,Schut,MLP Ensemble,1,0
+30,distance_from_targets,6.447629928588867,GMSC,Schut,MLP Ensemble,1,0
+30,redundancy,0.8,GMSC,Schut,MLP Ensemble,1,0
+30,set_size_penalty,0.09205506191241697,GMSC,Schut,MLP Ensemble,1,0
 30,validity,1.0,GMSC,Schut,MLP Ensemble,1,0
-31,distance,6.467790126800537,GMSC,Wachter,JEM,1,0
-31,distance_from_energy,136.50555419921875,GMSC,Wachter,JEM,1,0
-31,distance_from_targets,48.48414611816406,GMSC,Wachter,JEM,1,0
+31,distance,1.178739309310913,GMSC,Wachter,JEM,1,0
+31,distance_from_energy,202.77420043945312,GMSC,Wachter,JEM,1,0
+31,distance_from_targets,5.213302135467529,GMSC,Wachter,JEM,1,0
 31,redundancy,0.0,GMSC,Wachter,JEM,1,0
-31,set_size_penalty,0.0,GMSC,Wachter,JEM,1,0
-31,validity,0.0,GMSC,Wachter,JEM,1,0
-32,distance,5.707390785217285,GMSC,Wachter,JEM,1,0
-32,distance_from_energy,244.2442169189453,GMSC,Wachter,JEM,1,0
-32,distance_from_targets,11.459806442260742,GMSC,Wachter,JEM,1,0
+31,set_size_penalty,0.12203625440329091,GMSC,Wachter,JEM,1,0
+31,validity,1.0,GMSC,Wachter,JEM,1,0
+32,distance,1.2769194841384888,GMSC,Wachter,JEM,1,0
+32,distance_from_energy,150.1159210205078,GMSC,Wachter,JEM,1,0
+32,distance_from_targets,7.239099025726318,GMSC,Wachter,JEM,1,0
 32,redundancy,0.0,GMSC,Wachter,JEM,1,0
-32,set_size_penalty,0.08360329111862175,GMSC,Wachter,JEM,1,0
+32,set_size_penalty,0.12203613713499162,GMSC,Wachter,JEM,1,0
 32,validity,1.0,GMSC,Wachter,JEM,1,0
-33,distance,5.353749752044678,GMSC,Wachter,JEM,1,0
-33,distance_from_energy,238.97079467773438,GMSC,Wachter,JEM,1,0
-33,distance_from_targets,9.935625076293945,GMSC,Wachter,JEM,1,0
+33,distance,1.1492489576339722,GMSC,Wachter,JEM,1,0
+33,distance_from_energy,157.22474670410156,GMSC,Wachter,JEM,1,0
+33,distance_from_targets,5.270875453948975,GMSC,Wachter,JEM,1,0
 33,redundancy,0.0,GMSC,Wachter,JEM,1,0
-33,set_size_penalty,0.08360329111862175,GMSC,Wachter,JEM,1,0
+33,set_size_penalty,0.1220367746462665,GMSC,Wachter,JEM,1,0
 33,validity,1.0,GMSC,Wachter,JEM,1,0
-34,distance,5.817295074462891,GMSC,Wachter,JEM,1,0
-34,distance_from_energy,219.0133056640625,GMSC,Wachter,JEM,1,0
-34,distance_from_targets,10.317229270935059,GMSC,Wachter,JEM,1,0
+34,distance,2.8045289516448975,GMSC,Wachter,JEM,1,0
+34,distance_from_energy,128.4946746826172,GMSC,Wachter,JEM,1,0
+34,distance_from_targets,6.716588020324707,GMSC,Wachter,JEM,1,0
 34,redundancy,0.0,GMSC,Wachter,JEM,1,0
-34,set_size_penalty,0.08360329111862175,GMSC,Wachter,JEM,1,0
+34,set_size_penalty,0.1220360908276441,GMSC,Wachter,JEM,1,0
 34,validity,1.0,GMSC,Wachter,JEM,1,0
-35,distance,5.622946262359619,GMSC,Wachter,JEM,1,0
-35,distance_from_energy,128.25106811523438,GMSC,Wachter,JEM,1,0
-35,distance_from_targets,10.683453559875488,GMSC,Wachter,JEM,1,0
+35,distance,2.3168978691101074,GMSC,Wachter,JEM,1,0
+35,distance_from_energy,159.90872192382812,GMSC,Wachter,JEM,1,0
+35,distance_from_targets,5.744472026824951,GMSC,Wachter,JEM,1,0
 35,redundancy,0.0,GMSC,Wachter,JEM,1,0
-35,set_size_penalty,0.08360329111862175,GMSC,Wachter,JEM,1,0
+35,set_size_penalty,0.1220360908277014,GMSC,Wachter,JEM,1,0
 35,validity,1.0,GMSC,Wachter,JEM,1,0
-36,distance,4.93391752243042,GMSC,Wachter,JEM,1,0
-36,distance_from_energy,255.1763916015625,GMSC,Wachter,JEM,1,0
-36,distance_from_targets,12.655896186828613,GMSC,Wachter,JEM,1,0
+36,distance,1.7550225257873535,GMSC,Wachter,JEM,1,0
+36,distance_from_energy,176.13121032714844,GMSC,Wachter,JEM,1,0
+36,distance_from_targets,5.239262104034424,GMSC,Wachter,JEM,1,0
 36,redundancy,0.0,GMSC,Wachter,JEM,1,0
-36,set_size_penalty,0.08361659386808928,GMSC,Wachter,JEM,1,0
+36,set_size_penalty,0.12203609093143508,GMSC,Wachter,JEM,1,0
 36,validity,1.0,GMSC,Wachter,JEM,1,0
-37,distance,4.721963882446289,GMSC,Wachter,JEM,1,0
-37,distance_from_energy,177.0187530517578,GMSC,Wachter,JEM,1,0
-37,distance_from_targets,9.745168685913086,GMSC,Wachter,JEM,1,0
+37,distance,2.6444947719573975,GMSC,Wachter,JEM,1,0
+37,distance_from_energy,171.82130432128906,GMSC,Wachter,JEM,1,0
+37,distance_from_targets,6.4767560958862305,GMSC,Wachter,JEM,1,0
 37,redundancy,0.0,GMSC,Wachter,JEM,1,0
-37,set_size_penalty,0.08360329112110487,GMSC,Wachter,JEM,1,0
+37,set_size_penalty,0.12203609082764455,GMSC,Wachter,JEM,1,0
 37,validity,1.0,GMSC,Wachter,JEM,1,0
-38,distance,5.42133903503418,GMSC,Wachter,JEM,1,0
-38,distance_from_energy,149.31170654296875,GMSC,Wachter,JEM,1,0
-38,distance_from_targets,11.199137687683105,GMSC,Wachter,JEM,1,0
-38,redundancy,0.0,GMSC,Wachter,JEM,1,0
-38,set_size_penalty,0.08360329111862175,GMSC,Wachter,JEM,1,0
+38,distance,1.7857906818389893,GMSC,Wachter,JEM,1,0
+38,distance_from_energy,161.01683044433594,GMSC,Wachter,JEM,1,0
+38,distance_from_targets,6.599106788635254,GMSC,Wachter,JEM,1,0
+38,redundancy,0.1,GMSC,Wachter,JEM,1,0
+38,set_size_penalty,0.12203609091901146,GMSC,Wachter,JEM,1,0
 38,validity,1.0,GMSC,Wachter,JEM,1,0
-39,distance,5.372743606567383,GMSC,Wachter,JEM,1,0
-39,distance_from_energy,155.4835968017578,GMSC,Wachter,JEM,1,0
-39,distance_from_targets,8.512890815734863,GMSC,Wachter,JEM,1,0
+39,distance,2.372276544570923,GMSC,Wachter,JEM,1,0
+39,distance_from_energy,163.55824279785156,GMSC,Wachter,JEM,1,0
+39,distance_from_targets,5.595081329345703,GMSC,Wachter,JEM,1,0
 39,redundancy,0.0,GMSC,Wachter,JEM,1,0
-39,set_size_penalty,0.08360329111886045,GMSC,Wachter,JEM,1,0
+39,set_size_penalty,0.12203609082764522,GMSC,Wachter,JEM,1,0
 39,validity,1.0,GMSC,Wachter,JEM,1,0
-40,distance,5.102236747741699,GMSC,Wachter,JEM,1,0
-40,distance_from_energy,228.94110107421875,GMSC,Wachter,JEM,1,0
-40,distance_from_targets,8.44594955444336,GMSC,Wachter,JEM,1,0
+40,distance,1.236376404762268,GMSC,Wachter,JEM,1,0
+40,distance_from_energy,188.0726776123047,GMSC,Wachter,JEM,1,0
+40,distance_from_targets,5.651177883148193,GMSC,Wachter,JEM,1,0
 40,redundancy,0.0,GMSC,Wachter,JEM,1,0
-40,set_size_penalty,0.08360329111863551,GMSC,Wachter,JEM,1,0
+40,set_size_penalty,0.1220362771801966,GMSC,Wachter,JEM,1,0
 40,validity,1.0,GMSC,Wachter,JEM,1,0
-31,distance,10.60943603515625,GMSC,REVISE,JEM,1,0
-31,distance_from_energy,206.23716735839844,GMSC,REVISE,JEM,1,0
-31,distance_from_targets,38.96867370605469,GMSC,REVISE,JEM,1,0
+31,distance,2.2916104793548584,GMSC,REVISE,JEM,1,0
+31,distance_from_energy,172.31240844726562,GMSC,REVISE,JEM,1,0
+31,distance_from_targets,4.2031683921813965,GMSC,REVISE,JEM,1,0
 31,redundancy,0.0,GMSC,REVISE,JEM,1,0
-31,set_size_penalty,0.0,GMSC,REVISE,JEM,1,0
-31,validity,0.0,GMSC,REVISE,JEM,1,0
-32,distance,3.257993698120117,GMSC,REVISE,JEM,1,0
-32,distance_from_energy,181.2834930419922,GMSC,REVISE,JEM,1,0
-32,distance_from_targets,4.472252368927002,GMSC,REVISE,JEM,1,0
+31,set_size_penalty,0.1528383126221815,GMSC,REVISE,JEM,1,0
+31,validity,1.0,GMSC,REVISE,JEM,1,0
+32,distance,2.889892101287842,GMSC,REVISE,JEM,1,0
+32,distance_from_energy,164.9212646484375,GMSC,REVISE,JEM,1,0
+32,distance_from_targets,4.732466697692871,GMSC,REVISE,JEM,1,0
 32,redundancy,0.0,GMSC,REVISE,JEM,1,0
-32,set_size_penalty,0.3955987217840322,GMSC,REVISE,JEM,1,0
+32,set_size_penalty,0.1851519274302631,GMSC,REVISE,JEM,1,0
 32,validity,1.0,GMSC,REVISE,JEM,1,0
-33,distance,8.49727725982666,GMSC,REVISE,JEM,1,0
-33,distance_from_energy,161.36231994628906,GMSC,REVISE,JEM,1,0
-33,distance_from_targets,12.079996109008789,GMSC,REVISE,JEM,1,0
+33,distance,5.286355495452881,GMSC,REVISE,JEM,1,0
+33,distance_from_energy,148.1903839111328,GMSC,REVISE,JEM,1,0
+33,distance_from_targets,4.940584659576416,GMSC,REVISE,JEM,1,0
 33,redundancy,0.0,GMSC,REVISE,JEM,1,0
-33,set_size_penalty,0.6015330095932334,GMSC,REVISE,JEM,1,0
+33,set_size_penalty,0.38897430989869086,GMSC,REVISE,JEM,1,0
 33,validity,1.0,GMSC,REVISE,JEM,1,0
-34,distance,2.297853469848633,GMSC,REVISE,JEM,1,0
-34,distance_from_energy,233.28036499023438,GMSC,REVISE,JEM,1,0
-34,distance_from_targets,4.264971733093262,GMSC,REVISE,JEM,1,0
+34,distance,3.798255443572998,GMSC,REVISE,JEM,1,0
+34,distance_from_energy,157.97731018066406,GMSC,REVISE,JEM,1,0
+34,distance_from_targets,5.545966625213623,GMSC,REVISE,JEM,1,0
 34,redundancy,0.0,GMSC,REVISE,JEM,1,0
-34,set_size_penalty,0.39504040543941077,GMSC,REVISE,JEM,1,0
+34,set_size_penalty,0.26214197982949106,GMSC,REVISE,JEM,1,0
 34,validity,1.0,GMSC,REVISE,JEM,1,0
-35,distance,2.8025169372558594,GMSC,REVISE,JEM,1,0
-35,distance_from_energy,190.32615661621094,GMSC,REVISE,JEM,1,0
-35,distance_from_targets,4.477354049682617,GMSC,REVISE,JEM,1,0
+35,distance,1.8483872413635254,GMSC,REVISE,JEM,1,0
+35,distance_from_energy,165.58074951171875,GMSC,REVISE,JEM,1,0
+35,distance_from_targets,3.8422834873199463,GMSC,REVISE,JEM,1,0
 35,redundancy,0.0,GMSC,REVISE,JEM,1,0
-35,set_size_penalty,0.3827609185291734,GMSC,REVISE,JEM,1,0
+35,set_size_penalty,0.21207204477082753,GMSC,REVISE,JEM,1,0
 35,validity,1.0,GMSC,REVISE,JEM,1,0
-36,distance,3.8702304363250732,GMSC,REVISE,JEM,1,0
-36,distance_from_energy,200.40206909179688,GMSC,REVISE,JEM,1,0
-36,distance_from_targets,8.236150741577148,GMSC,REVISE,JEM,1,0
+36,distance,2.911160707473755,GMSC,REVISE,JEM,1,0
+36,distance_from_energy,162.18685913085938,GMSC,REVISE,JEM,1,0
+36,distance_from_targets,4.78986930847168,GMSC,REVISE,JEM,1,0
 36,redundancy,0.0,GMSC,REVISE,JEM,1,0
-36,set_size_penalty,0.09101392886509685,GMSC,REVISE,JEM,1,0
+36,set_size_penalty,0.37182790435586366,GMSC,REVISE,JEM,1,0
 36,validity,1.0,GMSC,REVISE,JEM,1,0
-37,distance,5.905202865600586,GMSC,REVISE,JEM,1,0
-37,distance_from_energy,234.08425903320312,GMSC,REVISE,JEM,1,0
-37,distance_from_targets,5.648008346557617,GMSC,REVISE,JEM,1,0
+37,distance,3.5077717304229736,GMSC,REVISE,JEM,1,0
+37,distance_from_energy,182.2562255859375,GMSC,REVISE,JEM,1,0
+37,distance_from_targets,4.126815319061279,GMSC,REVISE,JEM,1,0
 37,redundancy,0.0,GMSC,REVISE,JEM,1,0
-37,set_size_penalty,0.1518591088153214,GMSC,REVISE,JEM,1,0
+37,set_size_penalty,0.12450851657407624,GMSC,REVISE,JEM,1,0
 37,validity,1.0,GMSC,REVISE,JEM,1,0
-38,distance,1.700178861618042,GMSC,REVISE,JEM,1,0
-38,distance_from_energy,207.12039184570312,GMSC,REVISE,JEM,1,0
-38,distance_from_targets,6.539466381072998,GMSC,REVISE,JEM,1,0
+38,distance,3.622091054916382,GMSC,REVISE,JEM,1,0
+38,distance_from_energy,144.2232208251953,GMSC,REVISE,JEM,1,0
+38,distance_from_targets,4.505788803100586,GMSC,REVISE,JEM,1,0
 38,redundancy,0.0,GMSC,REVISE,JEM,1,0
-38,set_size_penalty,0.1048600762997054,GMSC,REVISE,JEM,1,0
+38,set_size_penalty,0.16568066485168953,GMSC,REVISE,JEM,1,0
 38,validity,1.0,GMSC,REVISE,JEM,1,0
-39,distance,2.6219232082366943,GMSC,REVISE,JEM,1,0
-39,distance_from_energy,163.38160705566406,GMSC,REVISE,JEM,1,0
-39,distance_from_targets,4.455280780792236,GMSC,REVISE,JEM,1,0
+39,distance,1.4054145812988281,GMSC,REVISE,JEM,1,0
+39,distance_from_energy,129.14691162109375,GMSC,REVISE,JEM,1,0
+39,distance_from_targets,4.202530860900879,GMSC,REVISE,JEM,1,0
 39,redundancy,0.0,GMSC,REVISE,JEM,1,0
-39,set_size_penalty,0.3959861128115878,GMSC,REVISE,JEM,1,0
+39,set_size_penalty,0.1250593178592465,GMSC,REVISE,JEM,1,0
 39,validity,1.0,GMSC,REVISE,JEM,1,0
-40,distance,1.7974720001220703,GMSC,REVISE,JEM,1,0
-40,distance_from_energy,126.7869644165039,GMSC,REVISE,JEM,1,0
-40,distance_from_targets,4.075755596160889,GMSC,REVISE,JEM,1,0
+40,distance,0.7325043082237244,GMSC,REVISE,JEM,1,0
+40,distance_from_energy,123.66065216064453,GMSC,REVISE,JEM,1,0
+40,distance_from_targets,4.713644027709961,GMSC,REVISE,JEM,1,0
 40,redundancy,0.0,GMSC,REVISE,JEM,1,0
-40,set_size_penalty,0.3898554992353702,GMSC,REVISE,JEM,1,0
+40,set_size_penalty,0.16540813806333587,GMSC,REVISE,JEM,1,0
 40,validity,1.0,GMSC,REVISE,JEM,1,0
-31,distance,19.73813819885254,GMSC,ECCCo,JEM,1,0
-31,distance_from_energy,79.17263793945312,GMSC,ECCCo,JEM,1,0
-31,distance_from_targets,59.27417755126953,GMSC,ECCCo,JEM,1,0
+31,distance,20.309856414794922,GMSC,ECCCo,JEM,1,0
+31,distance_from_energy,54.09170913696289,GMSC,ECCCo,JEM,1,0
+31,distance_from_targets,17.837556838989258,GMSC,ECCCo,JEM,1,0
 31,redundancy,0.0,GMSC,ECCCo,JEM,1,0
-31,set_size_penalty,0.0,GMSC,ECCCo,JEM,1,0
-31,validity,0.0,GMSC,ECCCo,JEM,1,0
-32,distance,13.704289436340332,GMSC,ECCCo,JEM,1,0
-32,distance_from_energy,53.898193359375,GMSC,ECCCo,JEM,1,0
-32,distance_from_targets,12.610669136047363,GMSC,ECCCo,JEM,1,0
+31,set_size_penalty,0.1220360908276441,GMSC,ECCCo,JEM,1,0
+31,validity,1.0,GMSC,ECCCo,JEM,1,0
+32,distance,18.703651428222656,GMSC,ECCCo,JEM,1,0
+32,distance_from_energy,64.6863784790039,GMSC,ECCCo,JEM,1,0
+32,distance_from_targets,14.676613807678223,GMSC,ECCCo,JEM,1,0
 32,redundancy,0.0,GMSC,ECCCo,JEM,1,0
-32,set_size_penalty,0.08533401375335292,GMSC,ECCCo,JEM,1,0
+32,set_size_penalty,0.1220360908276441,GMSC,ECCCo,JEM,1,0
 32,validity,1.0,GMSC,ECCCo,JEM,1,0
-33,distance,12.89822769165039,GMSC,ECCCo,JEM,1,0
-33,distance_from_energy,98.00216674804688,GMSC,ECCCo,JEM,1,0
-33,distance_from_targets,10.102466583251953,GMSC,ECCCo,JEM,1,0
+33,distance,20.289674758911133,GMSC,ECCCo,JEM,1,0
+33,distance_from_energy,74.06864929199219,GMSC,ECCCo,JEM,1,0
+33,distance_from_targets,18.258426666259766,GMSC,ECCCo,JEM,1,0
 33,redundancy,0.0,GMSC,ECCCo,JEM,1,0
-33,set_size_penalty,0.08526369144177237,GMSC,ECCCo,JEM,1,0
+33,set_size_penalty,0.1220360908276441,GMSC,ECCCo,JEM,1,0
 33,validity,1.0,GMSC,ECCCo,JEM,1,0
-34,distance,13.39700984954834,GMSC,ECCCo,JEM,1,0
-34,distance_from_energy,94.1781997680664,GMSC,ECCCo,JEM,1,0
-34,distance_from_targets,10.689900398254395,GMSC,ECCCo,JEM,1,0
+34,distance,20.41338348388672,GMSC,ECCCo,JEM,1,0
+34,distance_from_energy,59.44644546508789,GMSC,ECCCo,JEM,1,0
+34,distance_from_targets,21.68785858154297,GMSC,ECCCo,JEM,1,0
 34,redundancy,0.0,GMSC,ECCCo,JEM,1,0
-34,set_size_penalty,0.0852494436678437,GMSC,ECCCo,JEM,1,0
+34,set_size_penalty,0.1220360908276441,GMSC,ECCCo,JEM,1,0
 34,validity,1.0,GMSC,ECCCo,JEM,1,0
-35,distance,14.024636268615723,GMSC,ECCCo,JEM,1,0
-35,distance_from_energy,68.5241928100586,GMSC,ECCCo,JEM,1,0
-35,distance_from_targets,11.830336570739746,GMSC,ECCCo,JEM,1,0
+35,distance,20.377580642700195,GMSC,ECCCo,JEM,1,0
+35,distance_from_energy,89.12565612792969,GMSC,ECCCo,JEM,1,0
+35,distance_from_targets,20.792831420898438,GMSC,ECCCo,JEM,1,0
 35,redundancy,0.0,GMSC,ECCCo,JEM,1,0
-35,set_size_penalty,0.08476071508242211,GMSC,ECCCo,JEM,1,0
+35,set_size_penalty,0.1220360908276441,GMSC,ECCCo,JEM,1,0
 35,validity,1.0,GMSC,ECCCo,JEM,1,0
-36,distance,20.418628692626953,GMSC,ECCCo,JEM,1,0
-36,distance_from_energy,83.47315216064453,GMSC,ECCCo,JEM,1,0
-36,distance_from_targets,25.71954345703125,GMSC,ECCCo,JEM,1,0
+36,distance,20.35467529296875,GMSC,ECCCo,JEM,1,0
+36,distance_from_energy,70.55101776123047,GMSC,ECCCo,JEM,1,0
+36,distance_from_targets,21.022281646728516,GMSC,ECCCo,JEM,1,0
 36,redundancy,0.0,GMSC,ECCCo,JEM,1,0
-36,set_size_penalty,0.0,GMSC,ECCCo,JEM,1,0
-36,validity,0.0,GMSC,ECCCo,JEM,1,0
-37,distance,19.972084045410156,GMSC,ECCCo,JEM,1,0
-37,distance_from_energy,80.39236450195312,GMSC,ECCCo,JEM,1,0
-37,distance_from_targets,21.477130889892578,GMSC,ECCCo,JEM,1,0
+36,set_size_penalty,0.1220360908276441,GMSC,ECCCo,JEM,1,0
+36,validity,1.0,GMSC,ECCCo,JEM,1,0
+37,distance,18.166080474853516,GMSC,ECCCo,JEM,1,0
+37,distance_from_energy,68.12590789794922,GMSC,ECCCo,JEM,1,0
+37,distance_from_targets,18.422941207885742,GMSC,ECCCo,JEM,1,0
 37,redundancy,0.0,GMSC,ECCCo,JEM,1,0
-37,set_size_penalty,0.0,GMSC,ECCCo,JEM,1,0
-37,validity,0.0,GMSC,ECCCo,JEM,1,0
-38,distance,15.591922760009766,GMSC,ECCCo,JEM,1,0
-38,distance_from_energy,91.21971893310547,GMSC,ECCCo,JEM,1,0
-38,distance_from_targets,18.55573272705078,GMSC,ECCCo,JEM,1,0
+37,set_size_penalty,0.1220360908276441,GMSC,ECCCo,JEM,1,0
+37,validity,1.0,GMSC,ECCCo,JEM,1,0
+38,distance,19.947145462036133,GMSC,ECCCo,JEM,1,0
+38,distance_from_energy,56.799766540527344,GMSC,ECCCo,JEM,1,0
+38,distance_from_targets,20.59819984436035,GMSC,ECCCo,JEM,1,0
 38,redundancy,0.0,GMSC,ECCCo,JEM,1,0
-38,set_size_penalty,0.08509085716597675,GMSC,ECCCo,JEM,1,0
+38,set_size_penalty,0.1220360908276441,GMSC,ECCCo,JEM,1,0
 38,validity,1.0,GMSC,ECCCo,JEM,1,0
-39,distance,13.692888259887695,GMSC,ECCCo,JEM,1,0
-39,distance_from_energy,75.91925048828125,GMSC,ECCCo,JEM,1,0
-39,distance_from_targets,14.994156837463379,GMSC,ECCCo,JEM,1,0
+39,distance,20.251590728759766,GMSC,ECCCo,JEM,1,0
+39,distance_from_energy,64.138916015625,GMSC,ECCCo,JEM,1,0
+39,distance_from_targets,20.963520050048828,GMSC,ECCCo,JEM,1,0
 39,redundancy,0.0,GMSC,ECCCo,JEM,1,0
-39,set_size_penalty,0.08569363447741485,GMSC,ECCCo,JEM,1,0
+39,set_size_penalty,0.1220360908276441,GMSC,ECCCo,JEM,1,0
 39,validity,1.0,GMSC,ECCCo,JEM,1,0
-40,distance,12.937322616577148,GMSC,ECCCo,JEM,1,0
-40,distance_from_energy,81.16377258300781,GMSC,ECCCo,JEM,1,0
-40,distance_from_targets,11.258243560791016,GMSC,ECCCo,JEM,1,0
+40,distance,19.321731567382812,GMSC,ECCCo,JEM,1,0
+40,distance_from_energy,31.3851261138916,GMSC,ECCCo,JEM,1,0
+40,distance_from_targets,16.848541259765625,GMSC,ECCCo,JEM,1,0
 40,redundancy,0.0,GMSC,ECCCo,JEM,1,0
-40,set_size_penalty,0.08558019473358147,GMSC,ECCCo,JEM,1,0
+40,set_size_penalty,0.12203620107489499,GMSC,ECCCo,JEM,1,0
 40,validity,1.0,GMSC,ECCCo,JEM,1,0
-31,distance,8.400009155273438,GMSC,Schut,JEM,1,0
-31,distance_from_energy,190.1683349609375,GMSC,Schut,JEM,1,0
-31,distance_from_targets,45.14371109008789,GMSC,Schut,JEM,1,0
-31,redundancy,0.0,GMSC,Schut,JEM,1,0
-31,set_size_penalty,0.0,GMSC,Schut,JEM,1,0
-31,validity,0.0,GMSC,Schut,JEM,1,0
-32,distance,0.8000000715255737,GMSC,Schut,JEM,1,0
-32,distance_from_energy,207.8939208984375,GMSC,Schut,JEM,1,0
-32,distance_from_targets,7.177785873413086,GMSC,Schut,JEM,1,0
-32,redundancy,0.8,GMSC,Schut,JEM,1,0
-32,set_size_penalty,0.08376432619642715,GMSC,Schut,JEM,1,0
+31,distance,0.4000000059604645,GMSC,Schut,JEM,1,0
+31,distance_from_energy,181.48951721191406,GMSC,Schut,JEM,1,0
+31,distance_from_targets,4.707763671875,GMSC,Schut,JEM,1,0
+31,redundancy,0.9,GMSC,Schut,JEM,1,0
+31,set_size_penalty,0.1222145266482122,GMSC,Schut,JEM,1,0
+31,validity,1.0,GMSC,Schut,JEM,1,0
+32,distance,0.4000000059604645,GMSC,Schut,JEM,1,0
+32,distance_from_energy,130.5447998046875,GMSC,Schut,JEM,1,0
+32,distance_from_targets,6.569212436676025,GMSC,Schut,JEM,1,0
+32,redundancy,0.9,GMSC,Schut,JEM,1,0
+32,set_size_penalty,0.12232863953866868,GMSC,Schut,JEM,1,0
 32,validity,1.0,GMSC,Schut,JEM,1,0
-33,distance,1.0,GMSC,Schut,JEM,1,0
-33,distance_from_energy,202.5668182373047,GMSC,Schut,JEM,1,0
-33,distance_from_targets,5.582322120666504,GMSC,Schut,JEM,1,0
-33,redundancy,0.7,GMSC,Schut,JEM,1,0
-33,set_size_penalty,0.08387913728964702,GMSC,Schut,JEM,1,0
+33,distance,0.3999999761581421,GMSC,Schut,JEM,1,0
+33,distance_from_energy,158.3044891357422,GMSC,Schut,JEM,1,0
+33,distance_from_targets,4.946971416473389,GMSC,Schut,JEM,1,0
+33,redundancy,0.9,GMSC,Schut,JEM,1,0
+33,set_size_penalty,0.12232820831807611,GMSC,Schut,JEM,1,0
 33,validity,1.0,GMSC,Schut,JEM,1,0
-34,distance,1.0000001192092896,GMSC,Schut,JEM,1,0
-34,distance_from_energy,133.80145263671875,GMSC,Schut,JEM,1,0
-34,distance_from_targets,6.273165225982666,GMSC,Schut,JEM,1,0
-34,redundancy,0.7,GMSC,Schut,JEM,1,0
-34,set_size_penalty,0.08370736883257845,GMSC,Schut,JEM,1,0
+34,distance,0.5,GMSC,Schut,JEM,1,0
+34,distance_from_energy,171.56488037109375,GMSC,Schut,JEM,1,0
+34,distance_from_targets,5.421782970428467,GMSC,Schut,JEM,1,0
+34,redundancy,0.9,GMSC,Schut,JEM,1,0
+34,set_size_penalty,0.12221759074277161,GMSC,Schut,JEM,1,0
 34,validity,1.0,GMSC,Schut,JEM,1,0
-35,distance,1.0,GMSC,Schut,JEM,1,0
-35,distance_from_energy,194.7896728515625,GMSC,Schut,JEM,1,0
-35,distance_from_targets,6.404750823974609,GMSC,Schut,JEM,1,0
-35,redundancy,0.7,GMSC,Schut,JEM,1,0
-35,set_size_penalty,0.08385960182532948,GMSC,Schut,JEM,1,0
+35,distance,0.5,GMSC,Schut,JEM,1,0
+35,distance_from_energy,130.10317993164062,GMSC,Schut,JEM,1,0
+35,distance_from_targets,5.058731555938721,GMSC,Schut,JEM,1,0
+35,redundancy,0.9,GMSC,Schut,JEM,1,0
+35,set_size_penalty,0.12217092790957484,GMSC,Schut,JEM,1,0
 35,validity,1.0,GMSC,Schut,JEM,1,0
-36,distance,1.2000001668930054,GMSC,Schut,JEM,1,0
-36,distance_from_energy,128.8763427734375,GMSC,Schut,JEM,1,0
-36,distance_from_targets,8.961647987365723,GMSC,Schut,JEM,1,0
-36,redundancy,0.7,GMSC,Schut,JEM,1,0
-36,set_size_penalty,0.08368573158865145,GMSC,Schut,JEM,1,0
+36,distance,0.3999999761581421,GMSC,Schut,JEM,1,0
+36,distance_from_energy,155.0370330810547,GMSC,Schut,JEM,1,0
+36,distance_from_targets,4.266662120819092,GMSC,Schut,JEM,1,0
+36,redundancy,0.9,GMSC,Schut,JEM,1,0
+36,set_size_penalty,0.12243745229498959,GMSC,Schut,JEM,1,0
 36,validity,1.0,GMSC,Schut,JEM,1,0
-37,distance,1.4000000953674316,GMSC,Schut,JEM,1,0
-37,distance_from_energy,132.1925048828125,GMSC,Schut,JEM,1,0
-37,distance_from_targets,6.573559284210205,GMSC,Schut,JEM,1,0
-37,redundancy,0.7,GMSC,Schut,JEM,1,0
-37,set_size_penalty,0.08373645626774429,GMSC,Schut,JEM,1,0
+37,distance,0.5,GMSC,Schut,JEM,1,0
+37,distance_from_energy,175.3358612060547,GMSC,Schut,JEM,1,0
+37,distance_from_targets,5.432469844818115,GMSC,Schut,JEM,1,0
+37,redundancy,0.9,GMSC,Schut,JEM,1,0
+37,set_size_penalty,0.12216958939892608,GMSC,Schut,JEM,1,0
 37,validity,1.0,GMSC,Schut,JEM,1,0
-38,distance,0.7000000476837158,GMSC,Schut,JEM,1,0
-38,distance_from_energy,220.18338012695312,GMSC,Schut,JEM,1,0
-38,distance_from_targets,6.538181304931641,GMSC,Schut,JEM,1,0
+38,distance,0.4999999701976776,GMSC,Schut,JEM,1,0
+38,distance_from_energy,162.56617736816406,GMSC,Schut,JEM,1,0
+38,distance_from_targets,5.778542995452881,GMSC,Schut,JEM,1,0
 38,redundancy,0.9,GMSC,Schut,JEM,1,0
-38,set_size_penalty,0.08394198846111123,GMSC,Schut,JEM,1,0
+38,set_size_penalty,0.12210453628773155,GMSC,Schut,JEM,1,0
 38,validity,1.0,GMSC,Schut,JEM,1,0
-39,distance,1.7000000476837158,GMSC,Schut,JEM,1,0
-39,distance_from_energy,130.18008422851562,GMSC,Schut,JEM,1,0
-39,distance_from_targets,5.492879390716553,GMSC,Schut,JEM,1,0
-39,redundancy,0.7,GMSC,Schut,JEM,1,0
-39,set_size_penalty,0.08388238926742453,GMSC,Schut,JEM,1,0
+39,distance,0.4999999701976776,GMSC,Schut,JEM,1,0
+39,distance_from_energy,161.363525390625,GMSC,Schut,JEM,1,0
+39,distance_from_targets,4.614417552947998,GMSC,Schut,JEM,1,0
+39,redundancy,0.9,GMSC,Schut,JEM,1,0
+39,set_size_penalty,0.12208309340396828,GMSC,Schut,JEM,1,0
 39,validity,1.0,GMSC,Schut,JEM,1,0
-40,distance,1.100000023841858,GMSC,Schut,JEM,1,0
-40,distance_from_energy,255.4584503173828,GMSC,Schut,JEM,1,0
-40,distance_from_targets,5.119748115539551,GMSC,Schut,JEM,1,0
-40,redundancy,0.8,GMSC,Schut,JEM,1,0
-40,set_size_penalty,0.08373861333101207,GMSC,Schut,JEM,1,0
+40,distance,0.3999999761581421,GMSC,Schut,JEM,1,0
+40,distance_from_energy,177.28269958496094,GMSC,Schut,JEM,1,0
+40,distance_from_targets,4.974632740020752,GMSC,Schut,JEM,1,0
+40,redundancy,0.9,GMSC,Schut,JEM,1,0
+40,set_size_penalty,0.1223676465638992,GMSC,Schut,JEM,1,0
 40,validity,1.0,GMSC,Schut,JEM,1,0

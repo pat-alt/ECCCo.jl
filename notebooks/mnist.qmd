@@ -445,6 +445,7 @@ function plot_mnist(
     rng::Union{Int,AbstractRNG}=Random.GLOBAL_RNG,
     _plot_title::Bool=true,
     show_factual::Bool=false,
+    img_height::Int=180,
     kwargs...,
 )
     Random.seed!(rng)
@@ -468,14 +469,14 @@ function plot_mnist(
     _x = CounterfactualExplanations.counterfactual(ce)
     plt = Plots.plot(
         convert2image(MNIST, reshape(_x,28,28)),
-        axis=nothing, 
+        axis=([], false),
         size=(img_height, img_height),
         title=_title
     )
     if show_factual
         plt_factual = Plots.plot(
             convert2image(MNIST, reshape(x,28,28)),
-            axis=nothing, 
+            axis=([], false),
             size=(img_height, img_height),
             title="Factual"
         )
@@ -487,19 +488,19 @@ end
 ```
 
 ```{julia}
-_regen_all_digits = false
+_regen_all_digits = true
 if _regen_all_digits
-    function plot_all_digits(rng=123;verbose=true,kwargs...)
+    function plot_all_digits(rng=123;verbose=true,img_height=180,kwargs...)
         plts = []
         for i in 0:9
             for j in 0:9
                 @info "Generating counterfactual for $(i) -> $(j)"
-                plt = plot_mnist(i,j;kwargs...,rng=rng)
+                plt = plot_mnist(i,j;kwargs...,rng=rng, img_height=img_height)
                 !verbose || display(plt)
                 plts = [plts..., plt]
             end
         end
-        plt = Plots.plot(plts...; size=(img_height*10,img_height*10), layout=(10,10))
+        plt = Plots.plot(plts...; size=(img_height*10,img_height*10), layout=(10,10), dpi=300)
         return plt
     end
     plt = plot_all_digits(generator=eccco_generator)
@@ -514,11 +515,25 @@ end
 
 # Benchmark generators:
 generator_dict = Dict(
-    "Wachter" => WachterGenerator(λ=Λ[1]),
-    "REVISE" => REVISEGenerator(λ=Λ[1]),
+    "Wachter" => WachterGenerator(λ=Λ[1], opt=eccco_generator.opt),
+    "REVISE" => REVISEGenerator(λ=Λ[1], opt=eccco_generator.opt),
     "Schut" => greedy_generator,
     "ECCCo" => eccco_generator,
 )
+```
+
+```{julia}
+generator_params = DataFrame(
+    Dict(
+        :λ1 => Λ[1],
+        :λ2 => Λ[2],
+        :λ3 => Λ[3],
+        :opt => string(typeof(eccco_generator.opt)),
+        :eta => eccco_generator.opt.eta,
+        :dataname => "MNIST",
+    )
+)
+CSV.write(joinpath(params_path, "generator/mnist.csv"), generator_params)
 ```
 
 ```{julia}

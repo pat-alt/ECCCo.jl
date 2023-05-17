@@ -277,7 +277,7 @@ col_names <- c(
 )
 algin_cols <- c(rep('l',3),rep('c',ncol(tab_full)-3))
 kbl(
-  tab_full, caption = "All results for all datasets: sample averages +/- one standard deviation over all valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-full} \\newline", 
+  tab_full, caption = "All results for all datasets: sample averages +/- one standard deviation over all valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-full-valid} \\newline", 
   align = "c", col.names=col_names, booktabs = T, escape=F, 
   format="latex"
 ) %>%
@@ -285,4 +285,57 @@ kbl(
   kable_paper(full_width = F) %>%
   collapse_rows(columns = 1:3, latex_hline = "custom", valign = "top", custom_latex_hline = 1:2) %>%
   save_kable("paper/contents/table_all_valid.tex")
+```
+
+## EBM
+
+```{r}
+files <- list.files("artifacts/params/")
+dt <- lapply(files, function(x) {
+    fread(file.path("artifacts/params/", x))
+})
+dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
+setcolorder(
+  dt, 
+  c(
+    "dataname", "n_obs",
+    "n_hidden", "n_layers", "activation", "n_ens",
+    "epochs", "batch_size",
+    "jem_sampling_steps", "sgld_batch_size", "lambda"
+  )
+)
+dt_ebm <- dt[,.(dataname, jem_sampling_steps, sgld_batch_size, lambda)]
+col_names <- c(
+  "Dataset",
+  "SGLD Steps", "Batch Size", "$\\lambda$"
+)
+kbl(
+  dt_ebm, caption = "EBM hyperparemeter choices for our experiments. \\label{tab:ebmparams} \\newline", 
+  align = "r", col.names=col_names, booktabs = T, escape=F, 
+  format="latex"
+) %>%
+  kable_styling(font_size = 8) %>%
+  kable_paper(full_width = F) %>%
+  save_kable("paper/contents/table_ebm_params.tex")
+```
+
+## Experimental setup
+
+```{r}
+dt_exp <- dt[,.(dataname, n_obs, n_hidden, n_layers, activation, n_ens, epochs, batch_size)]
+col_names <- c(
+  "Dataset", "Sample Size",
+  "Hidden Units", "Hidden Layers", "Activation", "Ensemble Size",
+  "Epochs", "Batch Size"
+)
+header <- c(" " = 2, "Network Architecture" = 4, "Training" = 2)
+kbl(
+  dt_exp, caption = "Paremeter choices for our experiments. \\label{tab:params} \\newline", 
+  align = "r", col.names=col_names, booktabs = T, escape=F, 
+  format="latex"
+) %>%
+  kable_styling(latex_options = c("scale_down")) %>%
+  kable_paper(full_width = F) %>%
+  add_header_above(header) %>%
+  save_kable("paper/contents/table_params.tex")
 ```

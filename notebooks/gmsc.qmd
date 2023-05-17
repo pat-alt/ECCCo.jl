@@ -7,12 +7,11 @@ eval(setup_notebooks)
 
 ```{julia}
 # Hyper:
-_retrain = false
+_retrain = true
 
 # Data:
 test_size = 0.2
-n_obs = Int(50000 / (1.0 - test_size))
-counterfactual_data, test_data = train_test_split(load_gmsc(n_obs); test_size=test_size)
+counterfactual_data, test_data = train_test_split(load_gmsc(); test_size=test_size)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
 labels = counterfactual_data.output_encoder.labels
@@ -158,6 +157,20 @@ generator_dict = Dict(
         nsamples=10, nmin=10,
     ),
 )
+```
+
+```{julia}
+generator_params = DataFrame(
+    Dict(
+        :λ1 => λ₁,
+        :λ2 => λ₂,
+        :λ3 => λ₃,
+        :opt => string(typeof(opt)),
+        :eta => opt.eta,
+        :dataname => "GMSC",
+    )
+)
+CSV.write(joinpath(params_path, "generator/gmsc.csv"), generator_params)
 ```
 
 ```{julia}
