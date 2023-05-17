@@ -345,7 +345,7 @@ The following appendices provide additional details that are relevant to the pap
 
 \subsection{Energy-Based Modelling}\label{app:jem}
 
-Since we were not able to identify any existing open-source software for Energy-Based Modelling that would be flexible enough to cater to our needs, we have developed a Julia package from scratch. In our development we have heavily drawn on the existing literature:~\citet{du2020implicit} describe best practices for using EBM for generative modelling;~\citet{grathwohl2020your} explain how EBM can be used to train classifiers jointly for the discriminative and generative tasks. We have used the same package for training and inference, but there are some important differences between the two cases that are worth highlighting here.
+Since we were not able to identify any existing open-source software for Energy-Based Modelling that would be flexible enough to cater to our needs, we have developed a \texttt{Julia} package from scratch. The package has been open-sourced, but to avoid compromising the double-blind review process, we refrain from providing more information at this stage. In our development we have heavily drawn on the existing literature:~\citet{du2020implicit} describe best practices for using EBM for generative modelling;~\citet{grathwohl2020your} explain how EBM can be used to train classifiers jointly for the discriminative and generative tasks. We have used the same package for training and inference, but there are some important differences between the two cases that are worth highlighting here.
 
 \subsubsection{Training: Joint Energy Models}
 
@@ -410,16 +410,17 @@ In addition to the smooth set size penalty,~\citet{stutz2022learning} also propo
 \subsection{ECCCo}\label{app:eccco}
 
 In this section, we briefly discuss convergence conditions for CE and provide details concerning the actual implementation of our framework in Julia.  
-
 \subsubsection{A Note on Convergence}
 
 Convergence is not typically discussed much in the context of CE, even though it has important implications on outcomes. One intuitive way to specify convergence is in terms of threshold probabilities: once the predicted probability $p(\mathbf{y}^+|\mathbf{x}^{\prime})$ exceeds some user-defined threshold $\gamma$ such that the counterfactual is valid, we could consider the search to have converged. In the binary case, for example, convergence could be defined as $p(\mathbf{y}^+|\mathbf{x}^{\prime})>0.5$ in this sense. Note, however, how this can be expected to yield counterfactuals in the proximity of the decision boundary, a region characterized by high aleatoric uncertainty. In other words, counterfactuals generated in this way would generally not be plausible. To avoid this from happening, we specify convergence in terms of gradients approaching zero for all our experiments and all of our generators. This is allows us to get a cleaner read on how the different counterfactual search objectives affect counterfactual outcomes. 
 
 \subsubsection{\texttt{ECCCo.jl}}
 
-Our code base is integrated into a larger ecosystem of \texttt{Julia} packages that we are actively developing. 
+The core part of our code base is integrated into a larger ecosystem of \texttt{Julia} packages that we are actively developing and maintaining. To avoid compromising the double-blind review process, we only provide a link to an anonymized repository at this stage: \url{https://anonymous.4open.science/r/ECCCo-1252/README.md}. 
 
 \subsection{Experimental Setup}\label{app:setup}
+
+
 \subsection{Results}\label{app:results}
 
 \import{contents/}{table_all.tex}
