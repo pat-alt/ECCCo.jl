@@ -291,7 +291,7 @@ kbl(
 
 ```{r}
 files <- list.files("artifacts/params/")
-dt <- lapply(files, function(x) {
+dt <- lapply(files[grepl(".csv", files)], function(x) {
     fread(file.path("artifacts/params/", x))
 })
 dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
@@ -304,6 +304,8 @@ setcolorder(
     "jem_sampling_steps", "sgld_batch_size", "lambda"
   )
 )
+dt[,dataname:=factor(dataname, levels=c("Linearly Separable", "Moons", "Circles", "MNIST", "GMSC"))]
+dt <- dt[order(dataname)]
 dt_ebm <- dt[,.(dataname, jem_sampling_steps, sgld_batch_size, lambda)]
 col_names <- c(
   "Dataset",
@@ -338,4 +340,55 @@ kbl(
   kable_paper(full_width = F) %>%
   add_header_above(header) %>%
   save_kable("paper/contents/table_params.tex")
+```
+
+```{r}
+files <- list.files("artifacts/params/generator")
+dt <- lapply(files, function(x) {
+    fread(file.path("artifacts/params/generator", x))
+})
+dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
+dt <- dt[,.(dataname,eta,λ1,λ3,λ3)]
+dt[,dataname:=factor(dataname, levels=c("Linearly Separable", "Moons", "Circles", "MNIST", "GMSC"))]
+dt <- dt[order(dataname)]
+col_names <- c(
+  "Dataset",
+  "$\\eta$", "$\\lambda_1$", "$\\lambda_2$", "$\\lambda_3$"
+)
+kbl(
+  dt, caption = "Generator hyperparameters. \\label{tab:genparams} \\newline", 
+  align = "r", col.names=col_names, booktabs = T, escape=F, 
+  format="latex"
+) %>%
+  kable_styling(font_size = 8) %>%
+  kable_paper(full_width = F) %>%
+  save_kable("paper/contents/table_gen_params.tex")
+```
+
+```{r}
+files <- list.files("artifacts/results/")
+dt <- lapply(files[grepl("_model_performance.csv", files)], function(x) {
+    fread(file.path("artifacts/results/", x))
+})
+dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
+dt[,dataname:=factor(dataname, levels=c("Linearly Separable", "Moons", "Circles", "MNIST", "GMSC"))]
+dt <- dt[order(dataname,mod_name)]
+setcolorder(
+  dt, 
+  c(
+    "dataname", "mod_name",
+    "acc", "precision", "f1score"
+  )
+)
+col_names <- c("Dataset", "Model", "Accuracy", "Precision", "F1-Score")
+kbl(
+  dt, caption = "Various standard performance metrics for our different models grouped by dataset. \\label{tab:perf} \\newline", 
+  align = "r", col.names=col_names, booktabs = T, escape=F, 
+  format="latex", digits=2
+) %>%
+  kable_styling(font_size = 8) %>%
+  kable_paper(full_width = F) %>%
+  add_header_above(c(" "=2, "Performance Metrics" = 3)) %>%
+  collapse_rows(columns = 1, latex_hline = "custom", valign = "top", custom_latex_hline = 1) %>%
+  save_kable("paper/contents/table_perf.tex")
 ```

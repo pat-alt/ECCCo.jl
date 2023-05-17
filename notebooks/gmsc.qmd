@@ -11,7 +11,7 @@ _retrain = true
 
 # Data:
 test_size = 0.2
-counterfactual_data, test_data = train_test_split(load_gmsc(); test_size=test_size)
+counterfactual_data, test_data = train_test_split(load_gmsc(nothing); test_size=test_size)
 X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
 X = table(permutedims(X))
 labels = counterfactual_data.output_encoder.labels
@@ -116,6 +116,25 @@ end
 ```
 
 ```{julia}
+params = DataFrame(
+    Dict(
+        :n_obs => Int.(round(n_obs/10)*10),
+        :epochs => epochs,
+        :batch_size => batch_size,
+        :n_hidden => n_hidden,
+        :n_layers => length(model_dict["MLP"].fitresult[1][1])-1,
+        :activation => string(activation),
+        :n_ens => n_ens,
+        :lambda => string(α[3]),
+        :jem_sampling_steps => jem.sampling_steps,
+        :sgld_batch_size => sampler.batch_size,
+        :dataname => "GMSC",
+    )
+)
+CSV.write(joinpath(params_path, "gmsc.csv"), params)
+```
+
+```{julia}
 # Evaluate models:
 
 measure = Dict(
@@ -129,6 +148,7 @@ for (mod_name, mod) in model_dict
     _perf = CounterfactualExplanations.Models.model_evaluation(mod, test_data, measure=collect(values(measure)))
     _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
     _perf.mod_name .= mod_name
+    _perf.dataname .= "GMSC"
     model_performance = vcat(model_performance, _perf)
 end
 Serialization.serialize(joinpath(output_path,"gmsc_model_performance.jls"), model_performance)

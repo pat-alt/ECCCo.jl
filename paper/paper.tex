@@ -439,7 +439,15 @@ The core part of our code base is integrated into a larger ecosystem of \texttt{
 
 \subsection{Experimental Setup}\label{app:setup}
 
-Table~\ref{tab:params} provides an overview of all parameters related to our experiments. The \textit{GMSC} data were randomly undersampled for balancing purposes and all features were standardized. \textit{MNIST} data was also randomly undersampled for reasons outlined below. Pixel values were preprocessed to fall in the range of $[-1,1]$ and a small Gaussian noise component ($\sigma=0.03$) was added to training samples following common practices in the EBM literature. 
+Table~\ref{tab:params} provides an overview of all parameters related to our experiments. The \textit{GMSC} data were randomly undersampled for balancing purposes and all features were standardized. \textit{MNIST} data was also randomly undersampled for reasons outlined below. Pixel values were preprocessed to fall in the range of $[-1,1]$ and a small Gaussian noise component ($\sigma=0.03$) was added to training samples following common practice in the EBM literature. Table~\ref{tab:perf} shows standard evaluation metrics measuring the predictive performance of our different models grouped by dataset. These measures were computed over test datasets. 
+
+Table~\ref{tab:genparams} summarises our hyperparameter choices for the counterfactual generators where $\eta$ denotes the learning rate used for Stochastic Gradient Descent (SGD) and $\lambda_1$, $\lambda_2$, $\lambda_3$ represent the chosen penalty strengths (Equations~\ref{eq:general} and~\ref{eq:eccco}). Here $\lambda_1$ also refers to the chosen penalty for the distance from factual values that applies to both \textit{Wachter} and \textit{REVISE}, but not \textit{Schut} which is penalty-free. \textit{Schut} is also the only generator that uses JSMA instead of SGD for optimization.
+
+\import{contents/}{table_params.tex}
+
+\import{contents/}{table_perf.tex}
+
+\import{contents/}{table_gen_params.tex}
 
 \subsubsection{Compute}
 
@@ -471,14 +479,14 @@ We have summarised the system information below:
   \item Memory: 32 GB
 \end{itemize}
 
-\import{contents/}{table_params.tex}
+
 \subsection{Results}\label{app:results}
 
 Figure~\ref{fig:mnist-eccco} shows examples of counterfactuals for \textit{MNIST} data where the underlying model is our \textit{JEM Ensemble}. Original images are shown on the diagonal and the corresponding counterfactuals are plotted across rows.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.75\textwidth]{../artifacts/results/images/mnist_eccco_all_digits.png}
+  \includegraphics[width=0.9\textwidth]{../artifacts/results/images/mnist_eccco_all_digits.png}
   \caption{Counterfactuals for \textit{MNIST} data and our \textit{JEM Ensemble}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-eccco}
 \end{figure}
 

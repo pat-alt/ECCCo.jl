@@ -1,3 +1,3 @@
-acc,precision,f1score,mod_name
-0.992,0.992,0.992,MLP
-0.992,0.9921259842519685,0.9919994879672299,JEM
+acc,precision,f1score,mod_name,dataname
+0.992,0.992,0.992,MLP,Linearly Separable
+0.992,0.9921259842519685,0.9919994879672299,JEM,Linearly Separable

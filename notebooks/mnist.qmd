@@ -346,6 +346,7 @@ for (mod_name, mod) in model_dict
     _perf = CounterfactualExplanations.Models.model_evaluation(mod, test_data, measure=collect(values(measure)))
     _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
     _perf.mod_name .= mod_name
+    _perf.dataname .= "MNIST"
     model_performance = vcat(model_performance, _perf)
 end
 Serialization.serialize(joinpath(output_path,"mnist_model_performance.jls"), model_performance)

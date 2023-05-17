@@ -1,3 +1,3 @@
-acc,precision,f1score,mod_name
-1.0,1.0,1.0,MLP
-0.976,0.9770992366412213,0.9759861680327868,JEM
+acc,precision,f1score,mod_name,dataname
+1.0,1.0,1.0,MLP,Circles
+0.976,0.9770992366412213,0.9759861680327868,JEM,Circles

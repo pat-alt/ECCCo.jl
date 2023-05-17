@@ -151,6 +151,7 @@ for (mod_name, model) in model_dict
     _perf = CounterfactualExplanations.Models.model_evaluation(model, test_data, measure=collect(values(measure)))
     _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
     _perf.mod_name .= mod_name
+    _perf.dataname .= "Linearly Separable"
     model_performance = vcat(model_performance, _perf)
 end
 Serialization.serialize(joinpath(output_path,"linearly_separable_model_performance.jls"), model_performance)
