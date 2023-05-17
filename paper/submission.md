@@ -3,7 +3,7 @@
 
 **Keywords**: Explainable AI, Counterfactual Explanations, Algorithmic Recourse, Energy-Based Models, Conformal Prediction
 
-**Abstract**: (see [paper](paper.pdf))
+**Abstract**: Counterfactual Explanations offer an intuitive and straightforward way to explain black-box models and offer Algorithmic Recourse to individuals. To address the need for plausible explanations, existing work has primarily relied on surrogate models to learn how the input data is distributed. This effectively reallocates the task of learning realistic explanations for the data from the model itself to the surrogate. Consequently, the generated explanations may seem plausible to humans but need not necessarily describe the behaviour of the black-box model faithfully. We formalise this notion of faithfulness through the introduction of a tailored evaluation metric and propose a novel algorithmic framework for generating **E**nergy-**C**onstrained **C**onformal **Co**unterfactuals (ECCCos) that are only as plausible as the model permits. Through extensive empirical studies, we demonstrate that ECCCos reconcile the need for faithfulness and plausibility. In particular, we show that for models with gradient access, it is possible to achieve state-of-the-art performance without the need for surrogate models. To do so, our framework relies solely on properties defining the black-box model itself by leveraging recent advances in Energy-Based Modelling and Conformal Prediction. To our knowledge, this is the first venture in this direction for generating faithful Counterfactual Explanations. Thus, we anticipate that ECCCos can serve as a baseline for future research. We believe that our work opens avenues for researchers and practitioners seeking tools to better distinguish trustworthy from unreliable models.
 
 **Corresponding Author**: p.altmeyer@tudelft.nl 
 
@@ -41,5 +41,5 @@
 
 **IRB Approvals**: n/a
 
-**TLDR**: We leverage ideas from energy-based modelling and conformal prediction to generate faithful Counterfactual Explanations that can distinguish trustworthy from unreliable models.
+**TLDR**: We leverage ideas from Energy-Based Modelling and Conformal Prediction to generate faithful Counterfactual Explanations that can distinguish trustworthy from unreliable models.
 
