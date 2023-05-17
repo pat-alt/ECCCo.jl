@@ -69,34 +69,26 @@ Energy-Constrained Conformal Counterfactuals}
 
 
 \author{%
-  Patrick Altmeyer\thanks{Use footnote for providing further information
-    about author (webpage, alternative address)---\emph{not} for acknowledging
-    funding agencies.} \\
+  Patrick Altmeyer\thanks{See also: https://www.paltmeyer.com/} \\
   Faculty of Electrical Engineering, Mathematics and Computer Science\\
   Delft University of Technology\\
   2628 XE Delft, The Netherlands \\
   \texttt{p.altmeyer@tudelft.nl} \\
-  % examples of more authors
-  % \And
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
-  % \AND
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
-  % \And
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
-  % \And
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
+  \And
+  Mojtaba Farmanbar \\
+  ING Netherlands \\
+  1102 CT Amsterdam, The Netherlands \\
+  \texttt{mojtaba.farmanbar@ing.com} \\
+  \AND
+  Arie van Deursen \\
+  Delft University of Technology\\
+  2628 XE Delft, The Netherlands \\
+  \texttt{arie.vandeursen@tudelft.nl} \\
+  \And
+  Cynthia C. S. Liem \\
+  Delft University of Technology\\
+  2628 XE Delft, The Netherlands \\
+  \texttt{c.c.s.liem@tudelft.nl} \\
 }
 
 
@@ -107,7 +99,7 @@ Energy-Constrained Conformal Counterfactuals}
 
 
 \begin{abstract}
-  Counterfactual Explanations offer an intuitive and straightforward way to explain black-box models and offer Algorithmic Recourse to individuals. To address the need for plausible explanations, existing work has primarily relied on surrogate models to learn how the input data is distributed. This effectively reallocates the task of learning realistic explanations for the data from the model itself to the surrogate. Consequently, the generated explanations may seem plausible to humans but need not necessarily describe the behaviour of the black-box model faithfully. We formalise this notion of faithfulness through the introduction of a tailored evaluation metric and propose a novel algorithmic framework for generating \textbf{E}nergy-\textbf{C}onstrained \textbf{C}onformal \textbf{Co}unterfactuals (ECCCos) that are only as plausible as the model permits. Through extensive empirical studies involving multiple synthetic and real-world datasets, we demonstrate that ECCCos reconcile the need for plausibility and faithfulness. In particular, we show that it is possible to achieve state-of-the-art plausibility for models with gradient access without the need for surrogate models. To do so, our framework relies solely on properties defining the black-box model itself by leveraging recent advances in energy-based modelling and conformal prediction. To our knowledge, this is the first venture in this direction for generating faithful Counterfactual Explanations. Thus, we anticipate that ECCCos can serve as a baseline for future research. We believe that our work opens avenues for researchers and practitioners seeking tools to better distinguish trustworthy from unreliable models.
+  Counterfactual Explanations offer an intuitive and straightforward way to explain black-box models and offer Algorithmic Recourse to individuals. To address the need for plausible explanations, existing work has primarily relied on surrogate models to learn how the input data is distributed. This effectively reallocates the task of learning realistic explanations for the data from the model itself to the surrogate. Consequently, the generated explanations may seem plausible to humans but need not necessarily describe the behaviour of the black-box model faithfully. We formalise this notion of faithfulness through the introduction of a tailored evaluation metric and propose a novel algorithmic framework for generating \textbf{E}nergy-\textbf{C}onstrained \textbf{C}onformal \textbf{Co}unterfactuals (ECCCos) that are only as plausible as the model permits. Through extensive empirical studies, we demonstrate that ECCCos reconcile the need for faithfulness and plausibility. In particular, we show that for models with gradient access, it is possible to achieve state-of-the-art performance without the need for surrogate models. To do so, our framework relies solely on properties defining the black-box model itself by leveraging recent advances in Energy-Based Modelling and Conformal Prediction. To our knowledge, this is the first venture in this direction for generating faithful Counterfactual Explanations. Thus, we anticipate that ECCCos can serve as a baseline for future research. We believe that our work opens avenues for researchers and practitioners seeking tools to better distinguish trustworthy from unreliable models.
 \end{abstract}
 
 \section{Introduction}\label{intro}
@@ -123,10 +115,10 @@ In the context of CE, the idea that no two explanations are the same arises almo
 \begin{itemize}
   \item We show that fidelity is an insufficient evaluation metric for counterfactuals (Section~\ref{fidelity}) and propose a definition of faithfulness that gives rise to more suitable metrics (Section~\ref{faithfulness}).
   \item We introduce a novel algorithmic approach for generating Energy-Constrained Conformal Counterfactuals (ECCCos) in Section~\ref{meth}.
-  \item We provide extensive empirical evidence demonstrating that ECCCos faithfully explain model behaviour without sacrificing plausibility (Section~\ref{emp}).
+  \item We provide extensive empirical evidence demonstrating that ECCCos faithfully explain model behaviour and attain plausibility only when appropriate (Section~\ref{emp}).
 \end{itemize}
 
-Thus, we believe that our work opens avenues for researchers and practitioners seeking tools to better distinguish trustworthy from unreliable models.
+To our knowledge, this is the first venture in this direction for generating faithful counterfactuals. Thus, we anticipate that ECCCos can serve as a baseline for future research. We believe that our work opens avenues for researchers and practitioners seeking tools to better distinguish trustworthy from unreliable models.
 
 \section{Background}\label{background}
 
@@ -138,7 +130,7 @@ While CE can also be generated for arbitrary regression models~\citep{spooner202
 \end{aligned} 
 \end{equation}
 
-Here $\text{yloss}$ denotes the primary loss function, $f(\cdot)$ is a function that maps from the counterfactual state space to the feature space and $\text{cost}$ is either a single penalty or a collection of penalties that are used to impose constraints through regularization. Equation~\ref{eq:general} restates the baseline approach to gradient-based counterfactual search proposed by~\citet{wachter2017counterfactual} in general form as introduced by~\citet{altmeyer2023endogenous}. To explicitly account for the multiplicity of explanations $\mathbf{Z}^\prime=\{ \mathbf{z}_l\}_L$ denotes an $L$-dimensional array of counterfactual states. 
+Here $\text{yloss}(\cdot)$ denotes the primary loss function, $f(\cdot)$ is a function that maps from the counterfactual state space to the feature space and $\text{cost}(\cdot)$ is either a single penalty or a collection of penalties that are used to impose constraints through regularization. Equation~\ref{eq:general} restates the baseline approach to gradient-based counterfactual search proposed by~\citet{wachter2017counterfactual} in general form as introduced by~\citet{altmeyer2023endogenous}. To explicitly account for the multiplicity of explanations, $\mathbf{Z}^\prime=\{ \mathbf{z}_l\}_L$ denotes an $L$-dimensional array of counterfactual states. 
 
 The baseline approach, which we will simply refer to as \textit{Wachter}, searches a single counterfactual directly in the feature space and penalises its distance to the original factual. In this case, $f(\cdot)$ is simply the identity function and $\mathcal{Z}$ corresponds to the feature space itself. Many derivative works of~\citet{wachter2017counterfactual} have proposed new flavours of Equation~\ref{eq:general}, each of them designed to address specific \textit{desiderata} that counterfactuals ought to meet in order to properly serve both AI practitioners and individuals affected by algorithmic decision-making systems. The list of desiderata includes but is not limited to the following: sparsity, proximity~\citep{wachter2017counterfactual}, actionability~\citep{ustun2019actionable}, diversity~\citep{mothilal2020explaining}, plausibility~\citep{joshi2019realistic,poyiadzi2020face,schut2021generating}, robustness~\citep{upadhyay2021robust,pawelczyk2022probabilistically,altmeyer2023endogenous} and causality~\citep{karimi2021algorithmic}. Different counterfactual generators addressing these needs have been extensively surveyed and evaluated in various studies~\citep{verma2020counterfactual,karimi2020survey,pawelczyk2021carla,artelt2021evaluating,guidotti2022counterfactual}. 
 
@@ -149,9 +141,9 @@ Perhaps unsurprisingly, the different desiderata are often positively correlated
   Let $\mathcal{X}|\mathbf{y}^+= p(\mathbf{x}|\mathbf{y}^+)$ denote the true conditional distribution of samples in the target class $\mathbf{y}^+$. Then for $\mathbf{x}^{\prime}$ to be considered a plausible counterfactual, we need: $\mathbf{x}^{\prime} \sim \mathcal{X}|\mathbf{y}^+$.
 \end{definition}
 
-To generate plausible counterfactuals, we need to be able to quantify the DGP: $\mathcal{X}|\mathbf{y}^+$. One straightforward way to do this is to use surrogate models for the task. \citet{joshi2019realistic}, for example, suggest that instead of searching counterfactuals in the feature space $\mathcal{X}$, we can instead traverse a latent embedding $\mathcal{Z}$ (Equation~\ref{eq:general}) that implicitly codifies the DGP. To learn the latent embedding, they propose using a generative model such as a Variational Autoencoder (VAE). Provided the surrogate model is well-trained, their proposed approach called \textit{REVISE} can yield plausible explanations. Others have proposed similar approaches: \citet{dombrowski2021diffeomorphic} traverse the base space of a normalizing flow to solve Equation~\ref{eq:general}; \citet{poyiadzi2020face} use density estimators ($\hat{p}: \mathcal{X} \mapsto [0,1]$) to constrain the counterfactuals to dense regions in the feature space; and, finally, \citet{karimi2021algorithmic} assume knowledge about the structural causal model that generates the data.
+To generate plausible counterfactuals, we need to be able to quantify the DGP: $\mathcal{X}|\mathbf{y}^+$. One straightforward way to do this is to use surrogate models for the task. \citet{joshi2019realistic}, for example, suggest that instead of searching counterfactuals in the feature space $\mathcal{X}$, we can instead traverse a latent embedding $\mathcal{Z}$ (Equation~\ref{eq:general}) that implicitly codifies the DGP. To learn the latent embedding, they propose using a generative model such as a Variational Autoencoder (VAE). Provided the surrogate model is well-specified, their proposed approach called \textit{REVISE} can yield plausible explanations. Others have proposed similar approaches: \citet{dombrowski2021diffeomorphic} traverse the base space of a normalizing flow to solve Equation~\ref{eq:general}; \citet{poyiadzi2020face} use density estimators ($\hat{p}: \mathcal{X} \mapsto [0,1]$) to constrain the counterfactuals to dense regions in the feature space; and, finally, \citet{karimi2021algorithmic} assume knowledge about the structural causal model that generates the data.
 
-A competing approach towards plausibility that is also closely related to this work instead relies on the black-box model itself. \citet{schut2021generating} show that to meet the plausibility objective we need not explicitly model the input distribution. Pointing to the undesirable engineering overhead induced by surrogate models, they propose that we rely on the implicit minimisation of predictive uncertainty instead. Their proposed methodology, which we will refer to as \textit{Schut}, solves Equation~\ref{eq:general} by greedily applying JSMA in the feature space with standard cross-entropy loss and no penalty at all. The authors demonstrate theoretically and empirically that their approach yields counterfactuals for which the model $M_{\theta}$ predicts the target label $\mathbf{y}^+$ with high confidence. Provided the model is well-specified, these counterfactuals are plausible. This idea hinges on the assumption that the black-box model provides well-calibrated predictive uncertainty estimates.
+A competing approach towards plausibility that is also closely related to this work instead relies on the black-box model itself. \citet{schut2021generating} show that to meet the plausibility objective we need not explicitly model the input distribution. Pointing to the undesirable engineering overhead induced by surrogate models, they propose that we rely on the implicit minimisation of predictive uncertainty instead. Their proposed methodology, which we will refer to as \textit{Schut}, solves Equation~\ref{eq:general} by greedily applying Jacobian-Based Saliency Map Attacks (JSMA) in the feature space with cross-entropy loss and no penalty at all. The authors demonstrate theoretically and empirically that their approach yields counterfactuals for which the model $M_{\theta}$ predicts the target label $\mathbf{y}^+$ with high confidence. Provided the model is well-specified, these counterfactuals are plausible. This idea hinges on the assumption that the black-box model provides well-calibrated predictive uncertainty estimates.
 
 \section{Why Fidelity is not Enough}\label{fidelity}
 
@@ -182,7 +174,7 @@ In doing this, we merge in and nuance the concept of plausibility (Definition~\r
 
 \subsection{Quantifying the Model's Generative Property}
 
-To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need a way to quantify the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$. To this end, we draw on recent advances in Energy-Based Modelling (EBM), a subdomain of machine learning that is concerned with generative or hybrid modelling~\citep{grathwohl2020your,du2020implicit}. In particular, note that if we fix $\mathbf{y}$ to our target value $\mathbf{y}^+$, we can conditionally draw from $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$ using Stochastic Gradient Langevin Dynamics (SGLD) as follows, 
+To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need a way to quantify the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$. To this end, we draw on recent advances in Energy-Based Modelling (EBM), a subdomain of machine learning that is concerned with generative or hybrid modelling~\citep{grathwohl2020your,du2020implicit}. In particular, note that if we fix $\mathbf{y}$ to our target value $\mathbf{y}^+$, we can conditionally draw from $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$ by randomly initializing $\mathbf{x}_0$ and then using Stochastic Gradient Langevin Dynamics (SGLD) as follows, 
 
 \begin{equation}\label{eq:sgld}
   \begin{aligned}
@@ -192,7 +184,7 @@ To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need
 
 where $\mathbf{r}_j \sim \mathcal{N}(\mathbf{0},\mathbf{I})$ is the stochastic term and the step-size $\epsilon$ is typically polynomially decayed~\citep{welling2011bayesian}. The term $\mathcal{E}(\mathbf{x}_j|\mathbf{y}^+)$ denotes the model energy conditioned on the target class label $\mathbf{y}^+$ which we specify as the negative logit corresponding to the target class label $\mathbf{y}^*$. To allow for faster sampling, we follow the common practice of choosing the step-size $\epsilon$ and the standard deviation of $\mathbf{r}_j$ separately. While $\mathbf{x}_J$ is only guaranteed to distribute as $p_{\theta}(\mathbf{x}|\mathbf{y}^*)$ if $\epsilon \rightarrow 0$ and $J \rightarrow \infty$, the bias introduced for a small finite $\epsilon$ is negligible in practice \citep{murphy2023probabilistic,grathwohl2020your}. Appendix~\ref{app:jem} provides additional implementation details for any tasks related to energy-based modelling. 
 
-Generating multiple samples using SGLD thus yields an empirical distribution $\hat{\mathbf{X}}_{\theta,\mathbf{y}^+}$ that approximates what the model has learned about the input data. While in the context of Energy-Based Modelling, this is usually done during training, we propose to repurpose this approach during inference in order to evaluate and generate faithful model explanations.
+Generating multiple samples using SGLD thus yields an empirical distribution $\hat{\mathbf{X}}_{\theta,\mathbf{y}^+}$ that approximates what the model has learned about the input data. While in the context of EBM, this is usually done during training, we propose to repurpose this approach during inference in order to evaluate and generate faithful model explanations.
 
 \subsection{Evaluating Plausibility and Faithfulness}
 
@@ -204,13 +196,13 @@ The parallels between our definitions of plausibility and faithfulness imply tha
   \end{aligned}
 \end{equation}
 
-where $\mathbf{x}^{\prime}$ denotes the counterfactual and $\mathbf{X}_{\mathbf{y}^+}$ is a subsample of the training data in the target class $\mathbf{y}^+$. By averaging over multiple samples in this manner, we avoid the need to make any assumption about the nearest neighbour of $\mathbf{x}^{\prime}$.
+where $\mathbf{x}^{\prime}$ denotes the counterfactual and $\mathbf{X}_{\mathbf{y}^+}$ is a subsample of the training data in the target class $\mathbf{y}^+$. By averaging over multiple samples in this manner, we avoid the risk that the nearest neighbour of $\mathbf{x}^{\prime}$ itself is not plausible according to Definition~\ref{def:plausible} (e.g an outlier).
 
 Equation~\ref{eq:impl} gives rise to a similar evaluation metric for unfaithfulness. We merely swap out the subsample of individuals in the target class for a subset $\hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}$ of the generated conditional samples:
 
 \begin{equation}\label{eq:faith}
   \begin{aligned}
-    \text{unfaith}(\mathbf{x}^{\prime},\hat{\mathbf{X}}^{n_E}) = \frac{1}{\lvert \hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}\rvert} \sum_{\mathbf{x} \in \hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}} \text{dist}(\mathbf{x}^{\prime},\mathbf{x})
+    \text{unfaith}(\mathbf{x}^{\prime},\hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}) = \frac{1}{\lvert \hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}\rvert} \sum_{\mathbf{x} \in \hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}} \text{dist}(\mathbf{x}^{\prime},\mathbf{x})
   \end{aligned}
 \end{equation}
 
@@ -225,13 +217,11 @@ We begin by stating our proposed objective function, which involves tailored los
 \begin{equation} \label{eq:eccco}
   \begin{aligned}
   \mathbf{Z}^\prime= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^M}  &\{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)}+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) } \\
-  &+ \lambda_2 \text{unfaith}(f(\mathbf{Z}^\prime),\hat{\mathbf{X}}^{n_E}) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
+  &+ \lambda_2 \text{unfaith}(f(\mathbf{Z}^\prime),\hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
   \end{aligned} 
 \end{equation}
 
-The first penalty term involving $\lambda_1$ induces proximity like in~\citet{wachter2017counterfactual}. Our default choice for $\text{dist}(\cdot)$ is the L1 Norm due to its sparsity-inducing properties. The second penalty term involving $\lambda_2$ constrains the energy of the generated counterfactual by penalising its distance from the lowest-energy conditional samples as defined in Equation~\ref{eq:faith}. Intuitively, this component induces faithfulness which coincides with plausibility to the extent that the model $M_{\theta}$ has learned the true posterior conditional distribution of inputs: $p_{\theta}(\mathbf{x}_{\mathbf{y}^+}) \rightarrow p(\mathbf{x}_{\mathbf{y}^+})$. 
-
-The third and final penalty term involving $\lambda_3$ introduces a new but familiar concept: it ensures that the generated counterfactual is associated with low predictive uncertainty. As mentioned above,~\citet{schut2021generating} have shown that plausible counterfactuals can be generated implicitly through predictive uncertainty minimization. Unfortunately, this relies on the assumption that the model itself can provide predictive uncertainty estimates, which may be too restrictive in practice. 
+The first penalty term involving $\lambda_1$ induces proximity like in~\citet{wachter2017counterfactual}. Our default choice for $\text{dist}(\cdot)$ is the L1 Norm due to its sparsity-inducing properties. The second penalty term involving $\lambda_2$ induces faithfulness by constraining the energy of the generated counterfactual where $\text{unfaith}(\cdot)$ corresponds to the metric defined in Equation~\ref{eq:faith}. The third and final penalty term involving $\lambda_3$ introduces a new concept: it ensures that the generated counterfactual is associated with low predictive uncertainty. As mentioned above,~\citet{schut2021generating} have shown that plausible counterfactuals can be generated implicitly through predictive uncertainty minimization. Unfortunately, this relies on the assumption that the model itself can provide predictive uncertainty estimates, which may be too restrictive in practice. 
 
 To relax this assumption, we leverage recent advances in Conformal Prediction (CP), an approach to predictive uncertainty quantification that has recently gained popularity~\citep{angelopoulos2021gentle,manokhin2022awesome}. Crucially for our intended application, CP is model-agnostic and can be applied during inference without placing any restrictions on model training. Intuitively, CP works under the premise of turning heuristic notions of uncertainty into rigorous uncertainty estimates by repeatedly sifting through the training data or a dedicated calibration dataset. Conformal classifiers produce prediction sets for individual inputs that include all output labels that can be reasonably attributed to the input. These sets tend to be larger for inputs that do not conform with the training data and are characterized by high predictive uncertainty. 
 
@@ -261,22 +251,22 @@ Here, $\kappa \in \{0,1\}$ is a hyper-parameter and $C_{\theta,\mathbf{y}}(\math
     \Ensure $\mathbf{x}^\prime$
     \State Initialize $\mathbf{z}^\prime \gets f^{-1}(\mathbf{x})$ \Comment{Map to counterfactual state space.}
     \State Generate $\left\{\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}\right\}_{n_{\mathcal{B}}} \gets p_{\theta}(\mathbf{x}_{\mathbf{y}^+})$ \Comment{Generate $n_{\mathcal{B}}$ samples using SGLD (Equation~\ref{eq:sgld}).}
-    \State Store $\hat{\mathbf{X}}^{n_E} \gets \left\{\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}\right\}_{n_{\mathcal{B}}}$ \Comment{Choose $n_E$ lowest-energy samples.}
+    \State Store $\hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+} \gets \left\{\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}\right\}_{n_{\mathcal{B}}}$ \Comment{Choose $n_E$ lowest-energy samples.}
     \State Run \textit{SCP} for $M_{\theta}$ using $\mathcal{D}$ \Comment{Calibrate model through Split Conformal Prediction.}
     \State Initialize $t \gets 0$
     \While{\textit{not converged} or $t < T$} \Comment{For convergence conditions see Appendix~\ref{app:eccco}.}
-    \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\hat{\mathbf{X}}^{n_E}; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
+    \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
     \State $t \gets t+1$
     \EndWhile
     \State $\mathbf{x}^\prime \gets f(\mathbf{z}^\prime)$ \Comment{Map back to feature space.}
   \end{algorithmic}
 \end{algorithm}
 
-To provide some further intuition about our objective defined in Equation~\ref{eq:eccco}, Figure~\ref{fig:poc} illustrates how the different components affect the counterfactual search for a synthetic dataset. The underlying classifier is a Joint Energy Model (\textit{JEM}) that was trained to predict the output class (`blue' or `orange') and generate class-conditional samples~\citep{grathwohl2020your}. We have used four different generator flavours to produce a counterfactual in the `blue' class for a sample from the `orange' class: \textit{Wachter}, which only uses the first penalty ($\lambda_2=\lambda_3=0$); \textit{ECCCo (no CP)}, which involves no set size penalty ($\lambda_3=0$); \textit{ECCCo (no EBM)}, which does not constrain energy ($\lambda_2=0$); and, finally, \textit{ECCCo}, which involves all penalties defined in Equation~\ref{eq:eccco}. Arrows indicate (negative) gradients with respect to the objective function at different points in the feature space. 
+To provide some further intuition about our objective defined in Equation~\ref{eq:eccco}, Figure~\ref{fig:poc} illustrates how the different components affect the counterfactual search for a synthetic dataset. The underlying classifier is a Joint Energy Model (\textit{JEM}) that was trained to predict the output class (`blue' or `orange') and generate class-conditional samples~\citep{grathwohl2020your}. We have used four different generator flavours to produce a counterfactual in the `blue' class for a sample from the `orange' class: \textit{Wachter}, which only uses the first penalty ($\lambda_2=\lambda_3=0$); \textit{ECCCo (no EBM)}, which does not constrain energy ($\lambda_2=0$); \textit{ECCCo (no CP)}, which involves no set size penalty ($\lambda_3=0$); and, finally, \textit{ECCCo}, which involves all penalties defined in Equation~\ref{eq:eccco}. Arrows indicate (negative) gradients with respect to the objective function at different points in the feature space. 
 
 While \textit{Wachter} generates a valid counterfactual, it ends up close to the original starting point consistent with its objective. \textit{ECCCo (no EBM)} pushes the counterfactual further into the target domain to minimize predictive uncertainty, but the outcome is still not plausible. The counterfactual produced by \textit{ECCCo (no CP)} is attracted by the generated samples shown in bright yellow. Since the \textit{JEM} has learned the conditional input distribution reasonably well in this case, the counterfactuals are both faithful and plausible. Finally, the outcome for \textit{ECCCo} looks similar, but the additional smooth set size penalty leads to somewhat faster convergence. 
 
-Algorithm~\ref{alg:eccco} describes how exactly \textit{ECCCo} works. For the sake of simplicity and without loss of generality, we limit our attention to generating a single counterfactual $\mathbf{x}^\prime=f(\mathbf{z}^\prime)$. That counterfactual state $\mathbf{z}^\prime$ is initialized by passing the factual $\mathbf{x}$ through a simple feature transformer $f^{-1}$. Next, we generate $n_{\mathcal{B}}$ conditional samples $\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}$ using SGLD (Equation~\ref{eq:sgld}) and store the $n_E$ instances with the lowest energy. We then calibrate the model $M_{\theta}$ through Split Conformal Prediction. Finally, we search counterfactuals through gradient descent where $\mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\hat{\mathbf{X}}^{n_E}; \Lambda, \alpha)$ denotes our loss function defined in Equation~\ref{eq:eccco}. The search terminates once the convergence criterium is met or the maximum number of iterations $T$ has been exhausted. Note that the choice of convergence criterium has important implications on the final counterfactual which we explain in Appendix~\ref{app:eccco}.
+Algorithm~\ref{alg:eccco} describes how exactly \textit{ECCCo} works. For the sake of simplicity and without loss of generality, we limit our attention to generating a single counterfactual $\mathbf{x}^\prime=f(\mathbf{z}^\prime)$. The counterfactual state $\mathbf{z}^\prime$ is initialized by passing the factual $\mathbf{x}$ through a simple feature transformer $f^{-1}$. Next, we generate $n_{\mathcal{B}}$ conditional samples $\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}$ using SGLD (Equation~\ref{eq:sgld}) and store the $n_E$ instances with the lowest energy. We then calibrate the model $M_{\theta}$ through Split Conformal Prediction. Finally, we search counterfactuals through gradient descent where $\mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\hat{\mathbf{X}}^{n_E}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ denotes our loss function defined in Equation~\ref{eq:eccco}. The search terminates once the convergence criterium is met or the maximum number of iterations $T$ has been exhausted. Note that the choice of convergence criterium has important implications on the final counterfactual which we explain in Appendix~\ref{app:eccco}.
 
 \section{Empirical Analysis}\label{emp}
 
@@ -286,7 +276,7 @@ Our goal in this section is to shed light on the following research questions:
   Are ECCCos more faithful than counterfactuals produced by our benchmark generators?
 \end{question}
 
-\begin{question}[Joint Objective]\label{rq:plausibility}
+\begin{question}[Balancing Objectives]\label{rq:plausibility}
   Compared to our benchmark generators, how do ECCCos balance the two key objectives of faithfulness and plausibility?
 \end{question}
 
@@ -300,43 +290,43 @@ We use both synthetic and real-world datasets from different domains, all of whi
 
 As for real-world data, we follow~\citet{schut2021generating} and use the \textit{MNIST}~\citep{lecun1998mnist} dataset containing images of handwritten digits such as the example shown above in Figure~\ref{fig:motiv}. From the social sciences domain, we include Give Me Some Credit (\textit{GMSC})~\citep{kaggle2011give}: a tabular dataset that has been studied extensively in the literature on Algorithmic Recourse~\citep{pawelczyk2021carla}. It consists of 11 numeric features that can be used to predict the binary outcome variable indicating whether retail borrowers experience financial distress. 
 
-For the predictive modelling tasks, we use simple neural networks (\textit{MLP}) and Joint Energy Models (\textit{JEM}). For the more complex real-world datasets we also use ensembling in each case. Both joint-energy modelling and ensembling are associated with generative properties and adversarial robustness, so we expect this to be positively correlated with the plausibility of ECCCos. To account for stochasticity, we generate multiple counterfactuals for each possible target class, generator, model and dataset. Specifically, we randomly sample $n^{-}$ times from the subset of individuals for which the given model predicts the non-target class $\mathbf{y}^{-}$ given the current target. We set $n^{-}=25$ for all of our synthetic datasets, $n^{-}=10$ for \textit{GMSC} and $n^{-}=5$ for \textit{MNIST}. Full details concerning our parameter choices, training procedures and model performance can be found in Appendix~\ref{app:setup}.
+For the predictive modelling tasks, we use simple neural networks (\textit{MLP}) and Joint Energy Models (\textit{JEM}). For the more complex real-world datasets we also use ensembling in each case. Both joint-energy modelling and ensembling have been associated with improved generative properties and adversarial robustness~\citep{grathwohl2020your,lakshminarayanan2016simple}, so we expect this to be positively correlated with the plausibility of ECCCos. To account for stochasticity, we generate multiple counterfactuals for each target class, generator, model and dataset. Specifically, we randomly sample $n^{-}$ times from the subset of individuals for which the given model predicts the non-target class $\mathbf{y}^{-}$ given the current target. We set $n^{-}=25$ for all of our synthetic datasets, $n^{-}=10$ for \textit{GMSC} and $n^{-}=5$ for \textit{MNIST}. Full details concerning our parameter choices, training procedures and model performance can be found in Appendix~\ref{app:setup}.
 
 \subsection{Results for Synthetic Data}
 
-Table~\ref{tab:results-synthetic} shows the key results for the synthetic datasets separated by model (first column) and generator (second column). The numerical columns show the average values of our key evaluation metrics computed across all counterfactuals. Standard deviations are shown in parentheses. We have highlighted the best outcome for each model and metric in bold. To provide some sense of effect sizes, we have added asterisks to indicate that a given value is at least one ($*$) or two ($**$) standard deviations lower than the baseline (\textit{Wachter}).
+Table~\ref{tab:results-synthetic} shows the key results for the synthetic datasets separated by model (first column) and generator (second column). The numerical columns show sample averages and standard deviations of our key evaluation metrics computed across all counterfactuals. We have highlighted the best outcome for each model and metric in bold. To provide some sense of effect sizes, we have added asterisks to indicate that a given value is at least one ($*$) or two ($**$) standard deviations lower than the baseline (\textit{Wachter}).
 
-Starting with the high-level results for our \textit{Linearly Separable} data, we find that \textit{ECCCo} produces the most faithful counterfactuals for both black-box models. This is consistent with our design since \textit{ECCCo} directly enforces faithfulness through regularization. Crucially though, \textit{ECCCo} also produces the most plausible counterfactuals for both models. This dataset is so simple that even the \textit{MLP} has learned plausible explanations of the input data. Zooming in on the granular details for the \textit{Linearly Separable} data, the results for \textit{ECCCo (no CP)} and \textit{ECCCo (no EBM)} indicate that the positive results are dominated by the effect of quantifying and leveraging the model's generative property (EBM). Conformal Prediction alone only leads to marginally improved faithfulness and plausibility relative to the benchmark generators. 
+Starting with the high-level results for our \textit{Linearly Separable} data, we find that \textit{ECCCo} produces the most faithful counterfactuals for both black-box models. This is consistent with our design since \textit{ECCCo} directly enforces faithfulness through regularization. Crucially though, \textit{ECCCo} also produces the most plausible counterfactuals for both models. This dataset is so simple that even the \textit{MLP} has learned plausible explanations of the input data. Zooming in on the granular details for the \textit{Linearly Separable} data, the results for \textit{ECCCo (no CP)} and \textit{ECCCo (no EBM)} indicate that the positive results are dominated by the effect of quantifying and leveraging the model's generative property (EBM). Conformal Prediction alone only leads to marginally improved faithfulness and plausibility.
 
-The findings for the \textit{Moons} dataset are broadly in line with the findings so far: for the \textit{JEM}, \textit{ECCCo} yields significantly more faithful and plausible counterfactuals than all other generators. For the \textit{MLP}, faithfulness is maintained but counterfactuals are not plausible. This high-level pattern is broadly consistent with other more complex datasets and supportive of our narrative, so it is worth highlighting: ECCCos consistently achieve high faithfulness, which---subject to the quality of the model itself---coincides with high plausibility. By comparison, \textit{REVISE} yields the most plausible counterfactuals for the \textit{MLP}, but it does so at the cost of faithfulness. We also observe that the best results for \textit{ECCCo} are achieved when using both penalties. Once again though, the generative component (EBM) has a stronger impact on the positive results for the \textit{JEM}.
+The findings for the \textit{Moons} dataset are broadly in line with the findings so far: for the \textit{JEM}, \textit{ECCCo} yields substantially more faithful and plausible counterfactuals than all other generators. For the \textit{MLP}, faithfulness is maintained but counterfactuals are not plausible. This high-level pattern is broadly consistent with other more complex datasets and supportive of our narrative, so it is worth highlighting: ECCCos consistently achieve high faithfulness, which---subject to the quality of the model itself---coincides with high plausibility. By comparison, \textit{REVISE} yields the most plausible counterfactuals for the \textit{MLP}, but it does so at the cost of faithfulness. We also observe that the best results for \textit{ECCCo} are achieved when using both penalties. Once again though, the generative component (EBM) has a stronger impact on the positive results for the \textit{JEM}.
 
-For the \textit{Circles} data, it appears that \textit{REVISE} performs well, but we note that it generates valid counterfactuals only half of the time (see Appendix~\ref{app:results} for a complete overview of all evaluation metrics). It turns out that the underlying VAE with default parameters has not adequately learned the data-generating process. Of course, it is possible to achieve better generative performance through hyperparameter tuning but this example serves to illustrate that \textit{REVISE} depends strongly on the quality of the surrogate model. Independent of the outcome for \textit{REVISE}, however, the results do not seem to indicate that \textit{ECCCo} significantly improves faithfulness and plausibility for the \textit{Circles} data. We think this points to a limitation of our evaluation metrics rather than \textit{ECCCo} itself: computing average distances fails to account for the `wraparound' effect associated with circular data~\citep{gill2010circular}.
+For the \textit{Circles} data, it appears that \textit{REVISE} performs well, but we note that it generates valid counterfactuals only half of the time (see Appendix~\ref{app:results} for a complete overview including additional common evaluation metrics). The underlying VAE with default parameters has not adequately learned the data-generating process. Of course, it is possible to improve generative performance through hyperparameter tuning but this example serves to illustrate that \textit{REVISE} depends on the quality of its surrogate. Independent of the outcome for \textit{REVISE}, however, the results do not seem to indicate that \textit{ECCCo} substantially improves faithfulness and plausibility for the \textit{Circles} data. We think this points to a limitation of our evaluation metrics rather than \textit{ECCCo} itself: computing average distances fails to account for the `wraparound' effect associated with circular data~\citep{gill2010circular}.
 
 \import{contents/}{table-synthetic.tex}
 
 \subsection{Results for Real-World Data}
 
-The results for our real-world datasets are shown in Table~\ref{tab:results-real-world}. Once again the findings indicate that the plausibility of ECCCos is positively correlated with the capacity of the black-box model to distinguish plausible from implausible inputs. The case is very clear for \textit{MNIST}: ECCCos are consistently more faithful than the corresponding counterfactuals produced by any of the benchmark generators and their plausibility gradually improves through ensembling and joint-energy modelling. For the \textit{JEM Ensemble}, \textit{ECCCo} is essentially on par with \textit{REVISE} and does significantly better than the baseline generator. We also note that \textit{ECCCo} is the only generator that consistently achieves full validity for all models (Appendix~\ref{app:results}). 
+The results for our real-world datasets are shown in Table~\ref{tab:results-real-world}. Once again the findings indicate that the plausibility of ECCCos is positively correlated with the capacity of the black-box model to distinguish plausible from implausible inputs. The case is very clear for \textit{MNIST}: ECCCos are consistently more faithful than the counterfactuals produced by our benchmark generators and their plausibility gradually improves through ensembling and joint-energy modelling. Interestingly, faithfulness also gradually improves for \textit{REVISE}. This indicates that as our models improve, their generative capacity approaches that of the surrogate VAE used by \textit{REVISE}. The VAE still outperforms our classifiers in this regard, as evident from the fact that \textit{ECCCo} never quite reaches the same level of plausibility as \textit{REVISE}. With reference to Appendix~\ref{app:results} we note that the results for \textit{Schut} need to be discounted as it rarely produces valid counterfactuals for \textit{MNIST}. Relatedly, we find that \textit{ECCCo} is the only generator that consistently achieves full validity. Finally, it is worth noting that \textit{ECCCo} produces counterfactual images with the lowest average predictive uncertainty for all models. 
 
-For the tabular credit dataset (\textit{GMSC}) it is inherently challenging to use deep neural networks in order to achieve good discriminative performance~\citep{borisov2021deep,grinsztajn2022why} and discriminative performance~\citep{liu2023goggle}, respectively. In order to achieve high plausibility, \textit{ECCCo} effectively requires classifiers to achieve good performance for both tasks. Since this is a challenging task even for Joint Energy Models, it is not surprising to find that even though \textit{ECCCo} once again achieves state-of-the-art faithfulness, it is outperformed by \textit{REVISE} and \textit{Schut} with respect to plausibility.
+For the tabular credit dataset (\textit{GMSC}) it is inherently challenging to use deep neural networks in order to achieve good discriminative performance~\citep{borisov2021deep,grinsztajn2022why} and generative performance~\citep{liu2023goggle}, respectively. In order to achieve high plausibility, \textit{ECCCo} effectively requires classifiers to achieve good performance for both tasks. Since this is a challenging task even for Joint Energy Models, it is not surprising to find that even though \textit{ECCCo} once again achieves state-of-the-art faithfulness, it is outperformed by \textit{REVISE} and \textit{Schut} with respect to plausibility.
 
 \subsection{Key Takeways}
 
-To conclude this section, we summarize our findings with reference to the opening questions. The results clearly demonstrate that \textit{ECCCo} consistently achieves state-of-the-art faithfulness, as it was designed to do (Research Question~\ref{rq:faithfulness}). A related important finding is that \textit{ECCCo} yields highly plausible explanations provided that they faithfully describe model behaviour (Research Question~\ref{rq:plausibility}). Our findings here also indicate that \textit{ECCCo} achieves this result primarily by leveraging the model's generative property.
+To conclude this section, we summarize our findings with reference to the opening questions. The results clearly demonstrate that \textit{ECCCo} consistently achieves state-of-the-art faithfulness, as it was designed to do (Research Question~\ref{rq:faithfulness}). A related important finding is that \textit{ECCCo} yields highly plausible explanations provided that they faithfully describe model behaviour (Research Question~\ref{rq:plausibility}). \textit{ECCCo} achieves this result primarily by leveraging the model's generative property.
 
 \import{contents/}{table-real-world.tex}
 
 \section{Limitations}
 
-Even though we have taken considerable measures to study our proposed methodology carefully, limitations can still be identified. In particular, we have found that the performance of \textit{ECCCo} is sensitive to hyperparameter choices. In order to achieve faithfulness, we generally had to penalise the distance from generated samples slightly more than the distance from factual values. This choice is associated with relatively higher costs to individuals since the proposed recourse typically involves more substantial feature changes than for our benchmark generators.
+Even though we have taken considerable measures to study our proposed methodology carefully, limitations can still be identified. In particular, we have found that the performance of \textit{ECCCo} is sensitive to hyperparameter choices. In order to achieve faithfulness, we generally had to penalise the distance from generated samples slightly more than the distance from factual values.
 
-Conversely, we have not found that disproportionately strongly penalising prediction set sizes had any discernable effect. Our results indicate that Conformal Prediction alone is often not sufficient to achieve faithfulness and plausibility, although we acknowledge that this needs to be investigated more thoroughly through future work.
+Conversely, we have not found that strongly penalising prediction set sizes had any discernable effect. Our results indicate that CP alone is often not sufficient to achieve faithfulness and plausibility, although we acknowledge that this needs to be investigated more thoroughly through future work.
 
-Furthermore, while our approach is readily applicable to models with gradient access like deep neural networks, more work is needed to generalise our methodology to other popular machine learning models such as gradient-boosted trees. Relatedly, common challenges associated with energy-based modelling during our experiments including sensitivity to scale, training instabilities and sensitivity to hyperparameters also apply to \textit{ECCCo}.
+While our approach is readily applicable to models with gradient access like deep neural networks, more work is needed to generalise it to other machine learning models such as decision trees. Relatedly, common challenges associated with Energy-Based Modelling including sensitivity to scale, training instabilities and sensitivity to hyperparameters also apply to \textit{ECCCo}.
 
 \section{Conclusion}
 
-This work leverages recent advances in energy-based modelling and conformal prediction in the context of Explainable Artificial Intelligence. We have proposed a new way to generate counterfactuals that are maximally faithful to the black-box model they aim to explain. Our proposed generator, \textit{ECCCo}, produces plausible counterfactuals if and only if the black-box model itself has learned realistic representations of the data, which we demonstrate through rigorous empirical analysis. This should enable researchers and practitioners to use counterfactuals in order to discern trustworthy models from unreliable ones. While the scope of this work limits its generalizability, we believe that \textit{ECCCo} offers a solid baseline for future work on faithful CE.
+This work leverages recent advances in Energy-Based Modelling and Conformal Prediction in the context of Explainable Artificial Intelligence. We have proposed a new way to generate counterfactuals that are maximally faithful to the black-box model they aim to explain. Our proposed generator, \textit{ECCCo}, produces plausible counterfactuals if and only if the black-box model itself has learned realistic explanations for the data, which we have demonstrated through rigorous empirical analysis. This should enable researchers and practitioners to use counterfactuals in order to discern trustworthy models from unreliable ones. While the scope of this work limits its generalizability, we believe that \textit{ECCCo} offers a solid baseline for future work on faithful Counterfactual Explanations.
 
 \begin{ack}
 
@@ -361,33 +351,39 @@ Since we were not able to identify any existing open-source software for Energy-
 
 To train our Joint Energy Models we broadly follow the approach outlined in~\citet{grathwohl2020your}. These models are trained to optimize a hybrid objective that involves a standard classification loss component $L_{\text{clf}}(\theta)=-\log p_{\theta}(\mathbf{y}|\mathbf{x})$ (e.g. crossentropy loss) as well as a generative loss component $L_{\text{gen}}(\theta)=-\log p_{\theta}(\mathbf{x})$. 
 
+To draw samples from $p_{\theta}(\mathbf{x})$, we rely exclusively on the conditional sampling approach described in~\citet{grathwohl2020your} for both training and inference: we first draw $\mathbf{y}\sim p(\mathbf{y})$ and then sample $\mathbf{x} \sim p_{\theta}(\mathbf{x}|\mathbf{y})$~\citep{grathwohl2020your} via Equation~\ref{eq:sgld} with energy $\mathcal{E}(\mathbf{x}|\mathbf{y})=\mu_{\theta}(\mathbf{x})[\mathbf{y}]$ where $\mu_{\theta}: \mathcal{X} \mapsto \mathbb{R}^K$ returns the linear predictions (logits) of our classifier $M_{\theta}$. While our package also supports unconditional sampling, we found conditional sampling to work well. It is also well aligned with CE, since in this context we are interested in conditioning on the target class. 
+
+As mentioned in the body of the paper, we rely on a biased sampler involving separately specified values for the step size $\epsilon$ and the standard deviation $\sigma$ of the stochastic term involving $\mathbf{r}$. Formally, our biased sampler performs updates as follows: 
+
+\begin{equation}\label{eq:biased-sgld}
+  \begin{aligned}
+    \hat{\mathbf{x}}_{j+1} &\leftarrow \hat{\mathbf{x}}_j - \frac{\epsilon}{2} \mathcal{E}(\hat{\mathbf{x}}_j|\mathbf{y}^+) + \sigma \mathbf{r}_j, && j=1,...,J
+  \end{aligned}
+\end{equation}
+
+Consistent with~\citet{grathwohl2020your}, we have specified $\epsilon=2$ and $\sigma=0.01$ as the default values for all of our experiments. The number of total SGLD steps $J$ varies by dataset. Following best practices, we initialize $\mathbf{x}_0$ randomly in 5\% of all cases and sample from a buffer in all other cases. The buffer itself is randomly initialised and gradually grows to a maximum of 10,000 samples during training as $\hat{\mathbf{x}}_{J}$ is stored in each epoch~\citep{du2020implicit,grathwohl2020your}. 
+
+It is important to realise that sampling is done during each training epoch, which makes training Joint Energy Models significantly harder than conventional neural classifiers. In each epoch the generated (batch of) sample(s) $\hat{\mathbf{x}}_{J}$ is used as part of the generative loss component, which compares its energy to that of observed samples $\mathbf{x}$: $L_{\text{gen}}(\theta)=\mu_{\theta}(\mathbf{x})[\mathbf{y}]-\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}]$. Our full training objective can be summarized as follows,
+
 \begin{equation}\label{eq:jem-loss}
   \begin{aligned}
     L(\theta) &= L_{\text{clf}}(\theta) + L_{\text{gen}}(\theta) + \lambda L_{\text{reg}}(\theta) 
   \end{aligned}
 \end{equation}
 
-To draw samples from $p_{\theta}(\mathbf{x})$, we rely exclusively on the conditional sampling approach described in~\citet{grathwohl2020your} for both training and inference: we first sample $\mathbf{y}\sim p(\mathbf{y})=$ where  While our package also supports unconditional sampling, we found co since in the context of CE we are interested in conditioning on the target class anyway. During training As mentioned in the body of the paper, we rely on a biased sampler involving separately specified values for the step size $\epsilon$ and the standard deviation $\sigma$ of the stochastic term involving $\mathbf{r}$. Formally, our biased sampler performs updates as follows: 
+where $L_{\text{reg}}(\theta)$ is a Ridge penalty (L2 norm) that regularises energy magnitudes for both observed and generated samples~\citep{du2020implicit}. We have used varying degrees of regularization depending on the dataset. 
 
-\begin{equation}\label{eq:biased-sgld}
-  \begin{aligned}
-    \mathbf{x}_{j+1} &\leftarrow \mathbf{x}_j - \frac{\epsilon}{2} \mathcal{E}(\mathbf{x}_j|\mathbf{y}^+) + \sigma \mathbf{r}_j, && j=1,...,J
-  \end{aligned}
-\end{equation}
-
-Consistent with ~\citet{grathwohl2020your}, we have specified $\epsilon=2$ and $\sigma=0.01$ as the default values for all of our experiments. 
+Contrary to existing work, we have not typically used the entire minibatch of training data for the generative loss component but found that using a subset of the minibatch was often sufficient in attaining decent generative performance. This has helped to reduce the computational burden for our models, which should make it easier for others to reproduce our findings. 
 
 \subsubsection{Inference: Quantifying Models' Generative Property}
 
-At inference time, we assume no prior knowledge about the model's generative property. 
-
-
+At inference time, we assume no prior knowledge about the model's generative property. This means that we do not tab into the existing buffer of generated samples for our Joint Energy Models, but instead generate conditional samples from scratch. While have relied on the default values $\epsilon=2$ and $\sigma=0.01$ also during inference, the number of total SGLD steps was set to $J=500$ in all cases, so significantly higher than during training. For all of our synthetic datasets and models, we generated 50 conditional samples and then formed subsets containing the $n_{E}=25$ lowest-energy samples. While in practice it would be sufficient to do this once for each model and dataset, we have chosen to perform sampling separately for each individual counterfactual in our experiment to account for stochasticity. To help reduce the computational burden for our real-world datasets we have generated only 10 conditional samples each time and used all of them in our counterfactual search. Using more samples, as we originally did, had no substantial impact on our results.
 
 \subsection{Conformal Prediction}\label{app:cp}
 
-The fact that conformal classifiers produce set-valued predictions introduces a challenge: it is not immediately obvious how to use such classifiers in the context of gradient-based counterfactual search. Put differently, it is not clear how to use prediction sets in Equation~\ref{eq:general}. Fortunately, \citet{stutz2022learning} have recently proposed a framework for Conformal Training that also hinges on differentiability. Specifically, they show how Stochastic Gradient Descent can be used to train classifiers not only for the discriminative task but also for additional objectives related to Conformal Prediction. One such objective is \textit{efficiency}: for a given target error rate $\alpha$, the efficiency of a conformal classifier improves as its average prediction set size decreases. To this end, the authors introduce a smooth set size penalty defined in Equation~\ref{eq:setsize} in the body of this paper
+In this Appendix we provide some more background on CP and explain in some more detail how we have used recent advances in Conformal Training for our purposes.
 
-Formally, it is defined as $C_{\theta,\mathbf{y}}(\mathbf{x}_i;\alpha):=\sigma\left((s(\mathbf{x}_i,\mathbf{y})-\alpha) T^{-1}\right)$ for $\mathbf{y}\in\mathcal{Y}$, where $\sigma$ is the sigmoid function and $T$ is a hyper-parameter used for temperature scaling~\citep{stutz2022learning}.
+\subsubsection{Background on CP}
 
 Intuitively, CP works under the premise of turning heuristic notions of uncertainty into rigorous uncertainty estimates by repeatedly sifting through the data. It can be used to generate prediction intervals for regression models and prediction sets for classification models~\citep{altmeyer2022conformal}. Since the literature on CE and AR is typically concerned with classification problems, we focus on the latter. A particular variant of CP called Split Conformal Prediction (SCP) is well-suited for our purposes, because it imposes only minimal restrictions on model training. 
 
@@ -405,7 +401,23 @@ where $\hat{q}$ denotes the $(1-\alpha)$-quantile of $\mathcal{S}$ and $\alpha$ 
 
 Observe from Equation~\ref{eq:scp} that Conformal Prediction works on an instance-level basis, much like CE are local. The prediction set for an individual instance $\mathbf{x}_i$ depends only on the characteristics of that sample and the specified error rate. Intuitively, the set is more likely to include multiple labels for samples that are difficult to classify, so the set size is indicative of predictive uncertainty. To see why this effect is exacerbated by small choices for $\alpha$ consider the case of $\alpha=0$, which requires that the true label is covered by the prediction set with probability equal to 1.
 
+\subsubsection{Differentiability}
+
+The fact that conformal classifiers produce set-valued predictions introduces a challenge: it is not immediately obvious how to use such classifiers in the context of gradient-based counterfactual search. Put differently, it is not clear how to use prediction sets in Equation~\ref{eq:general}. Fortunately, \citet{stutz2022learning} have recently proposed a framework for Conformal Training that also hinges on differentiability. Specifically, they show how Stochastic Gradient Descent can be used to train classifiers not only for the discriminative task but also for additional objectives related to Conformal Prediction. One such objective is \textit{efficiency}: for a given target error rate $\alpha$, the efficiency of a conformal classifier improves as its average prediction set size decreases. To this end, the authors introduce a smooth set size penalty defined in Equation~\ref{eq:setsize} in the body of this paper. Formally, it is defined as $C_{\theta,\mathbf{y}}(\mathbf{x}_i;\alpha):=\sigma\left((s(\mathbf{x}_i,\mathbf{y})-\alpha) T^{-1}\right)$ for $\mathbf{y}\in\mathcal{Y}$, where $\sigma$ is the sigmoid function and $T$ is a hyper-parameter used for temperature scaling~\citep{stutz2022learning}.
+
+In addition to the smooth set size penalty,~\citet{stutz2022learning} also propose a configurable classification loss function, that can be used to enforce coverage. For \textit{MNIST} data, we found that using this function generally improved the visual quality of the generated counterfactuals, so we used it in our experiments involving real-world data. For the synthetic dataset, visual inspection of the counterfactuals showed that using the configurable loss function sometimes led to overshooting: counterfactuals would end up deep inside the target domain but far away from the observed samples. For this reason we instead relied on standard crossentropy loss for our synthetic datasets. As we have noted in the body of the paper, more experimental work is certainly needed in this context. 
+
 \subsection{ECCCo}\label{app:eccco}
+
+In this section, we briefly discuss convergence conditions for CE and provide details concerning the actual implementation of our framework in Julia.  
+
+\subsubsection{A Note on Convergence}
+
+Convergence is not typically discussed much in the context of CE, even though it has important implications on outcomes. One intuitive way to specify convergence is in terms of threshold probabilities: once the predicted probability $p(\mathbf{y}^+|\mathbf{x}^{\prime})$ exceeds some user-defined threshold $\gamma$ such that the counterfactual is valid, we could consider the search to have converged. In the binary case, for example, convergence could be defined as $p(\mathbf{y}^+|\mathbf{x}^{\prime})>0.5$ in this sense. Note, however, how this can be expected to yield counterfactuals in the proximity of the decision boundary, a region characterized by high aleatoric uncertainty. In other words, counterfactuals generated in this way would generally not be plausible. To avoid this from happening, we specify convergence in terms of gradients approaching zero for all our experiments and all of our generators. This is allows us to get a cleaner read on how the different counterfactual search objectives affect counterfactual outcomes. 
+
+\subsubsection{\texttt{ECCCo.jl}}
+
+Our code base is integrated into a larger ecosystem of \texttt{Julia} packages that we are actively developing. 
 
 \subsection{Experimental Setup}\label{app:setup}
 \subsection{Results}\label{app:results}

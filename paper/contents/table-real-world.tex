@@ -1,6 +1,6 @@
 \begin{table}
 
-\caption{Results for real-world datasets: sample averages plus/minus one standard deviation. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \label{tab:results-real-world} \newline}
+\caption{Results for real-world datasets: sample averages +/- one standard deviation over all valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \label{tab:results-real-world} \newline}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llcccc}
@@ -9,37 +9,37 @@
 \cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6}
 Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Unfaithfulness ↓ & Implausibility ↓\\
 \midrule
- & ECCCo & \textbf{19.28 ± 5.01}** & 314.76 ± 32.36*\hphantom{*} & \textbf{79.45 ± 11.98}** & 22.05 ± 10.58**\\
+ & ECCCo & \textbf{19.27 ± 5.02}** & 314.54 ± 32.54*\hphantom{*} & \textbf{79.18 ± 13.01}** & 19.67 ± 6.27**\\
 
- & REVISE & 188.70 ± 26.18*\hphantom{*} & \textbf{255.26 ± 41.50}** & 187.06 ± 31.29\hphantom{*}\hphantom{*} & \textbf{7.06 ± 7.73}**\\
+ & REVISE & 188.54 ± 26.22*\hphantom{*} & \textbf{254.32 ± 41.55}** & 186.05 ± 31.81\hphantom{*}\hphantom{*} & \textbf{5.38 ± 1.89}**\\
 
- & Schut & 211.00 ± 27.21\hphantom{*}\hphantom{*} & 286.61 ± 39.85*\hphantom{*} & 185.64 ± 37.42\hphantom{*}\hphantom{*} & 8.47 ± 8.68**\\
+ & Schut & 199.70 ± 28.43\hphantom{*}\hphantom{*} & 273.01 ± 39.60** & 185.40 ± 38.43\hphantom{*}\hphantom{*} & 6.54 ± 0.98**\\
 
-\multirow{-4}{*}{\raggedright\arraybackslash JEM} & Wachter & 222.90 ± 26.56\hphantom{*}\hphantom{*} & 361.88 ± 39.74\hphantom{*}\hphantom{*} & 186.20 ± 42.26\hphantom{*}\hphantom{*} & 70.79 ± 58.72\hphantom{*}\hphantom{*}\\
+\multirow{-4}{*}{\raggedright\arraybackslash JEM} & Wachter & 222.81 ± 26.22\hphantom{*}\hphantom{*} & 361.38 ± 39.55\hphantom{*}\hphantom{*} & 188.81 ± 41.72\hphantom{*}\hphantom{*} & 71.97 ± 60.09\hphantom{*}\hphantom{*}\\
 \cmidrule{1-6}
  & ECCCo & \textbf{15.99 ± 3.06}** & 294.72 ± 30.75** & \textbf{79.65 ± 11.83}** & 17.81 ± 5.44**\\
 
- & REVISE & 173.59 ± 20.65** & \textbf{246.32 ± 37.46}** & 204.14 ± 36.13\hphantom{*}\hphantom{*} & \textbf{4.90 ± 0.95}**\\
+ & REVISE & 173.05 ± 20.38** & \textbf{246.20 ± 37.74}** & 204.14 ± 36.13\hphantom{*}\hphantom{*} & \textbf{4.90 ± 0.95}**\\
 
- & Schut & 205.33 ± 24.07\hphantom{*}\hphantom{*} & 287.39 ± 39.33*\hphantom{*} & 186.24 ± 36.18\hphantom{*}\hphantom{*} & 6.35 ± 1.22**\\
+ & Schut & 186.91 ± 22.98*\hphantom{*} & 264.68 ± 37.58** & 186.24 ± 36.18\hphantom{*}\hphantom{*} & 6.35 ± 1.22**\\
 
-\multirow{-4}{*}{\raggedright\arraybackslash JEM Ensemble} & Wachter & 217.67 ± 23.78\hphantom{*}\hphantom{*} & 363.23 ± 39.24\hphantom{*}\hphantom{*} & 184.05 ± 23.11\hphantom{*}\hphantom{*} & 61.40 ± 48.29\hphantom{*}\hphantom{*}\\
+\multirow{-4}{*}{\raggedright\arraybackslash JEM Ensemble} & Wachter & 217.37 ± 23.93\hphantom{*}\hphantom{*} & 362.91 ± 39.40\hphantom{*}\hphantom{*} & 184.05 ± 23.11\hphantom{*}\hphantom{*} & 61.40 ± 48.29\hphantom{*}\hphantom{*}\\
 \cmidrule{1-6}
- & ECCCo & \textbf{41.95 ± 6.50}** & 591.58 ± 36.24\hphantom{*}\hphantom{*} & \textbf{79.84 ± 15.97}** & 26.78 ± 11.64**\\
+ & ECCCo & \textbf{41.95 ± 6.50}** & 591.58 ± 36.24\hphantom{*}\hphantom{*} & \textbf{80.51 ± 16.59}** & 23.43 ± 6.09**\\
 
- & REVISE & 365.82 ± 15.35*\hphantom{*} & \textbf{249.49 ± 41.55}** & 180.18 ± 30.75\hphantom{*}\hphantom{*} & \textbf{5.05 ± 1.05}**\\
+ & REVISE & 365.69 ± 14.90*\hphantom{*} & 245.36 ± 39.69** & 180.18 ± 30.75\hphantom{*}\hphantom{*} & \textbf{5.05 ± 1.05}**\\
 
- & Schut & 382.44 ± 17.81\hphantom{*}\hphantom{*} & 285.98 ± 42.48*\hphantom{*} & 196.86 ± 45.07\hphantom{*}\hphantom{*} & 11.16 ± 12.19**\\
+ & Schut & 371.12 ± 19.99\hphantom{*}\hphantom{*} & \textbf{245.11 ± 35.72}** & 199.88 ± 45.58\hphantom{*}\hphantom{*} & 7.25 ± 1.88**\\
 
-\multirow{-4}{*}{\raggedright\arraybackslash MLP} & Wachter & 386.05 ± 16.60\hphantom{*}\hphantom{*} & 361.83 ± 42.18\hphantom{*}\hphantom{*} & 196.51 ± 31.36\hphantom{*}\hphantom{*} & 81.50 ± 54.31\hphantom{*}\hphantom{*}\\
+\multirow{-4}{*}{\raggedright\arraybackslash MLP} & Wachter & 384.76 ± 16.52\hphantom{*}\hphantom{*} & 359.21 ± 42.03\hphantom{*}\hphantom{*} & 196.33 ± 33.11\hphantom{*}\hphantom{*} & 87.52 ± 53.98\hphantom{*}\hphantom{*}\\
 \cmidrule{1-6}
- & ECCCo & \textbf{31.43 ± 3.91}** & 490.88 ± 27.19\hphantom{*}\hphantom{*} & \textbf{76.32 ± 14.56}** & 22.99 ± 8.31**\\
+ & ECCCo & \textbf{31.43 ± 3.91}** & 490.88 ± 27.19\hphantom{*}\hphantom{*} & \textbf{76.32 ± 14.56}** & 22.99 ± 8.31\hphantom{*}\hphantom{*}\\
 
- & REVISE & 337.74 ± 11.89*\hphantom{*} & \textbf{247.67 ± 38.36}** & 184.04 ± 29.13*\hphantom{*} & \textbf{5.25 ± 1.31}**\\
+ & REVISE & 337.21 ± 11.68*\hphantom{*} & \textbf{244.84 ± 37.17}** & 184.04 ± 29.13\hphantom{*}\hphantom{*} & \textbf{5.25 ± 1.31}**\\
 
- & Schut & 359.54 ± 14.52\hphantom{*}\hphantom{*} & 283.99 ± 41.08*\hphantom{*} & 214.74 ± 34.33\hphantom{*}\hphantom{*} & 6.18 ± 1.17**\\
+ & Schut & 344.60 ± 13.64*\hphantom{*} & 252.53 ± 37.92** & 214.74 ± 34.33\hphantom{*}\hphantom{*} & 6.18 ± 1.17**\\
 
-\multirow{-4}{*}{\raggedright\arraybackslash MLP Ensemble} & Wachter & 360.79 ± 14.39\hphantom{*}\hphantom{*} & 357.73 ± 42.55\hphantom{*}\hphantom{*} & 216.50 ± 41.31\hphantom{*}\hphantom{*} & 64.04 ± 52.79\hphantom{*}\hphantom{*}\\
+\multirow{-4}{*}{\raggedright\arraybackslash MLP Ensemble} & Wachter & 358.51 ± 13.18\hphantom{*}\hphantom{*} & 352.63 ± 39.93\hphantom{*}\hphantom{*} & 193.41 ± 35.45\hphantom{*}\hphantom{*} & 12.71 ± 4.90\hphantom{*}\hphantom{*}\\
 \bottomrule
 \end{tabular}}
 \end{table}
