@@ -97,7 +97,6 @@ models = Dict(
 )
 ```
 
-
 ```{julia}
 # Train models:
 function _train(model, X=X, y=labels; cov=.95, method=:simple_inductive, mod_name="model")

@@ -164,11 +164,11 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = true
-_regen = true
+_retrain = false
+_regen = false
 
 # Data:
-n_obs = nothing
+n_obs = 10000
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
 counterfactual_data.generative_model = vae
@@ -259,7 +259,6 @@ models = Dict(
 Serialization.serialize(joinpath(output_path,"mnist_architectures.jls"), models)
 ```
 
-
 ```{julia}
 # Train models:
 function _train(model, X=X, y=labels; cov=.95, method=:simple_inductive, mod_name="model")
@@ -277,6 +276,25 @@ if _retrain
 else
     model_dict = Serialization.deserialize(joinpath(output_path,"mnist_models.jls"))
 end
+```
+
+```{julia}
+params = DataFrame(
+    Dict(
+        :n_obs => Int.(round(n_obs/10)*10),
+        :epochs => epochs,
+        :batch_size => batch_size,
+        :n_hidden => n_hidden,
+        :n_layers => length(model_dict["MLP"].fitresult[1][1])-1,
+        :activation => string(activation),
+        :n_ens => n_ens,
+        :lambda => string(α[3]),
+        :jem_sampling_steps => jem.sampling_steps,
+        :sgld_batch_size => sampler.batch_size,
+        :dataname => "MNIST",
+    )
+)
+CSV.write(joinpath(params_path, "mnist.csv"), params)
 ```
 
 ```{julia}

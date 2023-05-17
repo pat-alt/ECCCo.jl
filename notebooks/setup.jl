@@ -41,6 +41,7 @@ setup_notebooks = quote
     Plots.theme(:wong)
     Random.seed!(2023)
     www_path = "www"
+    params_path = "artifacts/params"
     output_path = "artifacts/results"
     output_images_path = "artifacts/results/images"
     img_height = 300

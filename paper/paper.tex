@@ -349,7 +349,7 @@ Since we were not able to identify any existing open-source software for Energy-
 
 \subsubsection{Training: Joint Energy Models}
 
-To train our Joint Energy Models we broadly follow the approach outlined in~\citet{grathwohl2020your}. These models are trained to optimize a hybrid objective that involves a standard classification loss component $L_{\text{clf}}(\theta)=-\log p_{\theta}(\mathbf{y}|\mathbf{x})$ (e.g. crossentropy loss) as well as a generative loss component $L_{\text{gen}}(\theta)=-\log p_{\theta}(\mathbf{x})$. 
+To train our Joint Energy Models we broadly follow the approach outlined in~\citet{grathwohl2020your}. These models are trained to optimize a hybrid objective that involves a standard classification loss component $L_{\text{clf}}(\theta)=-\log p_{\theta}(\mathbf{y}|\mathbf{x})$ (e.g. cross-entropy loss) as well as a generative loss component $L_{\text{gen}}(\theta)=-\log p_{\theta}(\mathbf{x})$. 
 
 To draw samples from $p_{\theta}(\mathbf{x})$, we rely exclusively on the conditional sampling approach described in~\citet{grathwohl2020your} for both training and inference: we first draw $\mathbf{y}\sim p(\mathbf{y})$ and then sample $\mathbf{x} \sim p_{\theta}(\mathbf{x}|\mathbf{y})$~\citep{grathwohl2020your} via Equation~\ref{eq:sgld} with energy $\mathcal{E}(\mathbf{x}|\mathbf{y})=\mu_{\theta}(\mathbf{x})[\mathbf{y}]$ where $\mu_{\theta}: \mathcal{X} \mapsto \mathbb{R}^K$ returns the linear predictions (logits) of our classifier $M_{\theta}$. While our package also supports unconditional sampling, we found conditional sampling to work well. It is also well aligned with CE, since in this context we are interested in conditioning on the target class. 
 
@@ -373,7 +373,19 @@ It is important to realise that sampling is done during each training epoch, whi
 
 where $L_{\text{reg}}(\theta)$ is a Ridge penalty (L2 norm) that regularises energy magnitudes for both observed and generated samples~\citep{du2020implicit}. We have used varying degrees of regularization depending on the dataset. 
 
-Contrary to existing work, we have not typically used the entire minibatch of training data for the generative loss component but found that using a subset of the minibatch was often sufficient in attaining decent generative performance. This has helped to reduce the computational burden for our models, which should make it easier for others to reproduce our findings. 
+Contrary to existing work, we have not typically used the entire minibatch of training data for the generative loss component but found that using a subset of the minibatch was often sufficient in attaining decent generative performance. This has helped to reduce the computational burden for our models, which should make it easier for others to reproduce our findings. Figures~\ref{fig:mnist-gen} and~\ref{fig:moons-gen} show generated samples for our \textit{MNIST} and \textit{Moons} data, to provide a sense of their generative property.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{../artifacts/results/images/mnist_generated_JEM Ensemble.png}
+  \caption{Conditionally generated \textit{MNIST} images for our JEM Ensemble.}\label{fig:mnist-gen}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{../artifacts/results/images/moons_generated_JEM.png}
+  \caption{Conditionally generated samples (stars) for our \textit{Moons} data using a JEM.}\label{fig:moons-gen}
+\end{figure}
 
 \subsubsection{Inference: Quantifying Models' Generative Property}
 
@@ -405,7 +417,13 @@ Observe from Equation~\ref{eq:scp} that Conformal Prediction works on an instanc
 
 The fact that conformal classifiers produce set-valued predictions introduces a challenge: it is not immediately obvious how to use such classifiers in the context of gradient-based counterfactual search. Put differently, it is not clear how to use prediction sets in Equation~\ref{eq:general}. Fortunately, \citet{stutz2022learning} have recently proposed a framework for Conformal Training that also hinges on differentiability. Specifically, they show how Stochastic Gradient Descent can be used to train classifiers not only for the discriminative task but also for additional objectives related to Conformal Prediction. One such objective is \textit{efficiency}: for a given target error rate $\alpha$, the efficiency of a conformal classifier improves as its average prediction set size decreases. To this end, the authors introduce a smooth set size penalty defined in Equation~\ref{eq:setsize} in the body of this paper. Formally, it is defined as $C_{\theta,\mathbf{y}}(\mathbf{x}_i;\alpha):=\sigma\left((s(\mathbf{x}_i,\mathbf{y})-\alpha) T^{-1}\right)$ for $\mathbf{y}\in\mathcal{Y}$, where $\sigma$ is the sigmoid function and $T$ is a hyper-parameter used for temperature scaling~\citep{stutz2022learning}.
 
-In addition to the smooth set size penalty,~\citet{stutz2022learning} also propose a configurable classification loss function, that can be used to enforce coverage. For \textit{MNIST} data, we found that using this function generally improved the visual quality of the generated counterfactuals, so we used it in our experiments involving real-world data. For the synthetic dataset, visual inspection of the counterfactuals showed that using the configurable loss function sometimes led to overshooting: counterfactuals would end up deep inside the target domain but far away from the observed samples. For this reason we instead relied on standard crossentropy loss for our synthetic datasets. As we have noted in the body of the paper, more experimental work is certainly needed in this context. 
+In addition to the smooth set size penalty,~\citet{stutz2022learning} also propose a configurable classification loss function, that can be used to enforce coverage. For \textit{MNIST} data, we found that using this function generally improved the visual quality of the generated counterfactuals, so we used it in our experiments involving real-world data. For the synthetic dataset, visual inspection of the counterfactuals showed that using the configurable loss function sometimes led to overshooting: counterfactuals would end up deep inside the target domain but far away from the observed samples. For this reason, we instead relied on standard cross-entropy loss for our synthetic datasets. As we have noted in the body of the paper, more experimental work is certainly needed in this context. Figure~\ref{fig:cp-diff} shows the prediction set size (left), smooth set size loss (centre) and configurable classification loss (right) for a JEM trained on our \textit{Linearly Separable} data.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\textwidth]{../artifacts/results/images/poc_set_size.png}
+  \caption{Prediction set size (left), smooth set size loss (centre) and configurable classification loss (right) for a JEM trained on our \textit{Linearly Separable} data.}\label{fig:cp-diff}
+\end{figure}
 
 \subsection{ECCCo}\label{app:eccco}
 

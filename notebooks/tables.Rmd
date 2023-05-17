@@ -248,15 +248,15 @@ col_names <- c(
   "Uncertainty ↓",
   "Validity ↑"
 )
+algin_cols <- c(rep('l',3),rep('c',ncol(tab_full)-3))
 kbl(
   tab_full, caption = "All results for all datasets: sample averages +/- one standard deviation over all counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-full} \\newline", 
-  align = "c", col.names=col_names, booktabs = F, escape=F, 
+  align = "c", col.names=col_names, booktabs = T, escape=F, 
   format="latex"
 ) %>%
   kable_styling(latex_options = c("scale_down")) %>%
   kable_paper(full_width = F) %>%
-  column_spec(1, bold = T) %>%
-  collapse_rows(columns = 1:3, latex_hline = "custom", valign = "middle", custom_latex_hline = 1:2) %>%
+  collapse_rows(columns = 1:3, latex_hline = "custom", valign = "top", custom_latex_hline = 1:2) %>%
   save_kable("paper/contents/table_all.tex")
 ```
 
@@ -275,14 +275,14 @@ col_names <- c(
   "Uncertainty ↓",
   "Validity ↑"
 )
+algin_cols <- c(rep('l',3),rep('c',ncol(tab_full)-3))
 kbl(
   tab_full, caption = "All results for all datasets: sample averages +/- one standard deviation over all valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-full} \\newline", 
-  align = "c", col.names=col_names, booktabs = F, escape=F, 
+  align = "c", col.names=col_names, booktabs = T, escape=F, 
   format="latex"
 ) %>%
   kable_styling(latex_options = c("scale_down")) %>%
   kable_paper(full_width = F) %>%
-  column_spec(1, bold = T) %>%
-  collapse_rows(columns = 1:3, latex_hline = "custom", valign = "middle", custom_latex_hline = 1:2) %>%
+  collapse_rows(columns = 1:3, latex_hline = "custom", valign = "top", custom_latex_hline = 1:2) %>%
   save_kable("paper/contents/table_all_valid.tex")
 ```

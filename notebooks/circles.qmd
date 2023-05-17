@@ -96,6 +96,24 @@ models = Dict(
 )
 ```
 
+```{julia}
+params = DataFrame(
+    Dict(
+        :n_obs => Int.(round(n_obs/10)*10),
+        :epochs => epochs,
+        :batch_size => batch_size,
+        :n_hidden => n_hidden,
+        :n_layers => length(builder.hidden),
+        :activation => string(activation),
+        :n_ens => n_ens,
+        :lambda => string(α[3]),
+        :jem_sampling_steps => jem.sampling_steps,
+        :sgld_batch_size => sampler.batch_size,
+        :dataname => "Circles",
+    )
+)
+CSV.write(joinpath(params_path, "circles.csv"), params)
+```
 
 ```{julia}
 # Train models:
