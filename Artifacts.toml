@@ -1,7 +1,7 @@
 [artifacts-]
-git-tree-sha1 = "c757fad1336914313574b87ee59db6b0d53ca176"
+git-tree-sha1 = "860ef374887cfbaa8eca835b574092678907e446"
 lazy = true
 
     [[artifacts-.download]]
-    sha256 = "96a7550f4dabe3cd7eec5e21a0a56ec9b4283ab3f5f7f7da42716e2a12fa123d"
+    sha256 = "e0f9e32ceb9e70e43fde8dbd4ad3af6a701ac0c25633df259a7b79083fed2ae0"
     url = "https://github.com/pat-alt/ECCCo.jl/releases/download/results-paper-submission-1.8.5/artifacts-.tar.gz"
