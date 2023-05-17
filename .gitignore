@@ -1,3 +1,6 @@
+# Other:
+/artifacts/
+
 /.quarto/
 
 /Manifest.toml
