@@ -186,16 +186,16 @@ First, let's create a couple of image classifier architectures:
 ```{julia}
 # Model parameters:
 epochs = 100
-batch_size = minimum([Int(round(n_obs/10)), 128])
+batch_size = minimum([Int(round(n_obs/10)), 100])
 n_hidden = 128
 activation = Flux.swish
 builder = MLJFlux.@builder Flux.Chain(
     Dense(n_in, n_hidden, activation),
     Dense(n_hidden, n_out),
 )
-n_ens = 5                                   # number of models in ensemble
-_loss = Flux.Losses.crossentropy       # loss function
-_finaliser = Flux.softmax                        # finaliser function
+n_ens = 5                                       # number of models in ensemble
+_loss = Flux.Losses.crossentropy           # loss function
+_finaliser = Flux.softmax                            # finaliser function
 ```
 
 ```{julia}
@@ -430,7 +430,11 @@ end
 ```
 
 ```{julia}
-plt, eccco_generator, ces = _plot_eccco_mnist()
+opt = Flux.Optimise.Adam(0.01)
+Λ = [0.1,0.25,0.25]
+use_class_loss = true
+
+plt, eccco_generator, ces = _plot_eccco_mnist(opt=opt, λ=Λ, use_class_loss=use_class_loss)
 display(plt)
 savefig(plt, joinpath(output_images_path, "mnist_eccco.png"))
 ```
