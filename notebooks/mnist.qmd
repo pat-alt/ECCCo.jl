@@ -421,8 +421,6 @@ function _plot_eccco_mnist(
         plts = [plts..., plt]
         _count += 1
     end
-    # plts = plts[_plt_order]
-    # plts = [p1, plts...]
     plt = Plots.plot(plts...; size=(img_height,img_height))
     
     return plt, eccco_generator, ces
@@ -489,7 +487,7 @@ end
 ```
 
 ```{julia}
-_regen_all_digits = true
+_regen_all_digits = false
 if _regen_all_digits
     function plot_all_digits(rng=123;verbose=true,img_height=180,kwargs...)
         plts = []
