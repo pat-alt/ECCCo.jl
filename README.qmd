@@ -1,0 +1,54 @@
+---
+format: 
+  commonmark:
+    variant: -raw_html+tex_math_dollars
+    wrap: none
+    mermaid-format: png
+crossref:
+  fig-prefix: Figure
+  tbl-prefix: Table
+bibliography: https://raw.githubusercontent.com/pat-alt/bib/main/bib.bib
+output: asis
+jupyter: julia-1.8
+execute: 
+  freeze: auto
+  eval: true
+  echo: true
+  output: false
+---
+
+# ECCCo
+
+*Counterfactual Explanations and Algorithmic Recourse in Julia.*
+
+This work is currently undergoing peer review. This README is therefore only meant to provide reviewers access to the code base. The code base will be made public after the review process.
+
+## Inspecting the Package Code
+
+This code base is structured as a Julia package. The package code is located in the `src` folder.
+
+## Inspecting the Code for Experiments
+
+We used [Quarto] notebooks for prototyping and running experiments. The notebooks are located in the `notebooks` folder, separated by dataset:
+
+- [Linearly Separable](notebooks/linearly_separable.qmd)
+- [Moons](notebooks/moons.qmd)
+- [Circles](notebooks/circles.qmd)
+- [MNIST](notebooks/mnist.qmd)
+- [GMSC](notebooks/gmsc.qmd)
+
+Instead of looking at the notebooks directly, you may choose to browse the HTML book contained inside the `docs` folder. The book is automatically generated from the notebooks and includes all code chunks and their outputs. It is currently not possible to view the book online, but you can download the `docs` folder and open the `index.html` file in your browser.
+
+## Reproducing the Results
+
+To reproduce the results, you need to install the package, which will automatically install all dependencies. Since the package is not publicly registered and you are looking at an anonymous repository that [cannot be cloned](https://anonymous.4open.science/faq#download), unfortunately, it is not possible to easily install the package and reproduce the results at this stage of the review process. 
+
+However, provided that the package is indeed installed, you can reproduce the results by running the experiments in the `experiments` folder. The experiments are structured as Julia scripts. You can run the experiments by executing the following command:
+
+
+
+
+
+
+
+
