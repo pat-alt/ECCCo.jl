@@ -20,8 +20,6 @@ We used [Quarto](https://quarto.org/) notebooks for prototyping and running expe
 - [MNIST](notebooks/mnist.qmd)
 - [GMSC](notebooks/gmsc.qmd)
 
-Instead of looking at the notebooks directly, you may choose to browse the HTML book contained inside the `docs` folder. The book is automatically generated from the notebooks and includes all code chunks and their outputs. It is currently not possible to view the book online, but you can download the `docs/` folder and open the `index.html` file in your browser.
-
 ## Inspecting the Results
 
 All results have been carefully reported either in the paper itself or in the supplementary material. In addition, we have released our results as binary files. These will be made publicly available after the review process. 
@@ -31,6 +29,8 @@ All results have been carefully reported either in the paper itself or in the su
 To reproduce the results, you need to install the package, which will automatically install all dependencies. Since the package is not publicly registered and you are looking at an anonymous repository that [cannot be cloned](https://anonymous.4open.science/faq#download), unfortunately, it is not possible to easily install the package and reproduce the results at this stage of the review process. 
 
 However, provided that the package is indeed installed, you can reproduce the results by either running the experiments in the `experiments/` folder or using the notebooks listed above for a more interactive process. 
+
+**Note**: All experiments were run on `julia-1.8.5`. Since pre-trained models were serialised on that version they may not be compatible with newer versions of Julia. 
 
 ### Command Line
 

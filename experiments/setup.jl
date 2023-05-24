@@ -11,6 +11,7 @@ test_size = 0.2
 
 # Artifacts:
 using LazyArtifacts
+@warn "Models were pre-trained on `julia-1.8.5` and may not work on other versions."
 artifact_path = joinpath(artifact"results-paper-submission-1.8.5","results-paper-submission-1.8.5")
 pretrained_path = joinpath(artifact_path, "results")
 
@@ -44,6 +45,7 @@ function run_experiment(
     use_class_loss=false,
     use_variants=true,
     n_individuals=25,
+    generators=nothing,
 )   
 
     # SETUP ----------
@@ -58,6 +60,7 @@ function run_experiment(
 
     # Model parameters:
     batch_size = minimum([Int(round(n_obs / 10)), 128])
+    sampling_batch_size = isnothing(sampling_batch_size) ? batch_size : sampling_batch_size
     _loss = Flux.Losses.crossentropy                # loss function
     _finaliser = Flux.softmax                       # finaliser function
 
@@ -188,7 +191,9 @@ function run_experiment(
     CSV.write(joinpath(params_path, "$(save_name)_generator_params.csv"), generator_params)
 
     # Benchmark generators:
-    if use_variants
+    if !isnothing(generators)
+        generator_dict = generators
+    elseif use_variants
         generator_dict = Dict(
             "Wachter" => WachterGenerator(λ=λ₁, opt=opt),
             "REVISE" => REVISEGenerator(λ=λ₁, opt=opt),
