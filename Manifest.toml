@@ -787,9 +787,9 @@ version = "1.12.0"
 
 [[deps.JointEnergyModels]]
 deps = ["CategoricalArrays", "ChainRulesCore", "ComputationalResources", "Distributions", "Flux", "MLJFlux", "MLJModelInterface", "MLUtils", "PkgTemplates", "ProgressMeter", "Random", "StatsBase", "Tables", "Zygote"]
-path = "../JointEnergyModels.jl"
+git-tree-sha1 = "69fe350d14180b555793c27cd19641e5f70be6f6"
 uuid = "48c56d24-211d-4463-bbc0-7a701b291131"
-version = "0.1.0"
+version = "0.1.1"
 
 [[deps.JpegTurbo_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
