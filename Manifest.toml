@@ -293,9 +293,9 @@ version = "2.2.0"
 
 [[deps.ConformalPrediction]]
 deps = ["CategoricalArrays", "ChainRules", "Flux", "LinearAlgebra", "MLJBase", "MLJEnsembles", "MLJFlux", "MLJModelInterface", "MLUtils", "NaturalSort", "Plots", "StatsBase"]
-path = "../ConformalPrediction.jl"
+git-tree-sha1 = "f8d2ceaab5b07b49fb3aa817b61d6bf422fbfaa3"
 uuid = "98bfc277-1877-43dc-819b-a3e38c30242f"
-version = "0.1.6"
+version = "0.1.7"
 
 [[deps.ConstructionBase]]
 deps = ["LinearAlgebra"]
@@ -315,10 +315,10 @@ uuid = "d38c429a-6771-53c6-b99e-75d170b6e991"
 version = "0.6.2"
 
 [[deps.CounterfactualExplanations]]
-deps = ["CSV", "CUDA", "CategoricalArrays", "ChainRulesCore", "DataFrames", "Flux", "LaplaceRedux", "LazyArtifacts", "LinearAlgebra", "MLDatasets", "MLJBase", "MLJModels", "MLUtils", "MultivariateStats", "NearestNeighborModels", "Parameters", "PkgTemplates", "Plots", "ProgressMeter", "Random", "Serialization", "SliceMap", "SnoopPrecompile", "Statistics", "StatsBase", "Tables", "UMAP"]
-path = "../CounterfactualExplanations.jl"
+deps = ["CSV", "CUDA", "CategoricalArrays", "ChainRulesCore", "DataFrames", "Flux", "LaplaceRedux", "LazyArtifacts", "LinearAlgebra", "MLDatasets", "MLJBase", "MLJModels", "MLUtils", "MultivariateStats", "NearestNeighborModels", "Parameters", "Plots", "ProgressMeter", "Random", "Serialization", "SliceMap", "SnoopPrecompile", "Statistics", "StatsBase", "Tables", "UMAP"]
+git-tree-sha1 = "85c5bd5baf7b797217272f12d257423bc1e3f029"
 uuid = "2f13d31b-18db-44c1-bc43-ebaf2cff0be0"
-version = "0.1.10"
+version = "0.1.11"
 
 [[deps.Crayons]]
 git-tree-sha1 = "249fe38abf76d48563e2f4556bebd215aa317e15"

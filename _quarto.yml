@@ -6,7 +6,7 @@ project:
 book:
   title: "Conformal Counterfactual Explanations"
   subtitle: "Online Companion"
-  author: "Patrick Altmeyer"
+  author: "Anonymous Author"
   date: today
   chapters:
     - index.qmd
