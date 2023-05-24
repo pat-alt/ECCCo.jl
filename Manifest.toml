@@ -1009,7 +1009,7 @@ version = "0.3.3"
 
 [[deps.MLJFlux]]
 deps = ["CategoricalArrays", "ColorTypes", "ComputationalResources", "Flux", "MLJModelInterface", "Metalhead", "ProgressMeter", "Random", "Statistics", "Tables"]
-path = "../MLJFlux.jl"
+git-tree-sha1 = "b27c3b96cc2a602a1e91eba36b8ca3d796f30ae0"
 uuid = "094fc8d1-fd35-5302-93ea-dabda2abf845"
 version = "0.2.10"
 
