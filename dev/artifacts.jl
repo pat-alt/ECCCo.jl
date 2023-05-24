@@ -9,12 +9,16 @@ artifact_toml = LazyArtifacts.find_artifacts_toml(".")
 
 function generate_artifacts(
     datafiles;
-    artifact_name=nothing,
+    artifact_name="artifacts-$VERSION",
     root=".",
     artifact_toml=joinpath(root, "Artifacts.toml"),
     deploy=true,
-    tag="artifacts-$(Int(VERSION.major)).$(Int(VERSION.minor))",
+    tag=nothing,
 )
+    if isnothing(tag)
+        tag = replace(lowercase(artifact_name), " " => "-")
+    end
+
     if deploy && !haskey(ENV, "GITHUB_TOKEN")
         @warn "For automatic github deployment, need GITHUB_TOKEN. Not found in ENV, attemptimg global git config."
     end
@@ -70,15 +74,6 @@ function generate_artifacts(
 
         @info("Artifacts.toml file now contains all bound artifact names")
     end
-end
-
-function create_artifact_name_from_path(
-    datafiles::String, artifact_name::Union{Nothing,String}
-)
-    # Name for hash/artifact:
-    artifact_name =
-        isnothing(artifact_name) ? replace(datafiles, ("/" => "-")) : artifact_name
-    return artifact_name
 end
 
 function get_git_remote_url(repo_path::String=".")
