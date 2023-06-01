@@ -3,5 +3,13 @@ git-tree-sha1 = "860ef374887cfbaa8eca835b574092678907e446"
 lazy = true
 
     [[artifacts-.download]]
-    sha256 = "e0f9e32ceb9e70e43fde8dbd4ad3af6a701ac0c25633df259a7b79083fed2ae0"
+    sha256 = "5ed618dd02df05991e02fe6d8eecf3ac604edafec95e07a85d0e3487baf46e4a"
     url = "https://github.com/pat-alt/ECCCo.jl/releases/download/results-paper-submission-1.8.5/artifacts-.tar.gz"
+
+["results-paper-submission-1.8.5"]
+git-tree-sha1 = "3be5119c4ce466017db79f10fdb72b97e745bd7d"
+lazy = true
+
+    [["results-paper-submission-1.8.5".download]]
+    sha256 = "15c6d44aba4e9860ba2b55b70ce8a2f41216d190a5e951fd6907b8cb616ec215"
+    url = "https://github.com/pat-alt/ECCCo.jl/releases/download/results-paper-submission-1.8.5/results-paper-submission-1.8.5.tar.gz"

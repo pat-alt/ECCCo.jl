@@ -1,9 +1,8 @@
 # Other:
 /artifacts/
-
 /.quarto/
-
 /Manifest.toml
+/replicated/
 
 # Tex
 
