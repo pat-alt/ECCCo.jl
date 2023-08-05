@@ -164,11 +164,11 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = false
-_regen = false
+_retrain = true
+_regen = true
 
 # Data:
-n_obs = 10000
+n_obs = nothing
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
 counterfactual_data.generative_model = vae
@@ -185,7 +185,7 @@ First, let's create a couple of image classifier architectures:
 
 ```{julia}
 # Model parameters:
-epochs = 100
+epochs = 10
 batch_size = minimum([Int(round(n_obs/10)), 128])
 n_hidden = 128
 activation = Flux.swish
@@ -366,6 +366,8 @@ function _plot_eccco_mnist(
     rng::Union{Int,AbstractRNG}=1234,
     T::Int = 100,
     use_class_loss::Bool = true,
+    model_dict=model_dict,
+    wide::Bool = false,
 )
 
     # Setup:
@@ -421,7 +423,11 @@ function _plot_eccco_mnist(
         plts = [plts..., plt]
         _count += 1
     end
-    plt = Plots.plot(plts...; size=(img_height,img_height))
+    if wide
+        plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
+    else
+        plt = Plots.plot(plts...; size=(img_height,img_height))
+    end
     
     return plt, eccco_generator, ces
 end
@@ -435,14 +441,72 @@ savefig(plt, joinpath(output_images_path, "mnist_eccco.png"))
 
 #### Additional Models (not in paper)
 
+An MLP with regularization:
+
+```{julia}
+mlp_reg = NeuralNetworkClassifier(
+    builder=builder, 
+    epochs=epochs,
+    batch_size=batch_size,
+    finaliser=_finaliser,
+    loss=_loss,
+    lambda=1.0,
+    alpha=0.5,
+)
+```
+
+A CNN:
+
+```{julia}
+mutable struct MyConvBuilder
+	filter_size::Int
+	channels1::Int
+	channels2::Int
+	channels3::Int
+end
+
+function MLJFlux.build(b::MyConvBuilder, rng, n_in, n_out, n_channels)
+
+	k, c1, c2, c3 = b.filter_size, b.channels1, b.channels2, b.channels3
+
+	mod(k, 2) == 1 || error("`filter_size` must be odd. ")
+
+	# padding to preserve image size on convolution:
+	p = div(k - 1, 2)
+
+	front = Chain(
+			   Conv((k, k), n_channels => c1, pad=(p, p), relu),
+			   MaxPool((2, 2)),
+			   Conv((k, k), c1 => c2, pad=(p, p), relu),
+			   MaxPool((2, 2)),
+			   Conv((k, k), c2 => c3, pad=(p, p), relu),
+			   MaxPool((2 ,2)),
+			   flatten)
+	d = Flux.outputsize(front, (n_in..., n_channels, 1)) |> first
+	return Chain(front, Dense(d, n_out))
+end
+
+clf = ImageClassifier(builder=MyConvBuilder(3, 16, 32, 32),
+					  epochs=10,
+					  loss=Flux.crossentropy)
+function toimg(X)
+    X = MLUtils.stack(map(x -> reshape(x, 28,28), eachrow(matrix(X))))
+    X = coerce(X, GrayImage)
+    return X
+end
+clf = (X -> toimg(X)) |> clf
+```
+
 ```{julia}
 add_retrain = true
 
 # Deep Ensemble:
 mlp_large_ens = EnsembleModel(model=mlp, n=50)
+mlp_drop_large_ens = EnsembleModel(model=mlp_reg, n=50)
 
 add_models = Dict(
-    "Large MLP Ensemble" => mlp_large_ens,
+    "Large Ensemble" => mlp_large_ens,
+    "Large Ensemble Reg" => mlp_drop_large_ens,
 )
 
 if add_retrain
@@ -456,7 +520,9 @@ end
 
 ```{julia}
 plt_additional_models, _, _ces_ = _plot_eccco_mnist(
-    plt_order = ["MLP", "MLP Ensemble", "Large Ensemble" "JEM", "JEM Ensemble"]
+    plt_order = ["MLP", "MLP Ensemble", "Large Ensemble", "Large Ensemble Reg", "JEM", "JEM Ensemble"],
+    model_dict=large_model_dict,
+    wide = true,
 )
 display(plt_additional_models)
 savefig(plt, joinpath(output_images_path, "mnist_eccco_additional.png"))

@@ -22,7 +22,7 @@ function set_size_penalty(
     _loss = map(eachslice(X, dims=ndims(X))) do x
         x = ndims(x) == 1 ? x[:,:] : x
         if target_probs(ce, x)[1] >= 0.5
-            l = ConformalPrediction.smooth_size_loss(
+            l = ConformalPrediction.ConformalTraining.smooth_size_loss(
                 conf_model, fitresult, x';
                 κ=κ,
                 temp=temp

@@ -11,11 +11,11 @@ using Statistics
 const CompatibleAtomicModel = Union{<:MLJFlux.MLJFluxProbabilistic,MLJEnsembles.ProbabilisticEnsembleModel{<:MLJFlux.MLJFluxProbabilistic}}
 
 """
-    ConformalModel <: Models.AbstractDifferentiableJuliaModel
+    ConformalModel <: Models.AbstractDifferentiableModel
 
 Constructor for models trained in `Flux.jl`. 
 """
-struct ConformalModel <: Models.AbstractDifferentiableJuliaModel
+struct ConformalModel <: Models.AbstractDifferentiableModel
     model::ConformalPrediction.ConformalProbabilisticSet
     fitresult::Any
     likelihood::Union{Nothing,Symbol}

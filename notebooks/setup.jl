@@ -35,6 +35,7 @@ setup_notebooks = quote
     using Plots
     using Random
     using Serialization
+    using StatsPlots
     using Tidier
 
     # Setup:

@@ -19,22 +19,51 @@ input_dim, n_obs = size(counterfactual_data.X)
 output_dim = length(unique(labels))
 ```
 
+## Additional feature preprocessing
+
+```{julia}
+pre_proc = false
+if pre_proc
+    Xmat = matrix(X)
+
+    function threshold(x)
+        σ = std(x)
+        return -2σ .< x .< 2σ
+    end
+    mask = reduce(hcat, map(x -> threshold(x), eachcol(Xmat)))
+    keep_rows = map(x -> all(x), eachrow(mask))
+    Xmat = Xmat[keep_rows,:]
+    labels = labels[keep_rows]
+
+    function boxcox(x)
+        transf = MLJ.UnivariateBoxCoxTransformer()
+        x = exp.(x)
+        mach = machine(transf, x)
+        fit!(mach)
+        z = MLJ.transform(mach, x)
+        return z
+    end
+    Xmat = reduce(hcat, map(x -> boxcox(x), eachcol(Xmat)))
+    X = table(Float32.(Xmat))
+end
+```
+
 First, let's create a couple of image classifier architectures:
 
 ```{julia}
 # Model parameters:
 epochs = 100
 batch_size = minimum([Int(round(n_obs/10)), 250])
-n_hidden = 128
-activation = Flux.swish
+n_hidden = 32
+activation = Flux.relu
 builder = MLJFlux.@builder Flux.Chain(
     Dense(n_in, n_hidden, activation),
     Dense(n_hidden, n_hidden, activation),
     Dense(n_hidden, n_out),
 )
 n_ens = 5                                   # number of models in ensemble
-_loss = Flux.Losses.crossentropy       # loss function
-_finaliser =  Flux.softmax                       # finaliser function
+_loss = Flux.Losses.crossentropy            # loss function
+_finaliser =  Flux.softmax                  # finaliser function
 ```
 
 ```{julia}
