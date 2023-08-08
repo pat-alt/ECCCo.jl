@@ -475,16 +475,16 @@ function MLJFlux.build(b::LeNetBuilder, rng, n_in, n_out)
     preproc(x) = reshape(x, (_n_in, _n_in, 1, :))
 
 	front = Flux.Chain(
-        Conv((k, k), 1 => c1, pad=(p, p), sigmoid),
+        Conv((k, k), 1 => c1, pad=(p, p), relu),
         MaxPool((2, 2)),
-        Conv((k, k), c1 => c2, pad=(p, p), sigmoid),
+        Conv((k, k), c1 => c2, pad=(p, p), relu),
         MaxPool((2, 2)),
         Flux.flatten
     )
 	d = Flux.outputsize(front, (_n_in, _n_in, 1, 1)) |> first
     back = Flux.Chain(
-        Dense(d, 120, sigmoid),
-        Dense(120, 84, sigmoid),
+        Dense(d, 120, relu),
+        Dense(120, 84, relu),
         Dense(84, n_out),
     )
 
@@ -542,7 +542,7 @@ lenet_ens = EnsembleModel(model=lenet, n=5)
 
 add_models = Dict(
     "LeNet-5" => lenet,
-    "LeNet-5 Ensemble" => lenet_ens,
+    # "LeNet-5 Ensemble" => lenet_ens,
     # "RobustNet" => rob_net,
     "Large Ensemble (n=50)" => mlp_large_ens,
 )
@@ -585,7 +585,7 @@ _plt_order = [
     "MLP Ensemble", 
     "Large Ensemble (n=50)", 
     "LeNet-5",
-    "LeNet-5 Ensemble",
+    # "LeNet-5 Ensemble",
     # "RobustNet",
     "JEM", 
     "JEM Ensemble",
