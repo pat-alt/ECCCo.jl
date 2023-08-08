@@ -168,7 +168,7 @@ _retrain = true
 _regen = true
 
 # Data:
-n_obs = nothing
+n_obs = 10000
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
 counterfactual_data.generative_model = vae
@@ -207,7 +207,7 @@ sampler = ConditionalSampler(
     input_size=(input_dim,), 
     batch_size=10,
 )
-α = [1.0,1.0,25e-3]      # penalty strengths
+α = [1.0,1.0,1e-2]      # penalty strengths
 ```
 
 ```{julia}
