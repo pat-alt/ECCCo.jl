@@ -388,11 +388,6 @@ function _plot_eccco_mnist(
 
     ces = Dict()
     for (mod_name, mod) in model_dict
-        if mod.model.model isa ProbabilisticPipeline
-            x = mod.model.model.f(x)
-            _data = counterfactual_data
-            _data.X = mod.model.model.f(_data.X)
-        end
         ce = generate_counterfactual(
             x, target, counterfactual_data, mod, eccco_generator; 
             decision_threshold=γ, max_iter=T,
@@ -455,7 +450,11 @@ mutable struct LeNetBuilder
 	channels2::Int
 end
 
-function MLJFlux.build(b::LeNetBuilder, rng, n_in, n_out, n_channels)
+preproc(X) = reshape(X, (28, 28, 1, :))
+
+function MLJFlux.build(b::LeNetBuilder, rng, n_in, n_out)
+
+    _n_in = Int(sqrt(n_in))
 
 	k, c1, c2 = b.filter_size, b.channels1, b.channels2
 
@@ -464,42 +463,35 @@ function MLJFlux.build(b::LeNetBuilder, rng, n_in, n_out, n_channels)
 	# padding to preserve image size on convolution:
 	p = div(k - 1, 2)
 
+    preproc(x) = reshape(x, (_n_in, _n_in, 1, :))
+
 	front = Flux.Chain(
-        Conv((k, k), n_channels => c1, pad=(p, p), relu),
+        Conv((k, k), 1 => c1, pad=(p, p), relu),
         MaxPool((2, 2)),
         Conv((k, k), c1 => c2, pad=(p, p), relu),
         MaxPool((2, 2)),
         Flux.flatten
     )
-	d = Flux.outputsize(front, (n_in..., n_channels, 1)) |> first
+	d = Flux.outputsize(front, (_n_in, _n_in, 1, 1)) |> first
     back = Flux.Chain(
         Dense(d, 120, relu),
         Dense(120, 84, relu),
         Dense(84, n_out),
     )
 
-    chain = Flux.Chain(front, back)
+    chain = Flux.Chain(preproc, front, back)
 
 	return chain
 end
 
 # Final model:
-lenet = ImageClassifier(
+lenet = NeuralNetworkClassifier(
     builder=LeNetBuilder(5, 6, 16),
     epochs=epochs,
     batch_size=batch_size,
     finaliser=_finaliser,
     loss=_loss,
 )
-
-# Convert to image:
-function toimg(X)
-    X = matrix(X) |> x -> reshape(x, 28, 28, :)
-    X = coerce(X, GrayImage)
-    return X
-end
-
-lenet = (X -> toimg(X)) |> lenet
 ```
 
 ```{julia}
@@ -508,8 +500,12 @@ add_retrain = true
 # Deep Ensemble:
 mlp_large_ens = EnsembleModel(model=mlp, n=50)
 
+# LeNet-5 Ensemble:
+lenet_ens = EnsembleModel(model=lenet, n=5)
+
 add_models = Dict(
     "LeNet-5" => lenet,
+    "LeNet-5 Ensemble" => lenet_ens,
     "Large Ensemble (n=50)" => mlp_large_ens,
 )
 
@@ -528,6 +524,7 @@ _plt_order = [
     "MLP Ensemble", 
     "Large Ensemble (n=50)", 
     "LeNet-5",
+    "LeNet-5 Ensemble",
     "JEM", 
     "JEM Ensemble",
 ]
