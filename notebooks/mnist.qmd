@@ -368,6 +368,7 @@ function _plot_eccco_mnist(
     use_class_loss::Bool = true,
     model_dict=model_dict,
     wide::Bool = false,
+    img_height::Int = img_height,
 )
 
     # Setup:
@@ -500,12 +501,8 @@ add_retrain = true
 # Deep Ensemble:
 mlp_large_ens = EnsembleModel(model=mlp, n=50)
 
-# LeNet-5 Ensemble:
-lenet_ens = EnsembleModel(model=lenet, n=5)
-
 add_models = Dict(
     "LeNet-5" => lenet,
-    "LeNet-5 Ensemble" => lenet_ens,
     "Large Ensemble (n=50)" => mlp_large_ens,
 )
 
@@ -524,7 +521,6 @@ _plt_order = [
     "MLP Ensemble", 
     "Large Ensemble (n=50)", 
     "LeNet-5",
-    "LeNet-5 Ensemble",
     "JEM", 
     "JEM Ensemble",
 ]
@@ -535,6 +531,10 @@ plt_additional_models, _, _ces_ = _plot_eccco_mnist(
 )
 display(plt_additional_models)
 savefig(plt_additional_models, joinpath(output_images_path, "mnist_eccco_additional.png"))
+```
+
+```{julia}
+
 ```
 
 ### All digits
