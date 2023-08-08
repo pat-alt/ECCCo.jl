@@ -164,11 +164,11 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = true
+_retrain = false
 _regen = true
 
 # Data:
-n_obs = nothing
+n_obs = 10000
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
 counterfactual_data.generative_model = vae
@@ -441,60 +441,56 @@ savefig(plt, joinpath(output_images_path, "mnist_eccco.png"))
 
 #### Additional Models (not in paper)
 
-An MLP with regularization:
+LeNet-5:
 
 ```{julia}
-mlp_reg = NeuralNetworkClassifier(
-    builder=builder, 
-    epochs=epochs,
-    batch_size=batch_size,
-    finaliser=_finaliser,
-    loss=_loss,
-    lambda=1.0,
-    alpha=0.5,
-)
-```
-
-A CNN:
-
-```{julia}
-mutable struct MyConvBuilder
+mutable struct LeNetBuilder
 	filter_size::Int
 	channels1::Int
 	channels2::Int
-	channels3::Int
 end
 
-function MLJFlux.build(b::MyConvBuilder, rng, n_in, n_out, n_channels)
+function MLJFlux.build(b::LeNetBuilder, rng, n_in, n_out, n_channels)
 
-	k, c1, c2, c3 = b.filter_size, b.channels1, b.channels2, b.channels3
+	k, c1, c2 = b.filter_size, b.channels1, b.channels2
 
 	mod(k, 2) == 1 || error("`filter_size` must be odd. ")
 
 	# padding to preserve image size on convolution:
 	p = div(k - 1, 2)
 
-	front = Chain(
+	front = Flux.Chain(
 			   Conv((k, k), n_channels => c1, pad=(p, p), relu),
 			   MaxPool((2, 2)),
 			   Conv((k, k), c1 => c2, pad=(p, p), relu),
 			   MaxPool((2, 2)),
-			   Conv((k, k), c2 => c3, pad=(p, p), relu),
-			   MaxPool((2 ,2)),
-			   flatten)
+			   Flux.flatten)
 	d = Flux.outputsize(front, (n_in..., n_channels, 1)) |> first
-	return Chain(front, Dense(d, n_out))
+    back = Flux.Chain(
+        Dense(256, 120, relu),
+        Dense(120, 84, relu),
+        Dense(84, n_out),
+    )
+	return Flux.Chain(front, back)
 end
 
-clf = ImageClassifier(builder=MyConvBuilder(3, 16, 32, 32),
-					  epochs=10,
-					  loss=Flux.crossentropy)
+# Final model:
+lenet = ImageClassifier(
+    builder=LeNetBuilder(5, 6, 16),
+    epochs=epochs,
+    batch_size=batch_size,
+    finaliser=_finaliser,
+    loss=_loss,
+)
+
+# Convert to image:
 function toimg(X)
-    X = MLUtils.stack(map(x -> reshape(x, 28,28), eachrow(matrix(X))))
+    X = matrix(X) |> x -> reshape(x, 28, 28, :)
     X = coerce(X, GrayImage)
     return X
 end
-clf = (X -> toimg(X)) |> clf
+
+lenet = (X -> toimg(X)) |> lenet
 ```
 
 ```{julia}
@@ -502,11 +498,10 @@ add_retrain = true
 
 # Deep Ensemble:
 mlp_large_ens = EnsembleModel(model=mlp, n=50)
-mlp_drop_large_ens = EnsembleModel(model=mlp_reg, n=50)
 
 add_models = Dict(
     "Large Ensemble" => mlp_large_ens,
-    "Large Ensemble Reg" => mlp_drop_large_ens,
+    "LeNet-5" => lenet,
 )
 
 if add_retrain
@@ -519,13 +514,20 @@ end
 ```
 
 ```{julia}
+_plt_order = [
+    "MLP", 
+    "MLP Ensemble", 
+    "Large Ensemble", 
+    "JEM", 
+    "JEM Ensemble",
+]
 plt_additional_models, _, _ces_ = _plot_eccco_mnist(
-    plt_order = ["MLP", "MLP Ensemble", "Large Ensemble", "Large Ensemble Reg", "JEM", "JEM Ensemble"],
+    plt_order = _plt_order,
     model_dict=large_model_dict,
     wide = true,
 )
 display(plt_additional_models)
-savefig(plt, joinpath(output_images_path, "mnist_eccco_additional.png"))
+savefig(plt_additional_models, joinpath(output_images_path, "mnist_eccco_additional.png"))
 ```
 
 ### All digits

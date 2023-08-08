@@ -3,6 +3,7 @@
 /.quarto/
 /Manifest.toml
 /replicated/
+*/.CondaPkg/
 
 # Tex
 

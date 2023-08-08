@@ -24,6 +24,7 @@ setup_notebooks = quote
     using Flux
     using Images
     using JointEnergyModels
+    using LaplaceRedux: LaplaceApproximation
     using LinearAlgebra
     using Markdown
     using MLDatasets
