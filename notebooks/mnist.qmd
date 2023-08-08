@@ -164,11 +164,11 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = false
-_regen = false
+_retrain = true
+_regen = true
 
 # Data:
-n_obs = 10000
+n_obs = nothing
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = pre_process.(counterfactual_data.X)
 counterfactual_data.generative_model = vae
@@ -185,7 +185,7 @@ First, let's create a couple of image classifier architectures:
 
 ```{julia}
 # Model parameters:
-epochs = 10
+epochs = 25
 batch_size = minimum([Int(round(n_obs/10)), 128])
 n_hidden = 128
 activation = Flux.swish
@@ -207,7 +207,7 @@ sampler = ConditionalSampler(
     input_size=(input_dim,), 
     batch_size=10,
 )
-α = [1.0,1.0,1e-2]      # penalty strengths
+α = [1.0,1.0,25e-3]      # penalty strengths
 ```
 
 ```{julia}
@@ -496,7 +496,7 @@ end
 # Final model:
 lenet = NeuralNetworkClassifier(
     builder=LeNetBuilder(5, 6, 16),
-    epochs=epochs,
+    epochs=50,
     batch_size=batch_size,
     finaliser=_finaliser,
     loss=_loss,
