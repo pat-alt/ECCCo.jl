@@ -606,10 +606,16 @@ combos = [
     (7,2),
     (0,8),
     (8,3),
-    (9,4),
+    (9,7),
+    (4,9),
+    (2,1),
+    (3,5),
+    (5,8),
+    (6,0),
+    (1,7),
 ]
 
-plts = [plt_additional_models]
+plts = []
 
 for (factual, target) in combos
     plt, _, _ = _plot_eccco_mnist(
