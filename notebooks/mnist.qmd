@@ -495,6 +495,34 @@ lenet = NeuralNetworkClassifier(
 )
 ```
 
+Robust Neural network:
+
+```{julia}
+mutable struct RobustNetBuilder
+	n_hidden::Int
+	lipschitz_bound::Float32
+end
+
+function MLJFlux.build(b::RobustNetBuilder, rng, n_in, n_out)
+	n_hidden, γ = b.n_hidden, b.lipschitz_bound
+    _n_hidden = fill(n_hidden,1)
+    model_ps = DenseLBDNParams{Float32}(n_in, _n_hidden, n_out, γ; rng)
+    chain = Flux.Chain(DiffLBDN(model_ps))
+	return chain
+end
+
+# Final model:
+rob_net = NeuralNetworkClassifier(
+    builder=RobustNetBuilder(128, 5.0),
+    epochs=epochs,
+    batch_size=batch_size,
+    finaliser=_finaliser,
+    loss=_loss,
+)
+```
+
+Training all of them:
+
 ```{julia}
 add_retrain = true
 
@@ -503,6 +531,7 @@ mlp_large_ens = EnsembleModel(model=mlp, n=50)
 
 add_models = Dict(
     "LeNet-5" => lenet,
+    "RobustNet" => rob_net,
     "Large Ensemble (n=50)" => mlp_large_ens,
 )
 
@@ -516,11 +545,35 @@ end
 ```
 
 ```{julia}
+# Evaluate models:
+
+measure = Dict(
+    :f1score => multiclass_f1score, 
+    :acc => accuracy, 
+    :precision => multiclass_precision
+)
+model_performance = DataFrame()
+for (mod_name, mod) in large_model_dict
+    # Test performance:
+    test_data = load_mnist_test()
+    _perf = CounterfactualExplanations.Models.model_evaluation(mod, test_data, measure=collect(values(measure)))
+    _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
+    _perf.mod_name .= mod_name
+    _perf.dataname .= "MNIST"
+    model_performance = vcat(model_performance, _perf)
+end
+Serialization.serialize(joinpath(output_path,"mnist_model_performance_additional.jls"), model_performance)
+CSV.write(joinpath(output_path, "mnist_model_performance_additional.csv"), model_performance)
+model_performance
+```
+
+```{julia}
 _plt_order = [
     "MLP", 
     "MLP Ensemble", 
     "Large Ensemble (n=50)", 
     "LeNet-5",
+    "RobustNet",
     "JEM", 
     "JEM Ensemble",
 ]
@@ -531,10 +584,6 @@ plt_additional_models, _, _ces_ = _plot_eccco_mnist(
 )
 display(plt_additional_models)
 savefig(plt_additional_models, joinpath(output_images_path, "mnist_eccco_additional.png"))
-```
-
-```{julia}
-
 ```
 
 ### All digits

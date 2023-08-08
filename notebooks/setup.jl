@@ -35,6 +35,7 @@ setup_notebooks = quote
     using MLUtils
     using Plots
     using Random
+    using RobustNeuralNetworks
     using Serialization
     using StatsPlots
     using Tidier
