@@ -40,6 +40,8 @@ Private function that extracts the chains from a fitted model.
 function _get_chains(fitresult)
     if fitresult isa MLJEnsembles.WrappedEnsemble
         chains = map(res -> res[1], fitresult.ensemble)
+    elseif fitresult isa MLJBase.Signature
+        chains = [fitted_params(fitresult)[:image_classifier][1]]      # for piped image classifiers
     else
         chains = [fitresult[1]]
     end

@@ -388,6 +388,11 @@ function _plot_eccco_mnist(
 
     ces = Dict()
     for (mod_name, mod) in model_dict
+        if mod.model.model isa ProbabilisticPipeline
+            x = mod.model.model.f(x)
+            _data = counterfactual_data
+            _data.X = mod.model.model.f(_data.X)
+        end
         ce = generate_counterfactual(
             x, target, counterfactual_data, mod, eccco_generator; 
             decision_threshold=γ, max_iter=T,
@@ -460,18 +465,22 @@ function MLJFlux.build(b::LeNetBuilder, rng, n_in, n_out, n_channels)
 	p = div(k - 1, 2)
 
 	front = Flux.Chain(
-			   Conv((k, k), n_channels => c1, pad=(p, p), relu),
-			   MaxPool((2, 2)),
-			   Conv((k, k), c1 => c2, pad=(p, p), relu),
-			   MaxPool((2, 2)),
-			   Flux.flatten)
+        Conv((k, k), n_channels => c1, pad=(p, p), relu),
+        MaxPool((2, 2)),
+        Conv((k, k), c1 => c2, pad=(p, p), relu),
+        MaxPool((2, 2)),
+        Flux.flatten
+    )
 	d = Flux.outputsize(front, (n_in..., n_channels, 1)) |> first
     back = Flux.Chain(
-        Dense(256, 120, relu),
+        Dense(d, 120, relu),
         Dense(120, 84, relu),
         Dense(84, n_out),
     )
-	return Flux.Chain(front, back)
+
+    chain = Flux.Chain(front, back)
+
+	return chain
 end
 
 # Final model:
@@ -500,8 +509,8 @@ add_retrain = true
 mlp_large_ens = EnsembleModel(model=mlp, n=50)
 
 add_models = Dict(
-    "Large Ensemble" => mlp_large_ens,
     "LeNet-5" => lenet,
+    "Large Ensemble (n=50)" => mlp_large_ens,
 )
 
 if add_retrain
@@ -517,7 +526,8 @@ end
 _plt_order = [
     "MLP", 
     "MLP Ensemble", 
-    "Large Ensemble", 
+    "Large Ensemble (n=50)", 
+    "LeNet-5",
     "JEM", 
     "JEM Ensemble",
 ]
