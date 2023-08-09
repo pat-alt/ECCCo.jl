@@ -177,8 +177,21 @@ model_performance
 ```
 
 ```{julia}
+label_names = [
+    "T-shirt/top",
+    "Trouser",
+    "Pullover",
+    "Dress",
+    "Coat",
+    "Sandal",
+    "Shirt",
+    "Sneaker",
+    "Bag",
+    "Boot",
+]
+
 function plot_fmnist(
-    x::Union{AbstractArray, Int}=x_factual, target::Int=target;
+    x::Int=3, targets::Vector{Int}=[1];
     generator = ECCCoGenerator(),
     rng::Union{Int,AbstractRNG}=Random.GLOBAL_RNG,
     T::Int = 100,
@@ -186,16 +199,15 @@ function plot_fmnist(
     model=model_dict["Ensemble"],
     img_height::Int = img_height,
     test_data::Bool = false,
+    init::Symbol = :identity,
+    noise::Float32 = 0.0f0,
     kwrgs...,
 )
 
     # Setup:
     Random.seed!(rng)
-    if x isa Int
-        x_fact = counterfactual_data.X[:,rand(findall(labels.==x))][:,:]
-    else
-        x_fact = x
-    end
+    x_fact = counterfactual_data.X[:,rand(findall(labels.==x))][:,:]
+    x_fact = pre_process(x_fact, noise=noise)
 
     if test_data
         data = load_mnist_test()
@@ -203,30 +215,36 @@ function plot_fmnist(
         data = counterfactual_data
     end
 
-    ce = generate_counterfactual(
-        x_fact, target, data, model, generator; 
-        decision_threshold=γ, max_iter=T,
-        initialization=:identity,
-        converge_when=:generator_conditions,
-    )
-
     # Plot:
     p1 = Plots.plot(
         convert2image(MNIST, reshape(x_fact,28,28)),
         axis=([], false),
         size=(img_height, img_height),
-        title="Factual"
+        title="$(label_names[x+1]) (factual)",
+        dpi=300
     )
 
-    _x = CounterfactualExplanations.counterfactual(ce)
-    p2 = Plots.plot(
-        convert2image(MNIST, reshape(_x,28,28)),
-        axis=([], false), 
-        size=(img_height, img_height),
-        title="Counterfactual"
-    )
+    plts = [p1]
 
-    plt = Plots.plot(p1, p2; size=(img_height*2,img_height), layout=(1,2), kwrgs...)
+    for t in targets
+        ce = generate_counterfactual(
+            x_fact, t, data, model, generator; 
+            decision_threshold=γ, max_iter=T,
+            initialization=init,
+            converge_when=:generator_conditions,
+        )
+        _x = CounterfactualExplanations.counterfactual(ce)
+        plt = Plots.plot(
+            convert2image(MNIST, reshape(_x,28,28)),
+            axis=([], false), 
+            size=(img_height, img_height),
+            title="$(label_names[t+1])", 
+            dpi=300
+        )
+        plts = [plts..., plt]
+    end
+    
+    plt = Plots.plot(plts..., size=(img_height*length(plts),img_height), layout=(1,length(plts)), kwrgs...)
     
     return plt
 end
@@ -235,7 +253,27 @@ end
 
 
 ```{julia}
-rng = rand(1:10000)
-factual = 3
-plt = plot_fmnist(3, 1, rng=rng)
+rng = 42
+gen = ECCCoGenerator(
+    λ=[0.1,0.30,0.30], 
+    nsamples=25,
+    nmin=10,
+)
+plts = []
+
+plt = plot_fmnist(3, [1]; rng=rng, generator=gen, img_height=200)
+display(plt)
+push!(plts, plt)
+savefig(plt, "dev/rebuttal/www/fmnist_dress.png")
+
+plt = plot_fmnist(9, [5]; rng=rng, generator=gen, img_height=200)
+display(plt)
+push!(plts, plt)
+savefig(plt, "dev/rebuttal/www/fmnist_boot.png")
+
+plt = plot_fmnist(2, [4]; rng=rng, generator=gen, img_height=200)
+display(plt)
+push!(plts, plt)
+savefig(plt, "dev/rebuttal/www/fmnist_pullover.png")
 ```
+

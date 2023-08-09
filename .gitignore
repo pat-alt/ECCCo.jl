@@ -215,3 +215,4 @@ sympy-plots-for-*.tex/
 *.upb
 
 # pythontex
+/.luarc.json

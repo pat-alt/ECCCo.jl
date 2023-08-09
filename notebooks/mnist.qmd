@@ -613,9 +613,9 @@ display(plt_additional_models)
 ```
 
 ```{julia}
-Random.seed!(2023)
+Random.seed!(123)
 
-λ = [0.1,0.215,0.215]
+λ = [0.1,0.22,0.22]
 
 wachter = WachterGenerator(
     λ=λ[1], 
@@ -624,13 +624,18 @@ wachter = WachterGenerator(
 
 combos = [
     (9,7),
+    (7,2),
     (6,0),
     (4,1),
     (2,3),
     (5,8),
+    (6,5),
+    (1,7),
+    (1,4),
+    (0,3)
 ]
 
-n_each = 2
+n_each = 3
 combos = reduce(vcat, [fill(c, n_each) for c in combos])
 
 plts_eccco = []
@@ -684,7 +689,7 @@ for (i, (factual, target)) in enumerate(combos)
     p1 = plts_eccco[i]
     p2 = plts_wachter[i]
     plt = Plots.plot(
-        p1, p2, layout=(2,1), plot_title="Factual: $factual, Target: $target",
+        p1, p2, layout=(2,1),
         size = (1200, 400),
     )
     display(plt)
