@@ -2,7 +2,7 @@ We would like to thank all of the reviewers for their detailed and thoughtful re
 
 ### Point 1: Add more datasets
 
-We agree that further work could benefit from including additional datasets and will make this point clear in section 7. That being said, we have relied on datasets commonly used in similar studies. Due to the size and scope of this work, we have decided to focus on conveying our motivation, methodology and conclusions through illustrative datasets. 
+We agree that further work could benefit from including additional datasets and will make this point clear in section 7. That being said, we have relied on datasets commonly used in similar studies. Due to the size and scope of this work, we have decided to focus on conveying our motivation, methodology and conclusions through illustrative datasets. To immediately address reviewer concerns, we have added a few qualitative examples for Fashion-MNIST in the companion PDF.
 
 ### Point 2: Add more models
 
