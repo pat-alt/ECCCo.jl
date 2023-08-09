@@ -1,27 +1,60 @@
-Thank you! In this individual response, we will refer back to the main points discussed in the global response where relevant and discuss any other specific points the reviewer has raised.
+Thank you! In this individual response, we will refer back to the main points discussed in the global response where relevant and discuss any other specific points the reviewer has raised. Below we will go through individual points where quotations trace back to reviewer remarks.
 
-We largely agree with some of the weaknesses pointed out and will address these below. To start off, we want to address what is being described as the "major weakness" of our paper: the remark that our results indicate that ECCCo does not directly help with plausibility for "weaker" models. That is mostly correct, but let us try to make the case for why this should not be considered as a weakness at all: 
+#### Low plausibility (real-world data)
 
-- We would argue that this is a desirable property of ECCCo, if our priority is to understand model behaviour: lower plausibility conditional on high fidelity implies that the model itself has learned implausible explanations for the data (we point to this in lines 237-239, 305-307, 322-324, 340-342, ...).
-- We think that this characteristic is desirable for the following reasons: 
-    - For practitioners/researchers this is valuable information indicating that despite good predictive performance, the learned posterior density $p_{\theta}(\mathbf{x}|\mathbf{y^{+}})$ is high in regions of the input domain that are implausible (in the sense of Def 2.1, i.e. the corresponding true density $p(\mathbf{x}|\mathbf{y^{+}})$ is low in those same regions).
-    - Instead of using surrogate-aided counterfactual search engines to sample those counterfactuals from $p_{\theta}(\mathbf{x}|\mathbf{y^{+}})$ that are indeed plausible, we would are that the next point of action in such cases should generally be to improve the model.
-    - We agree that this places an additional burden on researchers/practitioners, but that does not render ECCCo impractical. In situations where providing actionable recourse is an absolute priority, practitioners can always resort to REVISE and related tools in the short term. Major discrepancies between ECCCo and surrogate-aided tools should then at the very least signal to researchers/practitioners, that the underlying model needs to be improved in the medium-term. 
+> "The major weakness of this work is that plausibility for non-JEM-based classifiers is very low on 'real-world' datasets (Table 2)."
 
-To conclude, we believe that ECCCo and derivative works have the potential to help us identify models that have learned implausible explanations for the data and improve upon that. To illustrate this, we have relied on gradually improving our classifiers through ensembling and joint energy modelling. We chose to focus on JEMs because:
+As we argue in **Point 3** (and to some extent also **Point 2**) of the global rebuttal, we believe that this should not be seen as a weakness at all:
 
-- ECCCo itself uses ideas underlying JEMs. 
-- JEMs have been shown to have multiple desirable properties including robustness and good predictive uncertainty quantification. Based on the previous literature on counterfactuals, these model properties should generally positively correlate with the plausibility of counterfactuals (and our findings seem to confirm this).
+- Conditional on high fidelity, plausibility hinges on the quality of the underlying model. 
+- Subpar outcomes can therefore be understood as a signal that the model needs to be improved. 
 
-We agree with the criticism that the "visual quality of generated counterfactuals seems to be low" and we observe "diversity of generated counterfactuals", but:
+As noted in the global rebuttal, we aim to make this intuition even clearer in the paper. 
+
+#### Visual quality (MNIST)
+
+> "[...] visual quality of generated counterfactuals seems to be low. [Results] hint to low diversity of generated counterfactuals."
+
+Again, we kindly point to the global rebuttal (**Point 2** and **Point 3**) in this context. Additionally, we note the following:
 
 - The visual quality and diversity of the counterfactuals (Fig. 6 in suppl.) seems to faithfully represent generative property of the model (Fig. 6 in suppl.).
 - If diversity is crucial, our implementation is fully compatible with adding additional diversity penalties as in DiCE (Mothilal et al., 2019).
 
-We do agree with the criticism that our work could benefit from including other classes of models that can be expected to learn more plausible explanations than our small MLPs (ResNet, CNN, Transformer, adversarially-trained networks, Bayesian NNs, ...). We also agree that additional, more complex datasets need to be consulted in this context and we intend to tackle this in future work. 
+We will discuss this more thoroughly in the paper. 
 
-- We would argue that these are limitations of our work, but not necessarily weaknesses. As we have argued elsewhere, this work was limited in both scope and size. Including more experiments would mean compromising on explanations/elaborations with regard to our setup that to our feeling are critical.
-- These limitations could be made more explicit in a camera-ready version of the paper, should it come to that.
+#### Closeness desideratum
+
+> "ECCCos seems to generate counterfactuals that heavily change the initial image [...] thereby violating the closeness desideratum."
+
+- We would look at this as the price you have to pay for faithfulness and plausibility.
+  - Concerning faithfulness, large perturbations in the case of MNIST, for example, seem to reflect the fact that the underlying model is sensitive to perturbations across the entire image, even though the images are very sparse. We would argue that this is an undesirable property of the model, not the explanation. 
+  - Concerning plausibility, larger perturbations are typically necessary to move counterfactuals not simply across the decision boundary, but into dense areas of the target domain. Thus, REVISE, for example, is also often associated with larger perturbations.
+- This tradeoff can be governed through penalty strengths: if closeness is a high priority, simply increase the relative size of $\lambda_1$ in Equation (5).
+
+We are happy to highlight this tradeoff in section 7. 
+
+#### Datasets
+
+> "The experiments are only conducted on small-scale datasets."
+
+In short, we have relied on illustrative datasets commonly used in similar studies. Please refer to our global rebuttal (in particular **Point 1**) for additional details.
+
+#### Conformal Prediction (ablation)
+
+> "[...] it is unclear if conformal prediction is actually required for ECCCos."
+
+Please refer to **Point 4** in the global rebuttal.
+
+#### Bias towards faithfulness
+
+> "Experimental results for faithfulness are biased since (un)faithfulness is already used during counterfactual optimization as regularizer."
+
+- This is true and we are transparent about this in the paper (line 320 to 322). 
+- ECCCo is intentionally biased towards faithfulness in the same way that Wachter is intentionally biased towards minimal perturbations. 
+
+We are happy to make this point more explicit in section 7. 
+
+#### Other questions
 
 Finally, let us try to answer the specific questions that were raised:
 
@@ -34,4 +67,4 @@ Finally, let us try to answer the specific questions that were raised:
   
     This is not performance-optimized code and the bulk of the runtime and allocation is driven by sampling through SGLD. Note that while in our experiments we chose to resample for each individual counterfactual explanation, in practice, sampling could be done once for a given dataset. In any case, the computational burden should typically be lower than the overhead involved in training a sufficiently expressive VAE for REVISE, for example. 
 
-We also thank the reviewer for their suggestions and will take these on board. The "ECCCo" vs. "ECCCos" story actually caused us some headache: we eventually tried to highlight that *ECCCo* relates to the generator, hence shown in italic consistent with the other generators. Perhaps it makes more sense to drop the distinction between the two.
+We also thank the reviewer for their suggestions and will take these on board.

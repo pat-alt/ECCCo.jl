@@ -1,6 +1,6 @@
-Thank you! In this individual response, we will refer back to the main points discussed in the global response where relevant and discuss any other specific points the reviewer has raised.
+Thank you! In this individual response, we will refer back to the main points discussed in the global response where relevant and discuss any other specific points the reviewer has raised. Below we will go through individual points where quotations trace back to reviewer remarks.
 
-The first explicit concern raised is about of mathematical notation. 
+#### Mathematical notation
 
 > "Some notions are lacking descriptions and explanations"
 
@@ -9,7 +9,7 @@ We will make a full pass over all notation, and improve where needed. In the mea
 - We state in Definition 4.1 that $p_{\theta}(\mathbf{x}|\mathbf{y^{+}})$ "denote[s] the conditional distribution of $\mathbf{x}$ in the target class  $\mathbf{y}^{+}$, where $\theta$ denotes the parameters of model $M_{\theta}$" following Grathwohl (2020). In the following sentence (line 137) of the paper we state that this can be understood intuitively as "what the model has learned about the data". 
 - Both $\varepsilon(\cdot)$ and $\hat{\mathbf{X}}_{\theta,y^{+}}^{n_E}$ are explained in line 146 and lines 168-169, respectively. Additional detail can also be found in the Appendix. To the extent possible, we will extend these explanations. 
 
-The second explicit concern raised is about the conditional distribution:
+#### Conditional distribution
 
 > "[...] the class-condition distribution $p(\mathbf{x}|\mathbf{y^{+}})$ is existed but unknown and learning this distribution is very challenging especially for structural data"
 
@@ -19,14 +19,14 @@ We disagree with the statement that this should be seen as a weakness of our pap
 - Learning the generative task is also at the core of related approaches mentioned in the paper like REVISE: as we mention in line 89, the authors of REVISE "propose using a generative model such as a Variational Autoencoder (VAE)" to learn $p(\mathbf{x})$. We also point to other related approaches towards plausibility that all centre around learning the data-generating process of the inputs $X$ (lines 85 to 104).
 - Learning $p(\mathbf{x}|\mathbf{y^{+}})$ should generally be easier than learning the unconditional distribution $p(\mathbf{x})$, because the information contained in labels can be leveraged in the latter case. 
 
-The next explicit concern raised is about the generalisability and rigorousness of our implausibility metric:
+#### Implausibility metric
 
 > "Additionally, the implausibility metric seems not general and rigorous [...]"
 
 - We agree it is not perfect and speak to this in the paper (e.g. lines 297 to 299). But we think that it is an improved, more robust version of the metric that was previously proposed and used in the literature (lines 159 to 166). Nonetheless, we are happy to make this limitation clearer also in section 7.
 - The rule-based unary constraint metric proposed in Vo et al. (2023) looks interesting, but the paper will be presented for the first time at KDD in August 2023 and we were not aware of it at the time of writing. Thanks for bringing it to our attention, we are happy to mention it in the same context in section 7. 
 
-Concern is also expressed with respect to how we defined "faithfulness". 
+#### Definiton of "faithfulness"
 
 > "Faithfulness [...] can be understood as the validity and fidelity of counterfactual examples. [...] The definition 4.1 is fine but missing of the details of $p_{\theta}(\mathbf{x}|\mathbf{y^{+}})$. [...] However, it is not clear to me how to [...] use it in [SGLD]."
 
@@ -38,7 +38,9 @@ We wish to highlight a possible reviewer misunderstanding with regard to a funda
 
 We will try to clarify this in the paper as much as possible. 
 
-Next, the idea to use Conformal Prediction (CP) in this context is mentioned both as a strength
+#### Conformal Prediction (CP) 
+
+CP in this context is mentioned both as a strength
 
 > "conformal prediction for counter-factual explanation is interesting"
 
@@ -52,8 +54,8 @@ We reiterate our motivation here:
 - Since CP is model-agnostic, we propose relying on it to relax restrictions that were previously placed on the class of classifiers (lines 183 to 189).
 - CP does indeed produce prediction sets in the context of classification. That is why we work with a smooth version of the set size that is compatible with gradient-based counterfactual search, as we explain in some detail in lines 194 to 205 and also in Appendix B. 
 
-Finally, there is concern around the rigorousness of our experiments:
+#### Experiments
 
 > "The experiments are humble and not really solid to me. [...] the authors need to conduct ablation studies regarding the involving terms in (5)."
 
-We think that experiments of this scale are common in the related literature. Please refer to the global rebuttal for more details. Concerning abalation studies, we already do this to some extent (e.g. lines 278 to 281). We are happy to stress that more ablation studies are needed in the context of lines 330 to 332 in section 7. 
+We think that experiments of this scale are common in the related literature. Please refer to the global rebuttal for more details. Concerning **ablation studies**, please refer to **Point 4** in the global rebuttal.
