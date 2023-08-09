@@ -1,0 +1,5 @@
+Thank you!
+
+We will jump straight to the questions that have been raised. Firstly, concerning the limited set of models and real-world datasets, we agree that more work is needed here and intend to tackle this in future work. 
+
+Concerning generalisability, our approach should generalise to any classifier that is differentiable with respect to inputs, consistent with other gradient-based counterfactual generators (Equation 1). Our actual implementation is currently compatible with neural networks trained in Julia and has experimental support for `torch` trained in either Python or R. Even though it is definitely possible to generate counterfactuals for non-differentiable models, it is not immediately obvious to us how SGLD can be applied in this context. An interesting question for future research would be if there are other scalable and gradient-free methods that can be used to sample from the conditional distribution learned by the model. 

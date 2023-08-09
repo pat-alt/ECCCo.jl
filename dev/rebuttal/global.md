@@ -1,0 +1,41 @@
+We would like to thank all of the reviewers for their detailed and thoughtful reviews &mdash; your feedback is truly much appreciated. 
+
+Based on the reviewers' helpful suggestions, we plan to extend section 7 to deepen the interpretation of the results presented in this work as well as its limitations. Below, we will respond to points that have been raised by at least two reviewers. Individual responses to each reviewer contain additional points. 
+
+### Point 1 (Real-world data)
+
+*Summary:*
+
+> Some reviewers have noted that "experiments with real-world data a bit limited" and "only conducted on small-scale datasets".
+
+*Response*:
+
+We agree that further work could benefit from including additional datasets and will make this point clear in section 7. That being said, we have relied on datasets commonly used in similar studies. Due to the size and scope of this work, we have decided to focus on conveying our motivation, methodology and conclusions through illustrative datasets. 
+
+### Point 2 (Models)
+
+*Summary:*
+
+> Some reviewers have noted that "focus of the models being tested seems narrow". The work could benefit from including additional models like "MLPs, CNNs, or transformer".
+
+*Response*:
+
+We agree that further work could benefit from including additional models and will make this point clear in section 7. In line with similar studies, we have chosen simple neural network architectures as our starting point. Moving on from there, our goal has been to understand if we can improve these simple models through joint-energy training, in order to yield more plausible counterfactuals that faithfully convey the improved quality of the underlying model. To this end, we think that our experiments provide sufficient evidence. The size and scope of this work ultimately led us to prioritise this main point. The question about which kind of models yield the most plausible and faithful counterfactuals (e.g. "MLPs, CNNs, or transformer" but also Bayesian NNs, adversarially trained NNs) is interesting in itself, but something we have delegated to future work. We will be more clear about this in section 7. 
+
+### Point 3 (Plausibility and Applicability)
+
+*Summary:*
+
+> Some reviewers have expressed concern around whether "ECCCo generates plausible counterfactuals beyond synthetic datasets for non-JEM-based classifiers" and asked for qualitative examples for non-JEM-based coutnerfactuals. Failure to produce plausible counterfactuals "could significantly limit ECCCos’ applicability and utility for researchers as well as practitioners alike".
+
+*Response*:
+
+We agree that additional qualitative examples for MNIST can help to demonstrate that ECCCo does indeed uncover plausible patterns learned by non-JEM-based classifiers. In the companion PDF we provide such examples, which also include a larger deep ensemble and a simple CCN (LeNet-5), both of which tend to yield more plausible counterfactuals than a simple MLP. Based on the reviewers' suggestions we will move these into the supplementary material. Will respect to our other real-world dataset, the results in Table 2 indicate that ECCCo consistently achieves substantially higher plausibility than Wachter. 
+
+It is important to note here, that ECCCo aims to generate faithful counterfactuals first and foremost. Plausibility is achieved only to the extent that the underlying model learns plausible explanations for the data. Thus, we disagree that failure to produce plausible counterfactuals would limit ECCCo's usefulness in practice. We argue that this should not be seen as a weakness, but rather as a strength of ECCCo, for the following reasons:
+
+- For practitioners/researchers it is valuable information indicating that despite good predictive performance, the learned posterior density $p_{\theta}(\mathbf{x}|\mathbf{y^{+}})$ is high in regions of the input domain that are implausible (in the sense of Def 2.1, i.e. the corresponding true density $p(\mathbf{x}|\mathbf{y^{+}})$ is low in those same regions).
+- Instead of using surrogate-aided counterfactual search engines to sample those counterfactuals from $p_{\theta}(\mathbf{x}|\mathbf{y^{+}})$ that are indeed plausible, we would are that the next point of action in such cases should generally be to improve the model.
+- We agree that this places an additional burden on researchers/practitioners, but that does not render ECCCo impractical. In situations where providing actionable recourse is an absolute priority, practitioners can always resort to REVISE and related tools in the short term. Major discrepancies between ECCCo and surrogate-aided tools should then at the very least signal to researchers/practitioners, that the underlying model needs to be improved in the medium term.
+
+Based on the reviewers' observations in this context, we will clarify this tension between faithfulness and plausibility further by sharpening the relevant paragraphs in our paper.

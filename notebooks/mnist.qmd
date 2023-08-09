@@ -370,6 +370,8 @@ function _plot_eccco_mnist(
     wide::Bool = false,
     img_height::Int = img_height,
     plot_factual::Bool = false,
+    generator::Union{Nothing,CounterfactualExplanations.AbstractGenerator}=nothing,
+    test_data::Bool = false,
     kwrgs...,
 )
 
@@ -381,20 +383,28 @@ function _plot_eccco_mnist(
         x_fact = x
     end
 
-    # Generate counterfactuals using ECCCo generator:
-    eccco_generator = ECCCoGenerator(
-        λ=λ, 
-        temp=temp, 
-        opt=opt,
-        use_class_loss=use_class_loss,
-        nsamples=10,
-        nmin=10,
-    )
+    if isnothing(generator)
+        # Generate counterfactuals using ECCCo generator:
+        generator = ECCCoGenerator(
+            λ=λ, 
+            temp=temp, 
+            opt=opt,
+            use_class_loss=use_class_loss,
+            nsamples=10,
+            nmin=10,
+        )
+    end
+
+    if test_data
+        data = load_mnist_test()
+    else
+        data = counterfactual_data
+    end
 
     ces = Dict()
     for (mod_name, mod) in model_dict
         ce = generate_counterfactual(
-            x_fact, target, counterfactual_data, mod, eccco_generator; 
+            x_fact, target, data, mod, generator; 
             decision_threshold=γ, max_iter=T,
             initialization=:identity,
             converge_when=:generator_conditions,
@@ -438,7 +448,7 @@ function _plot_eccco_mnist(
         plt = Plots.plot(plts...; size=(img_height,img_height), kwrgs...)
     end
     
-    return plt, eccco_generator, ces
+    return plt, generator, ces
 end
 ```
 
@@ -591,6 +601,7 @@ _plt_order = [
     "JEM Ensemble",
 ]
 plt_additional_models, _, _ces_ = _plot_eccco_mnist(
+    λ = [0.125,0.25,0.25],
     plt_order = _plt_order,
     model_dict=large_model_dict,
     wide = true,
@@ -598,7 +609,7 @@ plt_additional_models, _, _ces_ = _plot_eccco_mnist(
     img_height = 150,
 )
 display(plt_additional_models)
-savefig(plt_additional_models, joinpath(output_images_path, "mnist_eccco_additional.png"))
+# savefig(plt_additional_models, joinpath(output_images_path, "mnist_eccco_additional.png"))
 ```
 
 ```{julia}
@@ -628,6 +639,77 @@ for (factual, target) in combos
     )
     display(plt)
     push!(plts, plt)
+end
+```
+
+```{julia}
+λ = [0.1,0.25,0.25]
+
+wachter = WachterGenerator(
+    λ=λ[1], 
+    opt=eccco_generator.opt
+)
+
+combos = [
+    (9,7),
+    # (9,7),
+    # (9,7),
+    (6,0),
+    # (6,0),
+    # (6,0),
+    (4,9),
+    # (4,9),
+    # (4,9),
+    (8,3),
+    # (8,3),
+    # (8,3),
+    (5,6),
+    # (5,6),
+    # (5,6),
+]
+
+plts_eccco = []
+plts_wachter = []
+ces_eccco = []
+ces_wachter = []
+rngs = []
+
+for (factual, target) in combos
+
+    rng = rand(1:10000)
+
+    # ECCCo:
+    plt, _, ces = _plot_eccco_mnist(
+        factual, target; 
+        λ = λ,
+        plt_order = _plt_order,
+        model_dict = large_model_dict,
+        wide = true,
+        plot_factual = true,
+        rng = rng,
+        img_height = 150
+    )
+    display(plt)
+    push!(plts_eccco, plt)
+    push!(ces_eccco, reduce(hcat, target_probs.(values(ces))))
+
+    # Wachter:
+    plt, _, ces = _plot_eccco_mnist(
+        factual, target; 
+        plt_order = _plt_order,
+        model_dict = large_model_dict,
+        wide = true,
+        plot_factual = true,
+        rng = rng,
+        img_height = 150,
+        generator = wachter,
+    )
+    display(plt)
+    push!(plts_wachter, plt)
+    push!(ces_wachter, reduce(hcat, target_probs.(values(ces))))
+
+    push!(rngs, rng)
+
 end
 ```
 
