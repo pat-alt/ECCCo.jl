@@ -601,7 +601,7 @@ _plt_order = [
     "JEM Ensemble",
 ]
 plt_additional_models, _, _ces_ = _plot_eccco_mnist(
-    λ = [0.125,0.25,0.25],
+    λ = [0.1,0.21,0.21],
     plt_order = _plt_order,
     model_dict=large_model_dict,
     wide = true,
@@ -613,37 +613,9 @@ display(plt_additional_models)
 ```
 
 ```{julia}
-combos = [
-    (7,2),
-    (0,8),
-    (8,3),
-    (9,7),
-    (4,9),
-    (2,1),
-    (3,5),
-    (5,8),
-    (6,0),
-    (1,7),
-]
+Random.seed!(2023)
 
-plts = []
-
-for (factual, target) in combos
-    plt, _, _ = _plot_eccco_mnist(
-        factual, target; 
-        plt_order = _plt_order,
-        model_dict = large_model_dict,
-        wide = true,
-        plot_factual = true,
-        img_height = 150
-    )
-    display(plt)
-    push!(plts, plt)
-end
-```
-
-```{julia}
-λ = [0.1,0.25,0.25]
+λ = [0.1,0.215,0.215]
 
 wachter = WachterGenerator(
     λ=λ[1], 
@@ -652,21 +624,14 @@ wachter = WachterGenerator(
 
 combos = [
     (9,7),
-    (9,7),
-    (9,7),
     (6,0),
-    (6,0),
-    (6,0),
-    (4,9),
-    (4,9),
-    (4,9),
-    (8,3),
-    (8,3),
-    (8,3),
-    (5,6),
-    (5,6),
-    (5,6),
+    (4,1),
+    (2,3),
+    (5,8),
 ]
+
+n_each = 2
+combos = reduce(vcat, [fill(c, n_each) for c in combos])
 
 plts_eccco = []
 plts_wachter = []
@@ -712,6 +677,22 @@ for (factual, target) in combos
 
 end
 ```
+
+```{julia}
+final_plts = []
+for (i, (factual, target)) in enumerate(combos)
+    p1 = plts_eccco[i]
+    p2 = plts_wachter[i]
+    plt = Plots.plot(
+        p1, p2, layout=(2,1), plot_title="Factual: $factual, Target: $target",
+        size = (1200, 400),
+    )
+    display(plt)
+    savefig(plt, joinpath("dev/rebuttal/www", "mnist_$(factual)to$(target)_$(i).png"))
+    push!(final_plts, plt)
+end
+```
+
 
 
 ### All digits

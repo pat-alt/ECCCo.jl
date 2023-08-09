@@ -14,4 +14,4 @@ Regarding the specific question/suggestion raised by the reviewer, we do actuall
 
 > "Need for gradient access, e.g. through autodiff, for black-box model under investigation."
 
-This is indeed a limitation of our approach, although it is worth pointing out that many of the existing state-of-the-art approaches to CE rely on gradient access. We do have a paragraph on this in section 7, but are happy to expand on this to the extent possible. 
+This is indeed a limitation of our approach, although it is worth pointing out that many of the existing state-of-the-art approaches to CE rely on gradient access, which we briefly touch upon in Section 7.

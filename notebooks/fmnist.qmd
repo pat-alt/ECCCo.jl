@@ -1,0 +1,241 @@
+```{julia}
+include("$(pwd())/notebooks/setup.jl")
+eval(setup_notebooks)
+```
+
+# FashionMNIST
+
+## Anecdotal Evidence
+
+### Examples in Introduction
+
+#### Wachter and JSMA
+
+```{julia}
+Random.seed!(2023)
+
+# Data:
+counterfactual_data = load_fashion_mnist()
+X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
+input_dim, n_obs = size(counterfactual_data.X)
+M = load_fashion_mnist_mlp()
+
+# Target:
+factual_label = 9
+x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
+target = 7
+factual = predict_label(M, counterfactual_data, x_factual)[1]
+γ = 0.9
+
+# Training params:
+T = 100
+```
+
+### ECCCo
+
+```{julia}
+function pre_process(x; noise::Float32=0.03f0)
+    ϵ = Float32.(randn(size(x)) * noise)
+    x += ϵ
+    return x
+end
+```
+
+```{julia}
+# Hyper:
+_retrain = false
+_regen = false
+
+# Data:
+n_obs = 10000
+counterfactual_data = load_fashion_mnist(n_obs)
+counterfactual_data.X = pre_process.(counterfactual_data.X)
+X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
+X = table(permutedims(X))
+x_factual = reshape(pre_process(x_factual, noise=0.0f0), input_dim, 1)
+labels = counterfactual_data.output_encoder.labels
+input_dim, n_obs = size(counterfactual_data.X)
+n_digits = Int(sqrt(input_dim))
+output_dim = length(unique(labels))
+```
+
+First, let's create a couple of image classifier architectures:
+
+```{julia}
+# Model parameters:
+epochs = 10
+batch_size = minimum([Int(round(n_obs/10)), 128])
+n_hidden = 512
+activation = Flux.relu
+builder = MLJFlux.@builder Flux.Chain(
+    Dense(n_in, n_hidden, activation),
+    # Dense(n_hidden, n_hidden, activation),
+    # Dense(n_hidden, n_hidden, activation),
+    Dense(n_hidden, n_out),
+)
+n_ens = 5                                  # number of models in ensemble
+_loss = Flux.Losses.logitcrossentropy       # loss function
+_finaliser = x -> x                         # finaliser function
+```
+
+```{julia}
+# Simple MLP:
+mlp = NeuralNetworkClassifier(
+    builder=builder, 
+    epochs=epochs,
+    batch_size=batch_size,
+    finaliser=_finaliser,
+    loss=_loss,
+)
+
+# Deep Ensemble:
+mlp_ens = EnsembleModel(model=mlp, n=n_ens)
+
+# Dictionary of models:
+models = Dict(
+    # "MLP" => mlp,
+    "Ensemble" => mlp_ens,
+)
+
+Serialization.serialize(joinpath(output_path,"fashion_mnist_architectures.jls"), models)
+```
+
+
+```{julia}
+# Train models:
+function _train(model, X=X, y=labels; cov=.95, method=:simple_inductive, mod_name="model")
+    conf_model = conformal_model(model; method=method, coverage=cov)
+    mach = machine(conf_model, X, y)
+    @info "Begin training $mod_name."
+    fit!(mach)
+    @info "Finished training $mod_name."
+    M = ECCCo.ConformalModel(mach.model, mach.fitresult)
+    return M
+end
+if _retrain
+    model_dict = Dict(mod_name => _train(mod; mod_name=mod_name) for (mod_name, mod) in models)
+    Serialization.serialize(joinpath(output_path,"fashion_mnist_models.jls"), model_dict)
+else
+    model_dict = Serialization.deserialize(joinpath(output_path,"fashion_mnist_models.jls"))
+end
+```
+
+```{julia}
+# Plot generated samples:
+n_regen = 500
+if _regen 
+    for (mod_name, mod) in model_dict
+        K = length(counterfactual_data.y_levels)
+        input_size = size(selectdim(counterfactual_data.X, ndims(counterfactual_data.X), 1))
+        𝒟x = Uniform(extrema(counterfactual_data.X)...)
+        𝒟y = Categorical(ones(K) ./ K)
+        sampler = ConditionalSampler(𝒟x, 𝒟y; input_size=input_size, prob_buffer=0.0)
+        opt = ImproperSGLD()
+        f(x) = logits(mod, x)
+
+        _w = 1000
+        plts = []
+        neach = 1
+        for i in 1:10
+            x = sampler(f, opt; niter=n_regen, n_samples=neach, y=i)
+            plts_i = []
+            for j in 1:size(x, 2)
+                xj = x[:,j]
+                xj = reshape(xj, (n_digits, n_digits))
+                plts_i = [plts_i..., Plots.heatmap(rotl90(xj), axis=nothing, cb=false)]
+            end
+            plt = Plots.plot(plts_i..., size=(_w,0.10*_w), layout=(1,10))
+            plts = [plts..., plt]
+        end
+        plt = Plots.plot(plts..., size=(_w,_w/10), layout=(1,10), plot_title=mod_name)
+        savefig(plt, joinpath(output_images_path, "fashion_mnist_generated_$(mod_name).png"))
+        display(plt)
+    end
+end
+```
+
+```{julia}
+# Evaluate models:
+
+measure = Dict(
+    :f1score => multiclass_f1score, 
+    :acc => accuracy, 
+    :precision => multiclass_precision
+)
+model_performance = DataFrame()
+for (mod_name, mod) in model_dict
+    # Test performance:
+    test_data = load_fashion_mnist_test()
+    _perf = CounterfactualExplanations.Models.model_evaluation(mod, test_data, measure=collect(values(measure)))
+    _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
+    _perf.mod_name .= mod_name
+    model_performance = vcat(model_performance, _perf)
+end
+Serialization.serialize(joinpath(output_path,"fashion_mnist_model_performance.jls"), model_performance)
+CSV.write(joinpath(output_path, "fashion_mnist_model_performance.csv"), model_performance)
+model_performance
+```
+
+```{julia}
+function plot_fmnist(
+    x::Union{AbstractArray, Int}=x_factual, target::Int=target;
+    generator = ECCCoGenerator(),
+    rng::Union{Int,AbstractRNG}=Random.GLOBAL_RNG,
+    T::Int = 100,
+    use_class_loss::Bool = true,
+    model=model_dict["Ensemble"],
+    img_height::Int = img_height,
+    test_data::Bool = false,
+    kwrgs...,
+)
+
+    # Setup:
+    Random.seed!(rng)
+    if x isa Int
+        x_fact = counterfactual_data.X[:,rand(findall(labels.==x))][:,:]
+    else
+        x_fact = x
+    end
+
+    if test_data
+        data = load_mnist_test()
+    else
+        data = counterfactual_data
+    end
+
+    ce = generate_counterfactual(
+        x_fact, target, data, model, generator; 
+        decision_threshold=γ, max_iter=T,
+        initialization=:identity,
+        converge_when=:generator_conditions,
+    )
+
+    # Plot:
+    p1 = Plots.plot(
+        convert2image(MNIST, reshape(x_fact,28,28)),
+        axis=([], false),
+        size=(img_height, img_height),
+        title="Factual"
+    )
+
+    _x = CounterfactualExplanations.counterfactual(ce)
+    p2 = Plots.plot(
+        convert2image(MNIST, reshape(_x,28,28)),
+        axis=([], false), 
+        size=(img_height, img_height),
+        title="Counterfactual"
+    )
+
+    plt = Plots.plot(p1, p2; size=(img_height*2,img_height), layout=(1,2), kwrgs...)
+    
+    return plt
+end
+
+```
+
+
+```{julia}
+rng = rand(1:10000)
+factual = 3
+plt = plot_fmnist(3, 1, rng=rng)
+```

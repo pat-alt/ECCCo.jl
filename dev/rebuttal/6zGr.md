@@ -4,12 +4,7 @@ Thank you! In this individual response, we will refer back to the main points di
 
 > "The major weakness of this work is that plausibility for non-JEM-based classifiers is very low on 'real-world' datasets (Table 2)."
 
-As we argue in **Point 3** (and to some extent also **Point 2**) of the global rebuttal, we believe that this should not be seen as a weakness at all:
-
-- Conditional on high fidelity, plausibility hinges on the quality of the underlying model. 
-- Subpar outcomes can therefore be understood as a signal that the model needs to be improved. 
-
-As noted in the global rebuttal, we aim to make this intuition even clearer in the paper. 
+Please refer to **Point 3** (and to some extent also **Point 2**) of the global rebuttal. 
 
 #### Visual quality (MNIST)
 
@@ -31,7 +26,7 @@ We will discuss this more thoroughly in the paper.
   - Concerning plausibility, larger perturbations are typically necessary to move counterfactuals not simply across the decision boundary, but into dense areas of the target domain. Thus, REVISE, for example, is also often associated with larger perturbations.
 - This tradeoff can be governed through penalty strengths: if closeness is a high priority, simply increase the relative size of $\lambda_1$ in Equation (5).
 
-We are happy to highlight this tradeoff in section 7. 
+We will highlight this tradeoff in section 7. 
 
 #### Datasets
 
@@ -52,7 +47,7 @@ Please refer to **Point 4** in the global rebuttal.
 - This is true and we are transparent about this in the paper (line 320 to 322). 
 - ECCCo is intentionally biased towards faithfulness in the same way that Wachter is intentionally biased towards minimal perturbations. 
 
-We are happy to make this point more explicit in section 7. 
+We will make this point more explicit in section 7. 
 
 #### Other questions
 
@@ -61,7 +56,7 @@ Finally, let us try to answer the specific questions that were raised:
 - In line 178 we (belatedly) mention that the L1 Norm is our default choice for dist$(\cdot)$. We realise now that it's not obvious that this also applies to Equations 3 and 4 and will fix that. Note that we also experimented with other distance/similarity metrics, but found the differences in outcomes to be small enough to consistently rely on L1 for its sparsity-inducing properties. 
 - $f$ by default just rescales the input data. GMSC data is standardized and MNIST images are rescaled to $[-1,1]$ (mentioned in Appendix D, lines 572-576, but maybe this indeed belongs in the body). $f^{-1}$ is simply the inverse transformation. Synthetic data is not rescaled. We still explicitly mention $f$ here to stay consistent with the generalised notation in Equation (1). For example, $f$/$f^{-1}$ could just as well be a compression/decompression or an encoder/decoder as in REVISE.
 - In all of our experiments we set $\alpha=0.05$ (90\% target coverage) and $\kappa=1$ to avoid penalising sets of size one. We should add this to Appendix D, thanks for flagging. Note that we did experiment with these parameter choices, but as we point out in the paper, more work is needed to better understand the role of Conformal Prediction in this context. 
-- I have just run ECCCo and Wachter for a single MNIST digit on my machine (no GPU) using default parameters from the experiment:
+- We have just run ECCCo and Wachter for a single MNIST digit on my machine (no GPU) using default parameters from the experiment:
     - ECCCo: `4.065607 seconds (4.34 M allocations: 1.011 GiB, 7.62\% gc time)`. 
     - Wachter: `1.899047 seconds (2.16 M allocations: 343.889 MiB, 4.59\% gc time, 74.80\% compilation time)`.
   
