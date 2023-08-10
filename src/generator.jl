@@ -25,6 +25,7 @@ function ECCCoGenerator(;
     use_class_loss::Bool=false,
     nsamples::Int=50,
     nmin::Int=25,
+    use_energy_delta::Bool=false,
     kwargs...
 )
 
@@ -47,7 +48,11 @@ function ECCCoGenerator(;
 
     # Energy penalty
     function _energy_penalty(ce::AbstractCounterfactualExplanation)
-        return ECCCo.distance_from_energy(ce; n=nsamples, nmin=nmin, kwargs...)
+        if use_energy_delta
+            return ECCCo.energy_delta(ce; n=nsamples, nmin=nmin, kwargs...)
+        else
+            return ECCCo.distance_from_energy(ce; n=nsamples, nmin=nmin, kwargs...)
+        end
     end
 
     _penalties = [Objectives.distance_l1, _set_size_penalty, _energy_penalty]

@@ -164,8 +164,8 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = true
-_regen = true
+_retrain = false
+_regen = false
 
 # Data:
 n_obs = 10000
@@ -357,6 +357,17 @@ model_performance
 ### Different Models
 
 ```{julia}
+function plot_mnist(ce; size=(img_height, img_height), kwrgs...)
+    x = CounterfactualExplanations.counterfactual(ce)
+    phat = target_probs(ce)
+    plt = Plots.plot(
+        convert2image(MNIST, reshape(x,28,28));
+        axis=([], false), 
+        size=size,
+        kwrgs...,
+    )
+end
+
 function _plot_eccco_mnist(
     x::Union{AbstractArray, Int}=x_factual, target::Int=target;
     λ=[0.1,0.25,0.25],
@@ -372,6 +383,7 @@ function _plot_eccco_mnist(
     plot_factual::Bool = false,
     generator::Union{Nothing,CounterfactualExplanations.AbstractGenerator}=nothing,
     test_data::Bool = false,
+    use_energy_delta::Bool = false,
     kwrgs...,
 )
 
@@ -392,6 +404,7 @@ function _plot_eccco_mnist(
             use_class_loss=use_class_loss,
             nsamples=10,
             nmin=10,
+            use_energy_delta=use_energy_delta,
         )
     end
 
@@ -456,6 +469,27 @@ end
 plt, eccco_generator, ces = _plot_eccco_mnist()
 display(plt)
 savefig(plt, joinpath(output_images_path, "mnist_eccco.png"))
+```
+
+#### Energy Delta (not in paper)
+
+```{julia}
+plt, gen_delta, ces = _plot_eccco_mnist(λ = [0.1,0.1,3.0], use_energy_delta=true)
+display(plt)
+savefig(plt, joinpath(output_images_path, "mnist_eccco_energy_delta.png"))
+```
+
+```{julia}
+λ_delta = [0.1,0.1,2.5]
+λ = [0.1,0.25,0.25]
+plts = []
+for i in 0:9
+    plt, _, _ = _plot_eccco_mnist(x_factual, i; λ = λ, plot_title="Distance")
+    plt_delta, _, _ = _plot_eccco_mnist(x_factual, i; λ = λ_delta, use_energy_delta=true, plot_title="Energy Delta")
+    plt = Plots.plot(plt, plt_delta; size=(img_height*2,img_height), layout=(1,2))
+    display(plt)
+    push!(plts, plt)
+end
 ```
 
 #### Additional Models (not in paper)
@@ -771,6 +805,29 @@ if _regen_all_digits
     end
     plt = plot_all_digits(generator=eccco_generator)
     savefig(plt, joinpath(output_images_path, "mnist_eccco_all_digits.png"))
+end
+```
+
+#### Energy Delta (not in paper)
+
+```{julia}
+_regen_all_digits = true
+if _regen_all_digits
+    function plot_all_digits(rng=123;verbose=true,img_height=180,kwargs...)
+        plts = []
+        for i in 0:9
+            for j in 0:9
+                @info "Generating counterfactual for $(i) -> $(j)"
+                plt = plot_mnist(i,j;kwargs...,rng=rng, img_height=img_height)
+                !verbose || display(plt)
+                plts = [plts..., plt]
+            end
+        end
+        plt = Plots.plot(plts...; size=(img_height*10,img_height*10), layout=(10,10), dpi=300)
+        return plt
+    end
+    plt = plot_all_digits(generator=gen_delta)
+    savefig(plt, joinpath(output_images_path, "mnist_eccco_all_digits-delta.png"))
 end
 ```
 
