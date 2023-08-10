@@ -1,4 +1,5 @@
 using ChainRules: ignore_derivatives
+using CounterfactualExplanations: get_target_index
 using Distances
 using Flux
 using LinearAlgebra: norm
@@ -73,7 +74,8 @@ function energy_delta(
 
     xtarget = conditional_samples[1]                    # conditional samples
     x = CounterfactualExplanations.decode_state(ce)     # current state
-    E(x) = -logits(ce.M, x)[ce.target,:]                # negative logits for target class
+    t = get_target_index(ce.data.y_levels, ce.target)
+    E(x) = -logits(ce.M, x)[t,:]                # negative logits for target class
     _loss = E(x) .- E(xtarget)
 
     _loss = reduce((x, y) -> x + y, _loss) / n          # aggregate over samples
