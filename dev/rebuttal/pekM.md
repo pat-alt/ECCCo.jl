@@ -1,11 +1,11 @@
 Thank you! In this individual response, we will refer back to the main points discussed in the global response where relevant and discuss any other specific points the reviewer has raised. Below we will go through individual points where quotations trace back to reviewer remarks.
 
-#### Mathematical notation
+### Mathematical notation
 
 > "Some notions are lacking descriptions and explanations"
 
 We will make a full pass over all notation, and improve where needed. 
-#### Conditional distribution
+### Conditional distribution
 
 > "[...] the class-condition distribution $p(\mathbf{x}|\mathbf{y^{+}})$ is existed but unknown and learning this distribution is very challenging especially for structural data"
 
@@ -17,14 +17,14 @@ We do not see this as a weakness of our paper. Instead:
 
 We will revisit section 2 to clarify this.
 
-#### Implausibility metric
+### Implausibility metric
 
 > "Additionally, the implausibility metric seems not general and rigorous [...]"
 
 - We agree it is not perfect and speak to this in the paper (e.g. lines 297 to 299). But we think that it is an improved, more robust version of the metric that was previously proposed and used in the literature (lines 159 to 166). Nonetheless, we will make this limitation clearer also in section 7.
 - The rule-based unary constraint metric proposed in Vo et al. (2023) looks interesting, but the paper will be presented for the first time at KDD in August 2023 and we were not aware of it at the time of writing. Thanks for bringing it to our attention, we will mention it in the same context in section 7. 
 
-#### Definiton of "faithfulness"
+### Definiton of "faithfulness"
 
 > "Faithfulness [...] can be understood as the validity and fidelity of counterfactual examples. [...] The definition 4.1 is fine but missing of the details of $p_{\theta}(\mathbf{x}|\mathbf{y^{+}})$. [...] However, it is not clear to me how to [...] use it in [SGLD]."
 
@@ -36,7 +36,7 @@ We wish to highlight a possible reviewer misunderstanding with regard to a funda
 
 We will revisit sections 3 and 4 of the paper to better explain this.
 
-#### Conformal Prediction (CP) 
+### Conformal Prediction (CP) 
 
 CP in this context is mentioned both as a strength
 
@@ -54,6 +54,6 @@ We reiterate our motivation here:
 
 Following the suggestion from reviewer 6zGr we will smoothen the introduction Conformal Prediction and better motivate it beforehand.
 
-#### Experiments
+### Experiments
 
-Please see **Points 1** and **4** of our global rebuttal
+Please see **Points 1** and **4** of our global rebuttal.

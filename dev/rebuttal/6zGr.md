@@ -1,12 +1,12 @@
 Thank you! In this individual response, we will refer back to the main points discussed in the global response where relevant and discuss any other specific points the reviewer has raised. Below we will go through individual points where quotations trace back to reviewer remarks.
 
-#### Low plausibility (real-world data)
+### Low plausibility (real-world data)
 
 > "The major weakness of this work is that plausibility for non-JEM-based classifiers is very low on 'real-world' datasets (Table 2)."
 
 Please refer to **Point 3** (and to some extent also **Point 2**) of the global rebuttal. 
 
-#### Visual quality (MNIST)
+### Visual quality (MNIST)
 
 > "[...] visual quality of generated counterfactuals seems to be low. [Results] hint to low diversity of generated counterfactuals."
 
@@ -17,7 +17,7 @@ Again, we kindly point to the global rebuttal (**Point 2** and **Point 3**) in t
 
 We will discuss this more thoroughly in the paper. 
 
-#### Closeness desideratum
+### Closeness desideratum
 
 > "ECCCos seems to generate counterfactuals that heavily change the initial image [...] thereby violating the closeness desideratum."
 
@@ -28,19 +28,19 @@ We will discuss this more thoroughly in the paper.
 
 We will highlight this tradeoff in section 7. 
 
-#### Datasets
+### Datasets
 
 > "The experiments are only conducted on small-scale datasets."
 
 In short, we have relied on illustrative datasets commonly used in similar studies. Please refer to our global rebuttal (in particular **Point 1**) for additional details.
 
-#### Conformal Prediction (ablation)
+### Conformal Prediction (ablation)
 
 > "[...] it is unclear if conformal prediction is actually required for ECCCos."
 
 Please refer to **Point 4** in the global rebuttal.
 
-#### Bias towards faithfulness
+### Bias towards faithfulness
 
 > "Experimental results for faithfulness are biased since (un)faithfulness is already used during counterfactual optimization as regularizer."
 
@@ -49,7 +49,7 @@ Please refer to **Point 4** in the global rebuttal.
 
 We will make this point more explicit in section 7. 
 
-#### Other questions
+### Other questions
 
 Finally, let us try to answer the specific questions that were raised:
 
