@@ -72,13 +72,13 @@ function energy_delta(
         end
     end
 
-    xtarget = conditional_samples[1]                    # conditional samples
-    x = CounterfactualExplanations.decode_state(ce)     # current state
+    xgenerated = conditional_samples[1]                         # conditional samples
+    xproposed = CounterfactualExplanations.decode_state(ce)     # current state
     t = get_target_index(ce.data.y_levels, ce.target)
-    E(x) = -logits(ce.M, x)[t,:]                # negative logits for target class
-    _loss = E(x) .- E(xtarget)
+    E(x) = -logits(ce.M, x)[t,:]                                # negative logits for target class
+    _loss = E(xproposed) .- E(xgenerated)
 
-    _loss = reduce((x, y) -> x + y, _loss) / n          # aggregate over samples
+    _loss = reduce((x, y) -> x + y, _loss) / n                  # aggregate over samples
 
     if return_conditionals
         return conditional_samples[1]
