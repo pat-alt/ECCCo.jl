@@ -3,6 +3,8 @@
 /.quarto/
 /Manifest.toml
 /replicated/
+*/.CondaPkg/
+/dev/rebuttal/www
 
 # Tex
 
@@ -214,3 +216,4 @@ sympy-plots-for-*.tex/
 *.upb
 
 # pythontex
+/.luarc.json

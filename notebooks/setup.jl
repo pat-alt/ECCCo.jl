@@ -24,6 +24,7 @@ setup_notebooks = quote
     using Flux
     using Images
     using JointEnergyModels
+    using LaplaceRedux: LaplaceApproximation
     using LinearAlgebra
     using Markdown
     using MLDatasets
@@ -34,7 +35,9 @@ setup_notebooks = quote
     using MLUtils
     using Plots
     using Random
+    using RobustNeuralNetworks
     using Serialization
+    using StatsPlots
     using Tidier
 
     # Setup:

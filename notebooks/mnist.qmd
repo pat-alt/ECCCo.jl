@@ -164,8 +164,8 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = false
-_regen = false
+_retrain = true
+_regen = true
 
 # Data:
 n_obs = 10000
@@ -185,7 +185,7 @@ First, let's create a couple of image classifier architectures:
 
 ```{julia}
 # Model parameters:
-epochs = 100
+epochs = 25
 batch_size = minimum([Int(round(n_obs/10)), 128])
 n_hidden = 128
 activation = Flux.swish
@@ -366,28 +366,45 @@ function _plot_eccco_mnist(
     rng::Union{Int,AbstractRNG}=1234,
     T::Int = 100,
     use_class_loss::Bool = true,
+    model_dict=model_dict,
+    wide::Bool = false,
+    img_height::Int = img_height,
+    plot_factual::Bool = false,
+    generator::Union{Nothing,CounterfactualExplanations.AbstractGenerator}=nothing,
+    test_data::Bool = false,
+    kwrgs...,
 )
 
     # Setup:
     Random.seed!(rng)
     if x isa Int
-        x = reshape(counterfactual_data.X[:,rand(findall(labels.==x))],input_dim,1)
+        x_fact = counterfactual_data.X[:,rand(findall(labels.==x))][:,:]
+    else
+        x_fact = x
     end
 
-    # Generate counterfactuals using ECCCo generator:
-    eccco_generator = ECCCoGenerator(
-        λ=λ, 
-        temp=temp, 
-        opt=opt,
-        use_class_loss=use_class_loss,
-        nsamples=10,
-        nmin=10,
-    )
+    if isnothing(generator)
+        # Generate counterfactuals using ECCCo generator:
+        generator = ECCCoGenerator(
+            λ=λ, 
+            temp=temp, 
+            opt=opt,
+            use_class_loss=use_class_loss,
+            nsamples=10,
+            nmin=10,
+        )
+    end
+
+    if test_data
+        data = load_mnist_test()
+    else
+        data = counterfactual_data
+    end
 
     ces = Dict()
     for (mod_name, mod) in model_dict
         ce = generate_counterfactual(
-            x, target, counterfactual_data, mod, eccco_generator; 
+            x_fact, target, data, mod, generator; 
             decision_threshold=γ, max_iter=T,
             initialization=:identity,
             converge_when=:generator_conditions,
@@ -398,13 +415,17 @@ function _plot_eccco_mnist(
 
     # Plot:
     p1 = Plots.plot(
-        convert2image(MNIST, reshape(x,28,28)),
-        axis=nothing, 
+        convert2image(MNIST, reshape(x_fact,28,28)),
+        axis=([], false),
         size=(img_height, img_height),
         title="Factual"
     )
 
-    plts = []
+    if plot_factual
+        plts = [p1]
+    else
+        plts = []
+    end
     letters = collect('a':'z')[1:length(ces)]
     _count = 1
 
@@ -421,9 +442,13 @@ function _plot_eccco_mnist(
         plts = [plts..., plt]
         _count += 1
     end
-    plt = Plots.plot(plts...; size=(img_height,img_height))
+    if wide
+        plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)), kwrgs...)
+    else
+        plt = Plots.plot(plts...; size=(img_height,img_height), kwrgs...)
+    end
     
-    return plt, eccco_generator, ces
+    return plt, generator, ces
 end
 ```
 
@@ -432,6 +457,248 @@ plt, eccco_generator, ces = _plot_eccco_mnist()
 display(plt)
 savefig(plt, joinpath(output_images_path, "mnist_eccco.png"))
 ```
+
+#### Additional Models (not in paper)
+
+LeNet-5:
+
+```{julia}
+mutable struct LeNetBuilder
+	filter_size::Int
+	channels1::Int
+	channels2::Int
+end
+
+preproc(X) = reshape(X, (28, 28, 1, :))
+
+function MLJFlux.build(b::LeNetBuilder, rng, n_in, n_out)
+
+    _n_in = Int(sqrt(n_in))
+
+	k, c1, c2 = b.filter_size, b.channels1, b.channels2
+
+	mod(k, 2) == 1 || error("`filter_size` must be odd. ")
+
+	# padding to preserve image size on convolution:
+	p = div(k - 1, 2)
+
+    preproc(x) = reshape(x, (_n_in, _n_in, 1, :))
+
+	front = Flux.Chain(
+        Conv((k, k), 1 => c1, pad=(p, p), relu),
+        MaxPool((2, 2)),
+        Conv((k, k), c1 => c2, pad=(p, p), relu),
+        MaxPool((2, 2)),
+        Flux.flatten
+    )
+	d = Flux.outputsize(front, (_n_in, _n_in, 1, 1)) |> first
+    back = Flux.Chain(
+        Dense(d, 120, relu),
+        Dense(120, 84, relu),
+        Dense(84, n_out),
+    )
+
+    chain = Flux.Chain(preproc, front, back)
+
+	return chain
+end
+
+# Final model:
+lenet = NeuralNetworkClassifier(
+    builder=LeNetBuilder(5, 6, 16),
+    epochs=50,
+    batch_size=batch_size,
+    finaliser=_finaliser,
+    loss=_loss,
+)
+```
+
+Robust Neural network:
+
+```{julia}
+mutable struct RobustNetBuilder
+	n_hidden::Int
+	lipschitz_bound::Float32
+end
+
+function MLJFlux.build(b::RobustNetBuilder, rng, n_in, n_out)
+	n_hidden, γ = b.n_hidden, b.lipschitz_bound
+    _n_hidden = fill(n_hidden,2)
+    model_ps = DenseLBDNParams{Float32}(n_in, _n_hidden, n_out, γ; rng)
+    chain = Flux.Chain(DiffLBDN(model_ps))
+	return chain
+end
+
+# Final model:
+rob_net = NeuralNetworkClassifier(
+    builder=RobustNetBuilder(60, 5.0),
+    epochs=600,
+    batch_size=batch_size,
+    finaliser=_finaliser,
+    loss=_loss,
+)
+```
+
+Training all of them:
+
+```{julia}
+add_retrain = true
+
+# Deep Ensemble:
+mlp_large_ens = EnsembleModel(model=mlp, n=50)
+
+# CNN Ensemble:
+lenet_ens = EnsembleModel(model=lenet, n=5)
+
+add_models = Dict(
+    "LeNet-5" => lenet,
+    # "LeNet-5 Ensemble" => lenet_ens,
+    # "RobustNet" => rob_net,
+    "Large Ensemble (n=50)" => mlp_large_ens,
+)
+
+if add_retrain
+    add_model_dict = Dict(mod_name => _train(mod; mod_name=mod_name) for (mod_name, mod) in add_models)
+    large_model_dict = merge(model_dict, add_model_dict)
+    Serialization.serialize(joinpath(output_path,"mnist_models_large.jls"), large_model_dict)
+else
+    large_model_dict = Serialization.deserialize(joinpath(output_path,"mnist_models_large.jls"))
+end
+```
+
+```{julia}
+# Evaluate models:
+
+measure = Dict(
+    :f1score => multiclass_f1score, 
+    :acc => accuracy, 
+    :precision => multiclass_precision
+)
+model_performance = DataFrame()
+for (mod_name, mod) in large_model_dict
+    # Test performance:
+    test_data = load_mnist_test()
+    _perf = CounterfactualExplanations.Models.model_evaluation(mod, test_data, measure=collect(values(measure)))
+    _perf = DataFrame([[p] for p in _perf], collect(keys(measure)))
+    _perf.mod_name .= mod_name
+    _perf.dataname .= "MNIST"
+    model_performance = vcat(model_performance, _perf)
+end
+Serialization.serialize(joinpath(output_path,"mnist_model_performance_additional.jls"), model_performance)
+CSV.write(joinpath(output_path, "mnist_model_performance_additional.csv"), model_performance)
+model_performance
+```
+
+```{julia}
+_plt_order = [
+    "MLP", 
+    "MLP Ensemble", 
+    "Large Ensemble (n=50)", 
+    "LeNet-5",
+    # "LeNet-5 Ensemble",
+    # "RobustNet",
+    "JEM", 
+    "JEM Ensemble",
+]
+plt_additional_models, _, _ces_ = _plot_eccco_mnist(
+    λ = [0.1,0.21,0.21],
+    plt_order = _plt_order,
+    model_dict=large_model_dict,
+    wide = true,
+    plot_factual = true,
+    img_height = 150,
+)
+display(plt_additional_models)
+# savefig(plt_additional_models, joinpath(output_images_path, "mnist_eccco_additional.png"))
+```
+
+```{julia}
+Random.seed!(123)
+
+λ = [0.1,0.22,0.22]
+
+wachter = WachterGenerator(
+    λ=λ[1], 
+    opt=eccco_generator.opt
+)
+
+combos = [
+    (9,7),
+    (7,2),
+    (6,0),
+    (4,1),
+    (2,3),
+    (5,8),
+    (6,5),
+    (1,7),
+    (1,4),
+    (0,3)
+]
+
+n_each = 3
+combos = reduce(vcat, [fill(c, n_each) for c in combos])
+
+plts_eccco = []
+plts_wachter = []
+ces_eccco = []
+ces_wachter = []
+rngs = []
+
+for (factual, target) in combos
+
+    rng = rand(1:10000)
+
+    # ECCCo:
+    plt, _, ces = _plot_eccco_mnist(
+        factual, target; 
+        λ = λ,
+        plt_order = _plt_order,
+        model_dict = large_model_dict,
+        wide = true,
+        plot_factual = true,
+        rng = rng,
+        img_height = 150
+    )
+    display(plt)
+    push!(plts_eccco, plt)
+    push!(ces_eccco, reduce(hcat, target_probs.(values(ces))))
+
+    # Wachter:
+    plt, _, ces = _plot_eccco_mnist(
+        factual, target; 
+        plt_order = _plt_order,
+        model_dict = large_model_dict,
+        wide = true,
+        plot_factual = true,
+        rng = rng,
+        img_height = 150,
+        generator = wachter,
+    )
+    display(plt)
+    push!(plts_wachter, plt)
+    push!(ces_wachter, reduce(hcat, target_probs.(values(ces))))
+
+    push!(rngs, rng)
+
+end
+```
+
+```{julia}
+final_plts = []
+for (i, (factual, target)) in enumerate(combos)
+    p1 = plts_eccco[i]
+    p2 = plts_wachter[i]
+    plt = Plots.plot(
+        p1, p2, layout=(2,1),
+        size = (1200, 400),
+    )
+    display(plt)
+    savefig(plt, joinpath("dev/rebuttal/www", "mnist_$(factual)to$(target)_$(i).png"))
+    push!(final_plts, plt)
+end
+```
+
+
 
 ### All digits
 

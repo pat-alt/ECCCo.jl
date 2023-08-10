@@ -1,3 +1,4 @@
+using ChainRules: ignore_derivatives
 using ConformalPrediction
 using CounterfactualExplanations.Models
 using Flux
@@ -11,11 +12,11 @@ using Statistics
 const CompatibleAtomicModel = Union{<:MLJFlux.MLJFluxProbabilistic,MLJEnsembles.ProbabilisticEnsembleModel{<:MLJFlux.MLJFluxProbabilistic}}
 
 """
-    ConformalModel <: Models.AbstractDifferentiableJuliaModel
+    ConformalModel <: Models.AbstractDifferentiableModel
 
 Constructor for models trained in `Flux.jl`. 
 """
-struct ConformalModel <: Models.AbstractDifferentiableJuliaModel
+struct ConformalModel <: Models.AbstractDifferentiableModel
     model::ConformalPrediction.ConformalProbabilisticSet
     fitresult::Any
     likelihood::Union{Nothing,Symbol}
@@ -38,11 +39,18 @@ end
 Private function that extracts the chains from a fitted model.
 """
 function _get_chains(fitresult)
-    if fitresult isa MLJEnsembles.WrappedEnsemble
-        chains = map(res -> res[1], fitresult.ensemble)
-    else
-        chains = [fitresult[1]]
+    
+    chains = []
+
+    ignore_derivatives() do 
+        if fitresult isa MLJEnsembles.WrappedEnsemble
+            _chains = map(res -> res[1], fitresult.ensemble)
+        else
+            _chains = [fitresult[1]]
+        end
+        push!(chains, _chains...)
     end
+    
     return chains
 end
 
@@ -145,7 +153,9 @@ In the binary case logits are fed through the sigmoid function instead of softma
 which follows from the derivation here: https://stats.stackexchange.com/questions/233658/softmax-vs-sigmoid-function-in-logistic-classifier
 """
 function Models.logits(M::ConformalModel, X::AbstractArray)
+    
     fitresult = M.fitresult
+
     function predict_logits(fitresult, x)
         ŷ = MLUtils.stack(map(chain -> get_logits(chain,x),_get_chains(fitresult))) |> 
             y -> mean(y, dims=ndims(y)) |>
@@ -160,14 +170,9 @@ function Models.logits(M::ConformalModel, X::AbstractArray)
         ŷ = ndims(ŷ) > 1 ? ŷ : permutedims([ŷ])
         return ŷ
     end
-    if ndims(X) > 2
-        yhat = map(eachslice(X, dims=ndims(X))) do x
-            predict_logits(fitresult, x)
-        end
-        yhat = MLUtils.stack(yhat)
-    else
-        yhat = predict_logits(fitresult, X)
-    end
+
+    yhat = predict_logits(fitresult, X)
+
     return yhat
 end
 
@@ -177,6 +182,7 @@ end
 Returns the estimated probabilities for a Conformal Classifier.
 """
 function Models.probs(M::ConformalModel, X::AbstractArray)
+
     if M.likelihood == :classification_binary
         output = σ.(Models.logits(M, X))
     elseif M.likelihood == :classification_multi

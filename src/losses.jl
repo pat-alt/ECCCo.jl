@@ -20,7 +20,7 @@ function conformal_training_loss(ce::AbstractCounterfactualExplanation; temp::Re
     loss_mat = ones(n_classes, n_classes)
     loss = map(eachslice(X, dims=ndims(X))) do x
         x = ndims(x) == 1 ? x[:,:]' : x
-        ConformalPrediction.classification_loss(
+        ConformalPrediction.ConformalTraining.classification_loss(
             conf_model, fitresult, x, y;
             temp=temp, loss_matrix = loss_mat,
         )
