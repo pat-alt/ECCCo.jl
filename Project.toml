@@ -1,6 +1,6 @@
 name = "ECCCo"
 uuid = "0232c203-4013-4b0d-ad96-43e3e11ac3bf"
-authors = ["Anonymous Author"]
+authors = ["Patrick Altmeyer"]
 version = "0.1.0"
 
 [deps]
@@ -29,6 +29,26 @@ StatsPlots = "f3b207a7-027a-5e70-b257-86293d7955fd"
 Term = "22787eb5-b846-44ae-b979-8e399b8463ab"
 
 [compat]
+CategoricalArrays = "0.10.8"
+ChainRules = "1.53.0"
+ConformalPrediction = "0.1.8"
+CounterfactualExplanations = "0.1.13"
+Distances = "0.10.9"
+Distributions = "0.25.100"
+Flux = "0.14.2"
+JointEnergyModels = "0.1.1"
+MLJBase = "0.21.13"
+MLJEnsembles = "0.3.3"
+MLJFlux = "0.2.10"
+MLJModelInterface = "1.8.0"
+MLUtils = "0.4.3"
+Parameters = "0.12.3"
+PkgTemplates = "0.7.40"
+Plots = "1.38.17"
+SliceMap = "0.2.7"
+StatsBase = "0.34.0"
+StatsPlots = "0.15.6"
+Term = "2.0.5"
 julia = "1.8, 1.9"
 
 [extras]
