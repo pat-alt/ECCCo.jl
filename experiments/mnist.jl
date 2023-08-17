@@ -17,6 +17,8 @@ counterfactual_data.generative_model = vae
 # Test data:
 test_data = load_mnist_test()
 
+# Models:
+
 # Generators:
 eccco_generator = ECCCoGenerator(
     λ=[0.1,0.25,0.25], 

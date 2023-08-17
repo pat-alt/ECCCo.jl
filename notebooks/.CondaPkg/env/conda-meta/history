@@ -1,4 +1,4 @@
-==> 2023-08-10 11:22:12 <==
+==> 2023-08-17 12:26:42 <==
 # cmd: /Users/FA31DU/.julia/artifacts/6ecf04294c7f327e02e84972f34835649a5eb35e/bin/micromamba -r /Users/FA31DU/.julia/scratchspaces/0b3b1443-0f03-428d-bdfb-f27f9c1191ea/root create -y -p /Users/FA31DU/code/ECCCo.jl/notebooks/.CondaPkg/env --override-channels --no-channel-priority numpy[version='*'] pip[version='>=22.0.0'] python[version='>=3.7,<4',channel='conda-forge',build='*cpython*'] -c conda-forge
 # conda version: 3.8.0
 +https://conda.anaconda.org/conda-forge/osx-64::xz-5.2.6-h775f41a_0
