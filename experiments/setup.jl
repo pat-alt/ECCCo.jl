@@ -27,24 +27,32 @@ include("models/models.jl")
 include("benchmarking/benchmarking.jl")
 include("data/data.jl")
 
-function run_experiment(
-    counterfactual_data,
-    test_data;
-    dataname,
-    output_path=output_path,
-    params_path=params_path,
-    pretrained_path=pretrained_path,
-    pretrained=true,
-    models::Union{Nothing, Dict}=nothing,
-    builder::Union{Nothing, MLJFlux.GenericBuilder}=nothing,
-    𝒟x=Normal(),
-    sampling_batch_size=50,
-    coverage=.95,
-    generators=nothing,
-    n_individuals=50,
-)   
+# Parameters:
+Base.@kwdef struct Experiment
+    counterfactual_data::CounterfactualData
+    test_data::CounterfactualData
+    dataname::String = "dataset"
+    output_path::String = output_path
+    params_path::String = params_path
+    pretrained_path::String = pretrained_path
+    use_pretrained::Bool = true
+    models::Union{Nothing, Dict} = nothing
+    builder::Union{Nothing, MLJFlux.GenericBuilder} = nothing
+    𝒟x::Distribution = Normal()
+    sampling_batch_size::Int = 50
+    coverage::Float64 = 0.95
+    generators::Union{Nothing, Dict} = nothing
+    n_individuals::Int = 50
+end
+
+function run_experiment(counterfactual_data::CounterfactualData, test_data::CounterfactualData; kwargs...)
 
     # SETUP ----------
+    # Parameters:
+    params = Experiment(
+        counterfactual_data, test_data; 
+        kwargs...
+    )
 
     # Data
     X, labels, n_obs, save_name, batch_size, sampler = prepare_data(
