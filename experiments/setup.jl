@@ -23,17 +23,16 @@ artifact_path = joinpath(artifact"results-paper-submission-1.8.5","results-paper
 pretrained_path = joinpath(artifact_path, "results")
 
 # Scripts:
+include("data/data.jl")
 include("models/models.jl")
 include("benchmarking/benchmarking.jl")
-include("data/data.jl")
 
-# Parameters:
+"Sets up the experiment."
 Base.@kwdef struct Experiment
     counterfactual_data::CounterfactualData
     test_data::CounterfactualData
     dataname::String = "dataset"
     output_path::String = output_path
-    params_path::String = params_path
     pretrained_path::String = pretrained_path
     use_pretrained::Bool = true
     models::Union{Nothing, Dict} = nothing
@@ -45,20 +44,19 @@ Base.@kwdef struct Experiment
     n_individuals::Int = 50
 end
 
-function run_experiment(counterfactual_data::CounterfactualData, test_data::CounterfactualData; kwargs...)
+"""
+    run_experiment(exp::Experiment)
+
+Run the experiment specified by `exp`.
+"""
+function run_experiment(exp::Experiment)
 
     # SETUP ----------
-    # Parameters:
-    params = Experiment(
-        counterfactual_data, test_data; 
-        kwargs...
-    )
-
     # Data
     X, labels, n_obs, save_name, batch_size, sampler = prepare_data(
         counterfactual_data;
-        𝒟x=params.𝒟x,
-        sampling_batch_size=params.sampling_batch_size,
+        𝒟x=exp.𝒟x,
+        sampling_batch_size=exp.sampling_batch_size,
     )
 
     # MODELS ----------
@@ -143,4 +141,57 @@ function run_experiment(counterfactual_data::CounterfactualData, test_data::Coun
     CSV.write(joinpath(params_path, "$(save_name)_generator_params.csv"), generator_params)
     CSV.write(joinpath(output_path, "$(save_name)_benchmark.csv"), bmk())
 
+end
+
+"""
+    run_experiment(counterfactual_data::CounterfactualData, test_data::CounterfactualData; kwargs...)
+
+Overload the `run_experiment` function to allow for passing in `CounterfactualData` objects and other keyword arguments.
+"""
+function run_experiment(counterfactual_data::CounterfactualData, test_data::CounterfactualData; kwargs...)
+    # Parameters:
+    exp = Experiment(
+        counterfactual_data, test_data;
+        kwargs...
+    )
+    return run_experiment(exp)
+end
+
+"""
+    meta_data(exp::Experiment)
+
+Extract and save meta data about the experiment.
+"""
+function meta_data(
+    exp::Experiment; 
+    save_path::Union{String,Nothing}=nothing,
+    save_name::Union{String,Nothing}=nothing,
+)
+
+    # Data params:
+    _, _, n_obs, default_save_name, batch_size, sampler = prepare_data(
+        exp.counterfactual_data;
+        𝒟x=exp.𝒟x,
+        sampling_batch_size=exp.sampling_batch_size
+    )
+    save_name = isnothing(save_name) ? default_save_name : save_name
+
+    params = DataFrame(
+        Dict(
+            :n_obs => Int.(round(n_obs / 10) * 10),
+            :epochs => epochs,
+            :batch_size => batch_size,
+            :n_hidden => n_hidden,
+            :n_layers => length(model_dict["MLP"].fitresult[1][1]) - 1,
+            :activation => string(activation),
+            :n_ens => n_ens,
+            :lambda => string(α[3]),
+            :jem_sampling_steps => jem.sampling_steps,
+            :sgld_batch_size => sampler.batch_size,
+            :dataname => dataname,
+        )
+    )
+    if !isnothing(save_path)
+        CSV.write(joinpath(save_path, "$(save_name)_model_params.csv"), params)
+    end
 end
