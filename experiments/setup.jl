@@ -57,8 +57,8 @@ function run_experiment(counterfactual_data::CounterfactualData, test_data::Coun
     # Data
     X, labels, n_obs, save_name, batch_size, sampler = prepare_data(
         counterfactual_data;
-        𝒟x=𝒟x,
-        sampling_batch_size=sampling_batch_size,
+        𝒟x=params.𝒟x,
+        sampling_batch_size=params.sampling_batch_size,
     )
 
     # MODELS ----------
