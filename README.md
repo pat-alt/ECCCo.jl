@@ -39,8 +39,7 @@ The `experiments/` folder contains separate Julia scripts for each dataset and a
 To run the experiment for a single dataset, (e.g. `linearly_separable`) simply run the following command:
 
 ```shell
-DATANAME=linearly_separable
-julia experiments/run_experiments.jl
+julia experiments/run_experiments.jl -- data=linearly_separable
 ```
 
 We use the following identifiers:
@@ -51,14 +50,17 @@ We use the following identifiers:
 - `mnist` (*MNIST* data)
 - `gmsc` (*GMSC* data)
 
-To run all experiments at once you can instead just specify `DATANAME=all`.
+To run all experiments at once you can instead run
 
-Pre-trained versions of all of our black-box models have been archived as `Pkg` [artifacts](https://pkgdocs.julialang.org/v1/artifacts/) and are used by default. Should you wish to retrain the models as well, simply run the following command:
+```shell
+julia experiments/run_experiments.jl -- run-all
+```
+
+Pre-trained versions of all of our black-box models have been archived as `Pkg` [artifacts](https://pkgdocs.julialang.org/v1/artifacts/) and are used by default. Should you wish to retrain the models as well, simply use the `retrain` flag as follows:
 
 ```shell
 DATANAME=linearly_separable
-RETRAIN=true
-julia experiments/run_experiments.jl
+julia experiments/run_experiments.jl -- retrain
 ```
 
 When running the experiments from the command line, the parameter choices used in the main paper are applied by default. To have control over these choices, we recommend you instead rely on the notebooks.

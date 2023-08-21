@@ -3,7 +3,7 @@
 /.quarto/
 /Manifest.toml
 /replicated/
-**/.CondaPkg/
+**/.CondaPkg
 /dev/rebuttal/www
 
 # Tex

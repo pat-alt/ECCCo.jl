@@ -10,11 +10,7 @@ isdir(params_path) || mkdir(params_path)
 test_size = 0.2
 
 # Constants:
-if ENV["RETRAIN"] == "true"
-    const RETRAIN = true
-else
-    const RETRAIN = false
-end
+const RETRAIN = "retrain" ∈ ARGS ? true : false
 
 # Artifacts:
 using LazyArtifacts

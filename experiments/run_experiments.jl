@@ -1,11 +1,12 @@
 include("setup.jl")
 
 # User inputs:
-if ENV["DATANAME"] == "all"
+if "run-all" in ARGS
     datanames = ["linearly_separable", "moons", "circles", "mnist", "gmsc"]
 else
-    datanames = [ENV["DATANAME"]]
+    datanames = [ARGS[findall(contains.(ARGS, "data="))] |> x -> replace(x, "data=" => "")]
 end
+datanames = ["linearly_separable", "moons", "circles", "mnist", "gmsc"]
 
 # Linearly Separable
 if "linearly_separable" in datanames
