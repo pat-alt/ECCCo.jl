@@ -1,4 +1,4 @@
-counterfactual_data, test_data = train_test_split(load_gmsc(nothing); test_size=test_size)
+counterfactual_data, test_data = train_test_split(load_gmsc(nothing); TEST_SIZE=TEST_SIZE)
 run_experiment!(
     counterfactual_data, test_data; dataname="GMSC",
     n_hidden=128,

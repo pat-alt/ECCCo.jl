@@ -1,39 +1,3 @@
-# General setup:
-include("$(pwd())/notebooks/setup.jl")
-eval(setup_notebooks)
-
-test_size = 0.2
-
-# Constants:
-const DEFAULT_OUTPUT_PATH = "$(pwd())/results"
-const RETRAIN = "retrain" ∈ ARGS ? true : false
-
-"Default model performance measures."
-const MODEL_MEASURES = Dict(
-    :f1score => multiclass_f1score,
-    :acc => accuracy,
-    :precision => multiclass_precision
-)
-
-"Default coverage rate."
-const DEFAULT_COVERAGE = 0.95
-
-"The default benchmarking measures."
-const CE_MEASURES = [
-    CounterfactualExplanations.distance,
-    ECCCo.distance_from_energy,
-    ECCCo.distance_from_targets,
-    CounterfactualExplanations.Evaluation.validity,
-    CounterfactualExplanations.Evaluation.redundancy,
-    ECCCo.set_size_penalty
-]
-
-# Pre-trained models:
-function pretrained_path()
-    @info "Models were pre-trained on `julia-1.8.5` and may not work on other versions."
-    return joinpath(artifact"results-paper-submission-1.8.5", "results-paper-submission-1.8.5")
-end
-
 "Sets up the experiment."
 Base.@kwdef struct Experiment
     counterfactual_data::CounterfactualData
