@@ -8,7 +8,7 @@ Base.@kwdef struct Experiment
     params_path::String = joinpath(output_path, "params")
     use_pretrained::Bool = true
     models::Union{Nothing,Dict} = nothing
-    builder::Union{Nothing,MLJFlux.GenericBuilder} = nothing
+    builder::Union{Nothing,MLJFlux.Builder} = nothing
     𝒟x::Distribution = Normal()
     sampling_batch_size::Int = 50
     min_batch_size::Int = 128
@@ -69,8 +69,9 @@ Overload the `run_experiment` function to allow for passing in `CounterfactualDa
 """
 function run_experiment!(counterfactual_data::CounterfactualData, test_data::CounterfactualData; kwargs...)
     # Parameters:
-    exp = Experiment(
-        counterfactual_data, test_data;
+    exp = Experiment(;
+        counterfactual_data=counterfactual_data,
+        test_data=test_data,
         kwargs...
     )
     return run_experiment!(exp)

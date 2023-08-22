@@ -10,20 +10,23 @@ using CounterfactualExplanations.Generators: JSMADescent
 using CounterfactualExplanations.Models: load_mnist_mlp, load_fashion_mnist_mlp, train, probs
 using CounterfactualExplanations.Objectives
 using CSV
-using Distributions
+using DataFrames
+using Distributions: Normal, Distribution, Categorical
 using ECCCo
+using Flux
 using JointEnergyModels
 using LazyArtifacts
-using MLJBase: multiclass_f1score, accuracy, multiclass_precision
+using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table
 using MLJEnsembles
 using MLJFlux
+using Serialization
 
 # Constants:
 const LATEST_VERSION = "1.8.5"
 const ARTIFACT_NAME = "results-paper-submission-$(LATEST_VERSION)"
 artifact_toml = LazyArtifacts.find_artifacts_toml(".")
 _hash = artifact_hash(ARTIFACT_NAME, artifact_toml)
-const LATEST_ARTIFACT_PATH = artifact_path(_hash)
+const LATEST_ARTIFACT_PATH = joinpath(artifact_path(_hash), ARTIFACT_NAME)
 
 # Pre-trained models:
 function pretrained_path()

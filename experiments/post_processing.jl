@@ -88,7 +88,7 @@ function meta_model_performance(outcome::ExperimentOutcome; measures::Union{Noth
         _perf = CounterfactualExplanations.Models.model_evaluation(model, exp.test_data, measure=collect(values(measures)))
         _perf = DataFrame([[p] for p in _perf], collect(keys(measures)))
         _perf.mod_name .= mod_name
-        _perf.dataname .= dataname
+        _perf.dataname .= exp.dataname
         model_performance = vcat(model_performance, _perf)
     end
     
