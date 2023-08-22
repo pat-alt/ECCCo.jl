@@ -52,6 +52,7 @@ Base.@kwdef struct Experiment
     generators::Union{Nothing,Dict} = nothing
     n_individuals::Int = 50
     ce_measures::AbstractArray = CE_MEASURES
+    model_measures::Dict = MODEL_MEASURES
 end
 
 "A container to hold the results of an experiment."
