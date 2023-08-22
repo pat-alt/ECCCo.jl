@@ -1,13 +1,3 @@
-"The default benchmarking measures."
-const default_measures = [
-    CounterfactualExplanations.distance,
-    ECCCo.distance_from_energy,
-    ECCCo.distance_from_targets,
-    CounterfactualExplanations.Evaluation.validity,
-    CounterfactualExplanations.Evaluation.redundancy,
-    ECCCo.set_size_penalty
-]
-
 function default_generators(
     Λ::AbstractArray=[0.25, 0.75, 0.75],
     Λ_Δ::AbstractArray=[Λ[1], Λ[2], 4.0],
@@ -52,14 +42,14 @@ end
 
 Run the benchmarking procedure.
 """
-function run_benchmark(;
-    n_individuals::Int,
-    dataname::String,
-    counterfactual_data::CounterfactualData,
-    model_dict::Dict,
-    generators::Union{Nothing, Dict}=nothing,
-    measures::AbstractArray=default_measures,   
-)
+function run_benchmark(exp::Experiment, model_dict::Dict)
+
+    n_individuals = exp.n_individuals
+    dataname = exp.dataname
+    counterfactual_data = exp.counterfactual_data
+    generators = exp.generators
+    measures = exp.ce_measures
+
     # Benchmark generators:
     if isnothing(generators)
         generator_dict = default_generators()

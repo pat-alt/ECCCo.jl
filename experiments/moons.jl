@@ -1,6 +1,6 @@
 n_obs = Int(2500 / (1.0 - test_size))
 counterfactual_data, test_data = train_test_split(load_moons(n_obs); test_size=test_size)
-run_experiment(
+run_experiment!(
     counterfactual_data, test_data; dataname="Moons",
     epochs=500,
     n_hidden=32,

@@ -1,0 +1,2 @@
+activation,batch_size,dataname,epochs,jem_sampling_steps,lambda,n_ens,n_hidden,n_layers,n_obs,sgld_batch_size
+swish,100,Linearly Separable,100,30,0.1,5,16,3,1000,50

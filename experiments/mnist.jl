@@ -41,7 +41,7 @@ generator_dict = Dict(
 )
 
 # Run:
-run_experiment(
+run_experiment!(
     counterfactual_data, test_data; dataname="MNIST",
     n_hidden = 128,
     activation = Flux.swish,
