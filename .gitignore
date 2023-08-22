@@ -2,7 +2,7 @@
 /artifacts/
 /.quarto/
 /Manifest.toml
-/replicated/
+/results/
 **/.CondaPkg
 /dev/rebuttal/www
 
