@@ -6,7 +6,7 @@ Base.@kwdef struct Experiment
     save_name::String = replace(lowercase(dataname), " " => "_")
     output_path::String = DEFAULT_OUTPUT_PATH
     params_path::String = joinpath(output_path, "params")
-    use_pretrained::Bool = true
+    use_pretrained::Bool = !RETRAIN
     models::Union{Nothing,Dict} = nothing
     builder::Union{Nothing,MLJFlux.Builder} = nothing
     𝒟x::Distribution = Normal()
@@ -74,5 +74,6 @@ function run_experiment!(counterfactual_data::CounterfactualData, test_data::Cou
         test_data=test_data,
         kwargs...
     )
+    println(exp.use_pretrained)
     return run_experiment!(exp)
 end

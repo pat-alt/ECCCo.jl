@@ -16,7 +16,7 @@ using ECCCo
 using Flux
 using JointEnergyModels
 using LazyArtifacts
-using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table
+using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table, machine, fit!
 using MLJEnsembles
 using MLJFlux
 using Serialization

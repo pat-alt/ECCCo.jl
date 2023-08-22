@@ -20,7 +20,7 @@ end
 
 Trains a model and returns a `ConformalModel` object.
 """
-function _train(model, X, y; cov=coverage, method=:simple_inductive, mod_name="model")
+function _train(model, X, y; cov, method=:simple_inductive, mod_name="model")
     conf_model = conformal_model(model; method=method, coverage=cov)
     mach = machine(conf_model, X, y)
     @info "Begin training $mod_name."
