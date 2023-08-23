@@ -164,8 +164,8 @@ end
 
 ```{julia}
 # Hyper:
-_retrain = false
-_regen = false
+_retrain = true
+_regen = true
 
 # Data:
 n_obs = 10000
@@ -541,32 +541,6 @@ end
 lenet = NeuralNetworkClassifier(
     builder=LeNetBuilder(5, 6, 16),
     epochs=50,
-    batch_size=batch_size,
-    finaliser=_finaliser,
-    loss=_loss,
-)
-```
-
-Robust Neural network:
-
-```{julia}
-mutable struct RobustNetBuilder
-	n_hidden::Int
-	lipschitz_bound::Float32
-end
-
-function MLJFlux.build(b::RobustNetBuilder, rng, n_in, n_out)
-	n_hidden, γ = b.n_hidden, b.lipschitz_bound
-    _n_hidden = fill(n_hidden,2)
-    model_ps = DenseLBDNParams{Float32}(n_in, _n_hidden, n_out, γ; rng)
-    chain = Flux.Chain(DiffLBDN(model_ps))
-	return chain
-end
-
-# Final model:
-rob_net = NeuralNetworkClassifier(
-    builder=RobustNetBuilder(60, 5.0),
-    epochs=600,
     batch_size=batch_size,
     finaliser=_finaliser,
     loss=_loss,

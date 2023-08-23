@@ -2,8 +2,8 @@
 /artifacts/
 /.quarto/
 /Manifest.toml
-/replicated/
-*/.CondaPkg/
+/results/
+**/.CondaPkg
 /dev/rebuttal/www
 
 # Tex
