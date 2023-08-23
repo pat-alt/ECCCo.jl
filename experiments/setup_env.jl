@@ -2,6 +2,7 @@ using Pkg
 Pkg.activate(@__DIR__)
 
 # Deps:
+using Chain: @chain
 using ConformalPrediction
 using CounterfactualExplanations
 using CounterfactualExplanations.Data
@@ -21,6 +22,7 @@ using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table, machin
 using MLJEnsembles
 using MLJFlux
 using Serialization
+using TidierData
 
 # Constants:
 const LATEST_VERSION = "1.8.5"

@@ -1,6 +1,6 @@
 function default_generators(
     Λ::AbstractArray=[0.25, 0.75, 0.75],
-    Λ_Δ::AbstractArray=[Λ[1], Λ[2], 4.0],
+    Λ_Δ::AbstractArray=Λ,
     use_variants::Bool=true,
     use_class_loss::Bool=false,
     opt=Flux.Optimise.Descent(0.01),

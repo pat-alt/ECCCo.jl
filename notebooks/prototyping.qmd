@@ -28,7 +28,7 @@ First, let's create a couple of image classifier architectures:
 ```{julia}
 # Model parameters:
 epochs = 100
-batch_size = minimum([Int(round(n_obs/10)), 128])
+bs = minimum([Int(round(n_obs/10)), 128])
 n_hidden = 16
 activation = Flux.swish
 builder = MLJFlux.MLP(
@@ -59,7 +59,7 @@ model = JointEnergyClassifier(
     sampler;
     builder=builder,
     epochs=epochs,
-    batch_size=batch_size,
+    batch_size=bs,
     finaliser=_finaliser,
     loss=_loss,
     jem_training_params=(
@@ -98,9 +98,9 @@ generator_dict = Dict(
 Random.seed!(2023)
 
 X = X isa Matrix ? X : Float32.(permutedims(matrix(X)))
-factual_label =  levels(labels)[1]
+factual_label =  levels(labels)[2]
 x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
-target =  levels(labels)[2]
+target =  levels(labels)[1]
 factual = predict_label(M, counterfactual_data, x_factual)[1]
 
 ces = Dict{Any,Any}()
