@@ -31,7 +31,7 @@ Builds a dictionary of default models for training.
 function default_models(;
     sampler::AbstractSampler,
     builder::MLJFlux.Builder=default_builder(),
-    epochs::Int=25,
+    epochs::Int=100,
     batch_size::Int=128,
     finaliser::Function=Flux.softmax,
     loss::Function=Flux.Losses.crossentropy,
