@@ -1,5 +1,5 @@
 counterfactual_data, test_data = train_test_split(load_gmsc(nothing); test_size=TEST_SIZE)
-run_experiment!(
+run_experiment(
     counterfactual_data, test_data; dataname="GMSC",
     n_hidden=128,
     activation = Flux.swish,

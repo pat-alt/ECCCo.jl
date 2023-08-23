@@ -2,6 +2,7 @@ using Pkg
 Pkg.activate(@__DIR__)
 
 # Deps:
+using ConformalPrediction
 using CounterfactualExplanations
 using CounterfactualExplanations.Data
 using CounterfactualExplanations.DataPreprocessing: train_test_split
@@ -27,12 +28,6 @@ const ARTIFACT_NAME = "results-paper-submission-$(LATEST_VERSION)"
 artifact_toml = LazyArtifacts.find_artifacts_toml(".")
 _hash = artifact_hash(ARTIFACT_NAME, artifact_toml)
 const LATEST_ARTIFACT_PATH = joinpath(artifact_path(_hash), ARTIFACT_NAME)
-
-# Pre-trained models:
-function pretrained_path()
-    @info "Models were pre-trained on `julia-$(LATEST_VERSION)` and may not work on other versions."
-    return LATEST_ARTIFACT_PATH
-end
 
 "Default output path."
 const DEFAULT_OUTPUT_PATH = "$(pwd())/results"

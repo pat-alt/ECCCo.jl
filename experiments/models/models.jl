@@ -24,7 +24,7 @@ function prepare_models(exp::Experiment)
         model_dict = train_models(models, X, labels; cov=exp.coverage)
     else
         @info "Loading pre-trained models."
-        model_dict = Serialization.deserialize(joinpath(pretrained_path(), "results/$(exp.save_name)_models.jls"))
+        model_dict = Serialization.deserialize(joinpath(pretrained_path(exp), "$(exp.save_name)_models.jls"))
     end
 
     # Save models:

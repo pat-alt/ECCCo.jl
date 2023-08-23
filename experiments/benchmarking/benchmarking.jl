@@ -47,11 +47,11 @@ function run_benchmark(exp::Experiment, model_dict::Dict)
     n_individuals = exp.n_individuals
     dataname = exp.dataname
     counterfactual_data = exp.counterfactual_data
-    generators = exp.generators
+    generator_dict = exp.generators
     measures = exp.ce_measures
 
     # Benchmark generators:
-    if isnothing(generators)
+    if isnothing(generator_dict)
         generator_dict = default_generators()
     end
 

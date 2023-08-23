@@ -1,5 +1,5 @@
-include("setup_env.jl")
-include("experiment.jl")
+include("setup_env.jl");
+include("experiment.jl");
 
 # User inputs:
 if "run-all" in ARGS
