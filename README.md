@@ -62,6 +62,10 @@ Pre-trained versions of all of our black-box models have been archived as `Pkg` 
 julia --project=experiments experiments/run_experiments.jl -- retrain dataname=linearly_separable
 ```
 
+```shell
+mpiexecjl --project=experiments -n 4 julia experiments/run_experiments.jl -- dataname=linearly_separable output_path=results parallel
+```
+
 When running the experiments from the command line, the parameter choices used in the main paper are applied by default. To have control over these choices, we recommend you instead rely on the notebooks.
 
 ### Notebooks
