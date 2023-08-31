@@ -11,6 +11,7 @@ using CounterfactualExplanations.Evaluation: benchmark, evaluate, Benchmark
 using CounterfactualExplanations.Generators: JSMADescent
 using CounterfactualExplanations.Models: load_mnist_mlp, load_fashion_mnist_mlp, train, probs
 using CounterfactualExplanations.Objectives
+using CounterfactualExplanations.Parallelization
 using CSV
 using DataFrames
 using Distributions: Normal, Distribution, Categorical

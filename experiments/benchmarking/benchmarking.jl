@@ -1,4 +1,4 @@
-function default_generators(
+function default_generators(;
     Λ::AbstractArray=[0.25, 0.75, 0.75],
     Λ_Δ::AbstractArray=Λ,
     use_variants::Bool=true,
@@ -49,10 +49,17 @@ function run_benchmark(exp::Experiment, model_dict::Dict)
     counterfactual_data = exp.counterfactual_data
     generator_dict = exp.generators
     measures = exp.ce_measures
+    parallelizer = exp.parallelizer
 
     # Benchmark generators:
     if isnothing(generator_dict)
-        generator_dict = default_generators()
+        generator_dict = default_generators(;
+            Λ=exp.Λ,
+            Λ_Δ=exp.Λ_Δ,
+            use_variants=exp.use_variants,
+            use_class_loss=exp.use_class_loss,
+            opt=exp.opt
+        )
     end
 
     # Run benchmark:
@@ -72,7 +79,8 @@ function run_benchmark(exp::Experiment, model_dict::Dict)
                 n_individuals=n_individuals,
                 target=target, factual=factual,
                 initialization=:identity,
-                converge_when=:generator_conditions
+                converge_when=:generator_conditions,
+                parallelizer=parallelizer,
             )
             push!(bmks, bmk)
         end

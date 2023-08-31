@@ -17,6 +17,12 @@ Base.@kwdef struct Experiment
     n_individuals::Int = 50
     ce_measures::AbstractArray = CE_MEASURES
     model_measures::Dict = MODEL_MEASURES
+    use_class_loss::Bool = true
+    use_variants::Bool = true
+    Λ::AbstractArray = [0.25, 0.75, 0.75]
+    Λ_Δ::AbstractArray = Λ
+    opt::Flux.Optimise.Optimizer = Flux.Optimise.Descent(0.01)
+    parallelizer::Union{Nothing, AbstractParallelizer} = nothing
 end
 
 "A container to hold the results of an experiment."
