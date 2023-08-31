@@ -65,6 +65,8 @@ function run_experiment(exp::Experiment; save_output::Bool=true)
     # Save data:
     if save_output
         Serialization.serialize(joinpath(exp.output_path, "$(exp.save_name)_outcome.jls"), outcome)
+        Serialization.serialize(joinpath(exp.output_path, "$(exp.save_name)_bmk.jls"), bmk)
+        meta(outcome::ExperimentOutcome; save_output::Bool=true)
     end
 
     return outcome
