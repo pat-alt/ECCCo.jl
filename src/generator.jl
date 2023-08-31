@@ -42,12 +42,10 @@ function ECCCoGenerator(;
     end
 
     # Set size penalty
-    function _set_size_penalty(ce::AbstractCounterfactualExplanation)
-        return ECCCo.set_size_penalty(ce; κ=κ, temp=temp)
-    end
+    _set_size_penalty = (ce::AbstractCounterfactualExplanation) -> ECCCo.set_size_penalty(ce; κ=κ, temp=temp)
 
     # Energy penalty
-    function _energy_penalty(ce::AbstractCounterfactualExplanation)
+    _energy_penalty = function (ce::AbstractCounterfactualExplanation)
         if use_energy_delta
             return ECCCo.energy_delta(ce; n=nsamples, nmin=nmin, kwargs...)
         else

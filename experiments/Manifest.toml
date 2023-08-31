@@ -2,7 +2,7 @@
 
 julia_version = "1.9.3"
 manifest_format = "2.0"
-project_hash = "d02f2655e27de24f6692fd688a43f5d4a28ee28f"
+project_hash = "6d2faa27f9fe437fc49cbf54483df3f91bbcd105"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -422,7 +422,7 @@ version = "2.2.1"
 
 [[deps.ConformalPrediction]]
 deps = ["CategoricalArrays", "ChainRules", "ComputationalResources", "Flux", "LazyArtifacts", "LinearAlgebra", "MLJBase", "MLJEnsembles", "MLJFlux", "MLJModelInterface", "MLUtils", "NaturalSort", "Plots", "ProgressMeter", "Random", "Serialization", "StatsBase", "Tables"]
-path = "../../ConformalPrediction.jl"
+git-tree-sha1 = "bd6c9678a6b98c024e2b615c9b04f9173f4feadf"
 uuid = "98bfc277-1877-43dc-819b-a3e38c30242f"
 version = "0.1.9"
 
@@ -450,7 +450,7 @@ version = "0.6.2"
 
 [[deps.CounterfactualExplanations]]
 deps = ["CSV", "CUDA", "CategoricalArrays", "Chain", "ChainRulesCore", "DataFrames", "DecisionTree", "Distributions", "EvoTrees", "Flux", "LaplaceRedux", "LazyArtifacts", "LinearAlgebra", "MLDatasets", "MLJBase", "MLJDecisionTreeInterface", "MLJModels", "MLUtils", "MultivariateStats", "NearestNeighborModels", "PackageExtensionCompat", "Parameters", "Plots", "ProgressMeter", "Random", "Serialization", "SnoopPrecompile", "Statistics", "StatsBase", "Tables", "UMAP"]
-path = "../../CounterfactualExplanations.jl"
+git-tree-sha1 = "8393721ffa3c9be209a93eb154d0d9fe9ca187d5"
 uuid = "2f13d31b-18db-44c1-bc43-ebaf2cff0be0"
 version = "0.1.15"
 

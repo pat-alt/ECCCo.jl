@@ -1,16 +1,3 @@
-# Parallelization:
-if "parallel" ∈ ARGS
-    @info "Running benchmarks in parallel."
-    import MPI
-    MPI.Init()
-    const PARALLEL = true
-    const PLZ = MPIParallelizer(MPI.COMM_WORLD)
-else
-    @info "Running benchmarks sequentially."
-    const PARALLEL = false
-    const PLZ = nothing
-end
-
 include("setup_env.jl");
 include("experiment.jl");
 
@@ -20,7 +7,6 @@ if "run-all" in ARGS
 else
     datanames = [ARGS[findall(contains.(ARGS, "data="))] |> x -> replace(x, "data=" => "")]
 end
-datanames = ["linearly_separable", "moons", "circles", "mnist", "gmsc"]
 
 # Linearly Separable
 if "linearly_separable" in datanames

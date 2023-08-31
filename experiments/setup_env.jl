@@ -17,11 +17,29 @@ using ECCCo
 using Flux
 using JointEnergyModels
 using LazyArtifacts
+using Logging
 using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table, machine, fit!
 using MLJEnsembles
 using MLJFlux
 using Serialization
 using TidierData
+
+# Parallelization:
+if "parallel" ∈ ARGS
+    @info "Running benchmarks in parallel."
+    import MPI
+    MPI.Init()
+    const PARALLEL = true
+    const PLZ = MPIParallelizer(MPI.COMM_WORLD)
+    if MPI.Comm_rank(MPI.COMM_WORLD) != 0
+        @info "Disabling logging on non-root processes."
+        global_logger(NullLogger())
+    end
+else
+    @info "Running benchmarks sequentially."
+    const PARALLEL = false
+    const PLZ = nothing
+end
 
 # Constants:
 const LATEST_VERSION = "1.8.5"
