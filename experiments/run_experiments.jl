@@ -1,3 +1,16 @@
+# Parallelization:
+if "parallel" ∈ ARGS
+    @info "Running benchmarks in parallel."
+    import MPI
+    MPI.Init()
+    const PARALLEL = true
+    const PLZ = MPIParallelizer(MPI.COMM_WORLD)
+else
+    @info "Running benchmarks sequentially."
+    const PARALLEL = false
+    const PLZ = nothing
+end
+
 include("setup_env.jl");
 include("experiment.jl");
 
@@ -37,4 +50,8 @@ end
 if "gmsc" in datanames
     @info "Running GMSC experiment."
     include("gmsc.jl")
+end
+
+if PARALLEL
+    MPI.Finalize()
 end

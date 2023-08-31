@@ -21,8 +21,8 @@ Base.@kwdef struct Experiment
     use_variants::Bool = true
     Λ::AbstractArray = [0.25, 0.75, 0.75]
     Λ_Δ::AbstractArray = Λ
-    opt::Flux.Optimise.Optimizer = Flux.Optimise.Descent(0.01)
-    parallelizer::Union{Nothing, AbstractParallelizer} = nothing
+    opt::Flux.Optimise.AbstractOptimiser = Flux.Optimise.Descent(0.01)
+    parallelizer::Union{Nothing, AbstractParallelizer} = PLZ
 end
 
 "A container to hold the results of an experiment."
@@ -83,7 +83,6 @@ function run_experiment(counterfactual_data::CounterfactualData, test_data::Coun
         test_data=test_data,
         kwargs...
     )
-    println(exp.use_pretrained)
     return run_experiment(exp)
 end
 

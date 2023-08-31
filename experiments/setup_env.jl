@@ -1,6 +1,3 @@
-using Pkg
-Pkg.activate(@__DIR__)
-
 # Deps:
 using Chain: @chain
 using ConformalPrediction
@@ -13,6 +10,7 @@ using CounterfactualExplanations.Models: load_mnist_mlp, load_fashion_mnist_mlp,
 using CounterfactualExplanations.Objectives
 using CounterfactualExplanations.Parallelization
 using CSV
+using Dates
 using DataFrames
 using Distributions: Normal, Distribution, Categorical
 using ECCCo
@@ -32,8 +30,18 @@ artifact_toml = LazyArtifacts.find_artifacts_toml(".")
 _hash = artifact_hash(ARTIFACT_NAME, artifact_toml)
 const LATEST_ARTIFACT_PATH = joinpath(artifact_path(_hash), ARTIFACT_NAME)
 
+if any(contains.(ARGS, "output_path"))
+    @assert sum(contains.(ARGS, "output_path")) == 1 "Only one output path can be specified."
+    _path = ARGS[findall(contains.(ARGS, "output_path"))][1] |> x -> replace(x, "output_path=" => "")
+else
+    timestamp = Dates.format(now(), "yyyy-mm-dd@HH:MM")
+    _path = "$(pwd())/results_$(timestamp)"
+end
+
 "Default output path."
-const DEFAULT_OUTPUT_PATH = "$(pwd())/results"
+const DEFAULT_OUTPUT_PATH = _path
+
+ispath(DEFAULT_OUTPUT_PATH) || mkpath(DEFAULT_OUTPUT_PATH)
 
 "Boolean flag to retrain models."
 const RETRAIN = "retrain" ∈ ARGS ? true : false
