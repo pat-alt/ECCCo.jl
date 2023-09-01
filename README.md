@@ -59,11 +59,11 @@ julia experiments/run_experiments.jl -- run-all
 Pre-trained versions of all of our black-box models have been archived as `Pkg` [artifacts](https://pkgdocs.julialang.org/v1/artifacts/) and are used by default. Should you wish to retrain the models as well, simply use the `retrain` flag as follows:
 
 ```shell
-julia --project=experiments experiments/run_experiments.jl -- retrain dataname=linearly_separable
+julia --project=experiments experiments/run_experiments.jl -- retrain data=linearly_separable
 ```
 
 ```shell
-mpiexecjl --project=experiments -n 4 julia experiments/run_experiments.jl -- dataname=linearly_separable output_path=results parallel
+mpiexecjl --project=experiments -n 4 julia experiments/run_experiments.jl -- data=linearly_separable output_path=results parallel
 ```
 
 When running the experiments from the command line, the parameter choices used in the main paper are applied by default. To have control over these choices, we recommend you instead rely on the notebooks.
