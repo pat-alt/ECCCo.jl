@@ -21,7 +21,7 @@ Base.@kwdef struct Experiment
     use_ensembling::Bool = true
     coverage::Float64 = DEFAULT_COVERAGE
     generators::Union{Nothing,Dict} = nothing
-    n_individuals::Int = 50
+    n_individuals::Int = 25
     ce_measures::AbstractArray = CE_MEASURES
     model_measures::Dict = MODEL_MEASURES
     use_class_loss::Bool = false

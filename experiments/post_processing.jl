@@ -23,6 +23,7 @@ function meta_model(outcome::ExperimentOutcome; save_output::Bool=false)
     # Unpack:
     exp = outcome.exp
     n_obs, batch_size = meta_data(exp)
+    model_dict = outcome.model_dict
 
     params = DataFrame(
         Dict(
@@ -30,13 +31,13 @@ function meta_model(outcome::ExperimentOutcome; save_output::Bool=false)
             :batch_size => batch_size,
             :dataname => exp.dataname,
             :sgld_batch_size => exp.sampling_batch_size,
-            # :epochs => exp.epochs,
-            # :n_hidden => n_hidden,
-            # :n_layers => length(model_dict["MLP"].fitresult[1][1]) - 1,
-            # :activation => string(activation),
-            # :n_ens => n_ens,
-            # :lambda => string(α[3]),
-            # :jem_sampling_steps => jem.sampling_steps,
+            :epochs => exp.epochs,
+            :n_hidden => exp.n_hidden,
+            :n_layers => length(model_dict["MLP"].fitresult[1][1]) - 1,
+            :activation => string(activation),
+            :n_ens => exp.n_ens,
+            :lambda => exp.string(exp.α[3]),
+            :jem_sampling_steps => exp.sampling_steps,
         )
     )
    
@@ -55,6 +56,8 @@ function meta_generators(outcome::ExperimentOutcome; save_output::Bool=false)
     # Unpack:
     exp = outcome.exp
     generator_dict = outcome.generator_dict
+    Λ = exp.Λ
+    Λ_Δ = exp.Λ_Δ
 
     # Output:
     opt = first(values(generator_dict)).opt
@@ -63,6 +66,13 @@ function meta_generators(outcome::ExperimentOutcome; save_output::Bool=false)
             :opt => string(typeof(opt)),
             :eta => opt.eta,
             :dataname => dataname,
+            :lambda_1 => string(Λ[1]),
+            :lambda_2 => string(Λ[2]),
+            :lambda_3 => string(Λ[3]),
+            :lambda_1_Δ => string(Λ_Δ[1]),
+            :lambda_2_Δ => string(Λ_Δ[2]),
+            :lambda_3_Δ => string(Λ_Δ[3]),
+            :n_individuals => exp.n_individuals,
         )
     )
 

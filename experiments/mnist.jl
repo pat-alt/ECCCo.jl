@@ -55,4 +55,5 @@ run_experiment(
     sampling_steps=25,
     use_ensembling = true,
     generators = generator_dict,
+    n_individuals = 5
 )

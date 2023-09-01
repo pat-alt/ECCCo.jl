@@ -14,4 +14,6 @@ run_experiment(
     use_ensembling = true,
     Λ=[0.1, 0.5, 0.5],
     opt = Flux.Optimise.Descent(0.05),
+    n_individuals = 10,
+    use_variants = false, 
 )

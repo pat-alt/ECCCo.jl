@@ -26,19 +26,14 @@ function ECCCoGenerator(;
         loss_fun = nothing
     end
 
-    # Set size penalty
-    _set_size_penalty = (ce::AbstractCounterfactualExplanation) -> ECCCo.set_size_penalty(ce; κ=κ, temp=temp)
+    _energy_penalty =
+        use_energy_delta ? (ECCCo.energy_delta, (n=nsamples, nmin=nmin)) : (ECCCo.distance_from_energy, (n=nsamples, nmin=nmin))
 
-    # Energy penalty
-    _energy_penalty = function(ce::AbstractCounterfactualExplanation)
-        if use_energy_delta
-            return ECCCo.energy_delta(ce; n=nsamples, nmin=nmin) 
-        else
-            return ECCCo.distance_from_energy(ce; n=nsamples, nmin=nmin)
-        end
-    end
-
-    _penalties = [Objectives.distance_l1, _set_size_penalty, _energy_penalty]
+    _penalties = [
+        (Objectives.distance_l1, []), 
+        (ECCCo.set_size_penalty, (κ=κ, temp=temp)),
+        _energy_penalty,
+    ]
     λ = λ isa AbstractFloat ? [0.0, λ, λ] : λ
 
     # Generator
