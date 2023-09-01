@@ -12,10 +12,6 @@ run_experiment(
     sampling_batch_size=nothing,
     sampling_steps = 30,
     use_ensembling = true,
-    λ₁ = 0.1,
-    λ₂ = 0.5,
-    λ₃ = 0.5,
+    Λ=[0.1, 0.5, 0.5],
     opt = Flux.Optimise.Descent(0.05),
-    use_class_loss=false,
-    use_variants=false,
 )

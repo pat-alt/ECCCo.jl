@@ -52,7 +52,7 @@ run_experiment(
     𝒟x = Uniform(-1.0, 1.0),
     α = [1.0,1.0,1e-2],
     sampling_batch_size = 10,
-    ssampling_steps=25,
+    sampling_steps=25,
     use_ensembling = true,
     generators = generator_dict,
 )

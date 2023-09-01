@@ -17,7 +17,8 @@ function prepare_models(exp::Experiment)
             models = default_models(;
                 sampler=sampler,
                 builder=builder,
-                batch_size=batch_size(exp)
+                batch_size=batch_size(exp),
+                sampling_steps=exp.sampling_steps,
             )
         end
         @info "Training models."
