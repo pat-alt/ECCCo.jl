@@ -35,7 +35,7 @@ run_experiment(
     𝒟x = Uniform(-1.0, 1.0),
     α = [1.0,1.0,1e-2],
     sampling_batch_size = 10,
-    sampling_steps=25,
+    sampling_steps=50,
     use_ensembling = true,
     n_individuals = 5,
     nsamples = 10,
@@ -43,4 +43,5 @@ run_experiment(
     use_variants = false,
     use_class_loss = true,
     add_models = add_models,
+    epochs = 10,
 )
