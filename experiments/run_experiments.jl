@@ -27,16 +27,16 @@ if "circles" in datanames
     include("circles.jl")
 end
 
-# MNIST
-if "mnist" in datanames
-    @info "Running MNIST experiment."
-    include("mnist.jl")
-end
-
 # GMSC
 if "gmsc" in datanames
     @info "Running GMSC experiment."
     include("gmsc.jl")
+end
+
+# MNIST
+if "mnist" in datanames
+    @info "Running MNIST experiment."
+    include("mnist.jl")
 end
 
 if USE_MPI

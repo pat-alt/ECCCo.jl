@@ -78,7 +78,7 @@ end
 
 Run the experiment specified by `exp`.
 """
-function run_experiment(exp::Experiment; save_output::Bool=true, only_models::Bool=false)
+function run_experiment(exp::Experiment; save_output::Bool=true, only_models::Bool=ONLY_MODELS)
     
     # Setup
     @info "All results will be saved to $(exp.output_path)."

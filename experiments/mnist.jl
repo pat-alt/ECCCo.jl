@@ -1,13 +1,7 @@
-function pre_process(x; noise::Float32=0.03f0)
-    ϵ = Float32.(randn(size(x)) * noise)
-    x += ϵ
-    return x
-end
-
 # Training data:
 n_obs = 10000
 counterfactual_data = load_mnist(n_obs)
-counterfactual_data.X = pre_process.(counterfactual_data.X)
+counterfactual_data.X = ECCCo.pre_process.(counterfactual_data.X)
 
 # VAE (trained on full dataset):
 using CounterfactualExplanations.Models: load_mnist_vae
