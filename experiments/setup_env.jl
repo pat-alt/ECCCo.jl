@@ -25,21 +25,31 @@ using Serialization
 using TidierData
 
 # Parallelization:
-if "parallel" ∈ ARGS
-    @info "Running benchmarks in parallel."
+plz = nothing
+
+if "threaded" ∈ ARGS
+    @info "Multi-threading using $(Threads.nthreads()) threads."
+    const USE_THREADS = true
+    plz = ThreadsParallelizer()
+else
+    const USE_THREADS = false
+end
+
+if "mpi" ∈ ARGS
+    @info "Multi-processing using MPI."
     import MPI
     MPI.Init()
-    const PARALLEL = true
-    const PLZ = MPIParallelizer(MPI.COMM_WORLD)
+    const USE_MPI = true
+    plz = MPIParallelizer(MPI.COMM_WORLD, threaded=USE_THREADS)
     if MPI.Comm_rank(MPI.COMM_WORLD) != 0
         @info "Disabling logging on non-root processes."
         global_logger(NullLogger())
     end
 else
-    @info "Running benchmarks sequentially."
-    const PARALLEL = false
-    const PLZ = nothing
+    const USE_MPI = false
 end
+
+const PLZ = plz
 
 # Constants:
 const LATEST_VERSION = "1.8.5"
@@ -61,8 +71,11 @@ const DEFAULT_OUTPUT_PATH = _path
 
 ispath(DEFAULT_OUTPUT_PATH) || mkpath(DEFAULT_OUTPUT_PATH)
 
+"Boolean flag to only train models."
+const ONLY_MODELS = "only_models" ∈ ARGS ? true : false
+
 "Boolean flag to retrain models."
-const RETRAIN = "retrain" ∈ ARGS ? true : false
+const RETRAIN = "retrain" ∈ ARGS || ONLY_MODELS ? true : false
 
 "Default model performance measures."
 const MODEL_MEASURES = Dict(

@@ -62,8 +62,24 @@ Pre-trained versions of all of our black-box models have been archived as `Pkg` 
 julia --project=experiments experiments/run_experiments.jl -- retrain data=linearly_separable
 ```
 
+#### Multi-threading
+
 ```shell
-mpiexecjl --project=experiments -n 4 julia experiments/run_experiments.jl -- data=linearly_separable output_path=results parallel
+julia --threads 16 --project=experiments experiments/run_experiments.jl -- data=linearly_separable threaded
+```
+
+
+
+#### Multi-Processing
+
+```shell
+mpiexecjl --project=experiments -n 4 julia experiments/run_experiments.jl -- data=linearly_separable mpi
+```
+
+Multi-processing and multi-threading can be combined:
+
+```shell
+mpiexecjl --project=experiments -n 4 julia experiments/run_experiments.jl -- data=linearly_separable threaded mpi
 ```
 
 When running the experiments from the command line, the parameter choices used in the main paper are applied by default. To have control over these choices, we recommend you instead rely on the notebooks.

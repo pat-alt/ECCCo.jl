@@ -5,7 +5,7 @@ include("experiment.jl");
 if "run-all" in ARGS
     datanames = ["linearly_separable", "moons", "circles", "mnist", "gmsc"]
 else
-    datanames = [ARGS[findall(contains.(ARGS, "data="))] |> x -> replace(x, "data=" => "")]
+    datanames = [ARGS[findall(contains.(ARGS, "data="))][1] |> x -> replace(x, "data=" => "")]
 end
 
 # Linearly Separable
@@ -38,6 +38,6 @@ if "gmsc" in datanames
     include("gmsc.jl")
 end
 
-if PARALLEL
+if USE_MPI
     MPI.Finalize()
 end

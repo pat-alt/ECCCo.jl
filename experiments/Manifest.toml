@@ -449,8 +449,8 @@ uuid = "d38c429a-6771-53c6-b99e-75d170b6e991"
 version = "0.6.2"
 
 [[deps.CounterfactualExplanations]]
-deps = ["CSV", "CUDA", "CategoricalArrays", "Chain", "ChainRulesCore", "DataFrames", "DecisionTree", "Distributions", "EvoTrees", "Flux", "LaplaceRedux", "LazyArtifacts", "LinearAlgebra", "MLDatasets", "MLJBase", "MLJDecisionTreeInterface", "MLJModels", "MLUtils", "MultivariateStats", "NearestNeighborModels", "PackageExtensionCompat", "Parameters", "Plots", "ProgressMeter", "Random", "Serialization", "SnoopPrecompile", "Statistics", "StatsBase", "Tables", "UMAP"]
-git-tree-sha1 = "8393721ffa3c9be209a93eb154d0d9fe9ca187d5"
+deps = ["CSV", "CUDA", "CategoricalArrays", "Chain", "ChainRulesCore", "DataFrames", "DecisionTree", "Distributions", "EvoTrees", "Flux", "LaplaceRedux", "LazyArtifacts", "LinearAlgebra", "MLDatasets", "MLJBase", "MLJDecisionTreeInterface", "MLJModels", "MLUtils", "MultivariateStats", "NearestNeighborModels", "PackageExtensionCompat", "Parameters", "Plots", "ProgressMeter", "Random", "Serialization", "SnoopPrecompile", "Statistics", "StatsBase", "Tables", "UMAP", "UUIDs"]
+path = "../../CounterfactualExplanations.jl"
 uuid = "2f13d31b-18db-44c1-bc43-ebaf2cff0be0"
 version = "0.1.15"
 
@@ -592,7 +592,7 @@ uuid = "fa6b7ba4-c1ee-5f82-b5fc-ecf0adba8f74"
 version = "0.6.8"
 
 [[deps.ECCCo]]
-deps = ["CategoricalArrays", "ChainRules", "ConformalPrediction", "CounterfactualExplanations", "Distances", "Distributions", "Flux", "JointEnergyModels", "LinearAlgebra", "MLJBase", "MLJEnsembles", "MLJFlux", "MLJModelInterface", "MLUtils", "Parameters", "PkgTemplates", "Plots", "Random", "SliceMap", "Statistics", "StatsBase", "StatsPlots", "Term"]
+deps = ["CategoricalArrays", "ChainRules", "ConformalPrediction", "CounterfactualExplanations", "Distances", "Distributions", "Flux", "JointEnergyModels", "LinearAlgebra", "MLJBase", "MLJEnsembles", "MLJFlux", "MLJModelInterface", "MLUtils", "Parameters", "Plots", "Random", "SliceMap", "Statistics", "StatsBase", "StatsPlots", "Term"]
 path = ".."
 uuid = "0232c203-4013-4b0d-ad96-43e3e11ac3bf"
 version = "0.1.0"

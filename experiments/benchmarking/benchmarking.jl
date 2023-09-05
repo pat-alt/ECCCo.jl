@@ -70,6 +70,7 @@ function run_benchmark(exp::Experiment, model_dict::Dict)
             if factual == target
                 continue
             end
+            @info "Benchmarking factual=$(factual) ▶️ target=$(target)."
             bmk = benchmark(
                 counterfactual_data;
                 models=model_dict,

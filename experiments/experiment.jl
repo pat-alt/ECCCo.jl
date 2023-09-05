@@ -47,32 +47,54 @@ include("benchmarking/benchmarking.jl")
 include("post_processing.jl")
 
 """
+    train_models!(outcome::ExperimentOutcome, exp::Experiment)
+
+Train the models specified by `exp` and store them in `outcome`.
+"""
+function train_models!(outcome::ExperimentOutcome, exp::Experiment)
+    model_dict = prepare_models(exp)
+    outcome.model_dict = model_dict
+    meta_model_performance(outcome)
+end
+
+"""
+    benchmark!(outcome::ExperimentOutcome, exp::Experiment)
+
+Benchmark the models specified by `exp` and store the results in `outcome`.
+"""
+function benchmark!(outcome::ExperimentOutcome, exp::Experiment)
+    bmk, generator_dict = run_benchmark(exp, outcome.model_dict)
+    outcome.bmk = bmk
+    outcome.generator_dict = generator_dict
+end
+
+"""
     run_experiment(exp::Experiment)
 
 Run the experiment specified by `exp`.
 """
-function run_experiment(exp::Experiment; save_output::Bool=true)
+function run_experiment(exp::Experiment; save_output::Bool=true, only_models::Bool=false)
     
     # Setup
     @info "All results will be saved to $(exp.output_path)."
     isdir(exp.output_path) || mkdir(exp.output_path)
     @info "All parameter choices will be saved to $(exp.params_path)."
     isdir(exp.params_path) || mkdir(exp.params_path)
+    outcome = ExperimentOutcome(exp, nothing, nothing, nothing)
 
     # Models
-    model_dict = prepare_models(exp)
-    outcome = ExperimentOutcome(exp, model_dict, nothing, nothing)
-    meta_model_performance(outcome);
-    
+    train_models!(outcome, exp)
+
+    # Return if only models are needed:
+    !only_models || return outcome
+
     # Benchmark
-    bmk, generator_dict = run_benchmark(exp, model_dict)
-    outcome.bmk = bmk
-    outcome.generator_dict = generator_dict
+    benchmark!(outcome, exp)
 
     # Save data:
     if save_output
         Serialization.serialize(joinpath(exp.output_path, "$(exp.save_name)_outcome.jls"), outcome)
-        Serialization.serialize(joinpath(exp.output_path, "$(exp.save_name)_bmk.jls"), bmk)
+        Serialization.serialize(joinpath(exp.output_path, "$(exp.save_name)_bmk.jls"), outcome.bmk)
         meta(outcome; save_output=true)
     end
 
