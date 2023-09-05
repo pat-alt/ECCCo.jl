@@ -48,3 +48,4 @@ end
 Builds a LeNet-like convolutional neural network.
 """
 lenet5(builder=LeNetBuilder(5, 6, 16); kwargs...) = NeuralNetworkClassifier(builder=builder; kwargs...)
+

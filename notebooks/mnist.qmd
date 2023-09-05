@@ -195,7 +195,7 @@ builder = MLJFlux.@builder Flux.Chain(
 )
 n_ens = 5                                   # number of models in ensemble
 _loss = Flux.Losses.crossentropy       # loss function
-_finaliser = Flux.softmax                        # finaliser function
+_finaliser = Flux.softmax                        # finalizer function
 ```
 
 ```{julia}
@@ -216,7 +216,7 @@ mlp = NeuralNetworkClassifier(
     builder=builder, 
     epochs=epochs,
     batch_size=batch_size,
-    finaliser=_finaliser,
+    finalizer=_finaliser,
     loss=_loss,
 )
 
@@ -229,7 +229,7 @@ jem = JointEnergyClassifier(
     builder=builder,
     epochs=epochs,
     batch_size=batch_size,
-    finaliser=_finaliser,
+    finalizer=_finaliser,
     loss=_loss,
     jem_training_params=(
         α=α,verbosity=10,
@@ -542,7 +542,7 @@ lenet = NeuralNetworkClassifier(
     builder=LeNetBuilder(5, 6, 16),
     epochs=50,
     batch_size=batch_size,
-    finaliser=_finaliser,
+    finalizer=_finaliser,
     loss=_loss,
 )
 ```

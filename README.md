@@ -50,6 +50,12 @@ We use the following identifiers:
 - `mnist` (*MNIST* data)
 - `gmsc` (*GMSC* data)
 
+To run experiments for multiple datasets at once simply separate them with a comma `,`
+
+```shell
+julia experiments/run_experiments.jl -- data=linearly_separable,moons,circles
+```
+
 To run all experiments at once you can instead run
 
 ```shell

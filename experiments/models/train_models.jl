@@ -4,7 +4,19 @@
 Trains all models in a dictionary and returns a dictionary of `ConformalModel` objects.
 """
 function train_models(models::Dict, X, y; kwargs...)
-    model_dict = Dict(mod_name => _train(model, X, y; mod_name=mod_name, kwargs...) for (mod_name, model) in models)
+    if USE_THREADS
+        model_dicts = [Dict{Any,Any}() for i in 1:Threads.nthreads()] 
+        mod_names = collect(keys(models))
+        mod_values = collect(values(models))
+        Threads.@threads for i in eachindex(mod_names)
+            mod_name = mod_names[i]
+            model = mod_values[i]
+            model_dicts[Threads.threadid()][mod_name] = _train(model, X, y; mod_name=mod_name, kwargs...)
+        end
+        model_dict = reduce(merge, model_dicts)
+    else
+        model_dict = Dict(mod_name => _train(model, X, y; mod_name=mod_name, kwargs...) for (mod_name, model) in models)
+    end
     return model_dict
 end
 

@@ -21,8 +21,11 @@ using Logging
 using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table, machine, fit!
 using MLJEnsembles
 using MLJFlux
+using Random
 using Serialization
 using TidierData
+
+Random.seed!(2023)
 
 # Parallelization:
 plz = nothing

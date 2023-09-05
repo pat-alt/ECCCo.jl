@@ -8,6 +8,7 @@ Base.@kwdef struct Experiment
     params_path::String = joinpath(output_path, "params")
     use_pretrained::Bool = !RETRAIN
     models::Union{Nothing,Dict} = nothing
+    additional_models::Union{Nothing,Dict} = nothing
     builder::Union{Nothing,MLJFlux.Builder} = nothing
     𝒟x::Distribution = Normal()
     sampling_batch_size::Int = 50
@@ -30,6 +31,10 @@ Base.@kwdef struct Experiment
     Λ_Δ::AbstractArray = Λ
     opt::Flux.Optimise.AbstractOptimiser = Flux.Optimise.Descent(0.01)
     parallelizer::Union{Nothing, AbstractParallelizer} = PLZ
+    nsamples::Union{Nothing,Int} = nothing
+    nmin::Union{Nothing,Int} = nothing
+    finaliser::Function = Flux.softmax
+    loss::Function = Flux.Losses.crossentropy
 end
 
 "A container to hold the results of an experiment."

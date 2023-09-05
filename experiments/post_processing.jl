@@ -36,7 +36,7 @@ function meta_model(outcome::ExperimentOutcome; save_output::Bool=false)
             :n_layers => length(model_dict["MLP"].fitresult[1][1]) - 1,
             :activation => string(exp.activation),
             :n_ens => exp.n_ens,
-            :lambda => exp.string(exp.α[3]),
+            :lambda => string(exp.α[3]),
             :jem_sampling_steps => exp.sampling_steps,
         )
     )
@@ -65,7 +65,7 @@ function meta_generators(outcome::ExperimentOutcome; save_output::Bool=false)
         Dict(
             :opt => string(typeof(opt)),
             :eta => opt.eta,
-            :dataname => dataname,
+            :dataname => exp.dataname,
             :lambda_1 => string(Λ[1]),
             :lambda_2 => string(Λ[2]),
             :lambda_3 => string(Λ[3]),

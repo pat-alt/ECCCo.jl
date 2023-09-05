@@ -17,35 +17,18 @@ counterfactual_data.generative_model = vae
 # Test data:
 test_data = load_mnist_test()
 
-# Models:
-builder = MLJFlux.@builder Flux.Chain(
-    Dense(n_in, n_hidden, activation),
-    Dense(n_hidden, n_out),
-)
-
-# Generators:
-eccco_generator = ECCCoGenerator(
-    λ=[0.1,0.25,0.25], 
-    temp=0.1, 
-    opt=nothing,
-    use_class_loss=true,
-    nsamples=10,
-    nmin=10,
-)
-Λ = eccco_generator.λ
-generator_dict = Dict(
-    "Wachter" => WachterGenerator(λ=Λ[1], opt=eccco_generator.opt),
-    "REVISE" => REVISEGenerator(λ=Λ[1], opt=eccco_generator.opt),
-    "Schut" =>  GreedyGenerator(η=2.0),
-    "ECCCo" => eccco_generator,
+# Additional models:
+add_models = Dict(
+    :lenet5 => lenet5,
 )
 
 # Run:
 run_experiment(
-    counterfactual_data, test_data; dataname="MNIST",
+    counterfactual_data, test_data; 
+    dataname="MNIST",
     n_hidden = 128,
     activation = Flux.swish,
-    builder = MLJFlux.@builder Flux.Chain(
+    builder= MLJFlux.@builder Flux.Chain(
         Dense(n_in, n_hidden, activation),
         Dense(n_hidden, n_out),
     ),
@@ -54,6 +37,10 @@ run_experiment(
     sampling_batch_size = 10,
     sampling_steps=25,
     use_ensembling = true,
-    generators = generator_dict,
-    n_individuals = 5
+    n_individuals = 5,
+    nsamples = 10,
+    nmin = 10,
+    use_variants = false,
+    use_class_loss = true,
+    add_models = add_models,
 )

@@ -6,6 +6,7 @@ if "run-all" in ARGS
     datanames = ["linearly_separable", "moons", "circles", "mnist", "gmsc"]
 else
     datanames = [ARGS[findall(contains.(ARGS, "data="))][1] |> x -> replace(x, "data=" => "")]
+    datanames = replace.(split(datanames[1], ","), " " => "")
 end
 
 # Linearly Separable

@@ -5,7 +5,6 @@ run_experiment(
     dataname="Circles",
     n_hidden=32,
     α=[1.0, 1.0, 1e-2],
-    sampling_batch_size=nothing,
     sampling_steps=20,
     Λ=[0.25, 0.75, 0.75],
     opt=Flux.Optimise.Descent(0.01),

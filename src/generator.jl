@@ -8,11 +8,14 @@ function ECCCoGenerator(;
     temp::Real=0.1, 
     opt::Union{Nothing,Flux.Optimise.AbstractOptimiser}=nothing,
     use_class_loss::Bool=false,
-    nsamples::Int=50,
-    nmin::Int=25,
     use_energy_delta::Bool=false,
+    nsamples::Union{Nothing,Int}=nothing,
+    nmin::Union{Nothing,Int}=nothing,
     kwargs...
 )
+
+    nsamples = isnothing(nsamples) ? 50 : nsamples
+    nmin = isnothing(nmin) ? 25 : nmin
 
     # Default optimiser
     if isnothing(opt)
