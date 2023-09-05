@@ -22,16 +22,19 @@ add_models = Dict(
     :lenet5 => lenet5,
 )
 
+# Default builder:
+n_hidden = 128
+activation = Flux.swish
+builder = MLJFlux.@builder Flux.Chain(
+    Dense(n_in, n_hidden, activation),
+    Dense(n_hidden, n_out),
+)
+
 # Run:
 run_experiment(
     counterfactual_data, test_data; 
     dataname="MNIST",
-    n_hidden = 128,
-    activation = Flux.swish,
-    builder= MLJFlux.@builder Flux.Chain(
-        Dense(n_in, n_hidden, activation),
-        Dense(n_hidden, n_out),
-    ),
+    builder= builder,
     𝒟x = Uniform(-1.0, 1.0),
     α = [1.0,1.0,1e-2],
     sampling_batch_size = 10,
@@ -42,6 +45,6 @@ run_experiment(
     nmin = 10,
     use_variants = false,
     use_class_loss = true,
-    add_models = add_models,
+    additional_models=add_models,
     epochs = 10,
 )

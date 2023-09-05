@@ -11,6 +11,8 @@ function prepare_models(exp::Experiment)
     if !exp.use_pretrained
         if isnothing(exp.builder)
             builder = default_builder()
+        else
+            builder = exp.builder
         end
         # Default models:
         if isnothing(exp.models)
@@ -25,6 +27,7 @@ function prepare_models(exp::Experiment)
                 use_ensembling=exp.use_ensembling,
                 finaliser=exp.finaliser,
                 loss=exp.loss,
+                epochs=exp.epochs,
             )
         end
         # Additional models:
@@ -36,10 +39,10 @@ function prepare_models(exp::Experiment)
                     batch_size=batch_size(exp),
                     finaliser=exp.finaliser,
                     loss=exp.loss,
+                    epochs=exp.epochs,
                 )
             end
-            add_models = Dict(k => mod(;batch_size=batch_size(exp), ) for (k, mod) in exp.additional_models)
-            models = merge!(models, exp.additional_models)
+            models = merge(models, add_models)
         end
         @info "Training models."
         model_dict = train_models(models, X, labels; cov=exp.coverage)

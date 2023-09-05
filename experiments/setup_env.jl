@@ -12,7 +12,7 @@ using CounterfactualExplanations.Parallelization
 using CSV
 using Dates
 using DataFrames
-using Distributions: Normal, Distribution, Categorical
+using Distributions: Normal, Distribution, Categorical, Uniform
 using ECCCo
 using Flux
 using JointEnergyModels

@@ -1,14 +1,18 @@
 counterfactual_data, test_data = train_test_split(load_gmsc(nothing); test_size=TEST_SIZE)
+
+# Default builder:
+n_hidden = 128
+activation = Flux.swish
+builder = MLJFlux.@builder Flux.Chain(
+    Dense(n_in, n_hidden, activation),
+    Dense(n_hidden, n_hidden, activation),
+    Dense(n_hidden, n_out),
+)
+
 run_experiment(
     counterfactual_data, test_data; 
     dataname="GMSC",
-    n_hidden=128,
-    activation = Flux.swish,
-    builder = MLJFlux.@builder Flux.Chain(
-        Dense(n_in, n_hidden, activation),
-        Dense(n_hidden, n_hidden, activation),
-        Dense(n_hidden, n_out),
-    ),
+    builder = builder,
     α=[1.0, 1.0, 1e-1],
     sampling_batch_size=10,
     sampling_steps = 30,
