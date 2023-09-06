@@ -21,7 +21,6 @@ function MLJFlux.build(b::LeNetBuilder, rng, n_in, n_out)
 	k, c1, c2 = b.filter_size, b.channels1, b.channels2
 	mod(k, 2) == 1 || error("`filter_size` must be odd. ")
     p = div(k - 1, 2) # padding to preserve image size on convolution:
-    preproc(x) = reshape(x, (_n_in, _n_in, 1, :))
 
     # Model:
 	front = Flux.Chain(
@@ -37,7 +36,7 @@ function MLJFlux.build(b::LeNetBuilder, rng, n_in, n_out)
         Dense(120, 84, relu),
         Dense(84, n_out),
     )
-    chain = Flux.Chain(preproc, front, back)
+    chain = Flux.Chain(ECCCo.ToConv(_n_in), front, back)
 
 	return chain
 end

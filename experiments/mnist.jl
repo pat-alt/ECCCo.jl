@@ -13,7 +13,7 @@ test_data = load_mnist_test()
 
 # Additional models:
 add_models = Dict(
-    :lenet5 => lenet5,
+    "LeNet-5" => lenet5,
 )
 
 # Default builder:
