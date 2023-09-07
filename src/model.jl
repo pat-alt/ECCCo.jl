@@ -6,7 +6,6 @@ using MLJBase
 using MLJEnsembles
 using MLJFlux
 using MLUtils
-using SliceMap
 using Statistics
 
 const CompatibleAtomicModel = Union{<:MLJFlux.MLJFluxProbabilistic,MLJEnsembles.ProbabilisticEnsembleModel{<:MLJFlux.MLJFluxProbabilistic}}

@@ -49,7 +49,7 @@ end
 include("data/data.jl")
 include("models/models.jl")
 include("benchmarking/benchmarking.jl")
-include("post_processing.jl")
+include("post_processing/post_processing.jl")
 
 """
     train_models!(outcome::ExperimentOutcome, exp::Experiment)

@@ -61,16 +61,19 @@ artifact_toml = LazyArtifacts.find_artifacts_toml(".")
 _hash = artifact_hash(ARTIFACT_NAME, artifact_toml)
 const LATEST_ARTIFACT_PATH = joinpath(artifact_path(_hash), ARTIFACT_NAME)
 
+time_stamped = false
 if any(contains.(ARGS, "output_path"))
     @assert sum(contains.(ARGS, "output_path")) == 1 "Only one output path can be specified."
     _path = ARGS[findall(contains.(ARGS, "output_path"))][1] |> x -> replace(x, "output_path=" => "")
 else
     timestamp = Dates.format(now(), "yyyy-mm-dd@HH:MM")
+    time_stamped = true
     _path = "$(pwd())/results_$(timestamp)"
 end
 
 "Default output path."
 const DEFAULT_OUTPUT_PATH = _path
+const TIME_STAMPED = time_stamped
 
 ispath(DEFAULT_OUTPUT_PATH) || mkpath(DEFAULT_OUTPUT_PATH)
 
@@ -102,3 +105,7 @@ const CE_MEASURES = [
 
 "Test set proportion."
 const TEST_SIZE = 0.2
+
+if "upload" ∈ ARGS
+    const UPLOAD = true
+end

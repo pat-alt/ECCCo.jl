@@ -10,7 +10,7 @@ function meta(outcome::ExperimentOutcome; save_output::Bool=false)
     generator_params = meta_generators(outcome; save_output=save_output)
 
     return model_params, model_performance, generator_params
-    
+
 end
 
 """
@@ -40,7 +40,7 @@ function meta_model(outcome::ExperimentOutcome; save_output::Bool=false)
             :jem_sampling_steps => exp.sampling_steps,
         )
     )
-   
+
     if save_output
         save_path = joinpath(exp.params_path, "$(exp.save_name)_model_params.csv")
         @info "Saving model parameters to $(save_path)."
@@ -107,7 +107,7 @@ function meta_model_performance(outcome::ExperimentOutcome; measures::Union{Noth
         _perf.dataname .= exp.dataname
         model_performance = vcat(model_performance, _perf)
     end
-    
+
     @info "Model performance:"
     println(model_performance)
 
@@ -122,3 +122,4 @@ function meta_model_performance(outcome::ExperimentOutcome; measures::Union{Noth
 
     return model_performance
 end
+

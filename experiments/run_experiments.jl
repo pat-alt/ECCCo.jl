@@ -42,3 +42,8 @@ end
 if USE_MPI
     MPI.Finalize()
 end
+
+if UPLOAD
+    @info "Uploading results."
+    generate_artifacts()
+end
