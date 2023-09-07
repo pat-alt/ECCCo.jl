@@ -27,6 +27,13 @@ using TidierData
 
 Random.seed!(2023)
 
+# Scripts:
+include("experiment.jl")
+include("data/data.jl")
+include("models/models.jl")
+include("benchmarking/benchmarking.jl")
+include("post_processing/post_processing.jl")
+
 # Parallelization:
 plz = nothing
 

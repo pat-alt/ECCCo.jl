@@ -27,7 +27,7 @@ function generate_artifacts(
 
     # Artifact name:
     if isnothing(artifact_name)
-        suffix = TIME_STAMPED ? "" : "_$(Dates.format(now(), "yyyy-mm-dd@HH:MM"))"
+        suffix = TIME_STAMPED ? "" : "_$(Dates.format(now(), "yyyymmdd_HHMM"))"
         artifact_name = "artifacts_$(split(datafiles, "/")[end])$(suffix)"
     end
     # Artifact tag:
