@@ -50,7 +50,7 @@ if "mpi" ∈ ARGS
     import MPI
     MPI.Init()
     const USE_MPI = true
-    plz = MPIParallelizer(MPI.COMM_WORLD, threaded=USE_THREADS)
+    plz = MPIParallelizer(MPI.COMM_WORLD, USE_THREADS)
     if MPI.Comm_rank(MPI.COMM_WORLD) != 0
         @info "Disabling logging on non-root processes."
         global_logger(NullLogger())
