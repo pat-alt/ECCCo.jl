@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#SBATCH --job-name="Counterfactuals"
-#SBATCH --time=00:20:00
-#SBATCH --ntasks=24
-#SBATCH --cpus-per-task=1
+#SBATCH --job-name="ECCCo"
+#SBATCH --time=01:00:00
+#SBATCH --ntasks=12
+#SBATCH --cpus-per-task=4
 #SBATCH --partition=compute
 #SBATCH --mem-per-cpu=4GB
 #SBATCH --account=innovation
