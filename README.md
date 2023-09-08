@@ -48,6 +48,7 @@ We use the following identifiers:
 - `moons` (*Moons* data)
 - `circles` (*Circles* data)
 - `mnist` (*MNIST* data)
+- `fmnist` (*Fashion MNIST* data)
 - `gmsc` (*GMSC* data)
 
 To run experiments for multiple datasets at once simply separate them with a comma `,`

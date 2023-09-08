@@ -38,6 +38,11 @@ if "mnist" in datanames
     include("mnist.jl")
 end
 
+if "fmnist" in datanames
+    @info "Running Fashion-MNIST experiment."
+    include("fmnist.jl")
+end
+
 if USE_MPI
     MPI.Finalize()
 end
