@@ -113,6 +113,4 @@ const CE_MEASURES = [
 "Test set proportion."
 const TEST_SIZE = 0.2
 
-if "upload" ∈ ARGS
-    const UPLOAD = true
-end
+const UPLOAD = "upload" ∈ ARGS
