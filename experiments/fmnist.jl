@@ -24,6 +24,9 @@ builder = MLJFlux.@builder Flux.Chain(
     Dense(n_hidden, n_out),
 )
 
+# Number of individuals:
+n_ind = N_IND_SPECIFIED ? N_IND : 5
+
 # Run:
 run_experiment(
     counterfactual_data, test_data; 
@@ -34,7 +37,7 @@ run_experiment(
     sampling_batch_size = 10,
     sampling_steps=50,
     use_ensembling = true,
-    n_individuals = 5,
+    n_individuals = n_ind,
     nsamples = 10,
     nmin = 10,
     use_variants = false,

@@ -118,3 +118,17 @@ const CE_MEASURES = [
 const TEST_SIZE = 0.2
 
 const UPLOAD = "upload" ∈ ARGS
+
+n_ind_specified = false
+if any(contains.(ARGS, "n_individuals="))
+    n_ind_specified = true
+    n_individuals = ARGS[findall(contains.(ARGS, "n_individuals="))][1] |> x -> replace(x, "n_individuals=" => "")
+else
+    n_individuals = 25
+end
+
+"Number of individuals to use in benchmarking."
+const N_IND = n_individuals
+
+"Boolean flag to check if number of individuals was specified."
+const N_IND_SPECIFIED = n_ind_specified

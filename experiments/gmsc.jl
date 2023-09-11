@@ -9,6 +9,9 @@ builder = MLJFlux.@builder Flux.Chain(
     Dense(n_hidden, n_out),
 )
 
+# Number of individuals:
+n_ind = N_IND_SPECIFIED ? N_IND : 10
+
 run_experiment(
     counterfactual_data, test_data; 
     dataname="GMSC",
@@ -19,6 +22,6 @@ run_experiment(
     use_ensembling = true,
     Λ=[0.1, 0.5, 0.5],
     opt = Flux.Optimise.Descent(0.05),
-    n_individuals = 10,
+    n_individuals = n_ind,
     use_variants = false, 
 )
