@@ -44,25 +44,25 @@ end
 
 Run the benchmarking procedure.
 """
-function run_benchmark(exp::Experiment, model_dict::Dict)
+function run_benchmark(exper::Experiment, model_dict::Dict)
 
-    n_individuals = exp.n_individuals
-    dataname = exp.dataname
-    counterfactual_data = exp.counterfactual_data
-    generator_dict = exp.generators
-    measures = exp.ce_measures
-    parallelizer = exp.parallelizer
+    n_individuals = exper.n_individuals
+    dataname = exper.dataname
+    counterfactual_data = exper.counterfactual_data
+    generator_dict = exper.generators
+    measures = exper.ce_measures
+    parallelizer = exper.parallelizer
 
     # Benchmark generators:
     if isnothing(generator_dict)
         generator_dict = default_generators(;
-            Λ=exp.Λ,
-            Λ_Δ=exp.Λ_Δ,
-            use_variants=exp.use_variants,
-            use_class_loss=exp.use_class_loss,
-            opt=exp.opt,
-            nsamples=exp.nsamples,
-            nmin=exp.nmin,
+            Λ=exper.Λ,
+            Λ_Δ=exper.Λ_Δ,
+            use_variants=exper.use_variants,
+            use_class_loss=exper.use_class_loss,
+            opt=exper.opt,
+            nsamples=exper.nsamples,
+            nmin=exper.nmin,
         )
     end
 

@@ -2,58 +2,63 @@ include("additional_models.jl")
 include("default_models.jl")
 include("train_models.jl")
 
-function prepare_models(exp::Experiment)
+function prepare_models(exper::Experiment)
 
     # Unpack data:
-    X, labels, sampler = prepare_data(exp::Experiment)
+    X, labels, sampler = prepare_data(exper::Experiment)
 
     # Training:
-    if !exp.use_pretrained
-        if isnothing(exp.builder)
+    if !exper.use_pretrained
+        if isnothing(exper.builder)
             builder = default_builder()
         else
-            builder = exp.builder
+            builder = exper.builder
         end
         # Default models:
-        if isnothing(exp.models)
+        if isnothing(exper.models)
             @info "Using default models."
             models = default_models(;
                 sampler=sampler,
                 builder=builder,
-                batch_size=batch_size(exp),
-                sampling_steps=exp.sampling_steps,
-                α=exp.α,
-                n_ens=exp.n_ens,
-                use_ensembling=exp.use_ensembling,
-                finaliser=exp.finaliser,
-                loss=exp.loss,
-                epochs=exp.epochs,
+                batch_size=batch_size(exper),
+                sampling_steps=exper.sampling_steps,
+                α=exper.α,
+                n_ens=exper.n_ens,
+                use_ensembling=exper.use_ensembling,
+                finaliser=exper.finaliser,
+                loss=exper.loss,
+                epochs=exper.epochs,
             )
         end
         # Additional models:
-        if !isnothing(exp.additional_models)
+        if !isnothing(exper.additional_models)
             @info "Using additional models."
             add_models = Dict{Any,Any}()
-            for (k, mod) in exp.additional_models
+            for (k, mod) in exper.additional_models
                 add_models[k] = mod(;
-                    batch_size=batch_size(exp),
-                    finaliser=exp.finaliser,
-                    loss=exp.loss,
-                    epochs=exp.epochs,
+                    batch_size=batch_size(exper),
+                    finaliser=exper.finaliser,
+                    loss=exper.loss,
+                    epochs=exper.epochs,
                 )
             end
             models = merge(models, add_models)
         end
         @info "Training models."
-        model_dict = train_models(models, X, labels; cov=exp.coverage)
+        model_dict = train_models(models, X, labels; parallelizer=exper.parallelizer, train_parallel=exper.train_parallel, cov=exper.coverage)
     else
         @info "Loading pre-trained models."
-        model_dict = Serialization.deserialize(joinpath(pretrained_path(exp), "$(exp.save_name)_models.jls"))
+        model_dict = Serialization.deserialize(joinpath(pretrained_path(exper), "$(exper.save_name)_models.jls"))
+        if is_multi_processed(exper)
+            MPI.Barrier(exper.parallelizer.comm)
+        end
     end
 
     # Save models:
-    @info "Saving models to $(joinpath(exp.output_path, "$(exp.save_name)_models.jls"))."
-    Serialization.serialize(joinpath(exp.output_path, "$(exp.save_name)_models.jls"), model_dict)
+    if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+        @info "Saving models to $(joinpath(exper.output_path, "$(exper.save_name)_models.jls"))."
+        Serialization.serialize(joinpath(exper.output_path, "$(exper.save_name)_models.jls"), model_dict)
+    end
 
     return model_dict
 end

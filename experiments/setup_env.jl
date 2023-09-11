@@ -33,12 +33,12 @@ include("data/data.jl")
 include("models/models.jl")
 include("benchmarking/benchmarking.jl")
 include("post_processing/post_processing.jl")
+include("utils.jl")
 
 # Parallelization:
 plz = nothing
 
 if "threaded" ∈ ARGS
-    @info "Multi-threading using $(Threads.nthreads()) threads."
     const USE_THREADS = true
     plz = ThreadsParallelizer()
 else
@@ -46,14 +46,17 @@ else
 end
 
 if "mpi" ∈ ARGS
-    @info "Multi-processing using MPI."
     import MPI
     MPI.Init()
     const USE_MPI = true
-    plz = MPIParallelizer(MPI.COMM_WORLD, USE_THREADS)
+    plz = MPIParallelizer(MPI.COMM_WORLD; threaded=USE_THREADS)
     if MPI.Comm_rank(MPI.COMM_WORLD) != 0
-        @info "Disabling logging on non-root processes."
         global_logger(NullLogger())
+    else
+        @info "Multi-processing using MPI. Disabling logging on non-root processes."
+        if USE_THREADS
+            @info "Multi-threading using $(Threads.nthreads()) threads."
+        end
     end
 else
     const USE_MPI = false

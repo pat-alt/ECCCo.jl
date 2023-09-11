@@ -138,7 +138,7 @@ To keep things consistent with the architecture of `CounterfactualExplanations.j
 Let $\hat{p}_i$ denote the estimated softmax output for feature $i$. Then in the multi-class case the following formula can be applied:
 
 ```math
-\beta_i x_i = \log (\hat{p}_i) + \log (\sum_i \exp(\hat{p}_i))
+\beta_i x_i = \log (\hat{p}_i) + \log (\sum_i \exper(\hat{p}_i))
 ```
 
 For a short derivation, see here: https://math.stackexchange.com/questions/2786600/invert-the-softmax-function. 

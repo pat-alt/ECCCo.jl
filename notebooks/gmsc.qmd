@@ -37,7 +37,7 @@ if pre_proc
 
     function boxcox(x)
         transf = MLJ.UnivariateBoxCoxTransformer()
-        x = exp.(x)
+        x = exper.(x)
         mach = machine(transf, x)
         fit!(mach)
         z = MLJ.transform(mach, x)

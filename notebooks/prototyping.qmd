@@ -9,7 +9,7 @@ dataname = "linearly_separable"
 outcome = Serialization.deserialize(joinpath(DEFAULT_OUTPUT_PATH, "$(dataname)_outcome.jls"))
 
 # Unpack
-exp = outcome.exp
+exper = outcome.exper
 model_dict = outcome.model_dict
 generator_dict = outcome.generator_dict
 bmk = outcome.bmk
@@ -19,7 +19,7 @@ bmk = outcome.bmk
 Random.seed!(2023)
 
 # Unpack
-counterfactual_data = exp.counterfactual_data
+counterfactual_data = exper.counterfactual_data
 X, labels = counterfactual_data.X, counterfactual_data.output_encoder.labels
 M = model_dict["MLP"]
 gen = filter(((k,v),) -> k in ["ECCCo", "ECCCo-Δ"], generator_dict)

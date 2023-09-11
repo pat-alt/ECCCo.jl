@@ -35,65 +35,68 @@ Base.@kwdef struct Experiment
     nmin::Union{Nothing,Int} = nothing
     finaliser::Function = Flux.softmax
     loss::Function = Flux.Losses.crossentropy
+    train_parallel::Bool = false
 end
 
 "A container to hold the results of an experiment."
 mutable struct ExperimentOutcome
-    exp::Experiment
+    exper::Experiment
     model_dict::Union{Nothing, Dict}
     generator_dict::Union{Nothing, Dict}
     bmk::Union{Nothing, Benchmark}
 end
 
 """
-    train_models!(outcome::ExperimentOutcome, exp::Experiment)
+    train_models!(outcome::ExperimentOutcome, exper::Experiment)
 
-Train the models specified by `exp` and store them in `outcome`.
+Train the models specified by `exper` and store them in `outcome`.
 """
-function train_models!(outcome::ExperimentOutcome, exp::Experiment)
-    model_dict = prepare_models(exp)
+function train_models!(outcome::ExperimentOutcome, exper::Experiment)
+    model_dict = prepare_models(exper)
     outcome.model_dict = model_dict
-    meta_model_performance(outcome)
+    if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+        meta_model_performance(outcome)
+    end
 end
 
 """
-    benchmark!(outcome::ExperimentOutcome, exp::Experiment)
+    benchmark!(outcome::ExperimentOutcome, exper::Experiment)
 
-Benchmark the models specified by `exp` and store the results in `outcome`.
+Benchmark the models specified by `exper` and store the results in `outcome`.
 """
-function benchmark!(outcome::ExperimentOutcome, exp::Experiment)
-    bmk, generator_dict = run_benchmark(exp, outcome.model_dict)
+function benchmark!(outcome::ExperimentOutcome, exper::Experiment)
+    bmk, generator_dict = run_benchmark(exper, outcome.model_dict)
     outcome.bmk = bmk
     outcome.generator_dict = generator_dict
 end
 
 """
-    run_experiment(exp::Experiment)
+    run_experiment(exper::Experiment)
 
-Run the experiment specified by `exp`.
+Run the experiment specified by `exper`.
 """
-function run_experiment(exp::Experiment; save_output::Bool=true, only_models::Bool=ONLY_MODELS)
+function run_experiment(exper::Experiment; save_output::Bool=true, only_models::Bool=ONLY_MODELS)
     
     # Setup
-    @info "All results will be saved to $(exp.output_path)."
-    isdir(exp.output_path) || mkdir(exp.output_path)
-    @info "All parameter choices will be saved to $(exp.params_path)."
-    isdir(exp.params_path) || mkdir(exp.params_path)
-    outcome = ExperimentOutcome(exp, nothing, nothing, nothing)
+    @info "All results will be saved to $(exper.output_path)."
+    isdir(exper.output_path) || mkdir(exper.output_path)
+    @info "All parameter choices will be saved to $(exper.params_path)."
+    isdir(exper.params_path) || mkdir(exper.params_path)
+    outcome = ExperimentOutcome(exper, nothing, nothing, nothing)
 
     # Models
-    train_models!(outcome, exp)
+    train_models!(outcome, exper)
 
     # Return if only models are needed:
     !only_models || return outcome
 
     # Benchmark
-    benchmark!(outcome, exp)
+    benchmark!(outcome, exper)
 
     # Save data:
-    if save_output
-        Serialization.serialize(joinpath(exp.output_path, "$(exp.save_name)_outcome.jls"), outcome)
-        Serialization.serialize(joinpath(exp.output_path, "$(exp.save_name)_bmk.jls"), outcome.bmk)
+    if save_output && !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+        Serialization.serialize(joinpath(exper.output_path, "$(exper.save_name)_outcome.jls"), outcome)
+        Serialization.serialize(joinpath(exper.output_path, "$(exper.save_name)_bmk.jls"), outcome.bmk)
         meta(outcome; save_output=true)
     end
 
@@ -108,19 +111,19 @@ Overload the `run_experiment` function to allow for passing in `CounterfactualDa
 """
 function run_experiment(counterfactual_data::CounterfactualData, test_data::CounterfactualData; kwargs...)
     # Parameters:
-    exp = Experiment(;
+    exper = Experiment(;
         counterfactual_data=counterfactual_data,
         test_data=test_data,
         kwargs...
     )
-    return run_experiment(exp)
+    return run_experiment(exper)
 end
 
 # Pre-trained models:
-function pretrained_path(exp::Experiment)
-    if isfile(joinpath(exp.output_path, "$(exp.save_name)_models.jls"))
-        @info "Found local pre-trained models in $(exp.output_path) and using those."
-        return exp.output_path
+function pretrained_path(exper::Experiment)
+    if isfile(joinpath(exper.output_path, "$(exper.save_name)_models.jls"))
+        @info "Found local pre-trained models in $(exper.output_path) and using those."
+        return exper.output_path
     else
         @info "Using artifacts. Models were pre-trained on `julia-$(LATEST_VERSION)` and may not work on other versions."
         return joinpath(LATEST_ARTIFACT_PATH, "results")
