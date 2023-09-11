@@ -72,6 +72,9 @@ time_stamped = false
 if any(contains.(ARGS, "output_path"))
     @assert sum(contains.(ARGS, "output_path")) == 1 "Only one output path can be specified."
     _path = ARGS[findall(contains.(ARGS, "output_path"))][1] |> x -> replace(x, "output_path=" => "")
+elseif isinteractive()
+    @info "You are running experiments interactively. By default, results will be saved in a temporary directory."
+    _path = tempdir()
 else
     timestamp = Dates.format(now(), "yyyy-mm-dd@HH:MM")
     time_stamped = true
@@ -81,8 +84,6 @@ end
 "Default output path."
 const DEFAULT_OUTPUT_PATH = _path
 const TIME_STAMPED = time_stamped
-
-ispath(DEFAULT_OUTPUT_PATH) || mkpath(DEFAULT_OUTPUT_PATH)
 
 "Boolean flag to only train models."
 const ONLY_MODELS = "only_models" ∈ ARGS ? true : false

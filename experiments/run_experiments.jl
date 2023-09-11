@@ -2,10 +2,13 @@ include("setup_env.jl");
 
 # User inputs:
 if "run-all" in ARGS
-    datanames = ["linearly_separable", "moons", "circles", "mnist", "gmsc"]
-else
+    datanames = ["linearly_separable", "moons", "circles", "mnist", "fmnist", "gmsc"]
+elseif any(contains.(ARGS, "data="))
     datanames = [ARGS[findall(contains.(ARGS, "data="))][1] |> x -> replace(x, "data=" => "")]
     datanames = replace.(split(datanames[1], ","), " " => "")
+else
+    @warn "No dataset specified, defaulting to all."
+    datanames = ["linearly_separable", "moons", "circles", "mnist", "fmnist", "gmsc"]
 end
 
 # Linearly Separable
