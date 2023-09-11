@@ -126,6 +126,7 @@ function pretrained_path(exper::Experiment)
         return exper.output_path
     else
         @info "Using artifacts. Models were pre-trained on `julia-$(LATEST_VERSION)` and may not work on other versions."
+        Pkg.Artifacts.download_artifact(ARTIFACT_HASH, ARTIFACT_TOML)
         return joinpath(LATEST_ARTIFACT_PATH, "results")
     end
 end

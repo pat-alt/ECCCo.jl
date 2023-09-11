@@ -75,6 +75,12 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
                 continue
             end
             @info "Benchmarking factual=$(factual) ▶️ target=$(target)."
+            # Progress bars are only shown on the root process:
+            if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+                verbose = true
+            else
+                verbose = false
+            end
             bmk = benchmark(
                 counterfactual_data;
                 models=model_dict,
@@ -86,6 +92,7 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
                 initialization=:identity,
                 converge_when=:generator_conditions,
                 parallelizer=parallelizer,
+                verbose=verbose
             )
             push!(bmks, bmk)
         end

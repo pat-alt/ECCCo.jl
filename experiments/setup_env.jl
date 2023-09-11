@@ -67,9 +67,9 @@ const PLZ = plz
 # Constants:
 const LATEST_VERSION = "1.8.5"
 const ARTIFACT_NAME = "results-paper-submission-$(LATEST_VERSION)"
-artifact_toml = LazyArtifacts.find_artifacts_toml(".")
-_hash = artifact_hash(ARTIFACT_NAME, artifact_toml)
-const LATEST_ARTIFACT_PATH = joinpath(artifact_path(_hash), ARTIFACT_NAME)
+const ARTIFACT_TOML = LazyArtifacts.find_artifacts_toml(".")
+const ARTIFACT_HASH = artifact_hash(ARTIFACT_NAME, ARTIFACT_TOML)
+const LATEST_ARTIFACT_PATH = joinpath(artifact_path(ARTIFACT_HASH), ARTIFACT_NAME)
 
 time_stamped = false
 if any(contains.(ARGS, "output_path"))
