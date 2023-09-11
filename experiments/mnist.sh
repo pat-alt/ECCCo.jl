@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name="ECCCo"
-#SBATCH --time=01:00:00
+#SBATCH --job-name="MNIST (ECCCo)"
+#SBATCH --time=24:00:00
 #SBATCH --ntasks=12
 #SBATCH --cpus-per-task=4
 #SBATCH --partition=compute
@@ -9,6 +9,6 @@
 #SBATCH --account=innovation
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
-module load 2023r1 openmpi julia
+module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=linearly_separable threaded > experiments/hpc.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=mnist retrain output_path=results threaded mpi > experiments/mnist.log
