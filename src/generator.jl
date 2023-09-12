@@ -11,6 +11,7 @@ function ECCCoGenerator(;
     use_energy_delta::Bool=false,
     nsamples::Union{Nothing,Int}=nothing,
     nmin::Union{Nothing,Int}=nothing,
+    reg_strength::Real=0.5,
     kwargs...
 )
 
@@ -30,7 +31,7 @@ function ECCCoGenerator(;
     end
 
     _energy_penalty =
-        use_energy_delta ? (ECCCo.energy_delta, (n=nsamples, nmin=nmin)) : (ECCCo.distance_from_energy, (n=nsamples, nmin=nmin))
+        use_energy_delta ? (ECCCo.energy_delta, (n=nsamples, nmin=nmin, reg_strength=reg_strength)) : (ECCCo.distance_from_energy, (n=nsamples, nmin=nmin))
 
     _penalties = [
         (Objectives.distance_l1, []), 

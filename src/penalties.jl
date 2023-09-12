@@ -46,10 +46,10 @@ function energy_delta(
     choose_random=false,
     nmin::Int=25,
     return_conditionals=false,
+    reg_strength=0.5,
     kwargs...
 )
 
-    _loss = 0.0
     nmin = minimum([nmin, n])
 
     @assert choose_lowest_energy ⊻ choose_random || !choose_lowest_energy && !choose_random "Must choose either lowest energy or random samples or neither."
@@ -88,7 +88,7 @@ function energy_delta(
     if return_conditionals
         return conditional_samples[1]
     end
-    return gen_loss + 0.1reg_loss
+    return gen_loss + reg_strength * reg_loss
 
 end
 
