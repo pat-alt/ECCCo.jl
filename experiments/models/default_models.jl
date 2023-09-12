@@ -49,6 +49,7 @@ function default_models(;
         batch_size=batch_size,
         finaliser=finaliser,
         loss=loss,
+        acceleration=CUDALibs(),
     )
 
     # Deep Ensemble:
@@ -65,7 +66,8 @@ function default_models(;
         jem_training_params=(
             α=α, verbosity=verbosity,
         ),
-        sampling_steps=sampling_steps
+        sampling_steps=sampling_steps,
+        acceleration=CUDALibs(),
     )
 
     # Deep Ensemble of Joint Energy Models:
