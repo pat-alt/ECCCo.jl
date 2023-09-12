@@ -88,7 +88,6 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
                 initialization=:identity,
                 converge_when=:generator_conditions,
                 parallelizer=parallelizer,
-                verbose=verbose
             )
             push!(bmks, bmk)
         end
