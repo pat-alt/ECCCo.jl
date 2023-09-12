@@ -93,7 +93,6 @@ function run_experiment(exper::Experiment; save_output::Bool=true, only_models::
 
     # Benchmark
     benchmark!(outcome, exper)
-
     if is_multi_processed(exper)
         MPI.Barrier(exper.parallelizer.comm)
     end
