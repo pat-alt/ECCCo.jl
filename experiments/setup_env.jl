@@ -125,7 +125,7 @@ const UPLOAD = "upload" ∈ ARGS
 n_ind_specified = false
 if any(contains.(ARGS, "n_individuals="))
     n_ind_specified = true
-    n_individuals = ARGS[findall(contains.(ARGS, "n_individuals="))][1] |> x -> replace(x, "n_individuals=" => "")
+    n_individuals = ARGS[findall(contains.(ARGS, "n_individuals="))][1] |> x -> replace(x, "n_individuals=" => "") |> x -> parse(Int, x)
 else
     n_individuals = 100
 end
