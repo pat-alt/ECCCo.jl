@@ -94,6 +94,10 @@ function run_experiment(exper::Experiment; save_output::Bool=true, only_models::
     # Benchmark
     benchmark!(outcome, exper)
 
+    if is_multi_processed(exper)
+        MPI.Barrier(exper.parallelizer.comm)
+    end
+
     # Save data:
     if save_output && !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
         Serialization.serialize(joinpath(exper.output_path, "$(exper.save_name)_outcome.jls"), outcome)
