@@ -27,6 +27,8 @@ using TidierData
 
 Random.seed!(2023)
 
+ENV["DATADEPS_ALWAYS_ACCEPT"] = "true"              # avoid command prompt and just download data
+
 # Scripts:
 include("experiment.jl")
 include("data/data.jl")
@@ -124,7 +126,7 @@ if any(contains.(ARGS, "n_individuals="))
     n_ind_specified = true
     n_individuals = ARGS[findall(contains.(ARGS, "n_individuals="))][1] |> x -> replace(x, "n_individuals=" => "")
 else
-    n_individuals = 25
+    n_individuals = 100
 end
 
 "Number of individuals to use in benchmarking."
