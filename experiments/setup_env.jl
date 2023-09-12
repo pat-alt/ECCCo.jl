@@ -25,6 +25,8 @@ using Random
 using Serialization
 using TidierData
 
+import MPI
+
 Random.seed!(2023)
 
 ENV["DATADEPS_ALWAYS_ACCEPT"] = "true"              # avoid command prompt and just download data
@@ -48,7 +50,6 @@ else
 end
 
 if "mpi" ∈ ARGS
-    import MPI
     MPI.Init()
     const USE_MPI = true
     plz = MPIParallelizer(MPI.COMM_WORLD; threaded=USE_THREADS)
