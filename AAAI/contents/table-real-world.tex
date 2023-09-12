@@ -1,0 +1,45 @@
+\begin{table}
+
+\caption{Results for real-world datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \label{tab:results-real-world} \newline}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{llcccc}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{MNIST} & \multicolumn{2}{c}{GMSC} \\
+\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6}
+Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Unfaithfulness ↓ & Implausibility ↓\\
+\midrule
+ & ECCCo & \textbf{19.28 ± 5.01}** & 314.76 ± 32.36*\hphantom{*} & \textbf{79.16 ± 11.67}** & 18.26 ± 4.92**\\
+
+ & REVISE & 188.70 ± 26.18*\hphantom{*} & \textbf{255.26 ± 41.50}** & 186.40 ± 28.06\hphantom{*}\hphantom{*} & \textbf{5.34 ± 2.38}**\\
+
+ & Schut & 211.62 ± 27.13\hphantom{*}\hphantom{*} & 290.56 ± 40.66*\hphantom{*} & 200.98 ± 28.49\hphantom{*}\hphantom{*} & 6.50 ± 2.01**\\
+
+\multirow{-4}{*}{\raggedright\arraybackslash JEM} & Wachter & 222.90 ± 26.56\hphantom{*}\hphantom{*} & 361.88 ± 39.74\hphantom{*}\hphantom{*} & 214.08 ± 45.35\hphantom{*}\hphantom{*} & 61.04 ± 2.58\hphantom{*}\hphantom{*}\\
+\cmidrule{1-6}
+ & ECCCo & \textbf{15.99 ± 3.06}** & 294.72 ± 30.75** & \textbf{83.28 ± 13.26}** & 17.21 ± 4.46**\\
+
+ & REVISE & 173.59 ± 20.65** & \textbf{246.32 ± 37.46}** & 194.24 ± 35.41\hphantom{*}\hphantom{*} & \textbf{4.95 ± 1.26}**\\
+
+ & Schut & 204.36 ± 23.14\hphantom{*}\hphantom{*} & 290.64 ± 39.49*\hphantom{*} & 208.45 ± 34.60\hphantom{*}\hphantom{*} & 6.12 ± 1.91**\\
+
+\multirow{-4}{*}{\raggedright\arraybackslash JEM Ensemble} & Wachter & 217.67 ± 23.78\hphantom{*}\hphantom{*} & 363.23 ± 39.24\hphantom{*}\hphantom{*} & 186.19 ± 33.88\hphantom{*}\hphantom{*} & 60.70 ± 44.32\hphantom{*}\hphantom{*}\\
+\cmidrule{1-6}
+ & ECCCo & \textbf{41.95 ± 6.50}** & 591.58 ± 36.24\hphantom{*}\hphantom{*} & \textbf{75.93 ± 14.27}** & 17.20 ± 3.15**\\
+
+ & REVISE & 365.82 ± 15.35*\hphantom{*} & \textbf{249.49 ± 41.55}** & 196.75 ± 41.25\hphantom{*}\hphantom{*} & \textbf{4.84 ± 0.60}**\\
+
+ & Schut & 379.66 ± 17.16\hphantom{*}\hphantom{*} & 290.07 ± 42.65*\hphantom{*} & 212.00 ± 41.15\hphantom{*}\hphantom{*} & 6.44 ± 1.34**\\
+
+\multirow{-4}{*}{\raggedright\arraybackslash MLP} & Wachter & 386.05 ± 16.60\hphantom{*}\hphantom{*} & 361.83 ± 42.18\hphantom{*}\hphantom{*} & 218.34 ± 53.26\hphantom{*}\hphantom{*} & 45.84 ± 39.39\hphantom{*}\hphantom{*}\\
+\cmidrule{1-6}
+ & ECCCo & \textbf{31.43 ± 3.91}** & 490.88 ± 27.19\hphantom{*}\hphantom{*} & \textbf{73.86 ± 14.63}** & 17.92 ± 4.17**\\
+
+ & REVISE & 337.74 ± 11.89*\hphantom{*} & \textbf{247.67 ± 38.36}** & 207.21 ± 43.20\hphantom{*}\hphantom{*} & \textbf{5.78 ± 2.10}**\\
+
+ & Schut & 354.80 ± 13.05\hphantom{*}\hphantom{*} & 285.79 ± 41.33*\hphantom{*} & 205.36 ± 32.11\hphantom{*}\hphantom{*} & 7.00 ± 2.15**\\
+
+\multirow{-4}{*}{\raggedright\arraybackslash MLP Ensemble} & Wachter & 360.79 ± 14.39\hphantom{*}\hphantom{*} & 357.73 ± 42.55\hphantom{*}\hphantom{*} & 213.71 ± 54.17\hphantom{*}\hphantom{*} & 73.09 ± 64.50\hphantom{*}\hphantom{*}\\
+\bottomrule
+\end{tabular}}
+\end{table}
