@@ -36,7 +36,7 @@ Base.@kwdef struct Experiment
     finaliser::Function = Flux.softmax
     loss::Function = Flux.Losses.crossentropy
     train_parallel::Bool = false
-    reg_strength::Real = 0.5
+    reg_strength::Real = 0.1
 end
 
 "A container to hold the results of an experiment."
