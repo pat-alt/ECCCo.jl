@@ -10,4 +10,6 @@ run_experiment(
     sampling_steps=30,
     Λ=[0.25, 0.75, 0.75],
     opt=Flux.Optimise.Descent(0.05),
+    nsamples=1,
+    nmin=1
 )
