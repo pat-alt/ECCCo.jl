@@ -73,7 +73,12 @@ function energy_delta(
     # end
     conditional_samples = []
     ignore_derivatives() do 
-        xsampled = ECCCo.EnergySampler(ce; niter=niter, nsamples=ce.num_counterfactuals, kwargs...)
+        _dict = ce.params
+        if !(:energy_sampler ∈ collect(keys(_dict)))
+            _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
+        end
+        eng_sampler = _dict[:energy_sampler]
+        xsampled = rand(eng_sampler, ce.num_counterfactuals; from_buffer=from_buffer)
         push!(conditional_samples, xsampled)
     end
 
