@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=gmsc output_path=results retrain mpi > experiments/gmsc.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=gmsc output_path=results mpi > experiments/gmsc.log

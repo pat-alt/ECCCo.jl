@@ -90,6 +90,9 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
                 converge_when=:generator_conditions,
                 parallelizer=parallelizer,
             )
+            if is_multi_processed(exper)
+                MPI.Barrier(parallelizer.comm)
+            end
             push!(bmks, bmk)
         end
     end
