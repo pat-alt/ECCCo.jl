@@ -47,10 +47,16 @@ function prepare_models(exper::Experiment)
         @info "Training models."
         model_dict = train_models(models, X, labels; parallelizer=exper.parallelizer, train_parallel=exper.train_parallel, cov=exper.coverage)
     else
+        # Pre-trained models:
         if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+            # Load models on root process:
             @info "Loading pre-trained models."
             model_dict = Serialization.deserialize(joinpath(pretrained_path(exper), "$(exper.save_name)_models.jls"))
+        else
+            # Dummy model on other processes: 
+            model_dict = nothing
         end
+        # Broadcast models:
         if is_multi_processed(exper)
             model_dict = MPI.bcast(model_dict, exper.parallelizer.comm; root=0)
             MPI.Barrier(exper.parallelizer.comm)

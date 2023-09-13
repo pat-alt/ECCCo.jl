@@ -6,6 +6,7 @@ counterfactual_data, test_data = train_test_split(
 run_experiment(
     counterfactual_data, test_data; 
     dataname="Linearly Separable",
-    nsamples=1,
+    nsamples=100,
     nmin=1,
+    niter_eccco=30
 )
