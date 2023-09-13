@@ -49,6 +49,7 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{multirow}
+\usepackage{placeins}
 
 
 % Numbered Environments:
@@ -103,7 +104,7 @@
 % \vspace{- -- No negative value may be used in proximity of a caption, figure, table, section, subsection, subsubsection, or reference
 % \vskip{- -- No negative value may be used to alter spacing above or below a caption, figure, table, section, subsection, subsubsection, or reference
 
-\setcounter{secnumdepth}{0} %May be changed to 1 or 2 if section numbers are desired.
+\setcounter{secnumdepth}{2} %May be changed to 1 or 2 if section numbers are desired.
 
 % The file aaai24.sty is the style file for AAAI Press
 % proceedings, working notes, and technical reports.
@@ -116,7 +117,9 @@
 % nouns, adverbs, adjectives should be capitalized, including both words in hyphenated terms, while
 % articles, conjunctions, and prepositions are lower case unless they
 % directly follow a colon or long dash
-\title{AAAI Press Anonymous Submission\\Instructions for Authors Using \LaTeX{}}
+\title{ECCCos from the Black Box:\\
+Faithful Explanations through\\
+Energy-Constrained Conformal Counterfactuals}
 \author{
     %Authors
     % All authors must be in the same font size and format.
@@ -189,6 +192,8 @@
 
 Some of the members of TU Delft were partially funded by ICAI AI for Fintech Research, an ING — TU Delft
 collaboration.
+
+\FloatBarrier
 
 \bibliography{../bib}
 
