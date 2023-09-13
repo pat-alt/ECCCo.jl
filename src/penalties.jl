@@ -46,30 +46,35 @@ function energy_delta(
     choose_random=false,
     nmin::Int=25,
     return_conditionals=false,
-    reg_strength=0.5,
+    reg_strength=0.1,
     kwargs...
 )
 
-    nmin = minimum([nmin, n])
+    # nmin = minimum([nmin, n])
 
-    @assert choose_lowest_energy ⊻ choose_random || !choose_lowest_energy && !choose_random "Must choose either lowest energy or random samples or neither."
+    # @assert choose_lowest_energy ⊻ choose_random || !choose_lowest_energy && !choose_random "Must choose either lowest energy or random samples or neither."
 
+    # conditional_samples = []
+    # ignore_derivatives() do
+    #     _dict = ce.params
+    #     if !(:energy_sampler ∈ collect(keys(_dict)))
+    #         _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
+    #     end
+    #     eng_sampler = _dict[:energy_sampler]
+    #     if choose_lowest_energy
+    #         nmin = minimum([nmin, size(eng_sampler.buffer)[end]])
+    #         xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n=nmin)
+    #         push!(conditional_samples, xmin)
+    #     elseif choose_random
+    #         push!(conditional_samples, rand(eng_sampler, n; from_buffer=from_buffer))
+    #     else
+    #         push!(conditional_samples, eng_sampler.buffer)
+    #     end
+    # end
     conditional_samples = []
-    ignore_derivatives() do
-        _dict = ce.params
-        if !(:energy_sampler ∈ collect(keys(_dict)))
-            _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
-        end
-        eng_sampler = _dict[:energy_sampler]
-        if choose_lowest_energy
-            nmin = minimum([nmin, size(eng_sampler.buffer)[end]])
-            xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n=nmin)
-            push!(conditional_samples, xmin)
-        elseif choose_random
-            push!(conditional_samples, rand(eng_sampler, n; from_buffer=from_buffer))
-        else
-            push!(conditional_samples, eng_sampler.buffer)
-        end
+    ignore_derivatives() do 
+        xsampled = ECCCo.EnergySampler(ce; niter=niter, nsamples=ce.num_counterfactuals, kwargs...)
+        push!(conditional_samples, xsampled)
     end
 
     xgenerated = conditional_samples[1]                         # conditional samples
@@ -79,16 +84,17 @@ function energy_delta(
 
     # Generative loss:
     gen_loss = E(xproposed) .- E(xgenerated)
-    gen_loss = reduce((x, y) -> x + y, gen_loss) / n                  # aggregate over samples
+    gen_loss = reduce((x, y) -> x + y, gen_loss) / length(gen_loss)                  # aggregate over samples
 
     # Regularization loss:
     reg_loss = E(xgenerated).^2 .+ E(xproposed).^2
-    reg_loss = reduce((x, y) -> x + y, reg_loss) / n                  # aggregate over samples
+    reg_loss = reduce((x, y) -> x + y, reg_loss) / length(reg_loss)                  # aggregate over samples
 
-    if return_conditionals
+    if !return_conditionals
+        return gen_loss + reg_strength * reg_loss
+    else
         return conditional_samples[1]
     end
-    return gen_loss + reg_strength * reg_loss
 
 end
 
