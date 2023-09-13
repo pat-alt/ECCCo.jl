@@ -11,7 +11,7 @@ builder = MLJFlux.@builder Flux.Chain(
 )
 
 # Number of individuals:
-n_ind = N_IND_SPECIFIED ? N_IND : 10
+n_ind = N_IND_SPECIFIED ? N_IND : 100
 
 run_experiment(
     counterfactual_data, test_data; 

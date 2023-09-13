@@ -14,7 +14,7 @@ n_ind = N_IND_SPECIFIED ? N_IND : 10
 
 run_experiment(
     counterfactual_data, test_data;
-    dataname="Credit Default",
+    dataname="German Credit",
     builder=builder,
     α=[1.0, 1.0, 1e-1],
     sampling_batch_size=10,
