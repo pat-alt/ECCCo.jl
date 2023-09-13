@@ -35,6 +35,12 @@ if "gmsc" in datanames
     include("gmsc.jl")
 end
 
+# German Credit
+if "german_credit" in datanames
+    @info "Running GMSC experiment."
+    include("gmsc.jl")
+end
+
 # MNIST
 if "mnist" in datanames
     @info "Running MNIST experiment."

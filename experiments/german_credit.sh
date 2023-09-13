@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name="GMSC (ECCCo)"
+#SBATCH --job-name="German Credit (ECCCo)"
 #SBATCH --time=3:00:00
 #SBATCH --ntasks=48
 #SBATCH --cpus-per-task=1
@@ -12,4 +12,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=gmsc output_path=results mpi retrain > experiments/gmsc.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=german_credit output_path=results retrain mpi > experiments/german_credit.log
