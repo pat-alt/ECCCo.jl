@@ -1,0 +1,5 @@
+acc,precision,f1score,mod_name,dataname
+0.992,0.992,0.992,JEM Ensemble,Linearly Separable
+0.992,0.992,0.992,MLP,Linearly Separable
+0.992,0.992,0.992,MLP Ensemble,Linearly Separable
+0.988,0.98828125,0.9879982717511322,JEM,Linearly Separable

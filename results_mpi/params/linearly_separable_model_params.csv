@@ -1,0 +1,2 @@
+activation,batch_size,dataname,epochs,jem_sampling_steps,lambda,n_ens,n_hidden,n_layers,n_obs,sgld_batch_size
+relu,100,Linearly Separable,100,50,0.1,5,32,3,1000,50
