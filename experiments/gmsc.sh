@@ -2,8 +2,8 @@
 
 #SBATCH --job-name="GMSC (ECCCo)"
 #SBATCH --time=3:00:00
-#SBATCH --ntasks=12
-#SBATCH --cpus-per-task=4
+#SBATCH --ntasks=48
+#SBATCH --cpus-per-task=1
 #SBATCH --partition=compute
 #SBATCH --mem-per-cpu=4GB
 #SBATCH --account=innovation
@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments --threads 4 experiments/run_experiments.jl -- data=gmsc output_path=results retrain threaded mpi > experiments/gmsc.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=gmsc output_path=results retrain mpi > experiments/gmsc.log
