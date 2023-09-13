@@ -27,6 +27,7 @@ run_experiment(
     n_individuals = n_ind,
     use_variants = false, 
     min_batch_size = 250,
-    nsamples = 10,
-    nmin = 10,
+    nsamples = 100,
+    nmin = 1,
+    niter_eccco = 30,
 )

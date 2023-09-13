@@ -78,8 +78,7 @@ function energy_delta(
             _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
         end
         eng_sampler = _dict[:energy_sampler]
-        generate_samples!(eng_sampler, ce.num_counterfactuals, get_target_index(ce.data.y_levels, ce.target); niter=niter)
-        xsampled = eng_sampler.buffer[:,(end-ce.num_counterfactuals+1):end]
+        xsampled = rand(eng_sampler, ce.num_counterfactuals; from_buffer=from_buffer)
         push!(conditional_samples, xsampled)
     end
 

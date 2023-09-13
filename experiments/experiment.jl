@@ -37,6 +37,7 @@ Base.@kwdef struct Experiment
     loss::Function = Flux.Losses.crossentropy
     train_parallel::Bool = false
     reg_strength::Real = 0.1
+    niter_eccco::Union{Nothing,Int} = nothing
 end
 
 "A container to hold the results of an experiment."
