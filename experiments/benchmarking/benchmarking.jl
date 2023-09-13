@@ -70,33 +70,17 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
     end
 
     # Run benchmark:
-    bmks = []
-    labels = counterfactual_data.output_encoder.labels
-    for target in sort(unique(labels))
-        for factual in sort(unique(labels))
-            if factual == target
-                continue
-            end
-            @info "Benchmarking factual=$(factual) ▶️ target=$(target)."
-            bmk = benchmark(
-                counterfactual_data;
-                models=model_dict,
-                generators=generator_dict,
-                measure=measures,
-                suppress_training=true, dataname=dataname,
-                n_individuals=n_individuals,
-                target=target, factual=factual,
-                initialization=:identity,
-                converge_when=:generator_conditions,
-                parallelizer=parallelizer,
-            )
-            if is_multi_processed(exper)
-                MPI.Barrier(parallelizer.comm)
-            end
-            push!(bmks, bmk)
-        end
-    end
-    final_bmk = reduce(vcat, bmks)
-    return final_bmk, generator_dict
+    bmk = benchmark(
+        counterfactual_data;
+        models=model_dict,
+        generators=generator_dict,
+        measure=measures,
+        suppress_training=true, dataname=dataname,
+        n_individuals=n_individuals,
+        initialization=:identity,
+        converge_when=:generator_conditions,
+        parallelizer=parallelizer
+    )
+    return bmk, generator_dict
 end
 

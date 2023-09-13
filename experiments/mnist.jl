@@ -25,7 +25,7 @@ builder = MLJFlux.@builder Flux.Chain(
 )
 
 # Number of individuals:
-n_ind = N_IND_SPECIFIED ? N_IND : 5
+n_ind = N_IND_SPECIFIED ? N_IND : 10
 
 # Run:
 run_experiment(
@@ -38,10 +38,11 @@ run_experiment(
     sampling_steps=50,
     use_ensembling = true,
     n_individuals = n_ind,
-    nsamples = 10,
-    nmin = 10,
     use_variants = false,
     use_class_loss = true,
     additional_models=add_models,
     epochs = 10,
+    nsamples=10,
+    nmin=1,
+    niter_eccco=100
 )
