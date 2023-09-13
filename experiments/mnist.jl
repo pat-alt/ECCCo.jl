@@ -42,7 +42,7 @@ run_experiment(
     use_class_loss = true,
     additional_models=add_models,
     epochs = 10,
-    nsamples=10,
+    nsamples = 10,
     nmin=1,
     niter_eccco=100
 )
