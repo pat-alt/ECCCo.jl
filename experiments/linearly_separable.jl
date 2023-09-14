@@ -7,6 +7,6 @@ run_experiment(
     counterfactual_data, test_data; 
     dataname="Linearly Separable",
     nsamples=100,
-    nmin=1,
-    niter_eccco=30
+    niter_eccco=100,
+    Λ=[0.1, 0.2, 0.2],
 )

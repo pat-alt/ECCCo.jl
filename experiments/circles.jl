@@ -7,7 +7,9 @@ run_experiment(
     n_hidden=32,
     α=[1.0, 1.0, 1e-2],
     sampling_steps=20,
-    Λ=[0.1, 0.1, 0.1],
     opt=Flux.Optimise.Descent(0.01),
     activation=Flux.swish,
+    Λ=[0.1, 0.2, 0.2],
+    nsamples=100,
+    niter_eccco=100,
 )

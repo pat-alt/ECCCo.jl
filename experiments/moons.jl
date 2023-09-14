@@ -8,7 +8,9 @@ run_experiment(
     activation = Flux.relu,
     sampling_batch_size=10,
     sampling_steps=30,
-    Λ=[0.1, 0.1, 0.1],
     opt=Flux.Optimise.Descent(0.05),
-    α=[1.0, 1.0, 1e-1]
+    α=[1.0, 1.0, 1e-1],
+    nsamples=100,
+    niter_eccco=100,
+    Λ = [0.1, 0.2, 0.2],
 )

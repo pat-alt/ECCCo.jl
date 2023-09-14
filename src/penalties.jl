@@ -50,27 +50,6 @@ function energy_delta(
     kwargs...
 )
 
-    # nmin = minimum([nmin, n])
-
-    # @assert choose_lowest_energy ⊻ choose_random || !choose_lowest_energy && !choose_random "Must choose either lowest energy or random samples or neither."
-
-    # conditional_samples = []
-    # ignore_derivatives() do
-    #     _dict = ce.params
-    #     if !(:energy_sampler ∈ collect(keys(_dict)))
-    #         _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
-    #     end
-    #     eng_sampler = _dict[:energy_sampler]
-    #     if choose_lowest_energy
-    #         nmin = minimum([nmin, size(eng_sampler.buffer)[end]])
-    #         xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n=nmin)
-    #         push!(conditional_samples, xmin)
-    #     elseif choose_random
-    #         push!(conditional_samples, rand(eng_sampler, n; from_buffer=from_buffer))
-    #     else
-    #         push!(conditional_samples, eng_sampler.buffer)
-    #     end
-    # end
     conditional_samples = []
     ignore_derivatives() do 
         _dict = ce.params
@@ -85,7 +64,7 @@ function energy_delta(
     xgenerated = conditional_samples[1]                         # conditional samples
     xproposed = CounterfactualExplanations.decode_state(ce)     # current state
     t = get_target_index(ce.data.y_levels, ce.target)
-    E(x) = -logits(ce.M, x)[t,:]                                # negative logits for target class
+    E(x) = -logits(ce.M, x)[t,:]                                # negative logits for taraget class
 
     # Generative loss:
     gen_loss = E(xproposed) .- E(xgenerated)

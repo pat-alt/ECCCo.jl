@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name="MNIST (ECCCo)"
-#SBATCH --time=24:00:00
+#SBATCH --job-name="German Credit (ECCCo)"
+#SBATCH --time=3:00:00
 #SBATCH --ntasks=48
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=compute
@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=mnist output_path=results mpi retrain > experiments/mnist.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=german_credit output_path=results mpi > experiments/german_credit.log
