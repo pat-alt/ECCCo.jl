@@ -62,7 +62,7 @@ Overloads the MLJFlux build function for a LeNet-like convolutional neural netwo
 """
 function MLJFlux.build(b::ResNetBuilder, rng, n_in, n_out)
     _n_in = Int(sqrt(n_in))
-    front = Metalhead.ResNet(18; pretrain=true, inchannels=1)
+    front = Metalhead.ResNet(18; inchannels=1)
     d = Flux.outputsize(front, (_n_in, _n_in, 1, 1)) |> first
     back = Flux.Chain(
         Dense(d, 120, relu),
