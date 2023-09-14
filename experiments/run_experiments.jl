@@ -47,6 +47,12 @@ if "credit_default" in datanames
     include("credit_default.jl")
 end
 
+# California Housing
+if "california_housing" in datanames
+    @info "Running California Housing experiment."
+    include("california_housing.jl")
+end
+
 # MNIST
 if "mnist" in datanames
     @info "Running MNIST experiment."

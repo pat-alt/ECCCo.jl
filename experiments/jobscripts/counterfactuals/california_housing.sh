@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name="Tabular (ECCCo)"
-#SBATCH --time=05:00:00
+#SBATCH --job-name="California Housing (ECCCo)"
+#SBATCH --time=3:00:00
 #SBATCH --ntasks=48
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=compute
@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=gmsc,german_credit,credit_default,california_housing output_path=results mpi > experiments/tabular.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=california_housing output_path=results mpi > experiments/california_housing.log
