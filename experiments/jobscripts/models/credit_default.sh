@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name="Train MNIST (ECCCo)"
+#SBATCH --job-name="Train Credit Default (ECCCo)"
 #SBATCH --time=01:00:00
 #SBATCH --ntasks=1
 #SBATCH --gpus-per-task=1
@@ -10,4 +10,4 @@
 #SBATCH --account=innovation
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=mnist output_path=results only_models > experiments/train_mnist.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=credit_default output_path=results only_models > experiments/train_credit_default.log

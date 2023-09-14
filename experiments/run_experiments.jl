@@ -41,6 +41,12 @@ if "german_credit" in datanames
     include("german_credit.jl")
 end
 
+# Credit Default
+if "credit_default" in datanames
+    @info "Running Credit Default experiment."
+    include("credit_default.jl")
+end
+
 # MNIST
 if "mnist" in datanames
     @info "Running MNIST experiment."

@@ -10,4 +10,4 @@
 #SBATCH --account=innovation
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=german_credit output_path=results only_models > experiments/german_credit.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=german_credit output_path=results only_models > experiments/train_german_credit.log
