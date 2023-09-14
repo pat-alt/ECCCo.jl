@@ -67,7 +67,7 @@ function default_models(;
             α=α, verbosity=verbosity,
         ),
         sampling_steps=sampling_steps,
-        acceleration=CUDALibs(),
+        # acceleration=CUDALibs(),
     )
 
     # Deep Ensemble of Joint Energy Models:
