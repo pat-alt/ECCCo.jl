@@ -35,12 +35,16 @@ function prepare_models(exper::Experiment)
             @info "Using additional models."
             add_models = Dict{Any,Any}()
             for (k, mod) in exper.additional_models
-                add_models[k] = mod(;
-                    batch_size=batch_size(exper),
-                    finaliser=exper.finaliser,
-                    loss=exper.loss,
-                    epochs=exper.epochs,
-                )
+                if isa(mod, Function)
+                    add_models[k] = mod(;
+                        batch_size=batch_size(exper),
+                        finaliser=exper.finaliser,
+                        loss=exper.loss,
+                        epochs=exper.epochs,
+                    )
+                else
+                    add_models[k] = mod
+                end
             end
             models = merge(models, add_models)
         end

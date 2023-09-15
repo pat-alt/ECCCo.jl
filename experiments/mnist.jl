@@ -14,6 +14,7 @@ test_data = load_mnist_test()
 # Additional models:
 add_models = Dict(
     "LeNet-5" => lenet5,
+    "ResNet-18" => resnet18(;epochs=10),
 )
 
 # Default builder:
