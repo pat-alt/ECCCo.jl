@@ -48,3 +48,34 @@ Builds a LeNet-like convolutional neural network.
 """
 lenet5(builder=LeNetBuilder(5, 6, 16); kwargs...) = NeuralNetworkClassifier(builder=builder; acceleration=CUDALibs(), kwargs...)
 
+"""
+    ResNetBuilder
+
+MLJFlux builder for a ResNet.
+"""
+mutable struct ResNetBuilder end
+
+"""
+    MLJFlux.build(b::LeNetBuilder, rng, n_in, n_out)
+
+Overloads the MLJFlux build function for a LeNet-like convolutional neural network.
+"""
+function MLJFlux.build(b::ResNetBuilder, rng, n_in, n_out)
+    _n_in = Int(sqrt(n_in))
+    front = Metalhead.ResNet(18; inchannels=1)
+    d = Flux.outputsize(front, (_n_in, _n_in, 1, 1)) |> first
+    back = Flux.Chain(
+        Dense(d, 120, relu),
+        Dense(120, 84, relu),
+        Dense(84, n_out),
+    )
+    chain = Flux.Chain(ECCCo.ToConv(_n_in), front, back)
+    return chain
+end
+
+"""
+    lenet5(builder=LeNetBuilder(5, 6, 16); kwargs...)
+
+Builds a LeNet-like convolutional neural network.
+"""
+resnet18(builder=ResNetBuilder(); kwargs...) = NeuralNetworkClassifier(builder=builder; acceleration=CUDALibs(), kwargs...)

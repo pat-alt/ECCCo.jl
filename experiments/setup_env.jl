@@ -18,6 +18,7 @@ using Flux
 using JointEnergyModels
 using LazyArtifacts
 using Logging
+using Metalhead
 using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table, machine, fit!
 using MLJEnsembles
 using MLJFlux

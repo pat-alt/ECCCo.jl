@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=gpu
 #SBATCH --mem-per-cpu=4GB
-#SBATCH --account=innovation
+#SBATCH --account=research-eemcs-insy
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
 srun julia --project=experiments experiments/run_experiments.jl -- data=credit_default output_path=results only_models > experiments/train_credit_default.log
