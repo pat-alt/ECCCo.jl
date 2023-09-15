@@ -34,6 +34,7 @@ ENV["DATADEPS_ALWAYS_ACCEPT"] = "true"              # avoid command prompt and j
 
 # Scripts:
 include("experiment.jl")
+include("grid_search.jl")
 include("data/data.jl")
 include("models/models.jl")
 include("benchmarking/benchmarking.jl")
@@ -121,6 +122,7 @@ const CE_MEASURES = [
 "Test set proportion."
 const TEST_SIZE = 0.2
 
+"Boolean flag to check if upload was specified."
 const UPLOAD = "upload" ∈ ARGS
 
 n_ind_specified = false
@@ -136,3 +138,6 @@ const N_IND = n_individuals
 
 "Boolean flag to check if number of individuals was specified."
 const N_IND_SPECIFIED = n_ind_specified
+
+"Boolean flag to check if grid search was specified."
+const GRID_SEARCH = "grid_search" ∈ ARGS

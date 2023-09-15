@@ -80,10 +80,12 @@ Run the experiment specified by `exper`.
 function run_experiment(exper::Experiment; save_output::Bool=true, only_models::Bool=ONLY_MODELS)
     
     # Setup
-    @info "All results will be saved to $(exper.output_path)."
-    isdir(exper.output_path) || mkdir(exper.output_path)
-    @info "All parameter choices will be saved to $(exper.params_path)."
-    isdir(exper.params_path) || mkdir(exper.params_path)
+    if save_output && !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+        @info "All results will be saved to $(exper.output_path)."
+        isdir(exper.output_path) || mkdir(exper.output_path)
+        @info "All parameter choices will be saved to $(exper.params_path)."
+        isdir(exper.params_path) || mkdir(exper.params_path)
+    end
     outcome = ExperimentOutcome(exper, nothing, nothing, nothing)
 
     # Models
@@ -126,8 +128,8 @@ end
 
 # Pre-trained models:
 function pretrained_path(exper::Experiment)
-    if isfile(joinpath(exper.output_path, "$(exper.save_name)_models.jls"))
-        @info "Found local pre-trained models in $(exper.output_path) and using those."
+    if isfile(joinpath(DEFAULT_OUTPUT_PATH, "$(exper.save_name)_models.jls"))
+        @info "Found local pre-trained models in $(DEFAULT_OUTPUT_PATH) and using those."
         return exper.output_path
     else
         @info "Using artifacts. Models were pre-trained on `julia-$(LATEST_VERSION)` and may not work on other versions."
