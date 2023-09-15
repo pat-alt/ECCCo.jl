@@ -27,7 +27,7 @@ add_models = Dict(
 
 # Parameter choices:
 params = (
-    n_ind = N_IND_SPECIFIED ? N_IND : 10,
+    n_individuals=N_IND_SPECIFIED ? N_IND : 10,
     builder=default_builder(n_hidden=128, n_layers=2, activation=Flux.swish),
     𝒟x=Uniform(-1.0, 1.0),
     α=[1.0, 1.0, 1e-2],
