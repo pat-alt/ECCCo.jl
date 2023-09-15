@@ -19,7 +19,7 @@ using JointEnergyModels
 using LazyArtifacts
 using Logging
 using Metalhead
-using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table, machine, fit!
+using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table, machine, fit!, Supervised
 using MLJEnsembles
 using MLJFlux
 using Random
@@ -37,6 +37,7 @@ include("experiment.jl")
 include("grid_search.jl")
 include("data/data.jl")
 include("models/models.jl")
+include("model_tuning.jl")
 include("benchmarking/benchmarking.jl")
 include("post_processing/post_processing.jl")
 include("utils.jl")
