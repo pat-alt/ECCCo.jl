@@ -19,6 +19,7 @@ using JointEnergyModels
 using LazyArtifacts
 using Logging
 using Metalhead
+using MLJ: TunedModel, Grid, CV
 using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table, machine, fit!, Supervised
 using MLJEnsembles
 using MLJFlux
@@ -162,12 +163,10 @@ const TUNE_MODEL = "tune_model" ∈ ARGS
 const DEFAULT_MODEL_TUNING_SMALL = (
     n_hidden=[16, 32, 64],
     n_layers=[1, 2, 3],
-    activation=[Flux.relu, Flux.swish],
 )
 
 "Model tuning parameters for large datasets."
 const DEFAULT_MODEL_TUNING_LARGE = (
-    n_hidden=[32, 64, 128],
+    n_hidden=[32, 64, 128, 512],
     n_layers=[2, 3, 5],
-    activation=[Flux.relu, Flux.swish],
 )

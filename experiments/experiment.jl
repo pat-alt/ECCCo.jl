@@ -38,7 +38,7 @@ Base.@kwdef struct Experiment
     train_parallel::Bool = false
     reg_strength::Real = 0.1
     niter_eccco::Union{Nothing,Int} = nothing
-    model_tuning_params::Tuple = DEFAULT_MODEL_TUNING_SMALL
+    model_tuning_params::NamedTuple = DEFAULT_MODEL_TUNING_SMALL
 end
 
 "A container to hold the results of an experiment."
