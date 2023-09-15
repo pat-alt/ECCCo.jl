@@ -2389,9 +2389,9 @@ uuid = "bc48ee85-29a4-5162-ae0b-a64e1601d4bc"
 version = "0.3.5"
 
 [[deps.TupleTools]]
-git-tree-sha1 = "f4dfd6fc59551c4e70fbcd75ee36ef602b0a8f29"
+git-tree-sha1 = "c8cdc29448afa1a306419f5d1c7af0854c171c80"
 uuid = "9d95972d-f1c8-5527-a6e0-b4b365fa01f6"
-version = "1.4.2"
+version = "1.4.1"
 
 [[deps.URIs]]
 git-tree-sha1 = "b7a5e99f24892b6824a954199a45e9ffcc1c70f0"
