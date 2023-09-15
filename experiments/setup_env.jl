@@ -142,3 +142,32 @@ const N_IND_SPECIFIED = n_ind_specified
 
 "Boolean flag to check if grid search was specified."
 const GRID_SEARCH = "grid_search" ∈ ARGS
+
+"Generator tuning parameters."
+const DEFAULT_GENERATOR_TUNING = (
+    nsamples=[10, 100],
+    niter_eccco=[10, 100],
+    Λ=[
+        [0.1, 0.1, 0.1],
+        [0.1, 0.2, 0.2],
+        [0.1, 0.5, 0.5],
+    ],
+    reg_strength=[0.0, 0.1, 0.5],
+)
+
+"Boolean flag to check if model tuning was specified."
+const TUNE_MODEL = "tune_model" ∈ ARGS
+
+"Model tuning parameters for small datasets."
+const DEFAULT_MODEL_TUNING_SMALL = (
+    n_hidden=[16, 32, 64],
+    n_layers=[1, 2, 3],
+    activation=[Flux.relu, Flux.swish],
+)
+
+"Model tuning parameters for large datasets."
+const DEFAULT_MODEL_TUNING_LARGE = (
+    n_hidden=[32, 64, 128],
+    n_layers=[2, 3, 5],
+    activation=[Flux.relu, Flux.swish],
+)

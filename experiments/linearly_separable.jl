@@ -6,16 +6,11 @@ counterfactual_data, test_data = train_test_split(
     test_size=TEST_SIZE
 )
 
+# Model tuning:
+model_tuning_params = DEFAULT_MODEL_TUNING_SMALL
+
 # Tuning parameters:
-tuning_params = (
-    nsamples=[10, 50, 100],
-    niter_eccco=[20, 50, 100],
-    Λ=[
-        [0.1, 0.1, 0.1],
-        [0.1, 0.2, 0.2],
-        [0.1, 0.5, 0.5],
-    ]
-)
+tuning_params = DEFAULT_GENERATOR_TUNING
 
 # Parameter choices:
 params = (

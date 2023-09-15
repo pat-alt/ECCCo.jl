@@ -1,15 +1,26 @@
-"An MLP builder that is more easily tunable."
-mutable struct TuningBuilder <: MLJFlux.Builder
-    n_hidden::Int
-    n_layers::Int
-end
+"""
+    tune_model(exper::Experiment; kwargs...)
 
-"Outer constructor."
-TuningBuilder(;n_hidden=32, n_layers=3) = TuningBuilder(n_hidden, n_layers)
-
-function MLJFlux.build(nn::TuningBuilder, rng, n_in, n_out)
-    hidden = ntuple(i -> nn.n_hidden, nn.n_layers)
-    return MLJFlux.build(MLJFlux.MLP(hidden=hidden), rng, n_in, n_out)
+Tunes MLP in place and saves the tuned model to disk.
+"""
+function tune_model(exper::Experiment; kwargs...)
+    if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+        @info "Tuning models."
+        # Output path:
+        model_tuning_path = mkpath(joinpath(DEFAULT_OUTPUT_PATH, "tuned_model"))
+        # Simple MLP:
+        mod = NeuralNetworkClassifier(
+            builder=default_builder(),
+            epochs=exper.epochs,
+            batch_size=batch_size(exper),
+            finaliser=exper.finaliser,
+            loss=exper.loss,
+            acceleration=CUDALibs(),
+        )
+        mach = tune_model(mod, X, y; tuning_params=exper.model_tuning_params, measure=exper.model_measures, kwargs...)
+        Serialization.serialize(joinpath(model_tuning_path, "$(exper.save_name).jls"), mach)
+    end
+    return mach
 end
 
 """
@@ -17,7 +28,7 @@ end
 
 Tunes a model by performing a grid search over the parameters specified in `tuning_params`.
 """
-function tune_model(mod::Supervised, X, y; tuning_params::NamedTuple, kwargs...)
+function tune_model(mod::Supervised, X, y; tuning_params::NamedTuple, measure=MODEL_MEASURES, kwargs...)
 
     ranges = []
 
@@ -36,6 +47,7 @@ function tune_model(mod::Supervised, X, y; tuning_params::NamedTuple, kwargs...)
     self_tuning_mod = TunedModel(
         model=mod,
         range=ranges,
+        measure=measure,
         kwargs...
     )
 
@@ -45,3 +57,4 @@ function tune_model(mod::Supervised, X, y; tuning_params::NamedTuple, kwargs...)
     return mach
 
 end
+

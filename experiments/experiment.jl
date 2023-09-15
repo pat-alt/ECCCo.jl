@@ -38,6 +38,7 @@ Base.@kwdef struct Experiment
     train_parallel::Bool = false
     reg_strength::Real = 0.1
     niter_eccco::Union{Nothing,Int} = nothing
+    model_tuning_params::Tuple = DEFAULT_MODEL_TUNING_SMALL
 end
 
 "A container to hold the results of an experiment."
@@ -88,13 +89,18 @@ function run_experiment(exper::Experiment; save_output::Bool=true, only_models::
     end
     outcome = ExperimentOutcome(exper, nothing, nothing, nothing)
 
-    # Models
-    train_models!(outcome, exper)
+    # Model tuning:
+    if TUNE_MODEL
+        mach = tune_model(exper)
+        return mach
+    end
 
+    # Model training:
+    train_models!(outcome, exper)
     # Return if only models are needed:
     !only_models || return outcome
 
-    # Benchmark
+    # Benchmark:
     benchmark!(outcome, exper)
     if is_multi_processed(exper)
         MPI.Barrier(exper.parallelizer.comm)
