@@ -11,7 +11,7 @@ Perform a grid search over the hyperparameters specified by `tuning_params`. Exp
 """
 function grid_search(
     couterfactual_data::CounterfactualData,
-    test_data::CounerfactualData;
+    test_data::CounterfactualData;
     dataname::String,
     tuning_params::NamedTuple,
     kwargs...,
