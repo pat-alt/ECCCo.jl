@@ -10,4 +10,4 @@
 #SBATCH --account=research-eemcs-insy
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=mnist output_path=results only_models > experiments/train_mnist.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=fmnist output_path=results only_models > experiments/train_fmnist.log
