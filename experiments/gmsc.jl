@@ -13,11 +13,7 @@ tuning_params = DEFAULT_GENERATOR_TUNING
 params = (
     n_hidden=32,
     activation=Flux.relu,
-    builder=MLJFlux.@builder Flux.Chain(
-        Dense(n_in, n_hidden, activation),
-        Dense(n_hidden, n_hidden, activation),
-        Dense(n_hidden, n_out),
-    ),
+    builder=default_builder(n_hidden=32, n_layers=3, activation=Flux.relu),
     α = [1.0, 1.0, 1e-1],
     sampling_batch_size = 10,
     sampling_steps = 30,
