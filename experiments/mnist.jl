@@ -17,6 +17,7 @@ model_tuning_params = DEFAULT_MODEL_TUNING_LARGE
 
 # Tuning parameters:
 tuning_params = DEFAULT_GENERATOR_TUNING
+push!(tuning_params.Λ, [0.1, 0.1, 3.0])
 
 # Additional models:
 add_models = Dict(
