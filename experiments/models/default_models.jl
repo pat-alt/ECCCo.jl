@@ -18,7 +18,7 @@ end
 
 Default builder for MLPs.
 """
-function default_builder(n_hidden::Int=16, n_layers::Int=3, activation::Function=Flux.swish)
+function default_builder(;n_hidden::Int=16, n_layers::Int=3, activation::Function=Flux.swish)
     builder = TuningBuilder(n_hidden=n_hidden, n_layers=n_layers, activation=activation)
     return builder
 end
