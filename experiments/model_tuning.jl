@@ -1,4 +1,11 @@
 """
+    tuned_model_path(exper::Experiment)
+
+Output path for tuned model.
+"""
+tuned_model_path(exper::Experiment) = joinpath(exper.output_path, "tuned_model")
+
+"""
     tune_model(exper::Experiment; kwargs...)
 
 Tunes MLP in place and saves the tuned model to disk.
@@ -7,7 +14,7 @@ function tune_model(exper::Experiment; kwargs...)
     if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
         @info "Tuning models."
         # Output path:
-        model_tuning_path = mkpath(joinpath(DEFAULT_OUTPUT_PATH, "tuned_model"))
+        model_tuning_path = mkpath(tuned_model_path(exper))
         # Simple MLP:
         model = NeuralNetworkClassifier(
             builder=default_builder(),
@@ -22,9 +29,13 @@ function tune_model(exper::Experiment; kwargs...)
         # Tune model:
         measure = collect(values(exper.model_measures))
         mach = tune_model(model, X, y; tuning_params=exper.model_tuning_params, measure=measure, kwargs...)
-        Serialization.serialize(joinpath(model_tuning_path, "$(exper.save_name).jls"), mach)
+        # Machine is still on GPU, save CPU version of model:
+        best_results = fitted_params(mach)
+        Serialization.serialize(joinpath(model_tuning_path, "$(exper.save_name)_best_mlp.jls"), best_results)
+        best_history = report(mach).best_history_entry
+        Serialization.serialize(joinpath(model_tuning_path, "$(exper.save_name)_best_mlp_history.jls"), best_history)
     end
-    return mach
+    return mach, best_results
 end
 
 """
@@ -70,4 +81,11 @@ function tune_model(
     return mach
 
 end
+
+"""
+    tuned_mlp_exists(exper::Experiment)
+
+Checks if a tuned MLP exists.
+"""
+tuned_mlp_exists(exper::Experiment) = isfile(joinpath(tuned_model_path(exper), "$(exper.save_name)_best_mlp.jls"))
 

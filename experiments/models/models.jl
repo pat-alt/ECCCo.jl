@@ -10,7 +10,15 @@ function prepare_models(exper::Experiment)
     # Training:
     if !exper.use_pretrained
         if isnothing(exper.builder)
-            builder = default_builder()
+            if tuned_mlp_exists(exper)
+                @info "Loading tuned model architecture."
+                # Load the best MLP:
+                best_mlp = Serialization.deserialize(joinpath(tuned_model_path(exper), "$(exper.save_name)_best_mlp.jls"))
+                builder = best_mlp.best_model.builder
+            else
+                # Otherwise, use default MLP:
+                builder = default_builder()
+            end
         else
             builder = exper.builder
         end

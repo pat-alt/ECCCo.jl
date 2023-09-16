@@ -22,7 +22,7 @@ push!(tuning_params.Λ, [0.1, 0.1, 3.0])
 # Additional models:
 add_models = Dict(
     "LeNet-5" => lenet5,
-    "ResNet-18" => resnet18(; epochs=10),
+    # "ResNet-18" => resnet18(; epochs=10),
 )
 
 # Parameter choices:
