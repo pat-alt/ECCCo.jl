@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- datafmnist output_path=results mpi > experiments/fmnist.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=fmnist output_path=results mpi > experiments/fmnist.log
