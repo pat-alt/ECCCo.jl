@@ -96,10 +96,10 @@ const DEFAULT_OUTPUT_PATH = _path
 const TIME_STAMPED = time_stamped
 
 "Boolean flag to only train models."
-const ONLY_MODELS = "only_models" ∈ ARGS ? true : false
+const ONLY_MODELS = "only_models" ∈ ARGS 
 
 "Boolean flag to retrain models."
-const RETRAIN = "retrain" ∈ ARGS || ONLY_MODELS ? true : false
+const RETRAIN = "retrain" ∈ ARGS || ONLY_MODELS 
 
 "Default model performance measures."
 const MODEL_MEASURES = Dict(
