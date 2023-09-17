@@ -125,21 +125,21 @@ end
 
 Overload the `run_experiment` function to allow for passing in `CounterfactualData` objects and other keyword arguments.
 """
-function run_experiment(counterfactual_data::CounterfactualData, test_data::CounterfactualData; kwargs...)
+function run_experiment(counterfactual_data::CounterfactualData, test_data::CounterfactualData; save_output::Bool=true, kwargs...)
     # Parameters:
     exper = Experiment(;
         counterfactual_data=counterfactual_data,
         test_data=test_data,
         kwargs...
     )
-    return run_experiment(exper)
+    return run_experiment(exper; save_output=save_output)
 end
 
 # Pre-trained models:
 function pretrained_path(exper::Experiment)
     if isfile(joinpath(DEFAULT_OUTPUT_PATH, "$(exper.save_name)_models.jls"))
         @info "Found local pre-trained models in $(DEFAULT_OUTPUT_PATH) and using those."
-        return exper.output_path
+        return DEFAULT_OUTPUT_PATH
     else
         @info "Using artifacts. Models were pre-trained on `julia-$(LATEST_VERSION)` and may not work on other versions."
         Pkg.Artifacts.download_artifact(ARTIFACT_HASH, ARTIFACT_TOML)

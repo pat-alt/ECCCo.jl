@@ -29,9 +29,9 @@ function grid_search(
     for tuning_params in grid
         outcome = run_experiment(
             counterfactual_data, test_data;
+            save_output=false,
             dataname=dataname,
             output_path=grid_search_path,
-            save_output=false,
             tuning_params...,
             kwargs...,
         )

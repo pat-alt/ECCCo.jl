@@ -76,8 +76,8 @@ function prepare_models(exper::Experiment)
 
     # Save models:
     if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
-        @info "Saving models to $(joinpath(exper.output_path, "$(exper.save_name)_models.jls"))."
-        Serialization.serialize(joinpath(exper.output_path, "$(exper.save_name)_models.jls"), model_dict)
+        @info "Saving models to $(joinpath(pretrained_path(exper), "$(exper.save_name)_models.jls"))."
+        Serialization.serialize(joinpath(pretrained_path(exper), "$(exper.save_name)_models.jls"), model_dict)
     end
 
     return model_dict
