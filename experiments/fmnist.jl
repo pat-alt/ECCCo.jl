@@ -52,6 +52,7 @@ else
     grid_search(
         counterfactual_data, test_data;
         dataname=dataname,
-        tuning_params=tuning_params
+        tuning_params=tuning_params,
+        n_individuals=5
     )
 end
