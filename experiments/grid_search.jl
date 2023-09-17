@@ -27,7 +27,9 @@ function grid_search(
     outcomes = Dict{Any,Any}()
     
     # Search:
+    counter = 1
     for tuning_params in grid
+        @info "Running experiment $(counter)/$(length(grid)) with tuning parameters: $(tuning_params)"
         outcome = run_experiment(
             counterfactual_data, test_data;
             save_output=false,
@@ -38,6 +40,7 @@ function grid_search(
             kwargs...,
         )
         outcomes[tuning_params] = outcome
+        counter += 1
     end
 
     # Save:

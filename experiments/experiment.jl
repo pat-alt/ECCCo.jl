@@ -116,6 +116,11 @@ function run_experiment(exper::Experiment; save_output::Bool=true, only_models::
         meta(outcome; save_output=true)
     end
 
+    # Final barrier:
+    if is_multi_processed(exper)
+        MPI.Barrier(exper.parallelizer.comm)
+    end
+
     return outcome
 
 end
