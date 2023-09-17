@@ -13,6 +13,7 @@ function grid_search(
     couterfactual_data::CounterfactualData,
     test_data::CounterfactualData;
     dataname::String,
+    n_individuals::Int=N_IND,
     tuning_params::NamedTuple,
     kwargs...,
 )
@@ -31,6 +32,7 @@ function grid_search(
             counterfactual_data, test_data;
             save_output=false,
             dataname=dataname,
+            n_individuals=n_individuals,
             output_path=grid_search_path,
             tuning_params...,
             kwargs...,
