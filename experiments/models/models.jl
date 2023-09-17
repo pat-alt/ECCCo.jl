@@ -2,7 +2,7 @@ include("additional_models.jl")
 include("default_models.jl")
 include("train_models.jl")
 
-function prepare_models(exper::Experiment)
+function prepare_models(exper::Experiment; save_models::Bool=true)
 
     # Unpack data:
     X, labels, sampler = prepare_data(exper::Experiment)
@@ -75,7 +75,7 @@ function prepare_models(exper::Experiment)
     end
 
     # Save models:
-    if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+    if save_models && !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
         @info "Saving models to $(joinpath(pretrained_path(exper), "$(exper.save_name)_models.jls"))."
         Serialization.serialize(joinpath(pretrained_path(exper), "$(exper.save_name)_models.jls"), model_dict)
     end
