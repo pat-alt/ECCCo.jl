@@ -54,11 +54,11 @@ end
 
 Train the models specified by `exper` and store them in `outcome`.
 """
-function train_models!(outcome::ExperimentOutcome, exper::Experiment)
+function train_models!(outcome::ExperimentOutcome, exper::Experiment; save_meta::Bool=false)
     model_dict = prepare_models(exper)
     outcome.model_dict = model_dict
     if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
-        meta_model_performance(outcome)
+        meta_model_performance(outcome; save_output=save_meta)
     end
 end
 
@@ -96,9 +96,12 @@ function run_experiment(exper::Experiment; save_output::Bool=true, only_models::
     end
 
     # Model training:
-    train_models!(outcome, exper)
-    # Return if only models are needed:
-    !only_models || return outcome
+    if only_models
+        train_models!(outcome, exper; save_meta=true)
+        return outcome
+    else
+        train_models!(outcome, exper)
+    end
 
     # Benchmark:
     benchmark!(outcome, exper)
