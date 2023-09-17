@@ -6,11 +6,11 @@ Output path for tuned model.
 tuned_model_path(exper::Experiment) = joinpath(exper.output_path, "tuned_model")
 
 """
-    tune_model(exper::Experiment; kwargs...)
+    tune_mlp(exper::Experiment; kwargs...)
 
 Tunes MLP in place and saves the tuned model to disk.
 """
-function tune_model(exper::Experiment; kwargs...)
+function tune_mlp(exper::Experiment; kwargs...)
     if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
         @info "Tuning models."
         # Output path:
@@ -28,7 +28,7 @@ function tune_model(exper::Experiment; kwargs...)
         X, y, _ = prepare_data(exper::Experiment)
         # Tune model:
         measure = collect(values(exper.model_measures))
-        mach = tune_model(model, X, y; tuning_params=exper.model_tuning_params, measure=measure, kwargs...)
+        mach = tune_mlp(model, X, y; tuning_params=exper.model_tuning_params, measure=measure, kwargs...)
         # Machine is still on GPU, save CPU version of model:
         best_results = fitted_params(mach)
         Serialization.serialize(joinpath(model_tuning_path, "$(exper.save_name)_best_mlp.jls"), best_results)
@@ -39,11 +39,11 @@ function tune_model(exper::Experiment; kwargs...)
 end
 
 """
-    tune_model(mod::Supervised, X, y; tuning_params::NamedTuple, kwargs...)
+    tune_mlp(mod::Supervised, X, y; tuning_params::NamedTuple, kwargs...)
 
 Tunes a model by performing a grid search over the parameters specified in `tuning_params`.
 """
-function tune_model(
+function tune_mlp(
     model::Supervised, X, y; 
     tuning_params::NamedTuple,
     measure::Vector=MODEL_MEASURE_VEC, 

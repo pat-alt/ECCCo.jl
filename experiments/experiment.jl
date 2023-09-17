@@ -91,7 +91,7 @@ function run_experiment(exper::Experiment; save_output::Bool=true, only_models::
 
     # Model tuning:
     if TUNE_MODEL
-        mach = tune_model(exper)
+        mach = tune_mlp(exper)
         return mach
     end
 
