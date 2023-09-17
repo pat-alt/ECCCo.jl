@@ -16,7 +16,7 @@ test_data = load_mnist_test()
 model_tuning_params = DEFAULT_MODEL_TUNING_LARGE
 
 # Tuning parameters:
-tuning_params = DEFAULT_GENERATOR_TUNING
+tuning_params = DEFAULT_GENERATOR_TUNING[2:end]
 push!(tuning_params.Λ, [0.1, 0.1, 3.0])
 
 # Additional models:
