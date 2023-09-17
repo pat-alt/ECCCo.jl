@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name="Grid-search Synthetic (ECCCo)"
-#SBATCH --time=06:00:00
+#SBATCH --job-name="Grid-search Fashion MNIST (ECCCo)"
+#SBATCH --time=24:00:00
 #SBATCH --ntasks=1000
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=compute
@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=linearly_separable,moons,circles output_path=results mpi grid_search > experiments/grid_search_synthetic.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=fmnist output_path=results mpi grid_search > experiments/grid_search_fmnist.log
