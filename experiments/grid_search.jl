@@ -71,7 +71,7 @@ function best_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure=["distance_
     for (params, outcome) in outcomes
         _ranks = generator_rank(outcome; generator=generator, measure=measure) |>
                 x -> x.avg_rank |>
-                     x -> sum(x) / length(x)[1]
+                x -> (sum(x) / length(x))[1]
         push!(ranks, _ranks)
     end
     best_index = argmin(ranks)
@@ -85,3 +85,34 @@ end
 best_eccco(outcomes) = best_outcome(outcomes; generator=["ECCCo"], measure=["distance_from_energy", "distance_from_targets"])
 
 best_eccco_Δ(outcomes) = best_outcome(outcomes; generator=["ECCCo-Δ"], measure=["distance_from_energy", "distance_from_targets"])
+
+"""
+    best_absolute_outcome(outcomes; generator=ECCCO_NAMES, measure="distance_from_energy")
+
+Return the best outcome from grid search results. The best outcome is defined as the one with the lowest average value across all datasets and variables for the specified generator and measure.
+"""
+function best_absolute_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure::String="distance_from_energy")
+    avg_values = []
+    for (params, outcome) in outcomes
+        # Compute:
+        results = summarise_outcome(outcome, measure=[measure])
+        # Adjust variables for which higher is better:
+        higher_is_better = [var ∈ ["validity", "redundancy"] for var in results.variable]
+        results.mean[higher_is_better] .= -results.mean[higher_is_better]
+        # Compute avergaes:
+        _avg_values = subset(results, :generator => ByRow(x -> x ∈ generator)) |>
+            x -> x.mean |>
+            x -> (sum(x)/length(x))[1]
+        push!(avg_values, _avg_values)
+    end
+    println(avg_values)
+    best_index = argmin(avg_values)
+    best_outcome = (
+        params = collect(keys(outcomes))[best_index],
+        outcome = collect(values(outcomes))[best_index]
+    )
+end
+
+best_absolute_outcome_eccco(outcomes) = best_absolute_outcome(outcomes; generator=["ECCCo"], measure="distance_from_energy")
+
+best_absolute_outcome_eccco_Δ(outcomes) = best_absolute_outcome(outcomes; generator=["ECCCo-Δ"], measure="distance_from_energy")
