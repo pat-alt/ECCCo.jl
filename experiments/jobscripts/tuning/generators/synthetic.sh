@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search Synthetic (ECCCo)"
-#SBATCH --time=02:00:00
+#SBATCH --time=05:00:00
 #SBATCH --ntasks=1000
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=compute
