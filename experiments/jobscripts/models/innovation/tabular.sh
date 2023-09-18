@@ -12,4 +12,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=gmsc,german_credit,credit_default,california_housing output_path=results only_models > experiments/train_tabular.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=gmsc,german_credit,california_housing output_path=results only_models > experiments/train_tabular.log
