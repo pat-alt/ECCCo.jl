@@ -25,11 +25,6 @@ function grid_search(
     tuning_params = [Pair.(k, vals) for (k, vals) in pairs(tuning_params)]
     grid = Iterators.product(tuning_params...)
     outcomes = Dict{Any,Any}()
-
-    # Save:
-    if !(is_multi_processed(PLZ) && MPI.Comm_rank(PLZ.comm) != 0)
-        Serialization.serialize(joinpath(grid_search_path, "$(replace(lowercase(dataname), " " => "_")).jls"), outcomes)
-    end
     
     # Search:
     counter = 1
