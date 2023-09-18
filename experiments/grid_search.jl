@@ -71,7 +71,7 @@ function best_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure=["distance_
         _ranks = generator_rank(outcome; generator=generator, measure=measure) |>
                 x -> x.avg_rank |>
                      x -> sum(x) / length(x)[1]
-        push!(_ranks, ranks)
+        push!(ranks, _ranks)
     end
     best_index = argmin(ranks)
     best_outcome = (
