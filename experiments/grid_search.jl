@@ -45,6 +45,32 @@ function grid_search(
 
     # Save:
     if !(is_multi_processed(PLZ) && MPI.Comm_rank(PLZ.comm) != 0)
-        Serialization.serialize(joinpath(grid_search_path, "$(replace(lowercase(dataname), " " => "_")).jls"), outcomes)
+        Serialization.serialize(joinpath(grid_search_path, "$(replace(lowercase(dataname), " " => "_"))_best.jls"), best_outcome(outcomes))
+        Serialization.serialise(joinpath(grid_search_path, "$(replace(lowercase(dataname), " " => "_"))_best_eccco.jls"), best_eccco(outcomes))
+        Serialization.serialise(joinpath(grid_search_path, "$(replace(lowercase(dataname), " " => "_"))_best_eccco_Δ.jls"), best_eccco_Δ(outcomes))
     end
 end
+
+"""
+    best_outcome(outcomes; generator=["ECCCo", "ECCCo-Δ"], measure=["distance_from_energy", "distance_from_targets"])
+
+Returns the best outcome from grid search results. The best outcome is defined as the one with the lowest average rank across all datasets and variables for the specified generator and measure.
+"""
+function best_outcome(outcomes; generator=["ECCCo", "ECCCo-Δ"], measure=["distance_from_energy", "distance_from_targets"])
+    ranks = map(outcomes) do outcome
+        ranks = avg_generator_rank(outcome; generator=generator, measure=measure) |>
+                x -> x.avg_rank |>
+                     x -> sum(x) / length(x)[1]
+        return ranks
+    end
+    best_index = argmin(values(ranks))
+    best_outcome = (
+        params = keys(ranks)[best_index],
+        outcome = outcomes[best_index]
+    )
+    return best_outcome
+end
+
+best_eccco(outcomes) = best_outcome(outcomes; generator=["ECCCo"], measure=["distance_from_energy", "distance_from_targets"])
+
+best_eccco_Δ(outcomes) = best_outcome(outcomes; generator=["ECCCo-Δ"], measure=["distance_from_energy", "distance_from_targets"])
