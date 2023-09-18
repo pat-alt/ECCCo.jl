@@ -56,17 +56,18 @@ end
 
 Returns the best outcome from grid search results. The best outcome is defined as the one with the lowest average rank across all datasets and variables for the specified generator and measure.
 """
-function best_outcome(outcomes; generator=["ECCCo", "ECCCo-Δ"], measure=["distance_from_energy", "distance_from_targets"])
-    ranks = map(outcomes) do outcome
+function best_outcome(outcomes::Dict; generator=["ECCCo", "ECCCo-Δ"], measure=["distance_from_energy", "distance_from_targets"])
+    ranks = []
+    for (params, outcome) in outcomes
         ranks = avg_generator_rank(outcome; generator=generator, measure=measure) |>
                 x -> x.avg_rank |>
                      x -> sum(x) / length(x)[1]
         return ranks
     end
-    best_index = argmin(values(ranks))
+    best_index = argmin(ranks)
     best_outcome = (
-        params = keys(ranks)[best_index],
-        outcome = outcomes[best_index]
+        params = collect(keys(outcomes))[best_index],
+        outcome = collect(values(outcomes))[best_index]
     )
     return best_outcome
 end
