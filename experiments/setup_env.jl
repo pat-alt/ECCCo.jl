@@ -146,8 +146,8 @@ const GRID_SEARCH = "grid_search" ∈ ARGS
 
 "Generator tuning parameters."
 DEFAULT_GENERATOR_TUNING = (
-    nsamples=[10, 100],
-    niter_eccco=[10, 100],
+    nsamples=[10, 50],
+    niter_eccco=[10, 50],
     Λ=[
         [0.1, 0.1, 0.1],
         [0.1, 0.2, 0.2],
