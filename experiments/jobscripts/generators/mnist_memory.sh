@@ -2,7 +2,7 @@
 
 #SBATCH --job-name="MNIST (ECCCo)"
 #SBATCH --time=10:00:00
-#SBATCH --ntasks=100
+#SBATCH --ntasks=500
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=memory
 #SBATCH --mem-per-cpu=32GB
