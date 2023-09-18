@@ -41,6 +41,7 @@ params = (
     niter_eccco=10,
     Λ=[0.1, 0.25, 0.25],
     Λ_Δ=[0.1, 0.1, 2.5],
+    opt=Flux.Optimise.Descent(0.1)
 )
 
 if !GRID_SEARCH

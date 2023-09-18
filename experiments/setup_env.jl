@@ -154,6 +154,11 @@ DEFAULT_GENERATOR_TUNING = (
         [0.1, 0.5, 0.5],
     ],
     reg_strength=[0.0, 0.1, 0.5],
+    opt=[
+        Flux.Optimise.Descent(0.1), 
+        Flux.Optimise.Descent(0.05),
+        Flux.Optimise.Descent(0.01),
+    ],
 )
 
 "Boolean flag to check if model tuning was specified."
