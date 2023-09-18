@@ -444,11 +444,9 @@ version = "0.6.2"
 
 [[deps.CounterfactualExplanations]]
 deps = ["CSV", "CUDA", "CategoricalArrays", "ChainRulesCore", "DataFrames", "DecisionTree", "Distributions", "EvoTrees", "Flux", "LaplaceRedux", "LazyArtifacts", "LinearAlgebra", "Logging", "MLDatasets", "MLJBase", "MLJDecisionTreeInterface", "MLJModels", "MLUtils", "MultivariateStats", "NearestNeighborModels", "PackageExtensionCompat", "Parameters", "PrecompileTools", "ProgressMeter", "Random", "Serialization", "Statistics", "StatsBase", "Tables", "UUIDs", "cuDNN"]
-git-tree-sha1 = "9bcb579703041d8708b179e55c119f150c5565bc"
-repo-rev = "main"
-repo-url = "https://github.com/JuliaTrustworthyAI/CounterfactualExplanations.jl.git"
+git-tree-sha1 = "30cf711962736a6bc5ffc6c7d1b6be6d11d306d9"
 uuid = "2f13d31b-18db-44c1-bc43-ebaf2cff0be0"
-version = "0.1.23"
+version = "0.1.24"
 
     [deps.CounterfactualExplanations.extensions]
     MPIExt = "MPI"

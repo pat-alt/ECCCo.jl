@@ -145,7 +145,7 @@ const N_IND_SPECIFIED = n_ind_specified
 const GRID_SEARCH = "grid_search" ∈ ARGS
 
 "Generator tuning parameters."
-const DEFAULT_GENERATOR_TUNING = (
+DEFAULT_GENERATOR_TUNING = (
     nsamples=[10, 100],
     niter_eccco=[10, 100],
     Λ=[
@@ -160,13 +160,13 @@ const DEFAULT_GENERATOR_TUNING = (
 const TUNE_MODEL = "tune_model" ∈ ARGS
 
 "Model tuning parameters for small datasets."
-const DEFAULT_MODEL_TUNING_SMALL = (
+DEFAULT_MODEL_TUNING_SMALL = (
     n_hidden=[16, 32, 64],
     n_layers=[1, 2, 3],
 )
 
 "Model tuning parameters for large datasets."
-const DEFAULT_MODEL_TUNING_LARGE = (
+DEFAULT_MODEL_TUNING_LARGE = (
     n_hidden=[32, 64, 128, 512],
     n_layers=[2, 3, 5],
 )
