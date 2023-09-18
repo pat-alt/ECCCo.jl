@@ -59,10 +59,10 @@ Returns the best outcome from grid search results. The best outcome is defined a
 function best_outcome(outcomes::Dict; generator=["ECCCo", "ECCCo-Δ"], measure=["distance_from_energy", "distance_from_targets"])
     ranks = []
     for (params, outcome) in outcomes
-        ranks = generator_rank(outcome; generator=generator, measure=measure) |>
+        _ranks = generator_rank(outcome; generator=generator, measure=measure) |>
                 x -> x.avg_rank |>
                      x -> sum(x) / length(x)[1]
-        return ranks
+        push!(_ranks, ranks)
     end
     best_index = argmin(ranks)
     best_outcome = (
