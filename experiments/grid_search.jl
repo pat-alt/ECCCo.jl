@@ -51,12 +51,21 @@ function grid_search(
     end
 end
 
+const ECCCO_NAMES = [
+    "ECCCo",
+    "ECCCo (no CP)",
+    "ECCCo (no EBM)",
+    "ECCCo-Δ",
+    "ECCCo-Δ (no CP)",
+    "ECCCo-Δ (no EBM)",
+]
+
 """
-    best_outcome(outcomes; generator=["ECCCo", "ECCCo-Δ"], measure=["distance_from_energy", "distance_from_targets"])
+    best_outcome(outcomes; generator=ECCCO_NAMES, measure=["distance_from_energy", "distance_from_targets"])
 
 Returns the best outcome from grid search results. The best outcome is defined as the one with the lowest average rank across all datasets and variables for the specified generator and measure.
 """
-function best_outcome(outcomes::Dict; generator=["ECCCo", "ECCCo-Δ"], measure=["distance_from_energy", "distance_from_targets"])
+function best_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure=["distance_from_energy", "distance_from_targets"])
     ranks = []
     for (params, outcome) in outcomes
         _ranks = generator_rank(outcome; generator=generator, measure=measure) |>
