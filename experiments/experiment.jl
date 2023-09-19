@@ -9,14 +9,15 @@ Base.@kwdef struct Experiment
     use_pretrained::Bool = !RETRAIN
     models::Union{Nothing,Dict} = nothing
     additional_models::Union{Nothing,Dict} = nothing
-    builder::Union{Nothing,MLJFlux.Builder} = nothing
     𝒟x::Distribution = Normal()
     sampling_batch_size::Int = 50
     sampling_steps::Int = 50
     min_batch_size::Int = 128
     epochs::Int = 100
     n_hidden::Int = 32
+    n_layers::Int = 3
     activation::Function = Flux.relu
+    builder::Union{Nothing,MLJFlux.Builder} = default_builder(n_hidden=n_hidden, n_layers=n_layers, activation=activation)
     α::AbstractArray = [1.0, 1.0, 1e-1]
     n_ens::Int = 5
     use_ensembling::Bool = true
@@ -39,6 +40,7 @@ Base.@kwdef struct Experiment
     reg_strength::Real = 0.1
     niter_eccco::Union{Nothing,Int} = nothing
     model_tuning_params::NamedTuple = DEFAULT_MODEL_TUNING_SMALL
+    use_tuned::Bool = true
 end
 
 "A container to hold the results of an experiment."

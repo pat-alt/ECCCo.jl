@@ -10,17 +10,15 @@ model_tuning_params = DEFAULT_MODEL_TUNING_SMALL
 tuning_params = DEFAULT_GENERATOR_TUNING
 
 # Parameter choices:
+# These are the parameter choices originally used in the paper that were manually fine-tuned for the JEM.
 params = (
-    epochs=500,
+    use_tuned=false,            
     n_hidden=32,
-    activation = Flux.relu,
+    n_layers=3,
+    activation=Flux.relu,
+    epochs=500,
     sampling_batch_size=10,
     sampling_steps=30,
-    opt=Flux.Optimise.Descent(0.05),
-    α=[1.0, 1.0, 1e-1],
-    nsamples=100,
-    niter_eccco=100,
-    Λ=[0.1, 0.2, 0.2],
 )
 
 if !GRID_SEARCH
@@ -33,6 +31,7 @@ else
     grid_search(
         counterfactual_data, test_data;
         dataname=dataname,
-        tuning_params=tuning_params
+        tuning_params=tuning_params,
+        params...
     )
 end
