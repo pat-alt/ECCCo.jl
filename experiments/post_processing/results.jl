@@ -3,7 +3,7 @@
 
 Helper function to quickly filter a benchmark table for the distance from targets: the smaller this distance, the higher the plausibility.
 """
-function summarise_outcome(outcome::ExperimentOutcome; measure::Union{Nothing,AbstractArray}=nothing, model::Union{Nothing,String}=nothing)
+function summarise_outcome(outcome::ExperimentOutcome; measure::Union{Nothing,AbstractArray}=nothing, model::Union{Nothing,AbstractArray}=nothing)
 
     bmk = outcome.bmk
     measure = isnothing(measure) ? unique(bmk().variable) : measure
@@ -12,7 +12,7 @@ function summarise_outcome(outcome::ExperimentOutcome; measure::Union{Nothing,Ab
         x -> combine(x, :value => mean => :mean, :value => std => :std) |>
         x -> subset(x, :variable => ByRow(x -> x ∈ measure))
     if !isnothing(model)
-        df = subset(df, :model => ByRow(x -> x == model))
+        df = subset(df, :model => ByRow(x -> x ∈ model))
     end
     sort!(df, [:model, :variable, :mean])
     return df
@@ -49,7 +49,7 @@ function generator_rank(
     outcome::ExperimentOutcome; 
     generator::Union{AbstractArray,Nothing}=nothing, 
     measure::Union{AbstractArray,Nothing}=nothing, 
-    model::Union{Nothing,String}=nothing
+    model::Union{Nothing,AbstractArray}=nothing
 )
 
     # Setup:

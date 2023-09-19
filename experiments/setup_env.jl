@@ -161,6 +161,22 @@ DEFAULT_GENERATOR_TUNING = (
     ],
 )
 
+"Generator tuning parameters for large datasets."
+DEFAULT_GENERATOR_TUNING_LARGE = (
+    nsamples=[10, 30],
+    niter_eccco=[10, 30],
+    Λ=[
+        [0.1, 0.1, 0.1],
+        [0.1, 0.2, 0.2],
+        [0.1, 0.5, 0.5],
+    ],
+    reg_strength=[0.0, 0.1, 0.5],
+    opt=[
+        Flux.Optimise.Descent(0.1),
+        Flux.Optimise.Descent(0.01),
+    ],
+)
+
 "Boolean flag to check if model tuning was specified."
 const TUNE_MODEL = "tune_model" ∈ ARGS
 

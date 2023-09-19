@@ -6,20 +6,7 @@ counterfactual_data, test_data = train_test_split(load_california_housing(nothin
 model_tuning_params = DEFAULT_MODEL_TUNING_LARGE
 
 # Tuning parameters:
-tuning_params = (
-    nsamples=[10, 30],
-    niter_eccco=[10, 30],
-    Λ=[
-        [0.1, 0.1, 0.1],
-        [0.1, 0.2, 0.2],
-        [0.1, 0.5, 0.5],
-    ],
-    reg_strength=[0.0, 0.1, 0.5],
-    opt=[
-        Flux.Optimise.Descent(0.1),
-        Flux.Optimise.Descent(0.01),
-    ],
-)
+tuning_params = DEFAULT_GENERATOR_TUNING_LARGE
 
 # Parameter choices:
 params = (

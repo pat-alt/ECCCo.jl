@@ -66,10 +66,10 @@ const ECCCO_NAMES = [
 
 Returns the best outcome from grid search results. The best outcome is defined as the one with the lowest average rank across all datasets and variables for the specified generator and measure.
 """
-function best_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure=["distance_from_energy", "distance_from_targets"])
+function best_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure=["distance_from_energy", "distance_from_targets"], model::Union{Nothing,AbstractArray}=nothing)
     ranks = []
     for (params, outcome) in outcomes
-        _ranks = generator_rank(outcome; generator=generator, measure=measure) |>
+        _ranks = generator_rank(outcome; generator=generator, measure=measure, model=model) |>
                 x -> x.avg_rank |>
                 x -> (sum(x) / length(x))[1]
         push!(ranks, _ranks)
@@ -91,11 +91,11 @@ best_eccco_Δ(outcomes) = best_outcome(outcomes; generator=["ECCCo-Δ"], measure
 
 Return the best outcome from grid search results. The best outcome is defined as the one with the lowest average value across all datasets and variables for the specified generator and measure.
 """
-function best_absolute_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure::String="distance_from_energy")
+function best_absolute_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure::String="distance_from_energy", model::Union{Nothing,AbstractArray}=nothing)
     avg_values = []
     for (params, outcome) in outcomes
         # Compute:
-        results = summarise_outcome(outcome, measure=[measure])
+        results = summarise_outcome(outcome, measure=[measure], model=model)
         # Adjust variables for which higher is better:
         higher_is_better = [var ∈ ["validity", "redundancy"] for var in results.variable]
         results.mean[higher_is_better] .= -results.mean[higher_is_better]

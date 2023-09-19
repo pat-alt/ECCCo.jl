@@ -7,7 +7,7 @@ nobs = size(counterfactual_data.X, 2)
 model_tuning_params = DEFAULT_MODEL_TUNING_LARGE
 
 # Tuning parameters:
-tuning_params = DEFAULT_GENERATOR_TUNING
+tuning_params = DEFAULT_GENERATOR_TUNING_LARGE
 
 # Parameter choices:
 params = (
