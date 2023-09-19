@@ -75,7 +75,9 @@ function prepare_models(exper::Experiment; save_models::Bool=true)
     end
 
     # Save models:
-    if save_models && !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+    local_models_exist = isfile(joinpath(DEFAULT_OUTPUT_PATH, "$(exper.save_name)_models.jls"))
+    on_root_process = !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+    if save_models && on_root_process && !local_models_exist
         @info "Saving models to $(joinpath(exper.output_path , "$(exper.save_name)_models.jls"))."
         Serialization.serialize(joinpath(exper.output_path, "$(exper.save_name)_models.jls"), model_dict)
     end
