@@ -87,11 +87,11 @@ To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need
 
 \begin{equation}\label{eq:sgld}
   \begin{aligned}
-    \mathbf{x}_{j+1} &\leftarrow \mathbf{x}_j - \frac{\epsilon_j^2}{2} \mathcal{E}(\mathbf{x}_j|\mathbf{y}^+) + \epsilon_j \mathbf{r}_j, && j=1,...,J
+    \mathbf{x}_{j+1} &\leftarrow \mathbf{x}_j - \frac{\epsilon_j^2}{2} \mathcal{E}_{\theta}(\mathbf{x}_j|\mathbf{y}^+) + \epsilon_j \mathbf{r}_j, && j=1,...,J
   \end{aligned}
 \end{equation}
 
-where $\mathbf{r}_j \sim \mathcal{N}(\mathbf{0},\mathbf{I})$ is the stochastic term and the step-size $\epsilon_j$ is typically polynomially decayed~\citep{welling2011bayesian}. The term $\mathcal{E}(\mathbf{x}_j|\mathbf{y}^+)$ denotes the model energy conditioned on the target class label $\mathbf{y}^+$ which we specify as the negative logit corresponding to the target class label $\mathbf{y}^{+}$. To allow for faster sampling, we follow the common practice of choosing the step-size $\epsilon_j$ and the standard deviation of $\mathbf{r}_j$ separately. While $\mathbf{x}_J$ is only guaranteed to distribute as $p_{\theta}(\mathbf{x}|\mathbf{y}^{+})$ if $\epsilon \rightarrow 0$ and $J \rightarrow \infty$, the bias introduced for a small finite $\epsilon$ is negligible in practice \citep{murphy2023probabilistic,grathwohl2020your}. Appendix~\ref{app:jem} provides additional implementation details for any tasks related to energy-based modelling. 
+where $\mathbf{r}_j \sim \mathcal{N}(\mathbf{0},\mathbf{I})$ is the stochastic term and the step-size $\epsilon_j$ is typically polynomially decayed~\citep{welling2011bayesian}. The term $\mathcal{E}_{\theta}(\mathbf{x}_j|\mathbf{y}^+)$ denotes the model energy conditioned on the target class label $\mathbf{y}^+$ which we specify as the negative logit corresponding to the target class label $\mathbf{y}^{+}$. To allow for faster sampling, we follow the common practice of choosing the step-size $\epsilon_j$ and the standard deviation of $\mathbf{r}_j$ separately. While $\mathbf{x}_J$ is only guaranteed to distribute as $p_{\theta}(\mathbf{x}|\mathbf{y}^{+})$ if $\epsilon \rightarrow 0$ and $J \rightarrow \infty$, the bias introduced for a small finite $\epsilon$ is negligible in practice \citep{murphy2023probabilistic,grathwohl2020your}. Appendix~\ref{app:jem} provides additional implementation details for any tasks related to energy-based modelling. 
 
 Generating multiple samples using SGLD thus yields an empirical distribution $\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}$ that approximates what the model has learned about the input data. While in the context of EBM, this is usually done during training, we propose to repurpose this approach during inference in order to evaluate and generate faithful model explanations.
 
@@ -153,7 +153,7 @@ We begin by stating our proposed objective function, which involves tailored los
 \begin{equation} \label{eq:eccco}
   \begin{aligned}
   \mathbf{Z}^\prime &= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^L} \{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)}+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) } \\
-  &+ \lambda_2 \Delta\mathcal{E}(\mathbf{Z}^\prime,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
+  &+ \lambda_2 \Delta\mathcal{E}_{\theta}(\mathbf{Z}^\prime,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
   \end{aligned} 
 \end{equation}
 
@@ -161,7 +161,7 @@ The first penalty term involving $\lambda_1$ induces proximity like in~\citet{wa
 
 \begin{equation} \label{eq:energy-delta}
   \begin{aligned}
-    \Delta\mathcal{E}&=\mathcal{E}(f(\mathbf{Z}^\prime)|\mathbf{y}^+)-\mathcal{E}(x|\mathbf{y}^+) &&& x \sim \widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}
+    \Delta\mathcal{E}_{\theta}&=\mathcal{E}_{\theta}(f(\mathbf{Z}^\prime)|\mathbf{y}^+)-\mathcal{E}_{\theta}(x|\mathbf{y}^+) &&& x \sim \widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}
   \end{aligned}
 \end{equation}
 
