@@ -23,15 +23,28 @@ end
 
 Helper function to quickly filter a benchmark table for the distance from targets: the smaller this distance, the higher the plausibility.
 """
-plausibility(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance_from_targets"], kwrgs...)
+plausibility(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance_from_targets_l2"], kwrgs...)
 
+"""
+    plausibility_image(outcome::ExperimentOutcome)
+
+Helper function to quickly filter a benchmark table for the distance from targets: the smaller this distance, the higher the plausibility.
+"""
+plausibility_image(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance_from_targets_cosine"], kwrgs...)
 
 """
     faithfulness(outcome::ExperimentOutcome)
 
 Helper function to quickly filter a benchmark table for the distance from energy: the smaller this distance, the higher the faithfulness.
 """
-faithfulness(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance_from_energy"], kwrgs...)
+faithfulness(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance_from_energy_l2"], kwrgs...)
+
+"""
+    faithfulness_image(outcome::ExperimentOutcome)
+
+Helper function to quickly filter a benchmark table for the distance from energy: the smaller this distance, the higher the faithfulness.
+"""
+faithfulness_image(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance_from_energy_cosine"], kwrgs...)
 
 """
     closeness(outcome::ExperimentOutcome)
@@ -39,6 +52,27 @@ faithfulness(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, 
 Helper function to quickly filter a benchmark table for the distance from the factual: the smaller this distance, the higher the closeness desideratum.
 """
 closeness(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance"], kwrgs...)
+
+"""
+    validity(outcome::ExperimentOutcome)
+
+Helper function to quickly filter a benchmark table for the validity: the higher this value, the higher the validity.
+"""
+validity(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["validity"], kwrgs...)
+
+"""
+    redundancy(outcome::ExperimentOutcome)
+
+Helper function to quickly filter a benchmark table for the redundancy: the higher this value, the higher the redundancy.
+"""
+redundancy(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["redundancy"], kwrgs...)
+
+"""
+    uncertainty(outcome::ExperimentOutcome)
+
+Helper function to quickly filter a benchmark table for the uncertainty: the higher this value, the higher the uncertainty.
+"""
+uncertainty(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["set_size_penalty"], kwrgs...)
 
 """
     generator_rank(outcome::ExperimentOutcome; generator::Union{AbstractArray,Nothing}=nothing, measure::Union{AbstractArray,Nothing}=nothing, model::Union{Nothing,String}=nothing)
@@ -73,9 +107,9 @@ function generator_rank(
     return ranked_results
 end
 
-generator_rank_plausibility(outcome::ExperimentOutcome; kwrgs...) = generator_rank(outcome, measure=["distance_from_targets"], kwrgs...)
+generator_rank_plausibility(outcome::ExperimentOutcome; kwrgs...) = generator_rank(outcome, measure=["distance_from_targets_l2"], kwrgs...)
 
-generator_rank_faithfulness(outcome::ExperimentOutcome; kwrgs...) = generator_rank(outcome, measure=["distance_from_energy"], kwrgs...)
+generator_rank_faithfulness(outcome::ExperimentOutcome; kwrgs...) = generator_rank(outcome, measure=["distance_from_energy_l2"], kwrgs...)
 
 generator_rank_closeness(outcome::ExperimentOutcome; kwrgs...) = generator_rank(outcome, measure=["distance"], kwrgs...)
 

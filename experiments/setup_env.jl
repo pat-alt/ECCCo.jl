@@ -115,7 +115,9 @@ const DEFAULT_COVERAGE = 0.95
 const CE_MEASURES = [
     CounterfactualExplanations.distance,
     ECCCo.distance_from_energy,
+    ECCCo.distance_from_energy_l2,
     ECCCo.distance_from_targets,
+    ECCCo.distance_from_targets_l2,
     CounterfactualExplanations.Evaluation.validity,
     CounterfactualExplanations.Evaluation.redundancy,
     ECCCo.set_size_penalty

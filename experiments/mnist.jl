@@ -24,6 +24,9 @@ add_models = Dict(
     "LeNet-5" => lenet5,
 )
 
+# CE measures (add cosine distance):
+ce_measures = [CE_MEASURES..., ECCCo.distance_from_energy_cosine, ECCCo.distance_from_targets_cosine]
+
 # Parameter choices:
 params = (
     n_individuals=N_IND_SPECIFIED ? N_IND : 1,
@@ -43,6 +46,7 @@ params = (
     Λ_Δ=[0.1, 0.1, 1.0],
     opt=Flux.Optimise.Descent(0.1),
     reg_strength = 0.0005,
+    ce_measures=ce_measures,
 )
 
 if !GRID_SEARCH
