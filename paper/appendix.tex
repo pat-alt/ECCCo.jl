@@ -22,13 +22,13 @@ As mentioned in the body of the paper, we rely on a biased sampler involving sep
   \end{aligned}
 \end{equation}
 
-Consistent with~\citet{grathwohl2020your}, we have specified $\epsilon=2$ and $\sigma=0.01$ as the default values for all of our experiments. The number of total SGLD steps $J$ varies by dataset (Table~\ref{tab:ebmparams}). Following best practices, we initialize $\mathbf{x}_0$ randomly in 5\% of all cases and sample from a buffer in all other cases. The buffer itself is randomly initialised and gradually grows to a maximum of 10,000 samples during training as $\hat{\mathbf{x}}_{J}$ is stored in each epoch~\citep{du2020implicit,grathwohl2020your}. 
+Consistent with~\citet{grathwohl2020your}, we have specified $\epsilon=2$ and $\sigma=0.01$ as the default values for all of our experiments. The number of total SGLD steps $J$ varies by dataset (Table~\ref{tab:ebmparams}). Following best practices, we initialize $\mathbf{x}_0$ randomly in 5\% of all cases and sample from a buffer in all other cases. The buffer itself is randomly initialised and gradually grows to a maximum of 10,000 samples during training as $\hat{\mathbf{x}}_{J}$ is stored in each epoch~\citep{du2019implicit,grathwohl2020your}. 
 
 It is important to realise that sampling is done during each training epoch, which makes training Joint Energy Models significantly harder than conventional neural classifiers. In each epoch the generated (batch of) sample(s) $\hat{\mathbf{x}}_{J}$ is used as part of the generative loss component, which compares its energy to that of observed samples $\mathbf{x}$: $L_{\text{gen}}(\theta)=\mu_{\theta}(\mathbf{x})[\mathbf{y}]-\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}]$. Our full training objective can be summarized as follows,
 
 \begin{equation}\label{eq:jem-loss}
   \begin{aligned}
-    L(\theta) &= L_{\text{clf}}(\theta) + L_{\text{gen}}(\theta) + \lambda L_{\text{reg}}(\theta) 
+    L_{\text{JEM}}(\theta) &= L_{\text{clf}}(\theta) + L_{\text{gen}}(\theta) + \lambda L_{\text{reg}}(\theta) 
   \end{aligned}
 \end{equation}
 
@@ -87,9 +87,43 @@ In addition to the smooth set size penalty,~\citet{stutz2022learning} also propo
   \caption{Prediction set size (left), smooth set size loss (centre) and configurable classification loss (right) for a JEM trained on our \textit{Linearly Separable} data.}\label{fig:cp-diff}
 \end{figure}
 
-\subsection{ECCCo}\label{app:eccco}
+\subsection{\textit{ECCCo}}\label{app:eccco}
 
-In this section, we briefly discuss convergence conditions for CE and provide details concerning the actual implementation of our framework in \texttt{Julia}.  
+In this section, we explain \textit{ECCCo} in some more detail, briefly discuss convergence conditions for counterfactual explanations and provide details concerning the actual implementation of our framework in \texttt{Julia}.  
+
+\subsubsection{More detail on our generator}
+
+The counterfactual search objective for \textit{ECCCo} was introduced in Equation~\ref{eq:eccco} in the body of the paper. We restate this equation here for reference:
+
+\begin{equation} \label{eq:eccco-app}
+  \begin{aligned}
+  \mathbf{Z}^\prime &= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^L} \{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)}+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) } \\
+  &+ \lambda_2 \Delta\mathcal{E}(\mathbf{Z}^\prime,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
+  \end{aligned} 
+\end{equation}
+
+We can make the connection to energy-based modeling more explicit by restating this equation in terms $L_{\text{JEM}}(\theta)$, which we defined in Equation~\ref{eq:jem-loss}. In particular, note that for $\lambda_2=1$ and $\lambda L_{\text{reg}}(\theta)=0$ we have
+
+\begin{equation} \label{eq:eccco-jem}
+  \begin{aligned}
+  \mathbf{Z}^\prime &= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^L} \{  {L_{\text{JEM}}(\theta;M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)}+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) }  + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
+  \end{aligned} 
+\end{equation}
+
+since $\Delta\mathcal{E}(\cdot)$ is equivalent to the generative loss function $L_{\text{gen}}(\cdot)$. In fact, this is also true for $\lambda L_{\text{reg}}(\theta)\ne0$ since we use the Ridge penalty $L_{\text{reg}}(\theta)$ in the counterfactual search just like we do in joint-energy training. This detail was omitted from the body of the paper for the sake of simplicity. 
+
+Aside from the additional penalties in Equation~\ref{eq:eccco-app}, the only key difference between our counterfactual search objective and the joint-energy training objective is the parameter that is being optimized. In joint-energy training we optimize the objective with respect to the network weights $\theta$:
+
+\begin{equation}\label{eq:jem-grad}
+  \begin{aligned}
+    \nabla_{\theta} L_{\text{JEM}}(\theta) &=\nabla_{\theta} L_{\text{clf}}(\theta) + \nabla_{\theta}L_{\text{gen}}(\theta) + \lambda \nabla_{\theta} L_{\text{reg}}(\theta) 
+  \end{aligned}
+\end{equation}
+
+we take these parameters as fixed in our counterfactual search. 
+
+
+
 \subsubsection{A Note on Convergence}
 
 Convergence is not typically discussed much in the context of CE, even though it has important implications on outcomes. One intuitive way to specify convergence is in terms of threshold probabilities: once the predicted probability $p(\mathbf{y}^+|\mathbf{x}^{\prime})$ exceeds some user-defined threshold $\gamma$ such that the counterfactual is valid, we could consider the search to have converged. In the binary case, for example, convergence could be defined as $p(\mathbf{y}^+|\mathbf{x}^{\prime})>0.5$ in this sense. Note, however, how this can be expected to yield counterfactuals in the proximity of the decision boundary, a region characterized by high aleatoric uncertainty. In other words, counterfactuals generated in this way would generally not be plausible. To avoid this from happening, we specify convergence in terms of gradients approaching zero for all our experiments and all of our generators. This is allows us to get a cleaner read on how the different counterfactual search objectives affect counterfactual outcomes. 
