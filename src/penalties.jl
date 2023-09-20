@@ -41,7 +41,10 @@ end
 
 function energy_delta(
     ce::AbstractCounterfactualExplanation;
-    n::Int=50, niter=500, from_buffer=true,
+    n::Int=50, niter=500, from_buffer=true, agg=mean,
+    choose_lowest_energy=true,
+    choose_random=false,
+    nmin::Int=25,
     return_conditionals=false,
     reg_strength=0.1,
     kwargs...

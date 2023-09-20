@@ -191,3 +191,6 @@ DEFAULT_MODEL_TUNING_LARGE = (
     n_hidden=[32, 64, 128, 512],
     n_layers=[2, 3, 5],
 )
+
+"Boolean flag to check if store counterfactual explanations was specified."
+STORE_CE = "store_ce" ∈ ARGS

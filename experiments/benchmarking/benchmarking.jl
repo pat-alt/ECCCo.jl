@@ -79,7 +79,8 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
         n_individuals=n_individuals,
         initialization=:identity,
         converge_when=:generator_conditions,
-        parallelizer=parallelizer
+        parallelizer=parallelizer,
+        store_ce=exper.store_ce,
     )
     return bmk, generator_dict
 end

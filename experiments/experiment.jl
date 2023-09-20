@@ -41,6 +41,7 @@ Base.@kwdef struct Experiment
     niter_eccco::Union{Nothing,Int} = nothing
     model_tuning_params::NamedTuple = DEFAULT_MODEL_TUNING_SMALL
     use_tuned::Bool = true
+    store_ce::Bool = false
 end
 
 "A container to hold the results of an experiment."
@@ -71,8 +72,8 @@ Benchmark the models specified by `exper` and store the results in `outcome`.
 """
 function benchmark!(outcome::ExperimentOutcome, exper::Experiment)
     bmk, generator_dict = run_benchmark(exper, outcome.model_dict)
-    outcome.bmk = bmk
     outcome.generator_dict = generator_dict
+    outcome.bmk = bmk
 end
 
 """

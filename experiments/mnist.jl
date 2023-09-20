@@ -26,7 +26,7 @@ add_models = Dict(
 
 # Parameter choices:
 params = (
-    n_individuals=N_IND_SPECIFIED ? N_IND : 50,
+    n_individuals=N_IND_SPECIFIED ? N_IND : 1,
     builder=default_builder(n_hidden=128, n_layers=1, activation=Flux.swish),
     𝒟x=Uniform(-1.0, 1.0),
     α=[1.0, 1.0, 1e-2],
@@ -40,9 +40,9 @@ params = (
     nmin=1,
     niter_eccco=500,
     Λ=[0.1, 0.25, 0.25],
-    Λ_Δ=[0.1, 0.1, 2.5],
+    Λ_Δ=[0.1, 0.1, 1.0],
     opt=Flux.Optimise.Descent(0.1),
-    reg_strength = 0
+    reg_strength = 0.001
 )
 
 if !GRID_SEARCH
