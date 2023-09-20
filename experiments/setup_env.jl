@@ -167,8 +167,8 @@ DEFAULT_GENERATOR_TUNING_LARGE = (
     niter_eccco=[10, 30],
     Λ=[
         [0.1, 0.1, 0.1],
-        [0.1, 0.2, 0.2],
         [0.1, 0.5, 0.5],
+        [0.1, 0.1, 1.0],
     ],
     reg_strength=[0.0, 0.1, 0.5],
     opt=[

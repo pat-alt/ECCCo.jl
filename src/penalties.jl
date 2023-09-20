@@ -129,12 +129,11 @@ end
 
 function distance_from_targets(
     ce::AbstractCounterfactualExplanation;
-    n::Int=1000, agg=mean,
-    n_nearest_neighbors::Union{Int,Nothing}=nothing,
+    agg=mean,
+    n_nearest_neighbors::Union{Int,Nothing}=100,
 )
     target_idx = ce.data.output_encoder.labels .== ce.target
-    target_samples = ce.data.X[:,target_idx] |>
-        X -> X[:,rand(1:end,n)]
+    target_samples = ce.data.X[:,target_idx]
     x′ = CounterfactualExplanations.counterfactual(ce)
     loss = map(eachslice(x′, dims=ndims(x′))) do x
         Δ = map(eachcol(target_samples)) do xsample
