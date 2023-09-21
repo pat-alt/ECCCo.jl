@@ -14,7 +14,7 @@ To train our Joint Energy Models we broadly follow the approach outlined in~\cit
 
 \begin{equation}
   \begin{aligned}
-    \log p\_{\theta}(\mathbf{x},\mathbf{y}) &= \log p_{\theta}(\mathbf{y}|\mathbf{x}) + \log p_{\theta}(\mathbf{x})
+    \log p_{\theta}(\mathbf{x},\mathbf{y}) &= \log p_{\theta}(\mathbf{y}|\mathbf{x}) + \log p_{\theta}(\mathbf{x})
   \end{aligned}
 \end{equation}
 
@@ -22,7 +22,7 @@ Training therefore involves a standard classification loss component $L_{\text{c
 
 \begin{equation}\label{eq:gen-true}
   \begin{aligned}
-    \nabla_{\theta}L_{\text{gen}}(\theta)&=-\nabla_{\theta}\log p\_{\theta}(\mathbf{x})=-\left(\mathbb{E}_{p(\mathbf{x})} \left\{  \nabla_{\theta} \mathcal{E}_{\theta}(\mathbf{x}) \right\} - \mathbb{E}_{p_{\theta}(\mathbf{x})} \left\{  \nabla_{\theta} \mathcal{E}_{\theta}(\mathbf{x}) \right\} \right)
+    \nabla_{\theta}L_{\text{gen}}(\theta)&=-\nabla_{\theta}\log p_{\theta}(\mathbf{x})=-\left(\mathbb{E}_{p(\mathbf{x})} \left\{  \nabla_{\theta} \mathcal{E}_{\theta}(\mathbf{x}) \right\} - \mathbb{E}_{p_{\theta}(\mathbf{x})} \left\{  \nabla_{\theta} \mathcal{E}_{\theta}(\mathbf{x}) \right\} \right)
   \end{aligned}
 \end{equation}
 
@@ -113,18 +113,18 @@ In addition to the smooth set size penalty,~\citet{stutz2022learning} also propo
 
 In this section, we explain \textit{ECCCo} in some more detail, briefly discuss convergence conditions for counterfactual explanations and provide details concerning the actual implementation of our framework in \texttt{Julia}.  
 
-\subsubsection{More detail on our generator}
+\subsubsection{More detail on our generator} 
 
 The counterfactual search objective for \textit{ECCCo} was introduced in Equation~\ref{eq:eccco} in the body of the paper. We restate this equation here for reference:
 
 \begin{equation} \label{eq:eccco-app}
   \begin{aligned}
   \mathbf{Z}^\prime &= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^L} \{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)}+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) } \\
-  &+ \lambda_2 \Delta\mathcal{E}_{\theta}(\mathbf{Z}^\prime,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
+  &+ \lambda_2 \mathcal{E}_{\theta}(\mathbf{Z}^\prime,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
   \end{aligned} 
 \end{equation}
 
-We can make the connection to energy-based modeling more explicit by restating this equation in terms $L_{\text{JEM}}(\theta)$, which we defined in Equation~\ref{eq:jem-loss}. In particular, note that for $\lambda_2=1$ and $\lambda L_{\text{reg}}(\theta)=0$ we have
+We can make the connection to energy-based modeling more explicit by restating the counterfactual search objective in terms $L_{\text{JEM}}(\theta)$, which we defined in Equation~\ref{eq:jem-loss}. In particular, consider the following counterfactual search objective,
 
 \begin{equation} \label{eq:eccco-jem}
   \begin{aligned}
@@ -132,9 +132,9 @@ We can make the connection to energy-based modeling more explicit by restating t
   \end{aligned} 
 \end{equation}
 
-since $\Delta\mathcal{E}_{\theta}(\cdot)$ is equivalent to the generative loss function $L_{\text{gen}}(\cdot)$. In fact, this is also true for $\lambda L_{\text{reg}}(\theta)\ne0$ since we use the Ridge penalty $L_{\text{reg}}(\theta)$ in the counterfactual search just like we do in joint-energy training. This detail was omitted from the body of the paper for the sake of simplicity. 
+where we have simply used the JEM loss function as $\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)$.
 
-Aside from the additional penalties in Equation~\ref{eq:eccco-app}, the only key difference between our counterfactual search objective and the joint-energy training objective is the parameter that is being optimized. In joint-energy training we optimize the objective with respect to the network weights $\theta$. Recall that $\mathcal{E}_{\theta}(\mathbf{x}|\mathbf{y})=\mu_{\theta}(\mathbf{x})[\mathbf{y}]$. Then the partial gradient with respect to the generative loss component can be expressed as follows:
+Now note that aside from the additional penalties in Equation~\ref{eq:eccco-app}, the only key difference between our counterfactual search objective and the joint-energy training objective is the parameter that is being optimized. In joint-energy training we optimize the objective with respect to the network weights $\theta$. Recall that $\mathcal{E}_{\theta}(\mathbf{x}|\mathbf{y})=\mu_{\theta}(\mathbf{x})[\mathbf{y}]$. Then the partial gradient with respect to the generative loss component of $L_{\text{JEM}}(\theta)$ can be expressed as follows:
 
 \begin{equation}\label{eq:jem-grad}
   \begin{aligned}
@@ -142,15 +142,23 @@ Aside from the additional penalties in Equation~\ref{eq:eccco-app}, the only key
   \end{aligned}
 \end{equation}
 
-During the counterfactual search, we take the network parameters as fixed and instead optimize with respect to the counterfactual itself,
+During the counterfactual search, we take the network parameters as fixed and instead optimize with respect to the counterfactual itself\footnote{Here we omit the notion of a latent search space to make the comparison easier.},
 
 \begin{equation}\label{eq:ce-grad}
   \begin{aligned}
-    \nabla_{\mathbf{x}}L_{\text{gen}}(\theta) &= \nabla_{\mathbf{x}}\mu_{\theta}(\mathbf{x})[\mathbf{y}]- \nabla_{\mathbf{x}}\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}]
+    \nabla_{\mathbf{x}}L_{\text{gen}}(\theta) &= \nabla_{\mathbf{x}}\mu_{\theta}(\mathbf{x})[\mathbf{y}^+]- \nabla_{\mathbf{x}}\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}^+]=\nabla_{\mathbf{x}}\mu_{\theta}(\mathbf{x})[\mathbf{y}^+]=\nabla_{\mathbf{x}}\mathcal{E}_{\theta}(\mathbf{x}|\mathbf{y}^+)
   \end{aligned}
 \end{equation}
 
-where we omit the notion of a latent search space to make the comparison easier. Intuitively, taking iterative gradient steps according to Equation~\ref{eq:ce-grad} has the effect of decreasing the energy of the counterfactual until it is in balance with the energy of conditional samples generated through SGLD.
+where the second term is equal to zero because $\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}]$ is invariant with respect to $\mathbf{x}$. Since this term has zero gradients, we can remove it from the loss function altogether. For the regularization loss component of $L_{\text{JEM}}(\theta)$ we can proceed analogously such that we can rewrite Equation~\ref{eq:eccco-jem} as follows:
+
+\begin{equation} \label{eq:eccco-jem-2}
+  \begin{aligned}
+  \mathbf{Z}^\prime =& \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^L} \{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+) + \mathcal{E}_{\theta}(f(\mathbf{Z}^\prime)|\mathbf{y}^+) + || \mathcal{E}_{\theta}(f(\mathbf{Z}^\prime)|\mathbf{y}^+) ||_2^2} \\ &+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) }  + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
+  \end{aligned} 
+\end{equation}
+
+Now we notice that Equation~\ref{eq:eccco-jem-2} is equivalent to Equation~\ref{eq:eccco-app} for $\lambda_2=1$. For the sake of simplicity, we omitted the regularization component from Equation~\ref{eq:eccco} in the main text. Intuitively, taking iterative gradient steps according to Equation~\ref{eq:ce-grad} has the effect of constraining the energy of the counterfactual until. The generative property of the underlying model implicitly enters this equation through $\theta$.
 
 \subsubsection{A Note on Convergence}
 
