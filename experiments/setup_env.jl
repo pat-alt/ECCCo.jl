@@ -25,7 +25,6 @@ using MLJEnsembles
 using MLJFlux
 using Random
 using Serialization
-using TidierData
 
 import MPI
 

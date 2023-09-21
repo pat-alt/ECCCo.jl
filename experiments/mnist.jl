@@ -25,7 +25,7 @@ add_models = Dict(
 )
 
 # CE measures (add cosine distance):
-ce_measures = [CE_MEASURES..., ECCCo.distance_from_energy_cosine, ECCCo.distance_from_targets_cosine]
+ce_measures = [CE_MEASURES..., ECCCo.distance_from_energy_ssim, ECCCo.distance_from_targets_ssim]
 
 # Parameter choices:
 params = (

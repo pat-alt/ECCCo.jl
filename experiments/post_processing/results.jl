@@ -30,7 +30,7 @@ plausibility(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, 
 
 Helper function to quickly filter a benchmark table for the distance from targets: the smaller this distance, the higher the plausibility.
 """
-plausibility_image(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance_from_targets_cosine"], kwrgs...)
+plausibility_image(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance_from_targets_ssim"], kwrgs...)
 
 """
     faithfulness(outcome::ExperimentOutcome)
@@ -44,7 +44,7 @@ faithfulness(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, 
 
 Helper function to quickly filter a benchmark table for the distance from energy: the smaller this distance, the higher the faithfulness.
 """
-faithfulness_image(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance_from_energy_cosine"], kwrgs...)
+faithfulness_image(outcome::ExperimentOutcome; kwrgs...) = summarise_outcome(outcome, measure=["distance_from_energy_ssim"], kwrgs...)
 
 """
     closeness(outcome::ExperimentOutcome)
