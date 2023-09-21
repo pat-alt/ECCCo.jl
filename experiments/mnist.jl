@@ -45,7 +45,7 @@ params = (
     Λ=[0.1, 0.25, 0.25],
     Λ_Δ=[0.1, 0.1, 1.0],
     opt=Flux.Optimise.Descent(0.1),
-    reg_strength = 0.0,
+    reg_strength = 0.01,
     ce_measures=ce_measures,
 )
 

@@ -52,10 +52,22 @@ function grid_search(
     end
 end
 
+const ALL_ECCCO_NAMES = [
+    "ECCCo",
+    "ECCCo (no CP)",
+    "ECCCo (no EBM)",
+    "ECCCo-Δ",
+    "ECCCo-Δ (no CP)",
+    "ECCCo-Δ (no EBM)",
+]
+
 const ECCCO_NAMES = [
     "ECCCo",
     "ECCCo (no CP)",
     "ECCCo (no EBM)",
+]
+
+const ECCCo_Δ_NAMES = [
     "ECCCo-Δ",
     "ECCCo-Δ (no CP)",
     "ECCCo-Δ (no EBM)",
@@ -66,7 +78,7 @@ const ECCCO_NAMES = [
 
 Returns the best outcome from grid search results. The best outcome is defined as the one with the lowest average rank across all datasets and variables for the specified generator and measure.
 """
-function best_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure=["distance_from_energy", "distance_from_targets"], model::Union{Nothing,AbstractArray}=nothing)
+function best_outcome(outcomes::Dict; generator=ALL_ECCCO_NAMES, measure=["distance_from_energy_l2", "distance_from_targets_l2"], model::Union{Nothing,AbstractArray}=nothing)
     ranks = []
     for (params, outcome) in outcomes
         _ranks = generator_rank(outcome; generator=generator, measure=measure, model=model) |>
@@ -82,16 +94,16 @@ function best_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure=["distance_
     return best_outcome
 end
 
-best_eccco(outcomes) = best_outcome(outcomes; generator=["ECCCo"], measure=["distance_from_energy", "distance_from_targets"])
+best_eccco(outcomes) = best_outcome(outcomes; generator=ECCCO_NAMES)
 
-best_eccco_Δ(outcomes) = best_outcome(outcomes; generator=["ECCCo-Δ"], measure=["distance_from_energy", "distance_from_targets"])
+best_eccco_Δ(outcomes) = best_outcome(outcomes; generator=ECCCo_Δ_NAMES)
 
 """
     best_absolute_outcome(outcomes; generator=ECCCO_NAMES, measure="distance_from_energy")
 
 Return the best outcome from grid search results. The best outcome is defined as the one with the lowest average value across all datasets and variables for the specified generator and measure.
 """
-function best_absolute_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure::String="distance_from_energy", model::Union{Nothing,AbstractArray}=nothing)
+function best_absolute_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure::String="distance_from_energy_l2", model::Union{Nothing,AbstractArray}=nothing)
     avg_values = []
     for (params, outcome) in outcomes
         # Compute:
@@ -113,6 +125,21 @@ function best_absolute_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure::S
     )
 end
 
-best_absolute_outcome_eccco(outcomes) = best_absolute_outcome(outcomes; generator=["ECCCo"], measure="distance_from_energy")
+best_absolute_outcome_eccco(outcomes) = best_absolute_outcome(outcomes; generator=ECCCO_NAMES)
 
-best_absolute_outcome_eccco_Δ(outcomes) = best_absolute_outcome(outcomes; generator=["ECCCo-Δ"], measure="distance_from_energy")
+best_absolute_outcome_eccco_Δ(outcomes) = best_absolute_outcome(outcomes; generator=ECCCo_Δ_NAMES)
+
+"""
+    append_best_params!(params::NamedTuple, dataname::String)
+
+Appends the best parameters from grid search results to the specified parameters.
+"""
+function append_best_params!(params::NamedTuple, dataname::String)
+    if !isfile(joinpath(DEFAULT_OUTPUT_PATH, "grid_search", "$(replace(lowercase(dataname), " " => "_")).jls"))
+        @warn "No grid search results found. Using default parameters."
+    else
+        grid_search_results = Serialization.deserialize(joinpath(DEFAULT_OUTPUT_PATH, "grid_search", "$(replace(lowercase(dataname), " " => "_")).jls"))
+        best_params = best_eccco_Δ(grid_search_results).params
+        params = (; params..., best_params...)
+    end
+end

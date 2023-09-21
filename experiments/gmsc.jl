@@ -21,6 +21,9 @@ params = (
     opt = Flux.Optimise.Descent(0.05)
 )
 
+# Best grid search params:
+append_best_params!(params, dataname)
+
 if !GRID_SEARCH
     run_experiment(
         counterfactual_data, test_data;
