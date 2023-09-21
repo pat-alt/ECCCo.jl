@@ -83,10 +83,10 @@ Computes the distance from the counterfactual to generated conditional samples.
 """
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=50, niter=500, from_buffer=true, agg=mean, 
+    n::Int=10, niter=500, from_buffer=true, agg=mean, 
     choose_lowest_energy=true,
     choose_random=false,
-    nmin::Int=25,
+    nmin::Int=10,
     return_conditionals=false,
     p::Int=1,
     kwargs...
