@@ -50,35 +50,19 @@ function energy_delta(
     kwargs...
 )
 
-    conditional_samples = []
-    ignore_derivatives() do 
-        _dict = ce.params
-        if !(:energy_sampler ∈ collect(keys(_dict)))
-            _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
-        end
-        eng_sampler = _dict[:energy_sampler]
-        xsampled = rand(eng_sampler, ce.num_counterfactuals; from_buffer=from_buffer)
-        push!(conditional_samples, xsampled)
-    end
-
-    xgenerated = conditional_samples[1]                         # conditional samples
     xproposed = CounterfactualExplanations.decode_state(ce)     # current state
     t = get_target_index(ce.data.y_levels, ce.target)
     E(x) = -logits(ce.M, x)[t,:]                                # negative logits for taraget class
 
     # Generative loss:
-    gen_loss = E(xproposed) .- E(xgenerated)
+    gen_loss = E(xproposed)
     gen_loss = reduce((x, y) -> x + y, gen_loss) / length(gen_loss)                  # aggregate over samples
 
     # Regularization loss:
-    reg_loss = E(xgenerated).^2 .+ E(xproposed).^2
+    reg_loss = E(xproposed).^2
     reg_loss = reduce((x, y) -> x + y, reg_loss) / length(reg_loss)                  # aggregate over samples
 
-    if !return_conditionals
-        return gen_loss + reg_strength * reg_loss
-    else
-        return conditional_samples[1]
-    end
+    return gen_loss + reg_strength * reg_loss
 
 end
 

@@ -138,6 +138,7 @@ function append_best_params!(params::NamedTuple, dataname::String)
     if !isfile(joinpath(DEFAULT_OUTPUT_PATH, "grid_search", "$(replace(lowercase(dataname), " " => "_")).jls"))
         @warn "No grid search results found. Using default parameters."
     else
+        @info "Appending best parameters from grid search results."
         grid_search_results = Serialization.deserialize(joinpath(DEFAULT_OUTPUT_PATH, "grid_search", "$(replace(lowercase(dataname), " " => "_")).jls"))
         best_params = best_eccco_Δ(grid_search_results).params
         params = (; params..., best_params...)

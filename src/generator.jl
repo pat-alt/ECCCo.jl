@@ -17,9 +17,9 @@ function ECCCoGenerator(;
 )
 
     # Default ECCCo parameters
-    nsamples = isnothing(nsamples) ? 50 : nsamples
-    nmin = isnothing(nmin) ? 25 : nmin
-    niter = isnothing(niter) ? 500 : niter
+    nsamples = isnothing(nsamples) ? 10 : nsamples
+    nmin = isnothing(nmin) ? 1 : nmin
+    niter = isnothing(niter) ? 100 : niter
 
     # Default optimiser
     if isnothing(opt)

@@ -148,12 +148,11 @@ const GRID_SEARCH = "grid_search" ∈ ARGS
 
 "Generator tuning parameters."
 DEFAULT_GENERATOR_TUNING = (
-    nsamples=[10, 50],
-    niter_eccco=[10, 50],
     Λ=[
         [0.1, 0.1, 0.1],
         [0.1, 0.2, 0.2],
         [0.1, 0.5, 0.5],
+        [0.1, 0.1, 1.0],
     ],
     reg_strength=[0.0, 0.1, 0.5],
     opt=[
@@ -165,8 +164,6 @@ DEFAULT_GENERATOR_TUNING = (
 
 "Generator tuning parameters for large datasets."
 DEFAULT_GENERATOR_TUNING_LARGE = (
-    nsamples=[10, 30],
-    niter_eccco=[10, 30],
     Λ=[
         [0.1, 0.1, 0.1],
         [0.1, 0.5, 0.5],
@@ -175,6 +172,7 @@ DEFAULT_GENERATOR_TUNING_LARGE = (
     reg_strength=[0.0, 0.1, 0.5],
     opt=[
         Flux.Optimise.Descent(0.1),
+        Flux.Optimise.Descent(0.05),
         Flux.Optimise.Descent(0.01),
     ],
 )
