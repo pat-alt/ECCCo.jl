@@ -31,7 +31,7 @@ ce_measures = [CE_MEASURES..., ECCCo.distance_from_energy_ssim, ECCCo.distance_f
 
 # Parameter choices:
 params = (
-    n_individuals=N_IND_SPECIFIED ? N_IND : 5,
+    n_individuals=N_IND_SPECIFIED ? N_IND : 10,
     builder=default_builder(n_hidden=128, n_layers=1, activation=Flux.swish),
     𝒟x=Uniform(-1.0, 1.0),
     α=[1.0, 1.0, 1e-2],
@@ -44,9 +44,9 @@ params = (
     nsamples=10,
     nmin=1,
     niter_eccco=10,
-    Λ=[0.1, 0.25, 0.25],
-    Λ_Δ=[0.1, 0.1, 1.0],
-    opt=Flux.Optimise.Descent(0.25),
+    Λ=[0.01, 0.25, 0.25],
+    Λ_Δ=[0.01, 0.1, 1.0],
+    opt=Flux.Optimise.Descent(0.1),
     reg_strength = 0.01,
     ce_measures=ce_measures,
 )

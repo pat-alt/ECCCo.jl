@@ -18,7 +18,7 @@ function default_generators(;
         generator_dict = Dict(
             "Wachter" => WachterGenerator(λ=λ₁, opt=opt),
             "REVISE" => REVISEGenerator(λ=λ₁, opt=opt),
-            "Schut" => GreedyGenerator(),
+            "Schut" => GreedyGenerator(η=opt.eta),
             "ECCCo" => ECCCoGenerator(λ=Λ, opt=opt, use_class_loss=use_class_loss, nsamples=nsamples, nmin=nmin, niter=niter_eccco),
             "ECCCo (no CP)" => ECCCoGenerator(λ=[λ₁, 0.0, λ₃], opt=opt, use_class_loss=use_class_loss, nsamples=nsamples, nmin=nmin, niter=niter_eccco),
             "ECCCo (no EBM)" => ECCCoGenerator(λ=[λ₁, λ₂, 0.0], opt=opt, use_class_loss=use_class_loss, nsamples=nsamples, nmin=nmin, niter=niter_eccco),
