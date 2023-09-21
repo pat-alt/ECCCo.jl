@@ -25,6 +25,7 @@ using MLJEnsembles
 using MLJFlux
 using Random
 using Serialization
+using Statistics
 
 import MPI
 
@@ -158,7 +159,6 @@ DEFAULT_GENERATOR_TUNING = (
         Flux.Optimise.Descent(0.1), 
         Flux.Optimise.Descent(0.05),
         Flux.Optimise.Descent(0.01),
-        Flux.Optimise.Descent(0.001),
     ],
 )
 

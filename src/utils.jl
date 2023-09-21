@@ -58,5 +58,5 @@ Computes 1-SSIM between two images.
 function ssim_dist(x, y)
     x = convert2mnist(x)
     y = convert2mnist(y)
-    return 1 - assess_ssim(x, y)
+    return (1 - assess_ssim(x, y))/2
 end

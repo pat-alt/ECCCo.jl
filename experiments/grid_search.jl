@@ -78,12 +78,23 @@ const ECCCo_Δ_NAMES = [
 
 Returns the best outcome from grid search results. The best outcome is defined as the one with the lowest average rank across all datasets and variables for the specified generator and measure.
 """
-function best_outcome(outcomes::Dict; generator=ALL_ECCCO_NAMES, measure=["distance_from_energy_l2", "distance_from_targets_l2"], model::Union{Nothing,AbstractArray}=nothing)
+function best_outcome(
+    outcomes::Dict; 
+    generator=ALL_ECCCO_NAMES, 
+    measure=["distance_from_energy_l2", "distance_from_targets_l2"], 
+    model::Union{Nothing,AbstractArray}=nothing,
+    weights::Union{Nothing,AbstractArray}=nothing
+)
+
+    weights = isnothing(weights) ? ones(length(measure)) : weights
+    df_weights = DataFrame(variable=measure, weight=weights)
+
     ranks = []
     for (params, outcome) in outcomes
         _ranks = generator_rank(outcome; generator=generator, measure=measure, model=model) |>
-                x -> x.avg_rank |>
-                x -> (sum(x) / length(x))[1]
+            x -> leftjoin(x, df_weights, on=:variable) |>
+            x -> x.avg_rank .* x.weight |>
+            x -> (sum(x) / length(x))[1]
         push!(ranks, _ranks)
     end
     best_index = argmin(ranks)
@@ -94,9 +105,9 @@ function best_outcome(outcomes::Dict; generator=ALL_ECCCO_NAMES, measure=["dista
     return best_outcome
 end
 
-best_eccco(outcomes) = best_outcome(outcomes; generator=ECCCO_NAMES)
+best_eccco(outcomes; kwrgs...) = best_outcome(outcomes; generator=ECCCO_NAMES, kwrgs...)
 
-best_eccco_Δ(outcomes) = best_outcome(outcomes; generator=ECCCo_Δ_NAMES)
+best_eccco_Δ(outcomes; kwrgs...) = best_outcome(outcomes; generator=ECCCo_Δ_NAMES, kwrgs...)
 
 """
     best_absolute_outcome(outcomes; generator=ECCCO_NAMES, measure="distance_from_energy")
@@ -125,9 +136,9 @@ function best_absolute_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure::S
     )
 end
 
-best_absolute_outcome_eccco(outcomes) = best_absolute_outcome(outcomes; generator=ECCCO_NAMES)
+best_absolute_outcome_eccco(outcomes; kwrgs...) = best_absolute_outcome(outcomes; generator=ECCCO_NAMES, kwrgs...)
 
-best_absolute_outcome_eccco_Δ(outcomes) = best_absolute_outcome(outcomes; generator=ECCCo_Δ_NAMES)
+best_absolute_outcome_eccco_Δ(outcomes; kwrgs...) = best_absolute_outcome(outcomes; generator=ECCCo_Δ_NAMES, kwrgs...)
 
 """
     append_best_params!(params::NamedTuple, dataname::String)

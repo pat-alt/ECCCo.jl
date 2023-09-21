@@ -3,6 +3,8 @@ dataname = "MNIST"
 n_obs = 10000
 counterfactual_data = load_mnist(n_obs)
 counterfactual_data.X = ECCCo.pre_process.(counterfactual_data.X)
+# Adjust domain constraints to account for noise added during pre-processing:
+counterfactual_data.domain = fill((minimum(counterfactual_data.X), maximum(counterfactual_data.X)), size(counterfactual_data.X, 1))
 
 # VAE (trained on full dataset):
 using CounterfactualExplanations.Models: load_mnist_vae
@@ -44,7 +46,7 @@ params = (
     niter_eccco=10,
     Λ=[0.1, 0.25, 0.25],
     Λ_Δ=[0.1, 0.1, 1.0],
-    opt=Flux.Optimise.Descent(0.1),
+    opt=Flux.Optimise.Descent(0.25),
     reg_strength = 0.01,
     ce_measures=ce_measures,
 )
