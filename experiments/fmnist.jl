@@ -35,7 +35,7 @@ ce_measures = [CE_MEASURES..., ECCCo.distance_from_energy_ssim, ECCCo.distance_f
 
 # Parameter choices:
 params = (
-    n_individuals=N_IND_SPECIFIED ? N_IND : 2,
+    n_individuals=N_IND_SPECIFIED ? N_IND : 100,
     builder=default_builder(n_hidden=128, n_layers=1, activation=Flux.swish),
     𝒟x=Uniform(-1.0, 1.0),
     α=[1.0, 1.0, 1e-2],
