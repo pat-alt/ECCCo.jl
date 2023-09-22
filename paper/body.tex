@@ -152,20 +152,12 @@ We begin by stating our proposed objective function, which involves tailored los
 
 \begin{equation} \label{eq:eccco}
   \begin{aligned}
-  \mathbf{Z}^\prime &= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^L} \{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)}+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) } \\
-  &+ \lambda_2 \Delta\mathcal{E}_{\theta}(\mathbf{Z}^\prime,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
+  \mathbf{Z}^\prime =& \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^L} \{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)}+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) } \\
+  &+ \lambda_2 \mathcal{E}_{\theta}(f(\mathbf{Z}^\prime)) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
   \end{aligned} 
 \end{equation}
 
-The first penalty term involving $\lambda_1$ induces proximity like in~\citet{wachter2017counterfactual}. Our default choice for $\text{dist}(\cdot)$ is the L1 Norm due to its sparsity-inducing properties. The second penalty term involving $\lambda_2$ induces faithfulness by constraining the energy of the generated counterfactual where we have:
-
-\begin{equation} \label{eq:energy-delta}
-  \begin{aligned}
-    \Delta\mathcal{E}_{\theta}&=\mathcal{E}_{\theta}(f(\mathbf{Z}^\prime)|\mathbf{y}^+)-\mathcal{E}_{\theta}(x|\mathbf{y}^+) &&& x \sim \widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}
-  \end{aligned}
-\end{equation}
-
-In particular, this penalty ensures that the energy of the generated counterfactual is in balance with the energy of the generated conditional samples ($\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}$). The third and final penalty term involving $\lambda_3$ ensures that the generated counterfactual is associated with low predictive uncertainty.
+The first penalty term involving $\lambda_1$ induces proximity like in~\citet{wachter2017counterfactual}. Our default choice for $\text{dist}(\cdot)$ is the L1 Norm due to its sparsity-inducing properties. The second penalty term involving $\lambda_2$ induces faithfulness by constraining the energy of the generated counterfactual. The third and final penalty term involving $\lambda_3$ ensures that the generated counterfactual is associated with low predictive uncertainty.
 
 \begin{figure}
   \centering
