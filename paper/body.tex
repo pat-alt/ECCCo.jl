@@ -159,35 +159,17 @@ We begin by stating our proposed objective function, which involves tailored los
 
 The first penalty term involving $\lambda_1$ induces proximity like in~\citet{wachter2017counterfactual}. Our default choice for $\text{dist}(\cdot)$ is the L1 Norm due to its sparsity-inducing properties. The second penalty term involving $\lambda_2$ induces faithfulness by constraining the energy of the generated counterfactual. The third and final penalty term involving $\lambda_3$ ensures that the generated counterfactual is associated with low predictive uncertainty.
 
+The objective defined in Equation~\ref{eq:eccco} is closely related to the training objective of energy-based models, which involves a generative loss component that measures the difference in energies of observed and generated samples. The key observation in our context is that we can rely solely on the energy of the counterfactual itself. By simply constraining $\mathcal{E}_{\theta}(f(\mathbf{Z}^\prime))$ we can induce counterfactuals that faithfully represent the generative property of the underlying model, which is implicitly captured by its parameters $\theta$. Importantly, this means that we do not need to generate conditional samples through SGLD at all. For a detailed discussion of this please see Appendix~\ref{app:eccco}.
+
 \begin{figure}
   \centering
   \includegraphics[width=1.0\linewidth]{../artifacts/results/images/poc_gradient_fields.png}
   \caption{Gradient fields and counterfactual paths for different generators. The objective is to generate a counterfual in the `blue' class for a sample from the `orange' class. Bright yellow stars indicate conditional samples generated through SGLD. The underlying classifier is a Joint Energy Model.}\label{fig:poc}
-\end{figure}
-
-\begin{algorithm*}
-  \caption{The \textit{ECCCo} generator}\label{alg:eccco}
-  \begin{algorithmic}[1]
-    \Require $\mathbf{x}, \mathbf{y}^+, M_{\theta}, f, \Lambda=[\lambda_1,\lambda_2,\lambda_3], \alpha, \mathcal{D}, T, \eta, n_{\mathcal{B}}, n_E$ where $M_{\theta}(\mathbf{x})\neq\mathbf{y}^+$
-    \Ensure $\mathbf{x}^\prime$
-    \State Initialize $\mathbf{z}^\prime \gets f^{-1}(\mathbf{x})$ \Comment{Map to counterfactual state space.}
-    \State Generate $\left\{\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}\right\}_{n_{\mathcal{B}}} \gets p_{\theta}(\mathbf{x}_{\mathbf{y}^+})$ \Comment{Generate $n_{\mathcal{B}}$ samples using SGLD (Equation~\ref{eq:sgld}).}
-    \State Store $\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+} \gets \left\{\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}\right\}_{n_{\mathcal{B}}}$ \Comment{Choose $n_E$ lowest-energy samples.}
-    \State Run \textit{SCP} for $M_{\theta}$ using $\mathcal{D}$ \Comment{Calibrate model through split conformal prediction.}
-    \State Initialize $t \gets 0$
-    \While{\textit{not converged} or $t < T$} \Comment{For convergence conditions see Appendix~\ref{app:eccco}.}
-    \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
-    \State $t \gets t+1$
-    \EndWhile
-    \State $\mathbf{x}^\prime \gets f(\mathbf{z}^\prime)$ \Comment{Map back to feature space.}
-  \end{algorithmic}
-\end{algorithm*}
+\end{figure}  
 
 Figure~\ref{fig:poc} illustrates how the different components in Equation~\ref{eq:eccco} affect the counterfactual search for a synthetic dataset. The underlying classifier is a Joint Energy Model (\textit{JEM}) that was trained to predict the output class (`blue' or `orange') and generate class-conditional samples~\citep{grathwohl2020your}. We have used four different generator flavours to produce a counterfactual in the `blue' class for a sample from the `orange' class: \textit{Wachter}, which only uses the first penalty ($\lambda_2=\lambda_3=0$); \textit{ECCCo (no EBM)}, which does not constrain energy ($\lambda_2=0$); \textit{ECCCo (no CP)}, which involves no set size penalty ($\lambda_3=0$); and, finally, \textit{ECCCo}, which involves all penalties defined in Equation~\ref{eq:eccco}. Arrows indicate (negative) gradients with respect to the objective function at different points in the feature space. 
 
 While \textit{Wachter} generates a valid counterfactual, it ends up close to the original starting point consistent with its objective. \textit{ECCCo (no EBM)} pushes the counterfactual further into the target domain to minimize predictive uncertainty, but the outcome is still not plausible. The counterfactual produced by \textit{ECCCo (no CP)} is attracted by the generated samples shown in bright yellow. Since the \textit{JEM} has learned the conditional input distribution reasonably well in this case, the counterfactuals are both faithful and plausible. Finally, the outcome for \textit{ECCCo} looks similar, but the additional smooth set size penalty leads to somewhat faster convergence. 
-
-Algorithm~\ref{alg:eccco} describes how exactly \textit{ECCCo} works. For the sake of simplicity and without loss of generality, we limit our attention to generating a single counterfactual $\mathbf{x}^\prime=f(\mathbf{z}^\prime)$. The counterfactual state $\mathbf{z}^\prime$ is initialized by passing the factual $\mathbf{x}$ through a simple feature transformer $f^{-1}$. Next, we generate $n_{\mathcal{B}}$ conditional samples $\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}$ using SGLD (Equation~\ref{eq:sgld}) and store the $n_E$ instances with the lowest energy. We then calibrate the model $M_{\theta}$ through split conformal prediction. Finally, we search counterfactuals through gradient descent where $\mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ denotes our loss function defined in Equation~\ref{eq:eccco}. The search terminates once the convergence criterium is met or the maximum number of iterations $T$ has been exhausted. Note that the choice of convergence criterium has important implications on the final counterfactual which we explain in Appendix~\ref{app:eccco}.
 
 \section{Empirical Analysis}\label{emp}
 
