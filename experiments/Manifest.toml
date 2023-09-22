@@ -2,7 +2,7 @@
 
 julia_version = "1.9.3"
 manifest_format = "2.0"
-project_hash = "8d70a060aa859d64c7cd79f355d7d1cbb0671ca7"
+project_hash = "0a415d28608389ad9ae62c04d7b53f2cbcb4439a"
 
 [[deps.ARFFFiles]]
 deps = ["CategoricalArrays", "Dates", "Parsers", "Tables"]
@@ -417,7 +417,7 @@ version = "0.6.3"
 
 [[deps.CounterfactualExplanations]]
 deps = ["CSV", "CUDA", "CategoricalArrays", "ChainRulesCore", "DataFrames", "DecisionTree", "Distributions", "EvoTrees", "Flux", "LaplaceRedux", "LazyArtifacts", "LinearAlgebra", "Logging", "MLDatasets", "MLJBase", "MLJDecisionTreeInterface", "MLJModels", "MLUtils", "MultivariateStats", "NearestNeighborModels", "PackageExtensionCompat", "Parameters", "PrecompileTools", "ProgressMeter", "Random", "Serialization", "Statistics", "StatsBase", "Tables", "UUIDs", "cuDNN"]
-git-tree-sha1 = "f637b747e4661137ab396dc1556668d32c951211"
+path = "../../CounterfactualExplanations.jl"
 uuid = "2f13d31b-18db-44c1-bc43-ebaf2cff0be0"
 version = "0.1.26"
 

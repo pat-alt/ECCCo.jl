@@ -60,7 +60,7 @@ function energy_delta(
     gen_loss = reduce((x, y) -> x + y, gen_loss) / length(gen_loss)                  # aggregate over samples
 
     # Regularization loss:
-    reg_loss = E(xproposed).^2
+    reg_loss = norm(E(xproposed))^2
     reg_loss = reduce((x, y) -> x + y, reg_loss) / length(reg_loss)                  # aggregate over samples
 
     return gen_loss + reg_strength * reg_loss
