@@ -42,6 +42,7 @@ Base.@kwdef struct Experiment
     model_tuning_params::NamedTuple = DEFAULT_MODEL_TUNING_SMALL
     use_tuned::Bool = true
     store_ce::Bool = STORE_CE
+    dim_reduction::Bool = false
 end
 
 "A container to hold the results of an experiment."

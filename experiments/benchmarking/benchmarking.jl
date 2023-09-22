@@ -8,6 +8,7 @@ function default_generators(;
     nsamples::Union{Nothing,Int}=nothing,
     nmin::Union{Nothing,Int}=nothing,
     reg_strength::Real=0.5,
+    dim_reduction::Union{Nothing,Int}=nothing,
 )
 
     @info "Begin benchmarking counterfactual explanations."
@@ -35,6 +36,19 @@ function default_generators(;
             "ECCCo-Δ" => ECCCoGenerator(λ=Λ_Δ, opt=opt, use_class_loss=use_class_loss, use_energy_delta=true, nsamples=nsamples, nmin=nmin, niter=niter_eccco, reg_strength=reg_strength),
         )
     end
+
+    # Dimensionality reduction:
+    # If dimensionality reduction is specified, add ECCCo-Δ (latent) to the generator dictionary:
+    if dim_reduction
+        eccco_latent = Dict(
+            "ECCCo-Δ (latent)" => ECCCoGenerator(
+                λ=Λ_Δ, opt=opt, use_class_loss=use_class_loss, use_energy_delta=true, nsamples=nsamples, nmin=nmin, niter=niter_eccco, reg_strength=reg_strength, 
+                dim_reduction=dim_reduction
+            )
+        )
+        generator_dict = merge(generator_dict, eccco_latent)
+    end
+
     return generator_dict
 end
 
@@ -66,6 +80,7 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
             nsamples=exper.nsamples,
             nmin=exper.nmin,
             reg_strength=exper.reg_strength,
+            dim_reduction=exper.dim_reduction,
         )
     end
 

@@ -13,6 +13,7 @@ function ECCCoGenerator(;
     nmin::Union{Nothing,Int}=nothing,
     niter::Union{Nothing,Int}=nothing,
     reg_strength::Real=0.1,
+    dim_reduction::Bool=false,
     kwargs...
 )
 
@@ -44,5 +45,5 @@ function ECCCoGenerator(;
     λ = λ isa AbstractFloat ? [0.0, λ, λ] : λ
 
     # Generator
-    return GradientBasedGenerator(; loss=loss_fun, penalty=_penalties, λ=λ, opt=opt, kwargs...)
+    return GradientBasedGenerator(; loss=loss_fun, penalty=_penalties, λ=λ, opt=opt, dim_reduction=dim_reduction, kwargs...)
 end
