@@ -8,7 +8,7 @@ function default_generators(;
     nsamples::Union{Nothing,Int}=nothing,
     nmin::Union{Nothing,Int}=nothing,
     reg_strength::Real=0.5,
-    dim_reduction::Union{Nothing,Int}=nothing,
+    dim_reduction::Bool=false,
 )
 
     @info "Begin benchmarking counterfactual explanations."

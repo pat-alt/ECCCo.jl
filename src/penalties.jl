@@ -4,7 +4,6 @@ using Distances
 using Flux
 using Images: assess_ssim
 using LinearAlgebra: norm
-using MultivariateStats
 using Statistics: mean
 
 """

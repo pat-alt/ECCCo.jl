@@ -13,7 +13,7 @@ counterfactual_data.generative_model = vae
 
 # Dimensionality reduction:
 maxout_dim = vae.params.latent_dim
-counterfactual_data.dt = MultivariateStats.fit(PCA, counterfactual_data.X; maxoutdim=maxout_dim);
+counterfactual_data.dt = MultivariateStats.fit(MultivariateStats.PCA, counterfactual_data.X; maxoutdim=maxout_dim);
 
 # Test data:
 test_data = load_mnist_test()

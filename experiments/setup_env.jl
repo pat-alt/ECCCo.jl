@@ -23,12 +23,12 @@ using MLJ: TunedModel, Grid, CV, fitted_params, report
 using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table, machine, fit!, Supervised
 using MLJEnsembles
 using MLJFlux
-using MultivariateStats
 using Random
 using Serialization
 using Statistics
 
 import MPI
+import MultivariateStats
 
 Random.seed!(2023)
 
