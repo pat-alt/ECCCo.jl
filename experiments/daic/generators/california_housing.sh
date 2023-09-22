@@ -6,7 +6,6 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=general
 #SBATCH --mem-per-cpu=8GB
-#SBATCH --account=research-eemcs-insy
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
 module load 2023r1 openmpi
