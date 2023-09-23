@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name="Grid-search Tabular (ECCCo)"
-#SBATCH --time=04:00:00
+#SBATCH --job-name="Grid-search Circles (ECCCo)"
+#SBATCH --time=02:00:00
 #SBATCH --ntasks=100
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=compute
@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=gmsc,german_credit output_path=results mpi grid_search n_individuals=25 > experiments/grid_search_tabular.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=circles output_path=results mpi grid_search > experiments/grid_search_circles.log
