@@ -94,7 +94,8 @@ function run_experiment(exper::Experiment; save_output::Bool=true, only_models::
 
     if FROM_GRID_SEARCH
         # Just load the best model from the grid search:
-        outcome = Serialization.deserialize(joinpath(exper.output_path, "grid_search", "$(exper.save_name)_best_eccco_delta.jls"))
+        outcomes = Serialization.deserialize(joinpath(exper.output_path, "grid_search", "$(exper.save_name).jls"))
+        outcome = best_absolute_outcome_eccco_Δ(outcomes)
     else
         # Run the experiment:
         outcome = ExperimentOutcome(exper, nothing, nothing, nothing)
