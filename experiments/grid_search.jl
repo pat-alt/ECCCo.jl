@@ -78,12 +78,11 @@ const ECCCo_Δ_NAMES = [
 
 Returns the best outcome from grid search results. The best outcome is defined as the one with the lowest average rank across all datasets and variables for the specified generator and measure.
 """
-function best_outcome(
+function best_rank_outcome(
     outcomes::Dict; 
     generator=ALL_ECCCO_NAMES, 
     measure=["distance_from_energy_l2", "distance_from_targets_l2"], 
     model::Union{Nothing,AbstractArray}=nothing,
-    weights::Union{Nothing,AbstractArray}=nothing
 )
 
     weights = isnothing(weights) ? ones(length(measure)) : weights
@@ -105,30 +104,60 @@ function best_outcome(
     return best_outcome
 end
 
-best_eccco(outcomes; kwrgs...) = best_outcome(outcomes; generator=ECCCO_NAMES, kwrgs...)
+best_rank_eccco(outcomes; kwrgs...) = best_outcome(outcomes; generator=ECCCO_NAMES, kwrgs...)
 
-best_eccco_Δ(outcomes; kwrgs...) = best_outcome(outcomes; generator=ECCCo_Δ_NAMES, kwrgs...)
+best_rank_eccco_Δ(outcomes; kwrgs...) = best_outcome(outcomes; generator=ECCCo_Δ_NAMES, kwrgs...)
 
 """
     best_absolute_outcome(outcomes; generator=ECCCO_NAMES, measure="distance_from_energy")
 
 Return the best outcome from grid search results. The best outcome is defined as the one with the lowest average value across all datasets and variables for the specified generator and measure.
 """
-function best_absolute_outcome(outcomes::Dict; generator=ECCCO_NAMES, measure::String="distance_from_energy_l2", model::Union{Nothing,AbstractArray}=nothing)
+function best_absolute_outcome(
+    outcomes::Dict; 
+    generator=ECCCO_NAMES, 
+    measure::AbstractArray=["distance_from_targets_l2", "distance_from_energy_l2"], 
+    model::Union{Nothing,AbstractArray}=nothing,
+    weights::Union{Nothing,AbstractArray}=nothing
+)
+
+    weights = isnothing(weights) ? ones(length(measure)) : weights
+    df_weights = DataFrame(variable=measure, weight=weights)
+
     avg_values = []
     for (params, outcome) in outcomes
-        # Compute:
-        results = summarise_outcome(outcome, measure=[measure], model=model)
+
+        # Setup
+        evaluation = outcome.bmk.evaluation
+        exper = outcome.exper
+        generator_dict = outcome.generator_dict
+        model_dict = outcome.model_dict
+
         # Adjust variables for which higher is better:
-        higher_is_better = [var ∈ ["validity", "redundancy"] for var in results.variable]
-        results.mean[higher_is_better] .= -results.mean[higher_is_better]
-        # Compute avergaes:
+        higher_is_better = [var ∈ ["validity", "redundancy"] for var in evaluation.variable]
+        evaluation.value[higher_is_better] .= -evaluation.value[higher_is_better]
+
+        # Normalise to allow for comparison across measures:
+        evaluation =
+            groupby(evaluation, [:dataname, :variable]) |>
+            x -> transform(x, :value => standardize => :value)
+
+        # Reconstruct outcome with normalised values:
+        bmk = CounterfactualExplanations.Evaluation.Benchmark(evaluation)
+        outcome = ExperimentOutcome(exper, model_dict, generator_dict, bmk)
+
+        # Compute:
+        results = summarise_outcome(outcome, measure=measure, model=model) |>
+            x -> leftjoin(x, df_weights, on=:variable)
+       
+        # Compute weighted averages:
         _avg_values = subset(results, :generator => ByRow(x -> x ∈ generator)) |>
-            x -> x.mean |>
+            x -> x.mean .* x.weight |>
             x -> (sum(x)/length(x))[1]
+
+        # Append:
         push!(avg_values, _avg_values)
     end
-    println(avg_values)
     best_index = argmin(avg_values)
     best_outcome = (
         params = collect(keys(outcomes))[best_index],

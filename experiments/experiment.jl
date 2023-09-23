@@ -91,26 +91,33 @@ function run_experiment(exper::Experiment; save_output::Bool=true, only_models::
         @info "All parameter choices will be saved to $(exper.params_path)."
         isdir(exper.params_path) || mkdir(exper.params_path)
     end
-    outcome = ExperimentOutcome(exper, nothing, nothing, nothing)
 
-    # Model tuning:
-    if TUNE_MODEL
-        mach = tune_mlp(exper)
-        return mach
-    end
-
-    # Model training:
-    if only_models
-        train_models!(outcome, exper; save_models=save_output, save_meta=true)
-        return outcome
+    if FROM_GRID_SEARCH
+        # Just load the best model from the grid search:
+        outcome = Serialization.deserialize(joinpath(exper.output_path, "grid_search", "$(exper.save_name)_best_eccco_delta.jls"))
     else
-        train_models!(outcome, exper; save_models=save_output)
-    end
+        # Run the experiment:
+        outcome = ExperimentOutcome(exper, nothing, nothing, nothing)
 
-    # Benchmark:
-    benchmark!(outcome, exper)
-    if is_multi_processed(exper)
-        MPI.Barrier(exper.parallelizer.comm)
+        # Model tuning:
+        if TUNE_MODEL
+            mach = tune_mlp(exper)
+            return mach
+        end
+
+        # Model training:
+        if only_models
+            train_models!(outcome, exper; save_models=save_output, save_meta=true)
+            return outcome
+        else
+            train_models!(outcome, exper; save_models=save_output)
+        end
+
+        # Benchmark:
+        benchmark!(outcome, exper)
+        if is_multi_processed(exper)
+            MPI.Barrier(exper.parallelizer.comm)
+        end
     end
 
     # Save data:

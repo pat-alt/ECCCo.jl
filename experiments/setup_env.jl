@@ -195,3 +195,6 @@ DEFAULT_MODEL_TUNING_LARGE = (
 
 "Boolean flag to check if store counterfactual explanations was specified."
 STORE_CE = "store_ce" ∈ ARGS
+
+"Boolean flag to chech if best outcome from grid search should be used."
+FROM_GRID_SEARCH = "from_grid" ∈ ARGS
