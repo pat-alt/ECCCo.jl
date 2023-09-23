@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=circles output_path=results mpi grid_search n_individuals=10 > experiments/grid_search_circles.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=circles output_path=results mpi grid_search n_individuals=25 > experiments/grid_search_circles.log

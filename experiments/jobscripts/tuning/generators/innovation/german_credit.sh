@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search German Credit (ECCCo)"
-#SBATCH --time=04:00:00
+#SBATCH --time=03:00:00
 #SBATCH --ntasks=48
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=compute
@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=german_credit output_path=results mpi grid_search n_individuals=10 > experiments/grid_search_german_credit.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=german_credit output_path=results mpi grid_search n_individuals=50 > experiments/grid_search_german_credit.log
