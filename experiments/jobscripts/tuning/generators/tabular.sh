@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search Tabular (ECCCo)"
-#SBATCH --time=05:00:00
+#SBATCH --time=04:00:00
 #SBATCH --ntasks=100
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=compute
