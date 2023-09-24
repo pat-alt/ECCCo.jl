@@ -278,23 +278,22 @@ kbl(
 # Choices:
 measures <- c(
   "unfaithfulness",
-  "implausibility",
-  "distance"
+  "implausibility"
 )
 measure_names <- c(
   "Unfaithfulness ↓",
-  "Implausibility ↓",
-  "Cost ↓"
+  "Implausibility ↓"
 )
 chosen_source <- "tabular"
 # Order:
 chosen_data <- c(
   "GMSC",
-  "California Housing"
+  "California Housing",
+  "German Credit"
 )
 chosen_model <- c(
   "MLP",
-  "JEM"
+  "JEM",
 )
 
 tab_i <- tab
