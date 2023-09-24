@@ -27,5 +27,10 @@ function bmk2csv(dataname::String)
         DEFAULT_OUTPUT_PATH,
         "$(replace(lowercase(dataname), " " => "_"))_bmk.csv",
     )
-    CSV.write(csv_path, bmk()[:,Not(:ce)])
+    bmk = bmk()
+    if "ce" ∈ names(bmk)
+        CSV.write(csv_path, bmk[:,Not(:ce)])
+    else
+        CSV.write(csv_path, bmk)
+    end
 end
