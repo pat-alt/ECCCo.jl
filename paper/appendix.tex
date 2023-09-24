@@ -6,33 +6,55 @@ The following appendices provide additional details that are relevant to the pap
 
 \subsection{Energy-Based Modelling}\label{app:jem}
 
-Since we were not able to identify any existing open-source software for Energy-Based Modelling that would be flexible enough to cater to our needs, we have developed a \texttt{Julia} package from scratch. The package has been open-sourced, but to avoid compromising the double-blind review process, we refrain from providing more information at this stage. In our development we have heavily drawn on the existing literature:~\citet{du2020implicit} describe best practices for using EBM for generative modelling;~\citet{grathwohl2020your} explain how EBM can be used to train classifiers jointly for the discriminative and generative tasks. We have used the same package for training and inference, but there are some important differences between the two cases that are worth highlighting here.
+Since we were not able to identify any existing open-source software for Energy-Based Modelling that would be flexible enough to cater to our needs, we have developed a \texttt{Julia} package from scratch. The package has been open-sourced, but to avoid compromising the double-blind review process, we refrain from providing more information at this stage. In our development we have heavily drawn on the existing literature:~\citet{du2019implicit} describe best practices for using EBM for generative modelling;~\citet{grathwohl2020your} explain how EBM can be used to train classifiers jointly for the discriminative and generative tasks. We have used the same package for training and inference, but there are some important differences between the two cases that are worth highlighting here.
 
 \subsubsection{Training: Joint Energy Models}
 
-To train our Joint Energy Models we broadly follow the approach outlined in~\citet{grathwohl2020your}. These models are trained to optimize a hybrid objective that involves a standard classification loss component $L_{\text{clf}}(\theta)=-\log p_{\theta}(\mathbf{y}|\mathbf{x})$ (e.g. cross-entropy loss) as well as a generative loss component $L_{\text{gen}}(\theta)=-\log p_{\theta}(\mathbf{x})$. 
+To train our Joint Energy Models we broadly follow the approach outlined in~\citet{grathwohl2020your}. Formally, JEMs are defined by the following joint distribution:
 
-To draw samples from $p_{\theta}(\mathbf{x})$, we rely exclusively on the conditional sampling approach described in~\citet{grathwohl2020your} for both training and inference: we first draw $\mathbf{y}\sim p(\mathbf{y})$ and then sample $\mathbf{x} \sim p_{\theta}(\mathbf{x}|\mathbf{y})$~\citep{grathwohl2020your} via Equation~\ref{eq:sgld} with energy $\mathcal{E}(\mathbf{x}|\mathbf{y})=\mu_{\theta}(\mathbf{x})[\mathbf{y}]$ where $\mu_{\theta}: \mathcal{X} \mapsto \mathbb{R}^K$ returns the linear predictions (logits) of our classifier $M_{\theta}$. While our package also supports unconditional sampling, we found conditional sampling to work well. It is also well aligned with CE, since in this context we are interested in conditioning on the target class. 
+\begin{equation}
+  \begin{aligned}
+    \log p_{\theta}(\mathbf{x},\mathbf{y}) &= \log p_{\theta}(\mathbf{y}|\mathbf{x}) + \log p_{\theta}(\mathbf{x})
+  \end{aligned}
+\end{equation}
+
+Training therefore involves a standard classification loss component $L_{\text{clf}}(\theta)=-\log p_{\theta}(\mathbf{y}|\mathbf{x})$ (e.g. cross-entropy loss) as well as a generative loss component $L_{\text{gen}}(\theta)=-\log p_{\theta}(\mathbf{x})$. Analogous to how we defined the conditional distribution over inputs in Definition~\ref{def:faithful}, $p_{\theta}(\mathbf{x})$ denotes the unconditional distribution over inputs. The model gradient of this component of the loss function can be expressed as follows:
+
+\begin{equation}\label{eq:gen-true}
+  \begin{aligned}
+    \nabla_{\theta}L_{\text{gen}}(\theta)&=-\nabla_{\theta}\log p_{\theta}(\mathbf{x})=-\left(\mathbb{E}_{p(\mathbf{x})} \left\{  \nabla_{\theta} \mathcal{E}_{\theta}(\mathbf{x}) \right\} - \mathbb{E}_{p_{\theta}(\mathbf{x})} \left\{  \nabla_{\theta} \mathcal{E}_{\theta}(\mathbf{x}) \right\} \right)
+  \end{aligned}
+\end{equation}
+
+To draw samples from $p_{\theta}(\mathbf{x})$, we rely exclusively on the conditional sampling approach described in~\citet{grathwohl2020your} for both training and inference: we first draw $\mathbf{y}\sim p(\mathbf{y})$ and then sample $\mathbf{x} \sim p_{\theta}(\mathbf{x}|\mathbf{y})$~\citep{grathwohl2020your} via Equation~\ref{eq:sgld} with energy $\mathcal{E}_{\theta}(\mathbf{x}|\mathbf{y})=\mu_{\theta}(\mathbf{x})[\mathbf{y}]$ where $\mu_{\theta}: \mathcal{X} \mapsto \mathbb{R}^K$ returns the linear predictions (logits) of our classifier $M_{\theta}$. While our package also supports unconditional sampling, we found conditional sampling to work well. It is also well aligned with CE, since in this context we are interested in conditioning on the target class. 
 
 As mentioned in the body of the paper, we rely on a biased sampler involving separately specified values for the step size $\epsilon$ and the standard deviation $\sigma$ of the stochastic term involving $\mathbf{r}$. Formally, our biased sampler performs updates as follows: 
 
 \begin{equation}\label{eq:biased-sgld}
   \begin{aligned}
-    \hat{\mathbf{x}}_{j+1} &\leftarrow \hat{\mathbf{x}}_j - \frac{\epsilon}{2} \mathcal{E}(\hat{\mathbf{x}}_j|\mathbf{y}^+) + \sigma \mathbf{r}_j, && j=1,...,J
+    \hat{\mathbf{x}}_{j+1} &\leftarrow \hat{\mathbf{x}}_j - \frac{\epsilon}{2} \mathcal{E}_{\theta}(\hat{\mathbf{x}}_j|\mathbf{y}^+) + \sigma \mathbf{r}_j, && j=1,...,J
   \end{aligned}
 \end{equation}
 
-Consistent with~\citet{grathwohl2020your}, we have specified $\epsilon=2$ and $\sigma=0.01$ as the default values for all of our experiments. The number of total SGLD steps $J$ varies by dataset (Table~\ref{tab:ebmparams}). Following best practices, we initialize $\mathbf{x}_0$ randomly in 5\% of all cases and sample from a buffer in all other cases. The buffer itself is randomly initialised and gradually grows to a maximum of 10,000 samples during training as $\hat{\mathbf{x}}_{J}$ is stored in each epoch~\citep{du2020implicit,grathwohl2020your}. 
+Consistent with~\citet{grathwohl2020your}, we have specified $\epsilon=2$ and $\sigma=0.01$ as the default values for all of our experiments. The number of total SGLD steps $J$ varies by dataset (Table~\ref{tab:ebmparams}). Following best practices, we initialize $\mathbf{x}_0$ randomly in 5\% of all cases and sample from a buffer in all other cases. The buffer itself is randomly initialised and gradually grows to a maximum of 10,000 samples during training as $\hat{\mathbf{x}}_{J}$ is stored in each epoch~\citep{du2019implicit,grathwohl2020your}. 
 
-It is important to realise that sampling is done during each training epoch, which makes training Joint Energy Models significantly harder than conventional neural classifiers. In each epoch the generated (batch of) sample(s) $\hat{\mathbf{x}}_{J}$ is used as part of the generative loss component, which compares its energy to that of observed samples $\mathbf{x}$: $L_{\text{gen}}(\theta)=\mu_{\theta}(\mathbf{x})[\mathbf{y}]-\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}]$. Our full training objective can be summarized as follows,
+It is important to realise that sampling is done during each training epoch, which makes training Joint Energy Models significantly harder than conventional neural classifiers. In each epoch the generated (batch of) sample(s) $\hat{\mathbf{x}}_{J}$ is used as part of the generative loss component, which compares its energy to that of observed samples $\mathbf{x}$: 
+
+\begin{equation}\label{eq:gen-loss}
+  \begin{aligned}
+    L_{\text{gen}}(\theta)&\approx\mu_{\theta}(\mathbf{x})[\mathbf{y}]-\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}]
+  \end{aligned}
+\end{equation}
+
+Our full training objective can be summarized as follows,
 
 \begin{equation}\label{eq:jem-loss}
   \begin{aligned}
-    L(\theta) &= L_{\text{clf}}(\theta) + L_{\text{gen}}(\theta) + \lambda L_{\text{reg}}(\theta) 
+    L_{\text{JEM}}(\theta) &= L_{\text{clf}}(\theta) + L_{\text{gen}}(\theta) + \lambda L_{\text{reg}}(\theta) 
   \end{aligned}
 \end{equation}
 
-where $L_{\text{reg}}(\theta)$ is a Ridge penalty (L2 norm) that regularises energy magnitudes for both observed and generated samples~\citep{du2020implicit}. We have used varying degrees of regularization depending on the dataset ($\lambda$ in Table~\ref{tab:ebmparams}). 
+where $L_{\text{reg}}(\theta)$ is a Ridge penalty (L2 norm) that regularises energy magnitudes for both observed and generated samples~\citep{du2019implicit}. We have used varying degrees of regularization depending on the dataset ($\lambda$ in Table~\ref{tab:ebmparams}). 
 
 Contrary to existing work, we have not typically used the entire minibatch of training data for the generative loss component but found that using a subset of the minibatch was often sufficient in attaining decent generative performance (Table~\ref{tab:ebmparams}). This has helped to reduce the computational burden for our models, which should make it easier for others to reproduce our findings. Figures~\ref{fig:mnist-gen} and~\ref{fig:moons-gen} show generated samples for our \textit{MNIST} and \textit{Moons} data, to provide a sense of their generative property.
 
@@ -87,9 +109,79 @@ In addition to the smooth set size penalty,~\citet{stutz2022learning} also propo
   \caption{Prediction set size (left), smooth set size loss (centre) and configurable classification loss (right) for a JEM trained on our \textit{Linearly Separable} data.}\label{fig:cp-diff}
 \end{figure}
 
-\subsection{ECCCo}\label{app:eccco}
+\subsection{\textit{ECCCo}}\label{app:eccco}
 
-In this section, we briefly discuss convergence conditions for CE and provide details concerning the actual implementation of our framework in \texttt{Julia}.  
+In this section, we explain \textit{ECCCo} in some more detail, briefly discuss convergence conditions for counterfactual explanations and provide details concerning the actual implementation of our framework in \texttt{Julia}.  
+
+\subsubsection{Deriving the search objective} 
+
+The counterfactual search objective for \textit{ECCCo} was introduced in Equation~\ref{eq:eccco} in the body of the paper. We restate this equation here for reference:
+
+\begin{equation} \label{eq:eccco-app}
+  \begin{aligned}
+  \mathbf{Z}^\prime &= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^L} \{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)}+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) } \\
+  &+ \lambda_2 \mathcal{E}_{\theta}(\mathbf{Z}^\prime,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}) + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
+  \end{aligned} 
+\end{equation}
+
+We can make the connection to energy-based modeling more explicit by restating the counterfactual search objective in terms $L_{\text{JEM}}(\theta)$, which we defined in Equation~\ref{eq:jem-loss}. In particular, consider the following counterfactual search objective,
+
+\begin{equation} \label{eq:eccco-jem}
+  \begin{aligned}
+  \mathbf{Z}^\prime &= \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^L} \{  {L_{\text{JEM}}(\theta;M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)}+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) }  + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
+  \end{aligned} 
+\end{equation}
+
+where we have simply used the JEM loss function as $\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+)$.
+
+Now note that aside from the additional penalties in Equation~\ref{eq:eccco-app}, the only key difference between our counterfactual search objective and the joint-energy training objective is the parameter that is being optimized. In joint-energy training we optimize the objective with respect to the network weights $\theta$. Recall that $\mathcal{E}_{\theta}(\mathbf{x}|\mathbf{y})=\mu_{\theta}(\mathbf{x})[\mathbf{y}]$. Then the partial gradient with respect to the generative loss component of $L_{\text{JEM}}(\theta)$ can be expressed as follows:
+
+\begin{equation}\label{eq:jem-grad}
+  \begin{aligned}
+    \nabla_{\theta}L_{\text{gen}}(\theta) &= \nabla_{\theta}\mu_{\theta}(\mathbf{x})[\mathbf{y}]- \nabla_{\theta}\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}]
+  \end{aligned}
+\end{equation}
+
+During the counterfactual search, we take the network parameters as fixed and instead optimize with respect to the counterfactual itself\footnote{Here we omit the notion of a latent search space to make the comparison easier.},
+
+\begin{equation}\label{eq:ce-grad}
+  \begin{aligned}
+    \nabla_{\mathbf{x}}L_{\text{gen}}(\theta) &= \nabla_{\mathbf{x}}\mu_{\theta}(\mathbf{x})[\mathbf{y}^+]- \nabla_{\mathbf{x}}\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}^+]=\nabla_{\mathbf{x}}\mu_{\theta}(\mathbf{x})[\mathbf{y}^+]=\nabla_{\mathbf{x}}\mathcal{E}_{\theta}(\mathbf{x}|\mathbf{y}^+)
+  \end{aligned}
+\end{equation}
+
+where the second term is equal to zero because $\mu_{\theta}(\hat{\mathbf{x}}_{J})[\mathbf{y}]$ is invariant with respect to $\mathbf{x}$. Since this term has zero gradients, we can remove it from the loss function altogether. For the regularization loss component of $L_{\text{JEM}}(\theta)$ we can proceed analogously such that we can rewrite Equation~\ref{eq:eccco-jem} as follows:
+
+\begin{equation} \label{eq:eccco-jem-2}
+  \begin{aligned}
+  \mathbf{Z}^\prime =& \arg \min_{\mathbf{Z}^\prime \in \mathcal{Z}^L} \{  {\text{yloss}(M_{\theta}(f(\mathbf{Z}^\prime)),\mathbf{y}^+) + \mathcal{E}_{\theta}(f(\mathbf{Z}^\prime)|\mathbf{y}^+) + || \mathcal{E}_{\theta}(f(\mathbf{Z}^\prime)|\mathbf{y}^+) ||_2^2} \\ &+ \lambda_{1} {\text{dist}(f(\mathbf{Z}^\prime),\mathbf{x}) }  + \lambda_3 \Omega(C_{\theta}(f(\mathbf{Z}^\prime);\alpha)) \} 
+  \end{aligned} 
+\end{equation}
+
+Now we notice that Equation~\ref{eq:eccco-jem-2} is equivalent to Equation~\ref{eq:eccco-app} for $\lambda_2=1$. For the sake of simplicity, we omitted the regularization component from Equation~\ref{eq:eccco} in the main text. Intuitively, taking iterative gradient steps according to Equation~\ref{eq:ce-grad} has the effect of constraining the energy of the counterfactual until. The generative property of the underlying model implicitly enters this equation through $\theta$.
+
+\subsubsection{The \textit{ECCCo} algorithm}
+
+Algorithm~\ref{alg:eccco} describes how exactly \textit{ECCCo} works. For the sake of simplicity and without loss of generality, we limit our attention to generating a single counterfactual $\mathbf{x}^\prime=f(\mathbf{z}^\prime)$. The counterfactual state $\mathbf{z}^\prime$ is initialized by passing the factual $\mathbf{x}$ through a simple feature transformer $f^{-1}$. Next, we generate $n_{\mathcal{B}}$ conditional samples $\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}$ using SGLD (Equation~\ref{eq:sgld}) and store the $n_E$ instances with the lowest energy. We then calibrate the model $M_{\theta}$ through split conformal prediction. Finally, we search counterfactuals through gradient descent where $\mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ denotes our loss function defined in Equation~\ref{eq:eccco}. The search terminates once the convergence criterium is met or the maximum number of iterations $T$ has been exhausted. Note that the choice of convergence criterium has important implications on the final counterfactual which we explain in Appendix~\ref{app:eccco}.
+
+\begin{algorithm*}
+  \caption{The \textit{ECCCo} generator}\label{alg:eccco}
+  \begin{algorithmic}[1]
+    \Require $\mathbf{x}, \mathbf{y}^+, M_{\theta}, f, \Lambda=[\lambda_1,\lambda_2,\lambda_3], \alpha, \mathcal{D}, T, \eta, n_{\mathcal{B}}, n_E$ where $M_{\theta}(\mathbf{x})\neq\mathbf{y}^+$
+    \Ensure $\mathbf{x}^\prime$
+    \State Initialize $\mathbf{z}^\prime \gets f^{-1}(\mathbf{x})$ \Comment{Map to counterfactual state space.}
+    \State Generate $\left\{\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}\right\}_{n_{\mathcal{B}}} \gets p_{\theta}(\mathbf{x}_{\mathbf{y}^+})$ \Comment{Generate $n_{\mathcal{B}}$ samples using SGLD (Equation~\ref{eq:sgld}).}
+    \State Store $\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+} \gets \left\{\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}\right\}_{n_{\mathcal{B}}}$ \Comment{Choose $n_E$ lowest-energy samples.}
+    \State Run \textit{SCP} for $M_{\theta}$ using $\mathcal{D}$ \Comment{Calibrate model through split conformal prediction.}
+    \State Initialize $t \gets 0$
+    \While{\textit{not converged} or $t < T$} \Comment{For convergence conditions see Appendix~\ref{app:eccco}.}
+    \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
+    \State $t \gets t+1$
+    \EndWhile
+    \State $\mathbf{x}^\prime \gets f(\mathbf{z}^\prime)$ \Comment{Map back to feature space.}
+  \end{algorithmic}
+\end{algorithm*}
+
 \subsubsection{A Note on Convergence}
 
 Convergence is not typically discussed much in the context of CE, even though it has important implications on outcomes. One intuitive way to specify convergence is in terms of threshold probabilities: once the predicted probability $p(\mathbf{y}^+|\mathbf{x}^{\prime})$ exceeds some user-defined threshold $\gamma$ such that the counterfactual is valid, we could consider the search to have converged. In the binary case, for example, convergence could be defined as $p(\mathbf{y}^+|\mathbf{x}^{\prime})>0.5$ in this sense. Note, however, how this can be expected to yield counterfactuals in the proximity of the decision boundary, a region characterized by high aleatoric uncertainty. In other words, counterfactuals generated in this way would generally not be plausible. To avoid this from happening, we specify convergence in terms of gradients approaching zero for all our experiments and all of our generators. This is allows us to get a cleaner read on how the different counterfactual search objectives affect counterfactual outcomes. 
