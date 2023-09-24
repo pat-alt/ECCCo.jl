@@ -39,6 +39,7 @@ elseif FROM_GRID_SEARCH
         "$(replace(lowercase(dataname), " " => "_")).jls",
     )
     save_best(outcomes_file_path)
+    bmk2csv(dataname)
 else
     run_experiment(
         counterfactual_data, test_data;

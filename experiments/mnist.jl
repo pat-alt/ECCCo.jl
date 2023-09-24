@@ -56,17 +56,26 @@ params = (
     dim_reduction=true,
 )
 
-if !GRID_SEARCH
-    run_experiment(
-        counterfactual_data, test_data;
-        dataname=dataname,
-        params...
-    )
-else
+if GRID_SEARCH
     grid_search(
         counterfactual_data, test_data;
         dataname=dataname,
         tuning_params=tuning_params,
-        n_individuals=5
+        params...
+    )
+elseif FROM_GRID_SEARCH
+    outcomes_file_path = joinpath(
+        DEFAULT_OUTPUT_PATH,
+        "grid_search",
+        "$(replace(lowercase(dataname), " " => "_")).jls",
+    )
+    save_best(outcomes_file_path)
+    bmk2csv(dataname)
+else
+    run_experiment(
+        counterfactual_data, test_data;
+        dataname=dataname,
+        model_tuning_params=model_tuning_params,
+        params...
     )
 end
