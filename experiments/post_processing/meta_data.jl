@@ -3,11 +3,11 @@
 
 Extract and save meta data about the experiment.
 """
-function meta(outcome::ExperimentOutcome; save_output::Bool=false)
+function meta(outcome::ExperimentOutcome; save_output::Bool=false, params_path::Union{Nothing,String}=nothing)
 
-    model_params = meta_model(outcome; save_output=save_output)
-    model_performance = meta_model_performance(outcome; save_output=save_output)
-    generator_params = meta_generators(outcome; save_output=save_output)
+    model_params = meta_model(outcome; save_output=save_output, params_path=params_path)
+    model_performance = meta_model_performance(outcome; save_output=save_output, params_path=params_path)
+    generator_params = meta_generators(outcome; save_output=save_output, params_path=params_path)
 
     return model_params, model_performance, generator_params
 
@@ -18,7 +18,7 @@ end
 
 Extract and save meta data about the data and models in `outcome.model_dict`.
 """
-function meta_model(outcome::ExperimentOutcome; save_output::Bool=false)
+function meta_model(outcome::ExperimentOutcome; save_output::Bool=false, params_path::Union{Nothing,String}=nothing)
 
     # Unpack:
     exper = outcome.exper
@@ -42,7 +42,8 @@ function meta_model(outcome::ExperimentOutcome; save_output::Bool=false)
     )
 
     if save_output
-        save_path = joinpath(exper.params_path, "$(exper.save_name)_model_params.csv")
+        save_path = isnothing(params_path) ? exper.params_path : params_path
+        save_path = joinpath(save_path, "$(exper.save_name)_model_params.csv")
         @info "Saving model parameters to $(save_path)."
         CSV.write(save_path, params)
     end
@@ -51,7 +52,7 @@ function meta_model(outcome::ExperimentOutcome; save_output::Bool=false)
 
 end
 
-function meta_generators(outcome::ExperimentOutcome; save_output::Bool=false)
+function meta_generators(outcome::ExperimentOutcome; save_output::Bool=false, params_path::Union{Nothing,String}=nothing)
 
     # Unpack:
     exper = outcome.exper
@@ -77,7 +78,8 @@ function meta_generators(outcome::ExperimentOutcome; save_output::Bool=false)
     )
 
     if save_output
-        save_path = joinpath(exper.params_path, "$(exper.save_name)_generator_params.csv")
+        save_path = isnothing(params_path) ? exper.params_path : params_path
+        save_path = joinpath(save_path, "$(exper.save_name)_generator_params.csv")
         @info "Saving generator parameters to $(save_path)."
         CSV.write(save_path, generator_params)
     end
@@ -90,7 +92,7 @@ end
 
 Compute and save the model performance for the models in `outcome.model_dict`.
 """
-function meta_model_performance(outcome::ExperimentOutcome; measures::Union{Nothing,Dict}=nothing, save_output::Bool=false)
+function meta_model_performance(outcome::ExperimentOutcome; measures::Union{Nothing,Dict}=nothing, save_output::Bool=false, params_path::Union{Nothing,String}=nothing)
 
     # Unpack:
     exper = outcome.exper
@@ -112,10 +114,11 @@ function meta_model_performance(outcome::ExperimentOutcome; measures::Union{Noth
     println(model_performance)
 
     if save_output
-        save_path = joinpath(exper.params_path, "$(exper.save_name)_model_performance.jls")
+        save_path_root = isnothing(params_path) ? exper.params_path : params_path
+        save_path = joinpath(save_path_root, "$(exper.save_name)_model_performance.jls")
         @info "Saving model performance to $(save_path)."
         Serialization.serialize(save_path, model_performance)
-        save_path = joinpath(exper.params_path, "$(exper.save_name)_model_performance.csv")
+        save_path = joinpath(save_path_root, "$(exper.save_name)_model_performance.csv")
         @info "Saving model performance to $(save_path)."
         CSV.write(save_path, model_performance)
     end
