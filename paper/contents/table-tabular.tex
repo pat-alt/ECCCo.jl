@@ -1,0 +1,31 @@
+\begin{table}
+
+\caption{Results for tabular datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \label{tab:results-tabular} \newline}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedright}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{GMSC} & \multicolumn{2}{c}{California Housing} & \multicolumn{2}{c}{German Credit} \\
+\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6} \cmidrule(l{3pt}r{3pt}){7-8}
+Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Unfaithfulness ↓ & Implausibility ↓ & Unfaithfulness ↓ & Implausibility ↓\\
+\midrule
+ & ECCCo & 37.08 ± 0.45\hphantom{*}\hphantom{*} & 1.71 ± 4.31\hphantom{*}\hphantom{*} & 39.38 ± 0.21\hphantom{*}\hphantom{*} & 1.72 ± 2.09\hphantom{*}\hphantom{*} & 2.40 ± 0.33\hphantom{*}\hphantom{*} & 4.75 ± 0.79\hphantom{*}\hphantom{*}\\
+
+ & ECCCo (no CP) & 40.72 ± 0.46\hphantom{*}\hphantom{*} & 1.70 ± 4.33\hphantom{*}\hphantom{*} & 41.33 ± 0.30\hphantom{*}\hphantom{*} & 1.72 ± 2.09\hphantom{*}\hphantom{*} & 2.51 ± 0.34\hphantom{*}\hphantom{*} & 4.74 ± 0.79\hphantom{*}\hphantom{*}\\
+
+ & ECCCo (no EBM) & 49.88 ± 0.32\hphantom{*}\hphantom{*} & 1.69 ± 4.33\hphantom{*}\hphantom{*} & 38.30 ± 0.28\hphantom{*}\hphantom{*} & 1.72 ± 2.08\hphantom{*}\hphantom{*} & 3.11 ± 0.27\hphantom{*}\hphantom{*} & 4.76 ± 0.80\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-Δ & 108.32 ± 2.14\hphantom{*}\hphantom{*} & 1.68 ± 4.30\hphantom{*}\hphantom{*} & 93.36 ± 0.83\hphantom{*}\hphantom{*} & 1.72 ± 2.13\hphantom{*}\hphantom{*} & 7.32 ± 1.26\hphantom{*}\hphantom{*} & 4.76 ± 0.80\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-Δ (no CP) & 103.50 ± 1.56\hphantom{*}\hphantom{*} & 1.67 ± 4.30\hphantom{*}\hphantom{*} & 98.37 ± 0.89\hphantom{*}\hphantom{*} & 1.72 ± 2.12\hphantom{*}\hphantom{*} & 6.87 ± 1.27\hphantom{*}\hphantom{*} & 4.76 ± 0.80\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-Δ (no EBM) & 80.25 ± 1.30\hphantom{*}\hphantom{*} & 1.69 ± 4.33\hphantom{*}\hphantom{*} & 114.56 ± 1.15\hphantom{*}\hphantom{*} & 1.72 ± 2.08\hphantom{*}\hphantom{*} & 7.61 ± 1.51\hphantom{*}\hphantom{*} & 4.76 ± 0.80\hphantom{*}\hphantom{*}\\
+
+ & REVISE & 93.47 ± 0.76\hphantom{*}\hphantom{*} & 1.47 ± 3.73\hphantom{*}\hphantom{*} & 96.92 ± 2.21\hphantom{*}\hphantom{*} & 0.94 ± 1.31\hphantom{*}\hphantom{*} & 7.35 ± 1.29\hphantom{*}\hphantom{*} & 3.55 ± 0.21\hphantom{*}\hphantom{*}\\
+
+ & Schut & 85.92 ± 1.95\hphantom{*}\hphantom{*} & 1.85 ± 4.30\hphantom{*}\hphantom{*} & 120.89 ± 1.23\hphantom{*}\hphantom{*} & 1.54 ± 2.04\hphantom{*}\hphantom{*} & 7.08 ± 1.42\hphantom{*}\hphantom{*} & 4.85 ± 0.79\hphantom{*}\hphantom{*}\\
+
+\multirow{-9}{*}{\raggedright\arraybackslash MLP} & Wachter & 99.17 ± 2.21\hphantom{*}\hphantom{*} & 1.69 ± 4.33\hphantom{*}\hphantom{*} & 91.30 ± 1.54\hphantom{*}\hphantom{*} & 1.72 ± 2.07\hphantom{*}\hphantom{*} & 7.88 ± 0.73\hphantom{*}\hphantom{*} & 4.76 ± 0.80\hphantom{*}\hphantom{*}\\
+\bottomrule
+\end{tabu}}
+\end{table}
