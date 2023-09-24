@@ -83,6 +83,7 @@ function best_rank_outcome(
     generator=ALL_ECCCO_NAMES, 
     measure=["distance_from_energy_l2", "distance_from_targets_l2"], 
     model::Union{Nothing,AbstractArray}=nothing,
+    weights::Union{Nothing,AbstractArray}=nothing
 )
 
     weights = isnothing(weights) ? ones(length(measure)) : weights
@@ -104,9 +105,9 @@ function best_rank_outcome(
     return best_outcome
 end
 
-best_rank_eccco(outcomes; kwrgs...) = best_outcome(outcomes; generator=ECCCO_NAMES, kwrgs...)
+best_rank_eccco(outcomes; kwrgs...) = best_rank_outcome(outcomes; generator=ECCCO_NAMES, kwrgs...)
 
-best_rank_eccco_Δ(outcomes; kwrgs...) = best_outcome(outcomes; generator=ECCCo_Δ_NAMES, kwrgs...)
+best_rank_eccco_Δ(outcomes; kwrgs...) = best_rank_outcome(outcomes; generator=ECCCo_Δ_NAMES, kwrgs...)
 
 """
     best_absolute_outcome(outcomes; generator=ECCCO_NAMES, measure="distance_from_energy")

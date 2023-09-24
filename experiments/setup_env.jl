@@ -167,12 +167,11 @@ DEFAULT_GENERATOR_TUNING = (
 DEFAULT_GENERATOR_TUNING_LARGE = (
     Λ=[
         [0.1, 0.1, 0.1],
-        [0.1, 0.5, 0.5],
-        [0.1, 0.1, 1.0],
+        [0.1, 0.1, 0.2],
+        [0.2, 0.2, 0.2],
     ],
     reg_strength=[0.0, 0.1, 0.5],
     opt=[
-        Flux.Optimise.Descent(0.1),
         Flux.Optimise.Descent(0.05),
         Flux.Optimise.Descent(0.01),
     ],
