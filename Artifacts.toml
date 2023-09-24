@@ -6,6 +6,22 @@ lazy = true
     sha256 = "5ed618dd02df05991e02fe6d8eecf3ac604edafec95e07a85d0e3487baf46e4a"
     url = "https://github.com/pat-alt/ECCCo.jl/releases/download/results-paper-submission-1.8.5/artifacts-.tar.gz"
 
+["artifacts_results_2023-09-07@15:32"]
+git-tree-sha1 = "c5c3ab3c82750a56d9bab8d8c27049bd9d83484b"
+lazy = true
+
+    [["artifacts_results_2023-09-07@15:32".download]]
+    sha256 = "fc64c9ade15c89e81944f0712aaa2bb331406771b6f77135f221f3db522f4be1"
+    url = "https://github.com/pat-alt/ECCCo.jl/releases/download/artifacts_results_2023-09-07@15:32/artifacts_results_2023-09-07@15:32.tar.gz"
+
+[artifacts_results_20230907_1535]
+git-tree-sha1 = "ebeee17868d5b93286dc2a1e7e26262787de3337"
+lazy = true
+
+    [[artifacts_results_20230907_1535.download]]
+    sha256 = "2e7decbde29d8d34333931e856d6b86e0c1f61cb6942a1a04cfd672aa2e64ce3"
+    url = "https://github.com/pat-alt/ECCCo.jl/releases/download/artifacts_results_20230907_1535/artifacts_results_20230907_1535.tar.gz"
+
 ["results-paper-submission-1.8.5"]
 git-tree-sha1 = "3be5119c4ce466017db79f10fdb72b97e745bd7d"
 lazy = true
