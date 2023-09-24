@@ -223,7 +223,9 @@ The findings for the \textit{Moons} dataset are broadly in line with the finding
 
 For the \textit{Circles} data, it appears that \textit{REVISE} performs well, but we note that it generates valid counterfactuals only half of the time (see Appendix~\ref{app:results} for a complete overview including additional common evaluation metrics). The underlying VAE with default parameters has not adequately learned the data-generating process. Of course, it is possible to improve generative performance through hyperparameter tuning but this example serves to illustrate that \textit{REVISE} depends on the quality of its surrogate. Independent of the outcome for \textit{REVISE}, however, the results do not seem to indicate that \textit{ECCCo} substantially improves faithfulness and plausibility for the \textit{Circles} data. We think this points to a limitation of our evaluation metrics rather than \textit{ECCCo} itself: computing average distances fails to account for the `wraparound' effect associated with circular data~\citep{gill2010circular}.
 
-\import{contents/}{table-synthetic.tex}
+\import{contents/}{table-tabular.tex}
+
+\import{contents/}{table-vision.tex}
 
 \subsection{Results for Real-World Data}
 
@@ -234,8 +236,6 @@ For the tabular credit dataset (\textit{GMSC}) it is inherently challenging to u
 \subsection{Key Takeways}
 
 To conclude this section, we summarize our findings with reference to the opening questions. The results clearly demonstrate that \textit{ECCCo} consistently achieves state-of-the-art faithfulness, as it was designed to do (Research Question~\ref{rq:faithfulness}). A related important finding is that \textit{ECCCo} yields highly plausible explanations provided that they faithfully describe model behaviour (Research Question~\ref{rq:plausibility}). \textit{ECCCo} achieves this result primarily by leveraging the model's generative property.
-
-\import{contents/}{table-real-world.tex}
 
 \section{Limitations}
 

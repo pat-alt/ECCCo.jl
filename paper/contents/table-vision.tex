@@ -1,0 +1,33 @@
+\begin{table}
+
+\caption{Results for vision dataset: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \label{tab:results-vision} \newline}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{llcc}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{MNIST} \\
+\cmidrule(l{3pt}r{3pt}){3-4}
+Model & Generator & Unfaithfulness ↓ & Implausibility ↓\\
+\midrule
+ & ECCCo & \textbf{0.22 ± 0.01}** & 0.42 ± 0.02\hphantom{*}\hphantom{*}\\
+
+ & ECCCo+ & 0.23 ± 0.01*\hphantom{*} & 0.32 ± 0.02*\hphantom{*}\\
+
+ & REVISE & 0.24 ± 0.01\hphantom{*}\hphantom{*} & \textbf{0.30 ± 0.03}**\\
+
+ & Schut & 0.25 ± 0.01\hphantom{*}\hphantom{*} & 0.34 ± 0.03*\hphantom{*}\\
+
+\multirow{-5}{*}{\raggedright\arraybackslash MLP} & Wachter & 0.24 ± 0.01\hphantom{*}\hphantom{*} & 0.37 ± 0.04\hphantom{*}\hphantom{*}\\
+\cmidrule{1-4}
+ & ECCCo & 0.24 ± 0.01\hphantom{*}\hphantom{*} & 0.39 ± 0.03\hphantom{*}\hphantom{*}\\
+
+ & ECCCo+ & \textbf{0.24 ± 0.01}\hphantom{*}\hphantom{*} & 0.33 ± 0.02\hphantom{*}\hphantom{*}\\
+
+ & REVISE & 0.25 ± 0.01\hphantom{*}\hphantom{*} & \textbf{0.30 ± 0.03}*\hphantom{*}\\
+
+ & Schut & 0.25 ± 0.01\hphantom{*}\hphantom{*} & 0.34 ± 0.03\hphantom{*}\hphantom{*}\\
+
+\multirow{-5}{*}{\raggedright\arraybackslash LeNet-5} & Wachter & 0.25 ± 0.01\hphantom{*}\hphantom{*} & 0.35 ± 0.03\hphantom{*}\hphantom{*}\\
+\bottomrule
+\end{tabular}}
+\end{table}
