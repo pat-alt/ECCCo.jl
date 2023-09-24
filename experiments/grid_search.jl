@@ -134,6 +134,13 @@ function best_absolute_outcome(
         generator_dict = outcome.generator_dict
         model_dict = outcome.model_dict
 
+        # Discard outlier results:
+        if any(evaluation.value .> 1e6)
+            @warn "Discarding outlier results: $(params)."
+            push!(avg_values, Inf)
+            continue
+        end
+
         # Adjust variables for which higher is better:
         higher_is_better = [var ∈ ["validity", "redundancy"] for var in evaluation.variable]
         evaluation.value[higher_is_better] .= -evaluation.value[higher_is_better]

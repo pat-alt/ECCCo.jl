@@ -7,21 +7,14 @@ library(kableExtra)
 ```{r}
 res_path <- "results/"
 files <- list.files(res_path)
-dt <- lapply(files[grepl("_benchmark.csv", files)], function(x) {
+dt <- lapply(files[grepl("_bmk.csv", files)], function(x) {
     fread(file.path(res_path, x))
 })
 dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
 dt[,ce:=NULL]
 synth <- c("Moons", "Circles", "Linearly Separable")
-dt[,source:=ifelse(dataname %in% synth, "synthetic", "real-world")]
-reported_data <- c(
-  "MNIST",
-  "GMSC",
-  "Linearly Separable",
-  "Moons",
-  "Circles"
-)
-dt <- dt[dataname %in% reported_data]
+tabular <- c("GMSC", "German Credit", "California Housing")
+dt[,source:=ifelse(dataname %in% synth, "synthetic", ifelse(dataname %in% tabular, "tabular", "vision"))]
 dt[,non_valid:=variable=="validity" & value==0.0,.(sample,dataname,generator,model,target,factual,source)]
 dt[,non_valid:=any(non_valid==TRUE),.(sample,dataname,generator,model,target,factual,source)]
 dt_valid <- dt[non_valid==FALSE]
