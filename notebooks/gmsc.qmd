@@ -37,7 +37,7 @@ if pre_proc
 
     function boxcox(x)
         transf = MLJ.UnivariateBoxCoxTransformer()
-        x = exp.(x)
+        x = exper.(x)
         mach = machine(transf, x)
         fit!(mach)
         z = MLJ.transform(mach, x)
@@ -63,7 +63,7 @@ builder = MLJFlux.@builder Flux.Chain(
 )
 n_ens = 5                                   # number of models in ensemble
 _loss = Flux.Losses.crossentropy            # loss function
-_finaliser =  Flux.softmax                  # finaliser function
+_finaliser =  Flux.softmax                  # finalizer function
 ```
 
 ```{julia}
@@ -84,7 +84,7 @@ mlp = NeuralNetworkClassifier(
     builder=builder, 
     epochs=epochs,
     batch_size=batch_size,
-    finaliser=_finaliser,
+    finalizer=_finaliser,
     loss=_loss,
 )
 
@@ -97,7 +97,7 @@ jem = JointEnergyClassifier(
     builder=builder,
     epochs=epochs,
     batch_size=batch_size,
-    finaliser=_finaliser,
+    finalizer=_finaliser,
     loss=_loss,
     jem_training_params=(
         α=α,verbosity=10,

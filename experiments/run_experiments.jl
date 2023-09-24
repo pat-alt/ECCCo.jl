@@ -1,13 +1,16 @@
 include("setup_env.jl");
-include("experiment.jl");
 
 # User inputs:
+all_data_sets = ["linearly_separable", "moons", "circles", "mnist", "fmnist", "gmsc", "german_credit", "california_housing"]
 if "run-all" in ARGS
-    datanames = ["linearly_separable", "moons", "circles", "mnist", "gmsc"]
+    datanames = all_data_sets
+elseif any(contains.(ARGS, "data="))
+    datanames = [ARGS[findall(contains.(ARGS, "data="))][1] |> x -> replace(x, "data=" => "")]
+    datanames = replace.(split(datanames[1], ","), " " => "")
 else
-    datanames = [ARGS[findall(contains.(ARGS, "data="))] |> x -> replace(x, "data=" => "")]
+    @warn "No dataset specified, defaulting to all."
+    datanames = all_data_sets
 end
-datanames = ["linearly_separable", "moons", "circles", "mnist", "gmsc"]
 
 # Linearly Separable
 if "linearly_separable" in datanames
@@ -27,14 +30,46 @@ if "circles" in datanames
     include("circles.jl")
 end
 
+# GMSC
+if "gmsc" in datanames
+    @info "Running GMSC experiment."
+    include("gmsc.jl")
+end
+
+# German Credit
+if "german_credit" in datanames
+    @info "Running German Credit experiment."
+    include("german_credit.jl")
+end
+
+# Credit Default
+if "credit_default" in datanames
+    @info "Running Credit Default experiment."
+    include("credit_default.jl")
+end
+
+# California Housing
+if "california_housing" in datanames
+    @info "Running California Housing experiment."
+    include("california_housing.jl")
+end
+
 # MNIST
 if "mnist" in datanames
     @info "Running MNIST experiment."
     include("mnist.jl")
 end
 
-# GMSC
-if "gmsc" in datanames
-    @info "Running GMSC experiment."
-    include("gmsc.jl")
+if "fmnist" in datanames
+    @info "Running Fashion-MNIST experiment."
+    include("fmnist.jl")
 end
+
+if USE_MPI
+    MPI.Finalize()
+end
+
+# if UPLOAD
+#     @info "Uploading results."
+#     generate_artifacts()
+# end

@@ -1,10 +1,10 @@
-function _prepare_data(exp::Experiment)
+function _prepare_data(exper::Experiment)
 
     # Unpack data:
-    counterfactual_data = exp.counterfactual_data
-    min_batch_size = exp.min_batch_size
-    sampling_batch_size = exp.sampling_batch_size
-    𝒟x = exp.𝒟x
+    counterfactual_data = exper.counterfactual_data
+    min_batch_size = exper.min_batch_size
+    sampling_batch_size = exper.sampling_batch_size
+    𝒟x = exper.𝒟x
 
     # Data parameters:
     X, _ = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
@@ -27,17 +27,17 @@ function _prepare_data(exp::Experiment)
     return X, labels, n_obs, batch_size, sampler
 end
 
-function meta_data(exp::Experiment)
-    _, _, n_obs, batch_size, _ = _prepare_data(exp::Experiment)
+function meta_data(exper::Experiment)
+    _, _, n_obs, batch_size, _ = _prepare_data(exper::Experiment)
     return n_obs, batch_size
 end
 
-function prepare_data(exp::Experiment)
-    X, labels, _, _,  sampler = _prepare_data(exp::Experiment)
+function prepare_data(exper::Experiment)
+    X, labels, _, _,  sampler = _prepare_data(exper::Experiment)
     return X, labels, sampler
 end
 
-function batch_size(exp::Experiment)
-    _, _, _, batch_size, _ = _prepare_data(exp::Experiment)
+function batch_size(exper::Experiment)
+    _, _, _, batch_size, _ = _prepare_data(exper::Experiment)
     return batch_size
 end

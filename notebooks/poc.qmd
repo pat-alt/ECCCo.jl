@@ -33,7 +33,7 @@ clf = JointEnergyClassifier(
         σ=Flux.swish
     ),
     batch_size=batch_size,
-    finaliser=Flux.softmax,
+    finalizer=Flux.softmax,
     loss=Flux.Losses.crossentropy,
     jem_training_params=(
         α=[1.0,1.0,1e-1],

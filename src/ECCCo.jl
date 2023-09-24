@@ -3,6 +3,7 @@ module ECCCo
 using CounterfactualExplanations
 import MLJModelInterface as MMI
 
+include("utils.jl")
 include("model.jl")
 include("sampling.jl")
 include("penalties.jl")

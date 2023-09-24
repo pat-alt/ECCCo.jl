@@ -1,13 +1,25 @@
+"An MLP builder that is more easily tunable."
+mutable struct TuningBuilder <: MLJFlux.Builder
+    n_hidden::Int
+    n_layers::Int
+    activation::Function
+end
+
+"Outer constructor."
+TuningBuilder(; n_hidden=32, n_layers=3, activation=Flux.swish) = TuningBuilder(n_hidden, n_layers, activation)
+
+function MLJFlux.build(nn::TuningBuilder, rng, n_in, n_out)
+    hidden = ntuple(i -> nn.n_hidden, nn.n_layers)
+    return MLJFlux.build(MLJFlux.MLP(hidden=hidden, σ=nn.activation), rng, n_in, n_out)
+end
+
 """
     default_builder(n_hidden::Int=16, activation::Function=Flux.swish)
 
 Default builder for MLPs.
 """
-function default_builder(n_hidden::Int=16, activation::Function=Flux.swish)
-    builder = MLJFlux.MLP(
-        hidden=(n_hidden, n_hidden, n_hidden),
-        σ=activation
-    )
+function default_builder(;n_hidden::Int=16, n_layers::Int=3, activation::Function=Flux.swish)
+    builder = TuningBuilder(n_hidden=n_hidden, n_layers=n_layers, activation=activation)
     return builder
 end
 
@@ -31,7 +43,7 @@ Builds a dictionary of default models for training.
 function default_models(;
     sampler::AbstractSampler,
     builder::MLJFlux.Builder=default_builder(),
-    epochs::Int=25,
+    epochs::Int=100,
     batch_size::Int=128,
     finaliser::Function=Flux.softmax,
     loss::Function=Flux.Losses.crossentropy,
@@ -49,6 +61,7 @@ function default_models(;
         batch_size=batch_size,
         finaliser=finaliser,
         loss=loss,
+        acceleration=CUDALibs(),
     )
 
     # Deep Ensemble:
@@ -65,7 +78,8 @@ function default_models(;
         jem_training_params=(
             α=α, verbosity=verbosity,
         ),
-        sampling_steps=sampling_steps
+        sampling_steps=sampling_steps,
+        # acceleration=CUDALibs(),
     )
 
     # Deep Ensemble of Joint Energy Models:
