@@ -15,6 +15,29 @@ dt[,ce:=NULL]
 synth <- c("Moons", "Circles", "Linearly Separable")
 tabular <- c("GMSC", "German Credit", "California Housing")
 dt[,source:=ifelse(dataname %in% synth, "synthetic", ifelse(dataname %in% tabular, "tabular", "vision"))]
+```
+
+```{r}
+# Generator names
+dt[,generator:=factor(generator)]
+levels(dt$generator)[match("ECCCo",levels(dt$generator))] <- "ECCCo-L1"
+levels(dt$generator)[match("ECCCo (no CP)",levels(dt$generator))] <- "ECCCo-L1 (no CP)"
+levels(dt$generator)[match("ECCCo (no EBM)",levels(dt$generator))] <- "ECCCo-L1 (no EBM)"
+levels(dt$generator)[match("ECCCo-Δ",levels(dt$generator))] <- "ECCCo"
+levels(dt$generator)[match("ECCCo-Δ (latent)",levels(dt$generator))] <- "ECCCo+"
+levels(dt$generator)[match("ECCCo-Δ (no CP)",levels(dt$generator))] <- "ECCCo (no CP)"
+levels(dt$generator)[match("ECCCo-Δ (no EBM)",levels(dt$generator))] <- "ECCCo (no EBM)"
+```
+
+```{r}
+# Adjust measure names
+dt[source=="vision" & variable=="distance_from_targets_ssim", variable:="implausibility"]
+dt[source=="vision" & variable=="distance_from_energy_ssim", variable:="unfaithfulness"]
+dt[source!="vision" & variable=="distance_from_targets_l2", variable:="implausibility"]
+dt[source!="vision" & variable=="distance_from_energy_l2", variable:="unfaithfulness"]
+```
+
+```{r}
 dt[,non_valid:=variable=="validity" & value==0.0,.(sample,dataname,generator,model,target,factual,source)]
 dt[,non_valid:=any(non_valid==TRUE),.(sample,dataname,generator,model,target,factual,source)]
 dt_valid <- dt[non_valid==FALSE]
@@ -38,8 +61,12 @@ tab$two_std_wachter = F
 # Measures to be minimized:
 min_measures <- c(
   "distance",
+  "implausibility",
+  "unfaithfulness",
   "distance_from_energy", 
+  "distance_from_energy_l2", 
   "distance_from_targets",
+  "distance_from_targets_l2",
   "set_size_penalty"
 )
 tab[variable %in% min_measures,top_val:=val==min(val),.(model, dataname, variable)]
@@ -90,8 +117,12 @@ tab_valid$two_std_wachter = F
 # Measures to be minimized:
 min_measures <- c(
   "distance",
+  "implausibility",
+  "unfaithfulness",
   "distance_from_energy", 
+  "distance_from_energy_l2", 
   "distance_from_targets",
+  "distance_from_targets_l2",
   "set_size_penalty"
 )
 tab_valid[variable %in% min_measures,top_val:=val==min(val),.(model, dataname, variable)]
@@ -128,19 +159,86 @@ tab_valid[,one_std_wachter:=NULL]
 
 ```{r}
 # Choices:
-measures <- c("distance_from_energy", "distance_from_targets")
-measure_names <- c("Unfaithfulness ↓","Implausibility ↓")
-chosen_source <- "real-world"
-chosen_data <- c(
-  "MNIST",
-  "GMSC"
+measures <- c(
+  "unfaithfulness",
+  "implausibility"
 )
+measure_names <- c(
+  "Unfaithfulness ↓",
+  "Implausibility ↓"
+)
+# Order:
+chosen_data <- c(
+  "Linearly Separable",
+  "GMSC",
+  "MNIST",
+)
+chosen_model <- c(
+  "MLP",
+  "JEM",
+  "LeNet-5"
+)
+
+tab_i <- tab
+
+# Logic:
+tab_i <- tab_i[variable %in% measures]
+tab_i <- tab_i[dataname %in% chosen_data]
+tab_i <- tab_i[model %in% chosen_model]
+tab_i[,dataname:=factor(dataname,levels=chosen_data)]
+tab_i <- dcast(tab_i, model + generator ~ dataname + variable)
+col_names <- c(
+  "Model",
+  "Generator",
+  rep(measure_names,length(chosen_data))
+)
+caption <-  "Results for datasets from different domains: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-main} \\newline"
+file_name <- "paper/contents/table-main.tex"
+sub_header <- rep(length(measures), length(chosen_data))
+names(sub_header) <- chosen_data
+header <- c(
+  " " = 2, sub_header
+)
+line_sep <- c(rep("",length(measures)-1),"\\addlinespace")
+algin_cols <- c(rep('l',2),rep('c',ncol(tab_i)-2))
+kbl(
+  tab_i, caption = caption, 
+  align = algin_cols, col.names=col_names, booktabs = T, escape=F, 
+  format="latex", linesep = line_sep 
+) %>%
+  kable_styling(latex_options = c("scale_down")) %>%
+  kable_paper(full_width = T) %>%
+  add_header_above(header) %>%
+  collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
+  save_kable(file_name)
+```
+
+```{r}
+# Choices:
+measures <- c(
+  "distance_from_energy_l2",
+  "distance_from_targets_l2"
+)
+measure_names <- c(
+  "Unfaithfulness ↓",
+  "Implausibility ↓"
+)
+chosen_source <- "tabular"
+# Order:
+chosen_data <- c(
+  "GMSC",
+  "California Housing",
+  "German Credit"
+)
+chosen_model <- "MLP"
+
 tab_i <- tab
 
 # Logic:
 tab_i <- tab_i[variable %in% measures]
 tab_i <- tab_i[source == chosen_source]
 tab_i <- tab_i[dataname %in% chosen_data]
+tab_i <- tab_i[model == chosen_model]
 tab_i[,dataname:=factor(dataname,levels=chosen_data)]
 tab_i <- dcast(tab_i, model + generator ~ dataname + variable)
 col_names <- c(
@@ -170,7 +268,7 @@ kbl(
   format="latex", linesep = line_sep 
 ) %>%
   kable_styling(latex_options = c("scale_down")) %>%
-  kable_paper(full_width = F) %>%
+  kable_paper(full_width = T) %>%
   add_header_above(header) %>%
   collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
   save_kable(file_name)
@@ -178,8 +276,15 @@ kbl(
 
 ```{r}
 # Choices:
-measures <- c("distance_from_energy", "distance_from_targets")
-measure_names <- c("Unfaithfulness ↓","Implausibility ↓")
+# Choices:
+measures <- c(
+  "distance_from_energy_l2",
+  "distance_from_targets_l2"
+)
+measure_names <- c(
+  "Unfaithfulness ↓",
+  "Implausibility ↓"
+)
 chosen_source <- "synthetic"
 chosen_data <- c(
   "Linearly Separable",
@@ -221,7 +326,67 @@ kbl(
   format="latex", linesep = line_sep 
 ) %>%
   kable_styling(latex_options = c("scale_down")) %>%
-  kable_paper(full_width = F) %>%
+  kable_paper(full_width = T) %>%
+  add_header_above(header) %>%
+  collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
+  save_kable(file_name)
+```
+
+```{r}
+# Choices:
+measures <- c(
+  "distance_from_energy_l2",
+  "distance_from_targets_l2"
+)
+measure_names <- c(
+  "Unfaithfulness ↓",
+  "Implausibility ↓"
+)
+chosen_source <- "vision"
+# Order:
+chosen_data <- c(
+  "MNIST",
+  "Fashion MNIST",
+)
+chosen_model <- "LeNet-5"
+
+tab_i <- tab
+
+# Logic:
+tab_i <- tab_i[variable %in% measures]
+tab_i <- tab_i[source == chosen_source]
+tab_i <- tab_i[dataname %in% chosen_data]
+tab_i <- tab_i[model == chosen_model]
+tab_i[,dataname:=factor(dataname,levels=chosen_data)]
+tab_i <- dcast(tab_i, model + generator ~ dataname + variable)
+col_names <- c(
+  "Model",
+  "Generator",
+  rep(measure_names,length(chosen_data))
+)
+caption <- sprintf(
+  "Results for %s datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-%s} \\newline",
+  chosen_source,
+  chosen_source
+)
+file_name <- sprintf(
+  "paper/contents/table-%s.tex",
+  chosen_source
+)
+sub_header <- rep(length(measures), length(chosen_data))
+names(sub_header) <- chosen_data
+header <- c(
+  " " = 2, sub_header
+)
+line_sep <- c(rep("",length(measures)-1),"\\addlinespace")
+algin_cols <- c(rep('l',2),rep('c',ncol(tab_i)-2))
+kbl(
+  tab_i, caption = caption, 
+  align = algin_cols, col.names=col_names, booktabs = T, escape=F, 
+  format="latex", linesep = line_sep 
+) %>%
+  kable_styling(latex_options = c("scale_down")) %>%
+  kable_paper(full_width = T) %>%
   add_header_above(header) %>%
   collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
   save_kable(file_name)
