@@ -142,7 +142,7 @@ Equation~\ref{eq:impl} gives rise to a similar evaluation metric for unfaithfuln
   \end{aligned}
 \end{equation}
 
-Our default choice for the $\text{dist}(\cdot)$ function in both cases is the Euclidean Norm.
+Our default choice for the $\text{dist}(\cdot)$ function in both cases is the Euclidean Norm. Depending on the type of input data other choices may be more adequate, which we discuss further in Section~\ref{emp:setup}. 
 
 \section{Energy-Constrained Conformal Counterfactuals}\label{meth}
 
@@ -177,7 +177,7 @@ This observation leads to the following simple objective function for \textit{EC
   \end{aligned} 
 \end{equation}
 
-The first penalty term involving $\lambda_1$ induces closeness like in~\citet{wachter2017counterfactual}. The second penalty term involving $\lambda_2$ induces faithfulness by constraining the energy of the generated counterfactual. The third and final penalty term involving $\lambda_3$ ensures that the generated counterfactual is associated with low predictive uncertainty.
+The first penalty term involving $\lambda_1$ induces closeness like in~\citet{wachter2017counterfactual}. The second penalty term involving $\lambda_2$ induces faithfulness by constraining the energy of the generated counterfactual. The third and final penalty term involving $\lambda_3$ ensures that the generated counterfactual is associated with low predictive uncertainty. 
 
 \begin{figure}
   \centering
@@ -203,17 +203,25 @@ Our goal in this section is to shed light on the following research questions:
 
 The second question is motivated by the intuition that faithfulness and plausibility should coincide for models that have learned plausible explanations of the data.
 
-\subsection{Experimental Setup}
+\subsection{Experimental Setup}\label{emp:setup}
 
 To assess and benchmark the performance of our proposed generator against the state of the art, we generate multiple counterfactuals for different models and datasets. In particular, we compare \textit{ECCCo} and its variants to the following counterfactual generators that were introduced above: firstly; \textit{Schut}, which works under the premise of minimizing predictive uncertainty; secondly, \textit{REVISE}, which is state-of-the-art with respect to plausibility; and, finally, \textit{Wachter}, which serves as our baseline. 
 
 For the predictive modelling tasks, we use multi-layer perceptrons (\textit{MLP}), deep ensembles, joint energy models (\textit{JEM}) and convolutional neural networks. Both joint-energy modelling and ensembling have been associated with improved generative properties and adversarial robustness~\citep{grathwohl2020your,lakshminarayanan2016simple}, so we expect this to be positively correlated with the plausibility of \textit{ECCCo}. To account for stochasticity, we generate multiple counterfactuals for each target class, generator, model and dataset. Full details concerning our parameter choices, training procedures and model performance can be found in Appendix~\ref{app:setup}.
 
-We perform benchmarks on eight different datasets from different domains. From the credit and finance domain we include three tabular datasets: Give Me Some Credit (\textit{GMSC})~\citep{kaggle2011give}, \textit{German Credit} and \textit{California Housing} (REFRENCES). All of these are commonly used in the related literature~\citep{karimi2020survey,altmeyer2023endogenous,pawelczyk2021carla}. Following~\citet{schut2021generating} we also include two image datasets: \textit{MNIST}~\citep{lecun1998mnist} and \textit{Fashion MNIST}~\citep{xiao2017fashion}. These are small image datasets but they allow us to easily visually gauge how plausible counteractuals are. (EXPLAIN WHY NO LARGER?) Finally, we also benchmark our generators on multiple synthetic datasets. Detailed descriptions and results for all datasets can be found in the appendix (POINTER). In the following we will focus on the most relevant results highlighted in Tables~\ref{tab:results-tabular} and~\ref{tab:results-vision}.
+We perform benchmarks on eight different datasets from different domains. From the credit and finance domain we include three tabular datasets: Give Me Some Credit (\textit{GMSC})~\citep{kaggle2011give}, \textit{German Credit} and \textit{California Housing} (REFRENCES). All of these are commonly used in the related literature~\citep{karimi2020survey,altmeyer2023endogenous,pawelczyk2021carla}. Following~\citet{schut2021generating} we also include two image datasets: \textit{MNIST}~\citep{lecun1998mnist} and \textit{Fashion MNIST}~\citep{xiao2017fashion}. These are small image datasets but they allow us to easily visually gauge how plausible counteractuals are. (EXPLAIN WHY NO LARGER?) Finally, we also benchmark our generators on multiple synthetic datasets. Detailed descriptions and results for all datasets can be found in the appendix (POINTER). 
+
+In the following we will focus on the most relevant results highlighted in Tables~\ref{tab:results-tabular} and~\ref{tab:results-vision}.  
 
 \import{contents/}{table-tabular.tex}
 
 \import{contents/}{table-vision.tex}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\linewidth]{../www/mnist_benchmark.png}
+  \caption{Counterfactuals for turning a 3 into a 5: factual (left); then from left to right the counterfactuals generated using \textit{ECCCo}, \textit{ECCCo+}, \textit{REVISE}, \textit{Schut} and \textit{Wachter}.}\label{fig:mnist-bmk}
+\end{figure}
 
 \subsection{Faithfulness}
 
@@ -232,6 +240,10 @@ With respect to balance the objectives of faithfulness and plausibility (Researc
 \end{quote}
 
 \textit{ECCCo} achieves this result primarily by leveraging the model's generative property.
+
+\subsection{Additional Observations}
+
+
 
 \section{Limitations}
 
