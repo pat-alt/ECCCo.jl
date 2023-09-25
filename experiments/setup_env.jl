@@ -175,6 +175,8 @@ DEFAULT_GENERATOR_TUNING_LARGE = (
     opt=[
         Flux.Optimise.Descent(0.05),
         Flux.Optimise.Descent(0.01),
+        Flux.Optimiser(ExpDecay(1, 0.1, 10, 1e-4), Descent(0.05)),
+        Flux.Optimiser(ExpDecay(1, 0.1, 10, 1e-4), Descent(0.01))
     ],
 )
 
