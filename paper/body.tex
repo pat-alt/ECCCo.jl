@@ -73,7 +73,7 @@ In doing this, we merge in and nuance the concept of plausibility (Definition~\r
 
 \subsection{Quantifying the Model's Generative Property}
 
-To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need a way to quantify the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$. To this end, we draw on recent advances in energy-based modelling (EBM), a subdomain of machine learning that is concerned with generative or hybrid modelling~\citep{grathwohl2020your,du2019implicit}. In particular, note that if we fix $\mathbf{y}$ to our target value $\mathbf{y}^+$, we can conditionally draw from $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$ by randomly initializing $\mathbf{x}_0$ and then using Stochastic Gradient Langevin Dynamics (SGLD) as follows, 
+To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need a way to quantify the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$. To this end, we draw on ideas from energy-based modelling (EBM), a subdomain of machine learning that is concerned with generative or hybrid modelling~\citep{grathwohl2020your,du2019implicit}. In particular, note that if we fix $\mathbf{y}$ to our target value $\mathbf{y}^+$, we can conditionally draw from $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$ by randomly initializing $\mathbf{x}_0$ and then using Stochastic Gradient Langevin Dynamics (SGLD) as follows, 
 
 \begin{equation}\label{eq:sgld}
   \begin{aligned}
@@ -81,7 +81,7 @@ To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need
   \end{aligned}
 \end{equation}
 
-where $\mathbf{r}_j \sim \mathcal{N}(\mathbf{0},\mathbf{I})$ is the stochastic term and the step-size $\epsilon_j$ is typically polynomially decayed~\citep{welling2011bayesian}. The term $\mathcal{E}_{\theta}(\mathbf{x}_j|\mathbf{y}^+)$ denotes the model energy conditioned on the target class label $\mathbf{y}^+$ which we specify as the negative logit corresponding to the target class label $\mathbf{y}^{+}$. To allow for faster sampling, we follow the common practice of choosing the step-size $\epsilon_j$ and the standard deviation of $\mathbf{r}_j$ separately. While $\mathbf{x}_J$ is only guaranteed to distribute as $p_{\theta}(\mathbf{x}|\mathbf{y}^{+})$ if $\epsilon \rightarrow 0$ and $J \rightarrow \infty$, the bias introduced for a small finite $\epsilon$ is negligible in practice \citep{murphy2023probabilistic,grathwohl2020your}. 
+where $\mathbf{r}_j \sim \mathcal{N}(\mathbf{0},\mathbf{I})$ is the stochastic term and the step-size $\epsilon_j$ is typically polynomially decayed~\citep{welling2011bayesian}. The term $\mathcal{E}_{\theta}(\mathbf{x}_j|\mathbf{y}^+)$ denotes the model energy conditioned on the target class label $\mathbf{y}^+$ which we specify as the negative logit corresponding to the target class label $\mathbf{y}^{+}$. To allow for faster sampling, we follow the common practice of choosing the step-size $\epsilon_j$ and the standard deviation of $\mathbf{r}_j$ separately. While $\mathbf{x}_J$ is only guaranteed to distribute as $p_{\theta}(\mathbf{x}|\mathbf{y}^{+})$ if $\epsilon \rightarrow 0$ and $J \rightarrow \infty$, the bias introduced for a small finite $\epsilon$ is negligible in practice \citep{murphy2023probabilistic}. 
 
 Generating multiple samples using SGLD thus yields an empirical distribution $\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}$ that approximates what the model has learned about the input data. While in the context of EBM, this is usually done during training, we propose to repurpose this approach during inference in order to evaluate the faithfulness of model explanations. The technical appendix provides additional implementation details for any tasks related to energy-based modelling. 
 
@@ -92,7 +92,7 @@ Unfortunately, this idea relies on the assumption that the model itself provides
 
 To relax this assumption, we use conformal prediction (CP), an approach to predictive uncertainty quantification that has recently gained popularity~\citep{angelopoulos2021gentle,manokhin2022awesome}. Crucially for our intended application, CP is model-agnostic and can be applied during inference without placing any restrictions on model training. It works under the premise of turning heuristic notions of uncertainty into rigorous estimates by repeatedly sifting through the training data or a dedicated calibration dataset. 
 
-Conformal classifiers produce prediction sets for individual inputs that include all output labels that can be reasonably attributed to the input. Finally, classification sets are formed as follows,
+Conformal classifiers produce prediction sets for individual inputs that include all output labels that can be reasonably attributed to the input. These sets are formed as follows,
 
 \begin{equation}\label{eq:scp}
   \begin{aligned}
@@ -100,9 +100,7 @@ Conformal classifiers produce prediction sets for individual inputs that include
   \end{aligned}
 \end{equation}
 
-where $\hat{q}$ denotes the $(1-\alpha)$-quantile of $\mathcal{S}$ and $\alpha$ is a predetermined error rate.
-
-These sets tend to be larger for inputs that do not conform with the training data and are characterized by high predictive uncertainty. To leverage this notion of predictive uncertainty in the context of gradient-based counterfactual search, we use a smooth set size penalty introduced by~\citet{stutz2022learning}:
+where $\hat{q}$ denotes the $(1-\alpha)$-quantile of $\mathcal{S}$ and $\alpha$ is a predetermined error rate. These sets tend to be larger for inputs that do not conform with the training data and are characterized by high predictive uncertainty. To leverage this notion of predictive uncertainty in the context of gradient-based counterfactual search, we use a smooth set size penalty introduced by~\citet{stutz2022learning}:
 
 \begin{equation}\label{eq:setsize}
   \begin{aligned}
@@ -167,7 +165,7 @@ This observation leads to the following simple objective function for \textit{EC
   \end{aligned} 
 \end{equation}
 
-The first penalty term involving $\lambda_1$ induces closeness like in~\citet{wachter2017counterfactual}. The second penalty term involving $\lambda_2$ induces faithfulness by constraining the energy of the generated counterfactual. The third and final penalty term involving $\lambda_3$ ensures that the generated counterfactual is associated with low predictive uncertainty. 
+The first penalty term involving $\lambda_1$ induces closeness like in~\citet{wachter2017counterfactual}. The second penalty term involving $\lambda_2$ induces faithfulness by constraining the energy of the generated counterfactual. The third and final penalty term involving $\lambda_3$ ensures that the generated counterfactual is associated with low predictive uncertainty. To tune theses hyperparameters we have relied on grid search.
 
 Concerning feature autoencoding ($f: \mathcal{Z} \mapsto \mathcal{X}$), \textit{ECCCo} does not rely on latent space search to achieve its primary objective of faithfulness. By default, we choose $f(\cdot)$ to be the identity function as in \textit{Wachter}. This is generally also enough to achieve plausibility, provided the model has learned plausible explanations for the data. In some cases, plausibility can be improved further by mapping counterfactuals to a lower-dimensional latent space. In the following, we refer to this approach as \textit{ECCCo+}: that is, \textit{ECCCo} plus dimensionality reduction.
 
@@ -189,7 +187,7 @@ Our goal in this section is to shed light on the following research questions:
   To what extent are counterfactuals generated by \textit{ECCCo} more faithful than those produced by state-of-the-art generators?
 \end{question}
 
-\begin{question}[Balancing Objectives]\label{rq:plausibility}
+\begin{question}[Balancing Desiderata]\label{rq:plausibility}
   Compared to state-of-the-art generators, how does \textit{ECCCo} balance the two key objectives of faithfulness and plausibility?
 \end{question}
 
@@ -197,13 +195,13 @@ The second question is motivated by the intuition that faithfulness and plausibi
 
 \subsection{Experimental Setup}\label{emp:setup}
 
-To assess and benchmark the performance of our proposed generator against the state of the art, we generate multiple counterfactuals for different models and datasets. In particular, we compare \textit{ECCCo} and its variants to the following counterfactual generators that were introduced above: firstly; \textit{Schut}, which works under the premise of minimizing predictive uncertainty; secondly, \textit{REVISE}, which is state-of-the-art (SOTA) with respect to plausibility; and, finally, \textit{Wachter}, which serves as our baseline. In the case of \textit{ECCCo+}, we use Principal Component Analysis for dimensionality reduction: the traversed latent space $\mathcal{Z}$ is spanned by the first $n_z$ principal components where we choose $n_z$ to be equal to the latent dimension of the VAE that is used by \textit{REVISE}.
+To assess and benchmark the performance of our proposed generator against the state of the art, we generate multiple counterfactuals for different models and datasets. In particular, we compare \textit{ECCCo} and its variants to the following counterfactual generators that were introduced above: firstly; \textit{Schut}, which works under the premise of minimizing predictive uncertainty; secondly, \textit{REVISE}, which is state-of-the-art (SOTA) with respect to plausibility; and, finally, \textit{Wachter}, which serves as our baseline. In the case of \textit{ECCCo+}, we use principal component analysis (PCA) for dimensionality reduction: the latent space $\mathcal{Z}$ is spanned by the first $n_z$ principal components where we choose $n_z$ to be equal to the latent dimension of the VAE used by \textit{REVISE}.
 
-For the predictive modelling tasks, we use multi-layer perceptrons (\textit{MLP}), deep ensembles, joint energy models (\textit{JEM}) and convolutional neural networks. Both joint-energy modelling and ensembling have been associated with improved generative properties and adversarial robustness~\citep{grathwohl2020your,lakshminarayanan2016simple}, so we expect this to be positively correlated with the plausibility of \textit{ECCCo}. To account for stochasticity, we generate multiple counterfactuals for each target class, generator, model and dataset. Full details concerning our parameter choices, training procedures and model performance can be found in the appendix.
+For the predictive modelling tasks, we use multi-layer perceptrons (\textit{MLP}), deep ensembles, joint energy models (\textit{JEM}) and convolutional neural networks (\textit{CNN}). Both joint-energy modelling and ensembling have been associated with improved generative properties and adversarial robustness~\citep{grathwohl2020your,lakshminarayanan2016simple}, so we expect this to be positively correlated with the plausibility of \textit{ECCCo}. To account for stochasticity, we generate multiple counterfactuals for each target class, generator, model and dataset. Full details concerning our parameter choices, training procedures and model performance can be found in the appendix.
 
-We perform benchmarks on eight datasets from different domains. From the credit and finance domain we include three tabular datasets: Give Me Some Credit (\textit{GMSC})~\citep{kaggle2011give}, \textit{German Credit} and \textit{California Housing} (REFRENCES). All of these are commonly used in the related literature~\citep{karimi2020survey,altmeyer2023endogenous,pawelczyk2021carla}. Following~\citet{schut2021generating} we also include two image datasets: \textit{MNIST}~\citep{lecun1998mnist} and \textit{Fashion MNIST}~\citep{xiao2017fashion}. These are small image datasets but they allow us to easily visually gauge how plausible counterfactuals are. (EXPLAIN WHY NO LARGER?) Finally, we also benchmark our generators on multiple synthetic datasets. Detailed descriptions and results for all datasets can be found in the appendix (POINTER). 
+We perform benchmarks on eight datasets from different domains. From the credit and finance domain we include three tabular datasets: Give Me Some Credit (\textit{GMSC})~\citep{kaggle2011give}, \textit{German Credit}~\citet{hoffman1994german} and \textit{California Housing}~\citet{pace1997sparse}. All of these are commonly used in the related literature~\citep{karimi2020survey,altmeyer2023endogenous,pawelczyk2021carla}. Following~\citet{schut2021generating} we also include two image datasets: \textit{MNIST}~\citep{lecun1998mnist} and \textit{Fashion MNIST}~\citep{xiao2017fashion}. Detailed descriptions and results for all datasets can be found in the appendix. 
 
-In the following, we will focus on the most relevant results highlighted in Tables~\ref{tab:results-tabular} and~\ref{tab:results-vision}. The tables show sample averages along with standard deviations for our key evaluation metrics for the \textit{California Housing} and \textit{GMSC} datasets (Table~\ref{tab:results-tabular}) and the \textit{MNIST} dataset (Table~\ref{tab:results-vision}). For each metric, the best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). For the tabular datasets, we use the default Euclidian distance to measure unfaithfulness and implausibility as defined in Equations~\ref{eq:faith} and~\ref{eq:impl}, respectively. For the vision datasets, we instead rely on measuring the structural dissimilarity between images~\citep{wang2003multiscale}.
+In the following, we will focus on the most relevant results highlighted in Tables~\ref{tab:results-tabular} and~\ref{tab:results-vision}. The tables show sample averages along with standard deviations for our key evaluation metrics for the \textit{California Housing} and \textit{GMSC} datasets (Table~\ref{tab:results-tabular}) and the \textit{MNIST} dataset (Table~\ref{tab:results-vision}). For each metric, the best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). For the tabular datasets, we use the default Euclidian distance to measure unfaithfulness and implausibility as defined in Equations~\ref{eq:faith} and~\ref{eq:impl}, respectively. The third metric presented~\ref{tab:results-tabular} in Table quantifies the predictive uncertainty of the counterfactual as measured by Equation~\ref{eq:setsize}. For the vision datasets, we rely on measuring the structural dissimilarity between images for our unfaithfulness and implausibility metrics~\citep{wang2003multiscale}. 
 
 \subsection{Faithfulness}
 
@@ -219,7 +217,7 @@ These findings are consistent with the notion that surrogate models may inhibit 
 
 In conclusion, we recommend in light of the findings here to use the full \textit{ECCCo} search objective whenever model faithfulness is a key priority. 
 
-\subsection{Balancing Objectives}
+\subsection{Balancing Desiderata}
 
 \begin{figure}
   \centering
@@ -231,37 +229,31 @@ In conclusion, we recommend in light of the findings here to use the full \texti
 
 \import{contents/}{table-vision.tex}
 
-Overall, we find strong empirical evidence suggesting that \textit{ECCCo} can achieve near state-of-the-art plausibility without sacrificing faithfulness. Figure~\ref{fig:mnist-bmk} shows one such example taken from the \textit{MNIST} benchmark. In this case, the objective was to turn the factual three (far left) into a five. The underlying model is a LeNet-5 convolutional neural network. The different images show the counterfactuals produced by the generators, of which all but the one produced by \textit{Schut} are valid. Both variations of \textit{ECCCo} produce plausible counterfactuals.
+Overall, we find strong empirical evidence suggesting that \textit{ECCCo} can achieve near state-of-the-art plausibility without sacrificing faithfulness. Figure~\ref{fig:mnist-bmk} shows one such example taken from the \textit{MNIST} benchmark where the objective is to turn the factual three (far left) into a five. The underlying model is a LeNet-5 \textit{CNN}. The different images show the counterfactuals produced by the generators, of which all but the one produced by \textit{Schut} are valid. Both variations of \textit{ECCCo} produce plausible counterfactuals.
 
-Looking at the benchmark results presented in Tables~\ref{tab:results-tabular} and~\ref{tab:results-vision} we firstly note that although \textit{REVISE} generally performs best, \textit{ECCCo} and in particular \textit{ECCCo+} often approach SOTA performance. Zooming in on the details we observe that \textit{ECCCo} and its variations do particularly well, whenever the underlying model has been explicitly trained to learn plausible representations of the data. For both tabular datasets in Table~\ref{tab:results-tabular}, \textit{ECCCo} improves plausibility substantially compared to the baseline. This broad pattern is mostly consistent for all other datasets, although there are notable exceptions for which \textit{ECCCo} takes the lead on both plausibility and faithfulness (see for example Tables~\ref{tab:results-moons} and~\ref{tab:results-german-credit}). 
+Looking at the benchmark results presented in Tables~\ref{tab:results-tabular} and~\ref{tab:results-vision} we firstly note that although \textit{REVISE} generally performs best, \textit{ECCCo} and in particular \textit{ECCCo+} often approach SOTA performance. Zooming in on the details we observe that \textit{ECCCo} and its variations do particularly well, whenever the underlying model has been explicitly trained to learn plausible representations of the data. For both tabular datasets in Table~\ref{tab:results-tabular}, \textit{ECCCo} improves plausibility substantially compared to the baseline. This broad pattern is mostly consistent for all other datasets, although there are notable exceptions for which \textit{ECCCo} takes the lead on both plausibility and faithfulness (see, for example, Tables~\ref{tab:results-moons} and~\ref{tab:results-german-credit} in the appendix). 
 
 While we maintain that generally speaking plausibility should hinge on the quality of the model, our results also indicate that it is possible to trade off some degree of faithfulness for plausibility if needed: \textit{ECCCo+} generally outperforms other variants of \textit{ECCCo} in this context at the small cost of slightly reduced faithfulness. For the vision datasets especially, we find that  \textit{ECCCo+} is consistently second only to \textit{REVISE} for all models and regularly substantially better than the baseline. Looking at the \textit{California Housing} data, latent space search markedly improves plausibility without sacrificing faithfulness: for the \textit{JEM} Ensemble, \textit{ECCCo+} performs substantially better than the baseline and only marginally worse than \textit{REVISE}. Importantly, \textit{ECCCo+} does not attain plausibility at all costs: for the MLP, plausibility is still very low but this seems to faithfully represent what the model has learned. 
 
 We conclude that \textit{ECCCo} offers us a way to balance the objectives of faithfulness and plausibility. \textit{ECCCo+} can be used to tilt the scale in favour of plausibility if needed.
 
-\subsection{Additional Observations}
+\subsection{Additional Desiderata}
 
+While we have deliberately focused on our key metrics of interest so far, it is worth briefly considering other common desiderata for counterfactuals. With reference to the right-most columns for each dataset in Table~\ref{tab:results-tabular}, we firstly note that \textit{ECCCo} typically reduces predictive uncertainty as intended. Consistent with its design, \textit{Schut} performs well on this metric even though it does not explicitly address uncertainty as measured by conformal prediction set sizes. 
 
+Another commonly discussed desideratum is closeness~\citep{wachter2017counterfactual}: counterfactuals that are closer to their factuals are associated with smaller costs to individuals in the context of algorithmic recourse. As evident from the additional tables in the appendix, the closeness desideratum tends to be negatively correlated with plausibility and faithfulness. Consequently, both \textit{REVISE} and \textit{ECCCo} generally yield more costly counterfactuals than the baseline. Nonetheless, \textit{ECCCo} does not seem to stretch costs unnecessarily: in Figure~\ref{fig:mnist-bmk} useful parts of the factual three are clearly retained.
 
 \section{Limitations}
 
-Even though we have taken considerable measures to study our proposed methodology carefully, limitations can still be identified. 
+Despite having taken considerable measures to study our methodology carefully, limitations can still be identified. 
 
-\subsection{Evaluation Metrics}
+Firstly, we recognise that our proposed distance-based evaluation metrics for plausibility and faithfulness may not be universally applicable to all types of data. In any case, they depend on choosing a distance metric on a case-by-case basis, as we have done in this work. Arguably, commonly used metrics for measuring other desiderata such as closeness suffer from the same pitfall. We therefore think that future work on counterfactual explanations could benefit from defining universal evaluation metrics. 
 
-Our proposed distance-based evaluation metrics for plausibility and faithfulness may not be universally applicable to all types of data. In any case, they depend on choosing a distance metric on a case-by-base basis for different datasets. Arguably, commonly used metrics for measuring other desiderata such as closeness suffer from the same pitfall. We therefore think that future work on counterfactual explanations could benefit from defining universal evaluation metrics. 
+Relatedly, we note that our proposed metric for measuring faithfulness depends on the availability of samples generated through SGLD, which in turn requires gradient access for models. This means it cannot be used to evaluate non-differentiable classifiers. Consequently, we also have not applied \textit{ECCCo} to some machine learning models commonly used for classification such as decision trees. Since \textit{ECCCo} itself does not rely on SGLD, its defining penalty functions are indeed applicable to gradient-free counterfactual generators. This is an interesting avenue for future research.
 
-\subsection{Experiments}
+Next, common challenges associated with energy-based modelling including sensitivity to scale, training instabilities and sensitivity to hyperparameters also apply to \textit{ECCCo} to some extent. In grid searches for optimal hyperparameters, we have noticed that unless properly regularized, \textit{ECCCo} is sometimes prone to overshoot for the energy constraint. 
 
-While we have employed various datasets in our experiments that are commonly used in the related literature, we acknowledge that additional real-world data and application is needed to test \textit{ECCCo} and improve upon the ideas we have presented in this work. One challenge in this context is that counterfactual explanations do not scale very well to high-dimensional input data like images~\citep{samoilescu2021model,chen2021seven}. Consequently, we have limited ourselves to studying small image datasets only. 
-
-\subsection{Generalizability}
-
-While our approach is readily applicable to models with gradient access like deep neural networks, more work is needed to generalise it to other machine learning models such as decision trees. Relatedly, common challenges associated with energy-based modelling including sensitivity to scale, training instabilities and sensitivity to hyperparameters also apply to \textit{ECCCo}.
-
-\subsection{Ablation Studies}
-
-In our experiments we have used ablation to understand the roles of the different components of \textit{ECCCo}. Our results here indicate that conformal prediction alone is often not sufficient to achieve faithfulness and plausibility. To test this initial finding more thoroughly, future work could benefit from more extensive ablation studies that thoroughly tune hyperparameters and investigate different approaches to conformal prediction. 
+Finally, while we have used ablation to understand the roles of the different components of \textit{ECCCo}, the scope of this work has prevented us from investigating the role of conformal prediction in this context more thoroughly. We have exclusively relied on split conformal prediction and have used fixed values for the predetermined error rate and other hyperparameters. Future work could benefit from more extensive ablation studies that tune hyperparameters and investigate different approaches to conformal prediction.
 
 \section{Conclusion}
 
