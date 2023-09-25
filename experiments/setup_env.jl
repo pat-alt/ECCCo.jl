@@ -168,8 +168,8 @@ DEFAULT_GENERATOR_TUNING = (
 DEFAULT_GENERATOR_TUNING_LARGE = (
     Λ=[
         [0.1, 0.1, 0.1],
-        [0.1, 0.1, 0.2],
-        [0.2, 0.2, 0.2],
+        [0.1, 0.2, 0.2],
+        [0.1, 0.3, 0.3],
     ],
     reg_strength=[0.0, 0.1, 0.5, 1.0],
     opt=[
