@@ -1,4 +1,4 @@
-function choose_random_mnist(outcome::ExperimentOutcome; model::String="MLP", img_height=200, seed=966)
+function choose_random_mnist(outcome::ExperimentOutcome; model::String="LeNet-5", img_height=125, seed=966)
 
     # Set seed:
     if !isnothing(seed)
@@ -30,10 +30,12 @@ function choose_random_mnist(outcome::ExperimentOutcome; model::String="MLP", im
         title="Factual",
     )
     plts = [p1]
+    ces = []
 
     # Counterfactuals:
     for (i, generator) in enumerate(generators)
-        img = CounterfactualExplanations.counterfactual(df.ce[i]) |> ECCCo.convert2mnist
+        ce = df.ce[i]
+        img = CounterfactualExplanations.counterfactual(ce) |> ECCCo.convert2mnist
         p = Plots.plot(
             img,
             axis=([], false),
@@ -41,20 +43,22 @@ function choose_random_mnist(outcome::ExperimentOutcome; model::String="MLP", im
             title="$generator",
         )
         push!(plts, p)
+        push!(ces, ce)
     end
 
     plt = Plots.plot(
         plts...,
         layout=(1, n_generators + 1), 
-        size=(img_height * (n_generators + 1), img_height)
+        size=(img_height * (n_generators + 1), img_height),
+        dpi=300
     )
     display(plt)
 
-    return plt, df.target[1], seed
+    return plt, df.target[1], seed, ces, df.sample[1]
 
 end
 
-function plot_random_eccco(outcome::ExperimentOutcome; generator="ECCCo-Δ", img_height=200, seed=966)
+function plot_random_eccco(outcome::ExperimentOutcome; ce=nothing, generator="ECCCo-Δ", img_height=200, seed=966)
     # Set seed:
     if !isnothing(seed)
         Random.seed!(seed)
@@ -62,7 +66,7 @@ function plot_random_eccco(outcome::ExperimentOutcome; generator="ECCCo-Δ", img
 
     # Get output:
     bmk = outcome.bmk()
-    ce = rand(bmk.ce)
+    ce = isnothing(ce) ? rand(bmk.ce) : ce
     gen = outcome.generator_dict[generator]
     models = outcome.model_dict
     x = CounterfactualExplanations.counterfactual(ce)
@@ -95,7 +99,8 @@ function plot_random_eccco(outcome::ExperimentOutcome; generator="ECCCo-Δ", img
     plt = Plots.plot(
         plts...,
         layout=(1, n_models + 1),
-        size=(img_height * (n_models + 1), img_height)
+        size=(img_height * (n_models + 1), img_height),
+        dpi=300
     )
     display(plt)
 

@@ -130,7 +130,7 @@ function best_absolute_outcome(
     for (params, outcome) in outcomes
 
         # Setup
-        evaluation = outcome.bmk.evaluation
+        evaluation = deepcopy(outcome.bmk.evaluation)
         exper = outcome.exper
         generator_dict = outcome.generator_dict
         model_dict = outcome.model_dict
