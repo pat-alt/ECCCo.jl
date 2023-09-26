@@ -19,6 +19,8 @@ params = (
     epochs=100,
     α=[1.0, 1.0, 1e-2],
     sampling_steps=30,
+    opt=Flux.Optimise.Descent(0.05),
+    Λ=[0.1, 0.1, 0.05],
 )
 
 # Best grid search params:

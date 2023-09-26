@@ -30,6 +30,8 @@ params = (
     sampling_steps=30,
     use_ensembling=true,
     opt=Flux.Optimise.Descent(0.05),
+    Λ=[0.2, 0.2, 0.2],
+    n_individuals=25,
     dim_reduction=true,
 )
 
