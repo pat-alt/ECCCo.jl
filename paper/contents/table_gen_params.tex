@@ -1,20 +1,20 @@
 \begin{table}
 
-\caption{Generator hyperparameters. \label{tab:genparams} \newline}
+\caption{Generator hyperparameters: the optimiser step size ($\eta$); penalty strengths where $\lambda_1$ applies to all generators but \textit{Schut} and the other parameter are specific to \textit{ECCCo}; finally, the strength for the Ridge penalty on energy for \textit{ECCCo}.\label{tab:genparams} \newline}
 \centering
 \fontsize{8}{10}\selectfont
-\begin{tabular}[t]{rrrrr}
+\begin{tabular}[t]{rrrrrr}
 \toprule
-Dataset & $\eta$ & $\lambda_1$ & $\lambda_2$ & $\lambda_3$\\
+Dataset & $\eta$ & $\lambda_1$ & $\lambda_2$ & $\lambda_3$ & Ridge penalty\\
 \midrule
-Linearly Separable & 0.01 & 0.10 & 0.10 & 0.05\\
-Moons & 0.01 & 0.10 & 0.10 & 0.50\\
-Circles & 0.05 & 0.10 & 0.10 & 0.05\\
-California Housing & 0.05 & 0.10 & 0.10 & 0.10\\
-GMSC & 0.05 & 0.10 & 0.10 & 0.10\\
-German Credit & 0.05 & 0.20 & 0.20 & 0.20\\
-MNIST & 0.10 & 0.01 & 0.25 & 0.25\\
-Fashion MNIST & 0.10 & 0.01 & 0.25 & 0.25\\
+Linearly Separable & 0.01 & 0.10 & 0.1 & 0.05 & 0.0\\
+Moons & 0.01 & 0.10 & 0.1 & 0.50 & 0.0\\
+Circles & 0.05 & 0.10 & 0.1 & 0.05 & 1.0\\
+California Housing & 0.05 & 0.10 & 0.1 & 0.10 & 0.0\\
+GMSC & 0.05 & 0.10 & 0.1 & 0.10 & 0.0\\
+German Credit & 0.05 & 0.20 & 0.2 & 0.20 & 0.5\\
+MNIST & 0.10 & 0.01 & 0.1 & 0.30 & 0.0\\
+Fashion MNIST & 0.10 & 0.01 & 0.1 & 0.30 & 0.0\\
 \bottomrule
 \end{tabular}
 \end{table}
