@@ -167,13 +167,14 @@ DEFAULT_GENERATOR_TUNING = (
 "Generator tuning parameters for large datasets."
 DEFAULT_GENERATOR_TUNING_LARGE = (
     Λ=[
-        [0.1, 0.1, 0.01],
-        [0.1, 0.1, 0.05],
         [0.1, 0.1, 0.1],
+        [0.1, 0.1, 0.2],
+        [0.2, 0.2, 0.2],
     ],
-    reg_strength=[0.0, 0.1],
+    reg_strength=[0.0, 0.1, 0.5],
     opt=[
         Flux.Optimise.Descent(0.01),
+        Flux.Optimise.Descent(0.05),
     ],
 )
 

@@ -164,3 +164,41 @@ function plot_all_mnist(gen, model, data=load_mnist_test(); img_height=150, seed
     return plt
 
 end
+
+using MLDatasets
+using MosaicViews
+function vae_reconstructions(seed=123)
+
+    # Set seed:
+    if !isnothing(seed)
+        Random.seed!(seed)
+    end
+
+    counterfactual_data = load_mnist()
+    counterfactual_data.generative_model = CounterfactualExplanations.Models.load_mnist_vae()
+    X = counterfactual_data.X
+    y = counterfactual_data.output_encoder.y  
+    images = []
+    rec_images = []
+    for i in 0:9
+        j = 0
+        while j < 10
+            x = X[:,rand(findall(y .== i))]
+            x̂ = CounterfactualExplanations.GenerativeModels.reconstruct(vae, x)[1] |> 
+                x̂ -> clamp.((x̂ .+ 1.0) ./ 2.0, 0.0, 1.0) |>
+                x̂ -> reshape(x̂, 28,28) |>
+                x̂ -> MLDatasets.convert2image(MNIST, x̂)
+            x = clamp.((x .+ 1.0) ./ 2.0, 0.0, 1.0) |> 
+                x -> reshape(x, 28,28) |>
+                x -> MLDatasets.convert2image(MNIST, x)
+            push!(images, x)
+            push!(rec_images, x̂)
+            j += 1
+        end
+    end
+    p1 = plot(mosaic(images..., ncol=10), title="Images")
+    p2 = plot(mosaic(rec_images..., ncol=10), title="Reconstructions")
+    plt = plot(p1, p2, axis=false, size=(800,375))
+
+    return plt
+end
