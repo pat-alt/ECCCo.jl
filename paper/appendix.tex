@@ -162,10 +162,50 @@ Now we notice that Equation~\ref{eq:eccco-jem-2} is equivalent to Equation~\ref{
 
 \subsubsection{The \textit{ECCCo} algorithm}
 
+Algorithm~\ref{alg:eccco} describes how exactly \textit{ECCCo} works. For the sake of simplicity and without loss of generality, we limit our attention to generating a single counterfactual $\mathbf{x}^\prime=f(\mathbf{z}^\prime)$. The counterfactual state $\mathbf{z}^\prime$ is initialized at the factual $\mathbf{x}$. Other forms of initialization are also suitable but not considered here. For example, one may choose at a small random perturbation to all features~\citep{slack2021counterfactual}. Next, we calibrate the model $M_{\theta}$ through split conformal prediction. Finally, we search counterfactuals through gradient descent where $\mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ denotes our loss function defined in Equation~\ref{eq:eccco}. The search terminates once the convergence criterium is met or the maximum number of iterations $T$ has been exhausted. Note that the choice of convergence criterium has important implications on the final counterfactual which we explain below.
+
+\begin{algorithm*}[h]
+  \caption{The \textit{ECCCo} generator}\label{alg:eccco}
+  \begin{algorithmic}[1]
+    \Require $\mathbf{x}, \mathbf{y}^+, M_{\theta}, \Lambda=[\lambda_1,\lambda_2,\lambda_3], \alpha, \mathcal{D}, T$ where $M_{\theta}(\mathbf{x})\neq\mathbf{y}^+$
+    \Ensure $\mathbf{x}^\prime$
+    \State Initialize $\mathbf{z}^\prime \gets \mathbf{x}$ 
+    \State Run \textit{SCP} for $M_{\theta}$ using $\mathcal{D}$ \Comment{Calibrate model through split conformal prediction.}
+    \State Initialize $t \gets 0$
+    \While{\textit{not converged} or $t < T$} \Comment{For convergence conditions see below.}
+    \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
+    \State $t \gets t+1$
+    \EndWhile
+    \State $\mathbf{x}^\prime \gets \mathbf{z}^\prime$ \Comment{Map back to feature space.}
+  \end{algorithmic}
+\end{algorithm*}
+
+\subsubsection{The \textit{ECCCo+} algorithm}
+
+Algorithm~\ref{alg:eccco-plus} describes how exactly \textit{ECCCo+} works. The only difference to \textit{ECCCo} is that we encode and decode features using PCA.
+
+\begin{algorithm*}[h]
+  \caption{The \textit{ECCCo+} generator}\label{alg:eccco-plus}
+  \begin{algorithmic}[1]
+    \Require $\mathbf{x}, \mathbf{y}^+, M_{\theta}, f, \Lambda=[\lambda_1,\lambda_2,\lambda_3], \alpha, \mathcal{D}, T$ where $M_{\theta}(\mathbf{x})\neq\mathbf{y}^+$
+    \Ensure $\mathbf{x}^\prime$
+    \State Initialize $\mathbf{z}^\prime \gets f^{-1}(\mathbf{x})$ \Comment{Map to counterfactual state space.}
+    \State Run \textit{SCP} for $M_{\theta}$ using $\mathcal{D}$ \Comment{Calibrate model through split conformal prediction.}
+    \State Initialize $t \gets 0$
+    \While{\textit{not converged} or $t < T$} \Comment{For convergence conditions see below.}
+    \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
+    \State $t \gets t+1$
+    \EndWhile
+    \State $\mathbf{x}^\prime \gets f(\mathbf{z}^\prime)$ \Comment{Map back to feature space.}
+  \end{algorithmic}
+\end{algorithm*}
+
+\subsubsection{The \textit{ECCCo-L1} algorithm}
+
 Algorithm~\ref{alg:eccco} describes how exactly \textit{ECCCo} works. For the sake of simplicity and without loss of generality, we limit our attention to generating a single counterfactual $\mathbf{x}^\prime=f(\mathbf{z}^\prime)$. The counterfactual state $\mathbf{z}^\prime$ is initialized by passing the factual $\mathbf{x}$ through a simple feature transformer $f^{-1}$. Next, we generate $n_{\mathcal{B}}$ conditional samples $\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}$ using SGLD (Equation~\ref{eq:sgld}) and store the $n_E$ instances with the lowest energy. We then calibrate the model $M_{\theta}$ through split conformal prediction. Finally, we search counterfactuals through gradient descent where $\mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ denotes our loss function defined in Equation~\ref{eq:eccco}. The search terminates once the convergence criterium is met or the maximum number of iterations $T$ has been exhausted. Note that the choice of convergence criterium has important implications on the final counterfactual which we explain in Appendix~\ref{app:eccco}.
 
-\begin{algorithm*}
-  \caption{The \textit{ECCCo} generator}\label{alg:eccco}
+\begin{algorithm*}[h]
+  \caption{The \textit{ECCCo-L1} generator}\label{alg:eccco-l1}
   \begin{algorithmic}[1]
     \Require $\mathbf{x}, \mathbf{y}^+, M_{\theta}, f, \Lambda=[\lambda_1,\lambda_2,\lambda_3], \alpha, \mathcal{D}, T, \eta, n_{\mathcal{B}}, n_E$ where $M_{\theta}(\mathbf{x})\neq\mathbf{y}^+$
     \Ensure $\mathbf{x}^\prime$
@@ -182,7 +222,7 @@ Algorithm~\ref{alg:eccco} describes how exactly \textit{ECCCo} works. For the sa
   \end{algorithmic}
 \end{algorithm*}
 
-\subsubsection{A Note on Convergence}
+\subsubsection{A Note on Convergence}\label{convergence}
 
 Convergence is not typically discussed much in the context of CE, even though it has important implications on outcomes. One intuitive way to specify convergence is in terms of threshold probabilities: once the predicted probability $p(\mathbf{y}^+|\mathbf{x}^{\prime})$ exceeds some user-defined threshold $\gamma$ such that the counterfactual is valid, we could consider the search to have converged. In the binary case, for example, convergence could be defined as $p(\mathbf{y}^+|\mathbf{x}^{\prime})>0.5$ in this sense. Note, however, how this can be expected to yield counterfactuals in the proximity of the decision boundary, a region characterized by high aleatoric uncertainty. In other words, counterfactuals generated in this way would generally not be plausible. To avoid this from happening, we specify convergence in terms of gradients approaching zero for all our experiments and all of our generators. This is allows us to get a cleaner read on how the different counterfactual search objectives affect counterfactual outcomes. 
 
