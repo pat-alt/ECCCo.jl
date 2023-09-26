@@ -124,7 +124,7 @@ function plot_all_mnist(gen, model, data=load_mnist_test(); img_height=150, seed
     plts = []
 
     for factual in factuals
-        chosen = rand(findall(predict_label(model, data) .== factual))
+        chosen = rand(findall(data.output_encoder.labels .== factual))
         x = select_factual(data, chosen)
         for target in targets
             if factual != target

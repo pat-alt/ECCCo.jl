@@ -64,9 +64,6 @@ function energy_delta(
     reg_loss = norm(E(xproposed))^2
     reg_loss = reduce((x, y) -> x + y, reg_loss) / length(reg_loss)                  # aggregate over samples
 
-    # Decay:
-    λ = exp(-decay * ce.search[:iteration_count])
-
     return gen_loss + reg_strength * reg_loss
 
 end

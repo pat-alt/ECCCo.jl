@@ -32,11 +32,11 @@ As mentioned in the body of the paper, we rely on a biased sampler involving sep
 
 \begin{equation}\label{eq:biased-sgld}
   \begin{aligned}
-    \hat{\mathbf{x}}_{j+1} &\leftarrow \hat{\mathbf{x}}_j - \frac{\epsilon}{2} \mathcal{E}_{\theta}(\hat{\mathbf{x}}_j|\mathbf{y}^+) + \sigma \mathbf{r}_j, && j=1,...,J
+    \hat{\mathbf{x}}_{j+1} &\leftarrow \hat{\mathbf{x}}_j - \frac{\phi}{2} \mathcal{E}_{\theta}(\hat{\mathbf{x}}_j|\mathbf{y}^+) + \sigma \mathbf{r}_j, && j=1,...,J
   \end{aligned}
 \end{equation}
 
-Consistent with~\citet{grathwohl2020your}, we have specified $\epsilon=2$ and $\sigma=0.01$ as the default values for all of our experiments. The number of total SGLD steps $J$ varies by dataset (Table~\ref{tab:ebmparams}). Following best practices, we initialize $\mathbf{x}_0$ randomly in 5\% of all cases and sample from a buffer in all other cases. The buffer itself is randomly initialised and gradually grows to a maximum of 10,000 samples during training as $\hat{\mathbf{x}}_{J}$ is stored in each epoch~\citep{du2019implicit,grathwohl2020your}. 
+Consistent with~\citet{grathwohl2020your}, we have specified $\phi=2$ and $\sigma=0.01$ as the default values for all of our experiments. Here we have deliberately departed slightly from the notation in Equation~\ref{eq:sgld} to emphasize that we use fixed values for $\phi$ and $\sigma$, consistent with the related literature. The number of total SGLD steps $J$ varies by dataset (Table~\ref{tab:ebmparams}). Following best practices, we initialize $\mathbf{x}_0$ randomly in 5\% of all cases and sample from a buffer in all other cases. The buffer itself is randomly initialised and gradually grows to a maximum of 10,000 samples during training as $\hat{\mathbf{x}}_{J}$ is stored in each epoch~\citep{du2019implicit,grathwohl2020your}. 
 
 It is important to realise that sampling is done during each training epoch, which makes training Joint Energy Models significantly harder than conventional neural classifiers. In each epoch the generated (batch of) sample(s) $\hat{\mathbf{x}}_{J}$ is used as part of the generative loss component, which compares its energy to that of observed samples $\mathbf{x}$: 
 
@@ -202,11 +202,13 @@ Table~\ref{tab:genparams} summarises our hyperparameter choices for the counterf
 
 \import{contents/}{table_gen_params.tex}
 
-\subsubsection{Compute}
+\subsection{Compute}
 
-To enable others to easily replicate our experiments, we have chosen to work with small neural network architectures and randomly undersampled the \textit{MNIST} dataset (maintaining class balance). All of our experiments could then be run locally on a personal machine. The longest runtimes we experienced for model training and counterfactual benchmarking were on the order of 8-12 hours (\textit{MNIST} data). For the synthetic data, all experiments could be completed in less than an hour. 
+To enable others to easily replicate our experiments, we have chosen to work with small neural network architectures and randomly undersampled the \textit{MNIST} dataset (maintaining class balance). All of our final benchmarks could then be run locally on a personal machine, but grid searches and the sheer number of datasets required us to move to high-performance computing clusters to conduct our experiments efficiently. 
 
-We have summarised our system information below:
+\subsubsection{Local runs}
+
+The longest runtimes we experienced for model training and counterfactual benchmarking for a single benchmark were on the order of 12-24 hours (\textit{MNIST} data). For the synthetic data, single benchmarks could be completed in less than an hour. We have summarised our system information below:
 
 \textbf{Software}:
 
@@ -230,6 +232,9 @@ We have summarised our system information below:
   \item Memory: 32 GB
 \end{itemize}
 
+\subsubsection{HPC}
+
+We used two large clusters, which we do not cite or mention by name at this point to not interfer with the double-blind review process. All of our grid searches were multi-processed on 100 CPUs at 4-8GB or memory each. 
 
 \subsection{Results}\label{app:results}
 
@@ -241,7 +246,7 @@ Figure~\ref{fig:mnist-eccco} shows examples of counterfactuals for \textit{MNIST
   \caption{Counterfactuals for \textit{MNIST} data and our \textit{JEM Ensemble}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-eccco}
 \end{figure}
 
-Table~\ref{tab:results-full} reports all of the evaluation metrics we have computed. Table~\ref{tab:results-full-valid} reports the same metrics for the subset of valid counterfactuals. The `Unfaithfulness' and `Implausibility' metrics have been discussed extensively in the body of the paper. The `Cost' metric relates to the distance between the factual and the counterfactual. The `Redundancy' metric measures sparsity in is defined as the percentage of features that remain unperturbed (higher is better). The `Uncertainty' metric is just the average value of the smooth set size penalty (Equation~\ref{eq:setsize}). Finally, `Validity' is the percentage of valid counterfactuals. 
+Tables~\ref{tab:results-linearly-separable} to~\ref{tab:results-fashion-mnist} reports all of the evaluation metrics we have computed. Tables~\ref{tab:results-linearly-separable-valid} to~\ref{tab:results-fashion-mnist-valid} reports the same metrics for the subset of valid counterfactuals. The `Unfaithfulness' and `Implausibility' metrics have been discussed extensively in the body of the paper. The `Cost' metric relates to the distance between the factual and the counterfactual and is measured using the L1 Norm. The `Redundancy' metric measures sparsity in is defined as the percentage of features that remain unperturbed (higher is better). The `Uncertainty' metric is just the average value of the smooth set size penalty (Equation~\ref{eq:setsize}). Finally, `Validity' is the percentage of valid counterfactuals. 
 
 \import{contents/}{table-linearly-separable.tex}
 
