@@ -40,7 +40,7 @@ The `experiments/` folder contains separate Julia scripts for each dataset and a
 To run the experiment for a single dataset, (e.g. `linearly_separable`) simply run the following command:
 
 ```shell
-julia experiments/run_experiments.jl -- data=linearly_separable
+julia --project=experiments/ experiments/run_experiments.jl -- data=linearly_separable
 ```
 
 We use the following identifiers:
@@ -57,13 +57,13 @@ We use the following identifiers:
 To run experiments for multiple datasets at once simply separate them with a comma `,`
 
 ```shell
-julia experiments/run_experiments.jl -- data=linearly_separable,moons,circles
+julia --project=experiments/ experiments/run_experiments.jl -- data=linearly_separable,moons,circles
 ```
 
 To run all experiments at once you can instead run
 
 ```shell
-julia experiments/run_experiments.jl -- run-all
+julia --project=experiments/ experiments/run_experiments.jl -- run-all
 ```
 
 Pre-trained versions of all of our black-box models have been archived as `Pkg` [artifacts](https://pkgdocs.julialang.org/v1/artifacts/) and are used by default. Should you wish to retrain the models as well, simply use the `retrain` flag as follows:
