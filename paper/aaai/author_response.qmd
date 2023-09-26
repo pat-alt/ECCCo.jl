@@ -39,7 +39,7 @@ This was not an explicit concern but some reviewers wondered if *ECCCo* could al
 
 ## Beyond JEMs
 
-Another common concern was that *ECCCo* primiarly achieved good results for JEMs. 
+Another common concern was that *ECCCo* primiarly achieved good results for JEMs. This has been addressed by introducing *ECCCo+* for situations when plausibility is crucial. We find that *ECCCo+* achieves good plausibility and faithfulness across the board. We have added convolutional neural networks to our analysis and find that *ECCCo+* achieves results for these models that are at least on par with the results for JEMs.
 
 ## Mathematical notation and concepts
 
