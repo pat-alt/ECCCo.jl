@@ -1,3 +1,5 @@
+using Plots
+
 function choose_random_mnist(outcome::ExperimentOutcome; model::String="LeNet-5", img_height=125, seed=966)
 
     # Set seed:
@@ -105,4 +107,57 @@ function plot_random_eccco(outcome::ExperimentOutcome; ce=nothing, generator="EC
     display(plt)
 
     return plt, target, seed
+end
+
+function plot_all_mnist(gen, model, data=load_mnist_test(); img_height=150, seed=123, maxoutdim=64)
+
+    # Set seed:
+    if !isnothing(seed)
+        Random.seed!(seed)
+    end
+
+    # Dimensionality reduction:
+    data.dt = MultivariateStats.fit(MultivariateStats.PCA, data.X; maxoutdim=maxoutdim)
+
+    targets = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    factuals = targets
+    plts = []
+
+    for factual in factuals
+        chosen = rand(findall(predict_label(model, data) .== factual))
+        x = select_factual(data, chosen)
+        for target in targets
+            if factual != target
+                @info "Generating counterfactual for $(factual) -> $(target)"
+                ce = generate_counterfactual(
+                    x, target, data, model, gen; 
+                    initialization=:identity, converge_when=:generator_conditions
+                )
+                plt = Plots.plot(
+                    CounterfactualExplanations.counterfactual(ce) |> ECCCo.convert2mnist,
+                    axis=([], false),
+                    size=(img_height, img_height),
+                    title="$factual → $target",
+                )
+            else
+                plt = Plots.plot(
+                    x |> ECCCo.convert2mnist,
+                    axis=([], false),
+                    size=(img_height, img_height),
+                    title="Factual",
+                )
+            end
+            push!(plts, plt)
+        end
+    end
+
+    plt = Plots.plot(
+        plts...,
+        layout=(length(factuals), length(targets)),
+        size=(img_height * length(targets), img_height * length(factuals)),
+        dpi=300
+    )
+
+    return plt
+
 end

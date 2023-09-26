@@ -518,9 +518,9 @@ for (name in unique(tab_valid$dataname)) {
 ## EBM
 
 ```{r}
-files <- list.files("artifacts/params/")
-dt <- lapply(files[grepl(".csv", files)], function(x) {
-    fread(file.path("artifacts/params/", x))
+files <- list.files(paste0(res_path,"params"))
+dt <- lapply(files[sapply(files, function(x) grepl("model_params.csv",x))], function(x) {
+    fread(file.path(paste0(res_path,"params"), x))
 })
 dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
 setcolorder(
@@ -532,7 +532,12 @@ setcolorder(
     "jem_sampling_steps", "sgld_batch_size", "lambda"
   )
 )
-dt[,dataname:=factor(dataname, levels=c("Linearly Separable", "Moons", "Circles", "MNIST", "GMSC"))]
+dataset_order = c(
+  "Linearly Separable", "Moons", "Circles", 
+  "California Housing", "GMSC", "German Credit",
+  "MNIST", "Fashion MNIST"
+)
+dt[,dataname:=factor(dataname, levels=dataset_order)]
 dt <- dt[order(dataname)]
 dt_ebm <- dt[,.(dataname, jem_sampling_steps, sgld_batch_size, lambda)]
 col_names <- c(
@@ -542,7 +547,7 @@ col_names <- c(
 kbl(
   dt_ebm, caption = "EBM hyperparemeter choices for our experiments. \\label{tab:ebmparams} \\newline", 
   align = "r", col.names=col_names, booktabs = T, escape=F, 
-  format="latex"
+  format="latex", linesep = ""
 ) %>%
   kable_styling(font_size = 8) %>%
   kable_paper(full_width = F) %>%
@@ -562,7 +567,7 @@ header <- c(" " = 2, "Network Architecture" = 4, "Training" = 2)
 kbl(
   dt_exp, caption = "Paremeter choices for our experiments. \\label{tab:params} \\newline", 
   align = "r", col.names=col_names, booktabs = T, escape=F, 
-  format="latex"
+  format="latex", linesep = ""
 ) %>%
   kable_styling(latex_options = c("scale_down")) %>%
   kable_paper(full_width = F) %>%
@@ -571,13 +576,12 @@ kbl(
 ```
 
 ```{r}
-files <- list.files("artifacts/params/generator")
-dt <- lapply(files, function(x) {
-    fread(file.path("artifacts/params/generator", x))
+dt <- lapply(files[sapply(files, function(x) grepl("generator_params.csv",x))], function(x) {
+    fread(file.path(paste0(res_path,"params"), x))
 })
 dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
-dt <- dt[,.(dataname,eta,λ1,λ3,λ3)]
-dt[,dataname:=factor(dataname, levels=c("Linearly Separable", "Moons", "Circles", "MNIST", "GMSC"))]
+dt <- dt[,.(dataname,eta,lambda_1,lambda_2,lambda_3)]
+dt[,dataname:=factor(dataname, levels=dataset_order)]
 dt <- dt[order(dataname)]
 col_names <- c(
   "Dataset",
@@ -586,7 +590,7 @@ col_names <- c(
 kbl(
   dt, caption = "Generator hyperparameters. \\label{tab:genparams} \\newline", 
   align = "r", col.names=col_names, booktabs = T, escape=F, 
-  format="latex"
+  format="latex", linesep = ""
 ) %>%
   kable_styling(font_size = 8) %>%
   kable_paper(full_width = F) %>%
@@ -594,12 +598,11 @@ kbl(
 ```
 
 ```{r}
-files <- list.files("artifacts/results/")
 dt <- lapply(files[grepl("_model_performance.csv", files)], function(x) {
-    fread(file.path("artifacts/results/", x))
+    fread(file.path(paste0(res_path,"params"), x))
 })
 dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
-dt[,dataname:=factor(dataname, levels=c("Linearly Separable", "Moons", "Circles", "MNIST", "GMSC"))]
+dt[,dataname:=factor(dataname, levels=dataset_order)]
 dt <- dt[order(dataname,mod_name)]
 setcolorder(
   dt, 
@@ -611,8 +614,8 @@ setcolorder(
 col_names <- c("Dataset", "Model", "Accuracy", "Precision", "F1-Score")
 kbl(
   dt, caption = "Various standard performance metrics for our different models grouped by dataset. \\label{tab:perf} \\newline", 
-  align = "r", col.names=col_names, booktabs = T, escape=F, 
-  format="latex", digits=2
+  align = "r", col.names=col_names, booktabs = T, escape=F,
+  format="latex", digits=2, linesep = ""
 ) %>%
   kable_styling(font_size = 8) %>%
   kable_paper(full_width = F) %>%
