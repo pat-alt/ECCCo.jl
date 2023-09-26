@@ -10,31 +10,32 @@ This work is currently undergoing peer review. This README is therefore only mea
 
 This code base is structured as a Julia package. The package code is located in the `src/` folder.
 
-## Inspecting the Code for Experiments
-
-We used [Quarto](https://quarto.org/) notebooks for prototyping and running experiments. The notebooks are located in the `notebooks/` folder, separated by dataset:
-
-- [Linearly Separable](notebooks/linearly_separable.qmd)
-- [Moons](notebooks/moons.qmd)
-- [Circles](notebooks/circles.qmd)
-- [MNIST](notebooks/mnist.qmd)
-- [GMSC](notebooks/gmsc.qmd)
-
 ## Inspecting the Results
 
 All results have been carefully reported either in the paper itself or in the supplementary material. In addition, we have released our results as binary files. These will be made publicly available after the review process. 
 
 ## Reproducing the Results
 
-To reproduce the results, you need to install the package, which will automatically install all dependencies. Since the package is not publicly registered and you are looking at an anonymous repository that [cannot be cloned](https://anonymous.4open.science/faq#download), unfortunately, it is not possible to easily install the package and reproduce the results at this stage of the review process. 
+To reproduce the results, you need to install the package, which will automatically install all dependencies. Since the package is not publicly registered you will need to install it from source. To do so, start `Julia` from within this folder by executing `julia --project` from the command line and then enter `Pkg` mode by typing `]`. Then execute the following commands:
 
-However, provided that the package is indeed installed, you can reproduce the results by either running the experiments in the `experiments/` folder or using the notebooks listed above for a more interactive process. 
+```julia
+(ECCCo) pkg> resolve
+(ECCCo) pkg> instantiate
+```
 
-**Note**: All experiments were run on `julia-1.8.5`. Since pre-trained models were serialised on that version they may not be compatible with newer versions of Julia. 
+Next, you may need to activate, resolve and instantiate the environment in `experiments`:
 
-### Command Line
+```julia
+(ECCCo) pkg> activate experiments/
+  Activating project at `~/code/ECCCo.jl/experiments`
+(experiments) pkg> resolve
+(experiments) pkg> instantiate
+```
 
-The `experiments/` folder contains separate Julia scripts for each dataset and a [run_experiments.jl](experiments/run_experiments.jl) that calls the individual scripts. You can either cun these scripts inside a Julia session or just use the command line to execute them as described in the following.
+After that is done, you can exit Julia and proceed below.
+### Local runs
+
+The `experiments/` folder contains separate Julia scripts for each dataset and a [run_experiments.jl](experiments/run_experiments.jl) that calls the individual scripts. You can either run these scripts inside a Julia session or just use the command line to execute them as described in the following.
 
 To run the experiment for a single dataset, (e.g. `linearly_separable`) simply run the following command:
 
@@ -47,9 +48,11 @@ We use the following identifiers:
 - `linearly_separable` (*Linearly Separable* data)
 - `moons` (*Moons* data)
 - `circles` (*Circles* data)
+- `california_housing` (*California Housing* data)
+- `gmsc` (*GMSC* data)
+- `german_credit` (*German Credit* data)
 - `mnist` (*MNIST* data)
 - `fmnist` (*Fashion MNIST* data)
-- `gmsc` (*GMSC* data)
 
 To run experiments for multiple datasets at once simply separate them with a comma `,`
 
@@ -71,13 +74,15 @@ julia --project=experiments experiments/run_experiments.jl -- retrain data=linea
 
 #### Multi-threading
 
+To use multi-threading, proceed as follows:
+
 ```shell
 julia --threads 16 --project=experiments experiments/run_experiments.jl -- data=linearly_separable threaded
 ```
 
-
-
 #### Multi-Processing
+
+To use multi-processing, proceed as follows:
 
 ```shell
 mpiexecjl --project=experiments -n 4 julia experiments/run_experiments.jl -- data=linearly_separable mpi
@@ -88,10 +93,3 @@ Multi-processing and multi-threading can be combined:
 ```shell
 mpiexecjl --project=experiments -n 4 julia experiments/run_experiments.jl -- data=linearly_separable threaded mpi
 ```
-
-When running the experiments from the command line, the parameter choices used in the main paper are applied by default. To have control over these choices, we recommend you instead rely on the notebooks.
-
-### Notebooks
-
-To run the notebooks and ensure that all package dependencies are installed, you need to clone this repo and open it on your device. The first cell in each notebook sets up the environment. You may have to [instantiate](https://pkgdocs.julialang.org/v1/api/#Pkg.instantiate) the local environment once. Should you prefer working with Jupyter notebooks instead of Quarto, you can easily [convert](https://quarto.org/docs/tools/vscode-notebook.html#converting-notebooks) them through a single command.
-
