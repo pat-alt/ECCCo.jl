@@ -48,6 +48,7 @@ function energy_delta(
     nmin::Int=25,
     return_conditionals=false,
     reg_strength=0.1,
+    decay::Real=0.1,
     kwargs...
 )
 
@@ -62,6 +63,9 @@ function energy_delta(
     # Regularization loss:
     reg_loss = norm(E(xproposed))^2
     reg_loss = reduce((x, y) -> x + y, reg_loss) / length(reg_loss)                  # aggregate over samples
+
+    # Decay:
+    λ = exp(-decay * ce.search[:iteration_count])
 
     return gen_loss + reg_strength * reg_loss
 
