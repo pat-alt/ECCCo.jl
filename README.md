@@ -33,7 +33,7 @@ Next, you may need to activate, resolve and instantiate the environment in `expe
 ```
 
 After that is done, you can exit Julia and proceed below.
-### Local runs
+### Sequential
 
 The `experiments/` folder contains separate Julia scripts for each dataset and a [run_experiments.jl](experiments/run_experiments.jl) that calls the individual scripts. You can either run these scripts inside a Julia session or just use the command line to execute them as described in the following.
 
@@ -72,7 +72,7 @@ Pre-trained versions of all of our black-box models have been archived as `Pkg` 
 julia --project=experiments experiments/run_experiments.jl -- retrain data=linearly_separable
 ```
 
-#### Multi-threading
+### Multi-threading
 
 To use multi-threading, proceed as follows:
 
@@ -80,7 +80,7 @@ To use multi-threading, proceed as follows:
 julia --threads 16 --project=experiments experiments/run_experiments.jl -- data=linearly_separable threaded
 ```
 
-#### Multi-Processing
+### Multi-Processing
 
 To use multi-processing, proceed as follows:
 
