@@ -59,6 +59,7 @@ function meta_generators(outcome::ExperimentOutcome; save_output::Bool=false, pa
     generator_dict = outcome.generator_dict
     Λ = exper.Λ
     Λ_Δ = exper.Λ_Δ
+    reg_strengh = exper.reg_strength
 
     # Output:
     opt = first(values(generator_dict)).opt
@@ -74,6 +75,7 @@ function meta_generators(outcome::ExperimentOutcome; save_output::Bool=false, pa
             :lambda_2_Δ => string(Λ_Δ[2]),
             :lambda_3_Δ => string(Λ_Δ[3]),
             :n_individuals => exper.n_individuals,
+            :reg_strength => string(reg_strengh),
         )
     )
 
