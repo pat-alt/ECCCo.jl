@@ -173,16 +173,16 @@ Algorithm~\ref{alg:eccco} describes how exactly \textit{ECCCo} works. For the sa
     \State Run \textit{SCP} for $M_{\theta}$ using $\mathcal{D}$ \Comment{Calibrate model through split conformal prediction.}
     \State Initialize $t \gets 0$
     \While{\textit{not converged} or $t < T$} \Comment{For convergence conditions see below.}
-    \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
+    \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
     \State $t \gets t+1$
     \EndWhile
-    \State $\mathbf{x}^\prime \gets \mathbf{z}^\prime$ \Comment{Map back to feature space.}
+    \State $\mathbf{x}^\prime \gets \mathbf{z}^\prime$
   \end{algorithmic}
 \end{algorithm*}
 
 \subsubsection{The \textit{ECCCo+} algorithm}
 
-Algorithm~\ref{alg:eccco-plus} describes how exactly \textit{ECCCo+} works. The only difference to \textit{ECCCo} is that we encode and decode features using PCA.
+Algorithm~\ref{alg:eccco-plus} describes how exactly \textit{ECCCo+} works. The only difference to \textit{ECCCo} is that we encode and decode features using PCA. In particular, we let $f^{-1}(\mathbf{x})$ denote the projection of $\mathbf{x}$ to its first $n_z$ principal components. Conversely, $f(\mathbf{z}^\prime)$ maps back from the projection to the feature space. 
 
 \begin{algorithm*}[h]
   \caption{The \textit{ECCCo+} generator}\label{alg:eccco-plus}
@@ -193,7 +193,7 @@ Algorithm~\ref{alg:eccco-plus} describes how exactly \textit{ECCCo+} works. The 
     \State Run \textit{SCP} for $M_{\theta}$ using $\mathcal{D}$ \Comment{Calibrate model through split conformal prediction.}
     \State Initialize $t \gets 0$
     \While{\textit{not converged} or $t < T$} \Comment{For convergence conditions see below.}
-    \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
+    \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
     \State $t \gets t+1$
     \EndWhile
     \State $\mathbf{x}^\prime \gets f(\mathbf{z}^\prime)$ \Comment{Map back to feature space.}
@@ -202,23 +202,25 @@ Algorithm~\ref{alg:eccco-plus} describes how exactly \textit{ECCCo+} works. The 
 
 \subsubsection{The \textit{ECCCo-L1} algorithm}
 
-Algorithm~\ref{alg:eccco} describes how exactly \textit{ECCCo} works. For the sake of simplicity and without loss of generality, we limit our attention to generating a single counterfactual $\mathbf{x}^\prime=f(\mathbf{z}^\prime)$. The counterfactual state $\mathbf{z}^\prime$ is initialized by passing the factual $\mathbf{x}$ through a simple feature transformer $f^{-1}$. Next, we generate $n_{\mathcal{B}}$ conditional samples $\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}$ using SGLD (Equation~\ref{eq:sgld}) and store the $n_E$ instances with the lowest energy. We then calibrate the model $M_{\theta}$ through split conformal prediction. Finally, we search counterfactuals through gradient descent where $\mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ denotes our loss function defined in Equation~\ref{eq:eccco}. The search terminates once the convergence criterium is met or the maximum number of iterations $T$ has been exhausted. Note that the choice of convergence criterium has important implications on the final counterfactual which we explain in Appendix~\ref{app:eccco}.
+Algorithm~\ref{alg:eccco-l1} describes a variation of \textit{ECCCo} that we initally considered but ultimately discarded. For the sake of completeness we have included this approach here in the appendix. It generally yields very faithful counterfactuals but it is computationally much more expensive and struggles with plausibility.
+
+Instead of constraining energy directly, this approach works under the premise of penalizing the distance between the counterfactual and samples generated through SGLD. The counterfactual state $\mathbf{z}^\prime$ is initialized as in Algorithm~\ref{alg:eccco}. Next, we generate $n_{\mathcal{B}}$ conditional samples $\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}$ using SGLD (Equation~\ref{eq:sgld}) and store the $n_E$ instances with the lowest energy. We then calibrate the model $M_{\theta}$ through split conformal prediction. Finally, we search counterfactuals through gradient descent where $\mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ denotes our loss function defined in Equation~\ref{eq:eccco}, but instead of constraining energy directly we use Equaqtion~\ref{eq:faith} (unfaithfulness metric) as a penalty.
 
 \begin{algorithm*}[h]
   \caption{The \textit{ECCCo-L1} generator}\label{alg:eccco-l1}
   \begin{algorithmic}[1]
     \Require $\mathbf{x}, \mathbf{y}^+, M_{\theta}, f, \Lambda=[\lambda_1,\lambda_2,\lambda_3], \alpha, \mathcal{D}, T, \eta, n_{\mathcal{B}}, n_E$ where $M_{\theta}(\mathbf{x})\neq\mathbf{y}^+$
     \Ensure $\mathbf{x}^\prime$
-    \State Initialize $\mathbf{z}^\prime \gets f^{-1}(\mathbf{x})$ \Comment{Map to counterfactual state space.}
+    \State Initialize $\mathbf{z}^\prime \gets \mathbf{x}$ 
     \State Generate $\left\{\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}\right\}_{n_{\mathcal{B}}} \gets p_{\theta}(\mathbf{x}_{\mathbf{y}^+})$ \Comment{Generate $n_{\mathcal{B}}$ samples using SGLD (Equation~\ref{eq:sgld}).}
     \State Store $\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+} \gets \left\{\hat{\mathbf{x}}_{\theta,\mathbf{y}^+}\right\}_{n_{\mathcal{B}}}$ \Comment{Choose $n_E$ lowest-energy samples.}
     \State Run \textit{SCP} for $M_{\theta}$ using $\mathcal{D}$ \Comment{Calibrate model through split conformal prediction.}
     \State Initialize $t \gets 0$
-    \While{\textit{not converged} or $t < T$} \Comment{For convergence conditions see Appendix~\ref{app:eccco}.}
+    \While{\textit{not converged} or $t < T$} \Comment{For convergence conditions see below.}
     \State $\mathbf{z}^\prime \gets \mathbf{z}^\prime - \eta \nabla_{\mathbf{z}^\prime} \mathcal{L}(\mathbf{z}^\prime,\mathbf{y}^+,\widehat{\mathbf{X}}_{\theta,\mathbf{y}^+}; \Lambda, \alpha)$ \Comment{Take gradient step of size $\eta$.}
     \State $t \gets t+1$
     \EndWhile
-    \State $\mathbf{x}^\prime \gets f(\mathbf{z}^\prime)$ \Comment{Map back to feature space.}
+    \State $\mathbf{x}^\prime \gets \mathbf{z}^\prime$
   \end{algorithmic}
 \end{algorithm*}
 
@@ -278,12 +280,68 @@ We used two large clusters, which we do not cite or mention by name at this poin
 
 \subsection{Results}\label{app:results}
 
-Figure~\ref{fig:mnist-eccco} shows examples of counterfactuals for \textit{MNIST} data where the underlying model is our \textit{JEM Ensemble}. Original images are shown on the diagonal and the corresponding counterfactuals are plotted across rows.
+Figures~\ref{fig:mnist-eccco-lenet} to~\ref{fig:mnist-eccco-jem-ens} show examples of counterfactuals for \textit{MNIST} generated by \textit{ECCCo+} for our different models. Original images are shown on the diagonal and the corresponding counterfactuals are plotted across rows. Figures~\ref{fig:mnist-revise-lenet} to~\ref{fig:mnist-revise-jem-ens} show the same examples but for \textit{REVISE}. Both counterfactual generators have access to the same optimizer. While the results for \textit{REVISE} look fairly poor here, we have observed better results for optizers with higher step sizes. 
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.9\linewidth]{../artifacts/results/images/mnist_eccco_all_digits.png}
-  \caption{Counterfactuals for \textit{MNIST} data and our \textit{JEM Ensemble}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-eccco}
+  \includegraphics[width=1.0\linewidth]{../www/mnist_all_lenet_eccco.png}
+  \caption{Counterfactuals for \textit{MNIST} data generated by \textit{ECCCo+}. The underlying model is a LeNet-5 \textit{CNN}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-eccco-lenet}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\linewidth]{../www/mnist_all_mlp_eccco.png}
+  \caption{Counterfactuals for \textit{MNIST} data generated by \textit{ECCCo+}. The underlying model is an \textit{MLP}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-eccco-mlp}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\linewidth]{../www/mnist_all_mlp_ens_eccco.png}
+  \caption{Counterfactuals for \textit{MNIST} data generated by \textit{ECCCo+}. The underlying model is an \textit{MLP} ensemble. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-eccco-mlp-ens}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\linewidth]{../www/mnist_all_jem_eccco.png}
+  \caption{Counterfactuals for \textit{MNIST} data generated by \textit{ECCCo+}. The underlying model is a \textit{JEM}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-eccco-jem}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\linewidth]{../www/mnist_all_jem_ens_eccco.png}
+  \caption{Counterfactuals for \textit{MNIST} data generated by \textit{ECCCo+}. The underlying model is a \textit{JEM} ensemble. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-eccco-jem-ens}
+\end{figure}
+
+% REVISE
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\linewidth]{../www/mnist_all_lenet_revise.png}
+  \caption{Counterfactuals for \textit{MNIST} data generated by \textit{REVISE}. The underlying model is a LeNet-5 \textit{CNN}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-revise-lenet}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\linewidth]{../www/mnist_all_mlp_revise.png}
+  \caption{Counterfactuals for \textit{MNIST} data generated by \textit{REVISE}. The underlying model is an \textit{MLP}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-revise-mlp}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\linewidth]{../www/mnist_all_mlp_ens_revise.png}
+  \caption{Counterfactuals for \textit{MNIST} data generated by \textit{REVISE}. The underlying model is an \textit{MLP} ensemble. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-revise-mlp-ens}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\linewidth]{../www/mnist_all_jem_revise.png}
+  \caption{Counterfactuals for \textit{MNIST} data generated by \textit{REVISE}. The underlying model is a \textit{JEM}. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-revise-jem}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\linewidth]{../www/mnist_all_jem_ens_revise.png}
+  \caption{Counterfactuals for \textit{MNIST} data generated by \textit{REVISE}. The underlying model is a \textit{JEM} ensemble. Original images are shown on the diagonal with the corresponding counterfactuals plotted across rows.}\label{fig:mnist-revise-jem-ens}
 \end{figure}
 
 Tables~\ref{tab:results-linearly-separable} to~\ref{tab:results-fashion-mnist} reports all of the evaluation metrics we have computed. Tables~\ref{tab:results-linearly-separable-valid} to~\ref{tab:results-fashion-mnist-valid} reports the same metrics for the subset of valid counterfactuals. The `Unfaithfulness' and `Implausibility' metrics have been discussed extensively in the body of the paper. The `Cost' metric relates to the distance between the factual and the counterfactual and is measured using the L1 Norm. The `Redundancy' metric measures sparsity in is defined as the percentage of features that remain unperturbed (higher is better). The `Uncertainty' metric is just the average value of the smooth set size penalty (Equation~\ref{eq:setsize}). Finally, `Validity' is the percentage of valid counterfactuals. 

@@ -118,6 +118,9 @@ function plot_all_mnist(gen, model, data=load_mnist_test(); img_height=150, seed
 
     # Dimensionality reduction:
     data.dt = MultivariateStats.fit(MultivariateStats.PCA, data.X; maxoutdim=maxoutdim)
+    
+    # VAE for REVISE:
+    data.generative_model = CounterfactualExplanations.Models.load_mnist_vae()
 
     targets = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     factuals = targets
