@@ -44,8 +44,9 @@ dt_valid <- dt[non_valid==FALSE]
 ```
 
 ```{r}
+generators <- unique(dt$generator)[sapply(unique(dt$generator), function(x) {!grepl("L1",x)})]
 tab <- dt[
-    ,
+    generator %in% generators,
     .(
       value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
       val = mean(value),
@@ -100,8 +101,9 @@ tab[,one_std_wachter:=NULL]
 ```
 
 ```{r}
+generators <- unique(dt$generator)[sapply(unique(dt$generator), function(x) {!grepl("L1",x)})]
 tab_valid <- dt_valid[
-    ,
+    generator %in% generators,
     .(
       value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
       val = mean(value),
@@ -161,84 +163,33 @@ tab_valid[,one_std_wachter:=NULL]
 # Choices:
 measures <- c(
   "unfaithfulness",
-  "implausibility"
+  "implausibility",
+  "set_size_penalty"
 )
 measure_names <- c(
   "Unfaithfulness ↓",
-  "Implausibility ↓"
-)
-# Order:
-chosen_data <- c(
-  "Linearly Separable",
-  "GMSC",
-  "MNIST",
-)
-chosen_model <- c(
-  "MLP",
-  "JEM",
-  "LeNet-5"
-)
-
-tab_i <- tab
-
-# Logic:
-tab_i <- tab_i[variable %in% measures]
-tab_i <- tab_i[dataname %in% chosen_data]
-tab_i <- tab_i[model %in% chosen_model]
-tab_i[,dataname:=factor(dataname,levels=chosen_data)]
-tab_i <- dcast(tab_i, model + generator ~ dataname + variable)
-col_names <- c(
-  "Model",
-  "Generator",
-  rep(measure_names,length(chosen_data))
-)
-caption <-  "Results for datasets from different domains: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-main} \\newline"
-file_name <- "paper/contents/table-main.tex"
-sub_header <- rep(length(measures), length(chosen_data))
-names(sub_header) <- chosen_data
-header <- c(
-  " " = 2, sub_header
-)
-line_sep <- c(rep("",length(measures)-1),"\\addlinespace")
-algin_cols <- c(rep('l',2),rep('c',ncol(tab_i)-2))
-kbl(
-  tab_i, caption = caption, 
-  align = algin_cols, col.names=col_names, booktabs = T, escape=F, 
-  format="latex", linesep = line_sep 
-) %>%
-  kable_styling(latex_options = c("scale_down")) %>%
-  kable_paper(full_width = T) %>%
-  add_header_above(header) %>%
-  collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
-  save_kable(file_name)
-```
-
-```{r}
-# Choices:
-measures <- c(
-  "distance_from_energy_l2",
-  "distance_from_targets_l2"
-)
-measure_names <- c(
-  "Unfaithfulness ↓",
-  "Implausibility ↓"
+  "Implausibility ↓",
+  "Uncertainty ↓"
 )
 chosen_source <- "tabular"
 # Order:
 chosen_data <- c(
-  "GMSC",
   "California Housing",
-  "German Credit"
+  "GMSC"
 )
-chosen_model <- "MLP"
+chosen_model <- c(
+  "MLP",
+  "JEM Ensemble"
+)
 
 tab_i <- tab
 
 # Logic:
 tab_i <- tab_i[variable %in% measures]
-tab_i <- tab_i[source == chosen_source]
+tab_i[,variable:=factor(variable, levels=measures)]
 tab_i <- tab_i[dataname %in% chosen_data]
-tab_i <- tab_i[model == chosen_model]
+tab_i <- tab_i[model %in% chosen_model]
+tab_i[,model:=factor(model,levels=chosen_model)]
 tab_i[,dataname:=factor(dataname,levels=chosen_data)]
 tab_i <- dcast(tab_i, model + generator ~ dataname + variable)
 col_names <- c(
@@ -247,7 +198,7 @@ col_names <- c(
   rep(measure_names,length(chosen_data))
 )
 caption <- sprintf(
-  "Results for %s datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-%s} \\newline",
+  "Results for %s datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\\textit{Wachter}). \\label{tab:results-%s} \\newline",
   chosen_source,
   chosen_source
 )
@@ -265,68 +216,12 @@ algin_cols <- c(rep('l',2),rep('c',ncol(tab_i)-2))
 kbl(
   tab_i, caption = caption, 
   align = algin_cols, col.names=col_names, booktabs = T, escape=F, 
-  format="latex", linesep = line_sep 
+  format="latex", linesep = line_sep, table.env="table*"
 ) %>%
-  kable_styling(latex_options = c("scale_down")) %>%
-  kable_paper(full_width = T) %>%
-  add_header_above(header) %>%
-  collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
-  save_kable(file_name)
-```
-
-```{r}
-# Choices:
-# Choices:
-measures <- c(
-  "distance_from_energy_l2",
-  "distance_from_targets_l2"
-)
-measure_names <- c(
-  "Unfaithfulness ↓",
-  "Implausibility ↓"
-)
-chosen_source <- "synthetic"
-chosen_data <- c(
-  "Linearly Separable",
-  "Moons",
-  "Circles"
-)
-tab_i <- tab
-
-# Logic:
-tab_i <- tab_i[variable %in% measures]
-tab_i <- tab_i[source == chosen_source]
-tab_i <- tab_i[dataname %in% chosen_data]
-tab_i[,dataname:=factor(dataname,levels=chosen_data)]
-tab_i <- dcast(tab_i, model + generator ~ dataname + variable)
-col_names <- c(
-  "Model",
-  "Generator",
-  rep(measure_names,length(chosen_data))
-)
-caption <- sprintf(
-  "Results for %s datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-%s} \\newline",
-  chosen_source,
-  chosen_source
-)
-file_name <- sprintf(
-  "paper/contents/table-%s.tex",
-  chosen_source
-)
-sub_header <- rep(length(measures), length(chosen_data))
-names(sub_header) <- chosen_data
-header <- c(
-  " " = 2, sub_header
-)
-line_sep <- c(rep("",length(measures)-1),"\\addlinespace")
-algin_cols <- c(rep('l',2),rep('c',ncol(tab_i)-2))
-kbl(
-  tab_i, caption = caption, 
-  align = algin_cols, col.names=col_names, booktabs = T, escape=F, 
-  format="latex", linesep = line_sep 
-) %>%
-  kable_styling(latex_options = c("scale_down")) %>%
-  kable_paper(full_width = T) %>%
+  kable_styling(
+    latex_options = c("scale_down")
+  ) %>%
+  kable_paper(full_width = F) %>%
   add_header_above(header) %>%
   collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
   save_kable(file_name)
@@ -335,8 +230,8 @@ kbl(
 ```{r}
 # Choices:
 measures <- c(
-  "distance_from_energy_l2",
-  "distance_from_targets_l2"
+  "unfaithfulness",
+  "implausibility"
 )
 measure_names <- c(
   "Unfaithfulness ↓",
@@ -345,18 +240,21 @@ measure_names <- c(
 chosen_source <- "vision"
 # Order:
 chosen_data <- c(
-  "MNIST",
-  "Fashion MNIST",
+  "MNIST"
 )
-chosen_model <- "LeNet-5"
+chosen_model <- c(
+  "MLP",
+  "LeNet-5"
+)
 
 tab_i <- tab
 
 # Logic:
 tab_i <- tab_i[variable %in% measures]
-tab_i <- tab_i[source == chosen_source]
+tab_i[,variable:=factor(variable, levels=measures)]
 tab_i <- tab_i[dataname %in% chosen_data]
-tab_i <- tab_i[model == chosen_model]
+tab_i <- tab_i[model %in% chosen_model]
+tab_i[,model:=factor(model,levels=chosen_model)]
 tab_i[,dataname:=factor(dataname,levels=chosen_data)]
 tab_i <- dcast(tab_i, model + generator ~ dataname + variable)
 col_names <- c(
@@ -365,7 +263,7 @@ col_names <- c(
   rep(measure_names,length(chosen_data))
 )
 caption <- sprintf(
-  "Results for %s datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-%s} \\newline",
+  "Results for %s dataset. Formatting details are the same as in Table~\\ref{tab:results-tabular}. \\label{tab:results-%s} \\newline",
   chosen_source,
   chosen_source
 )
@@ -385,73 +283,244 @@ kbl(
   align = algin_cols, col.names=col_names, booktabs = T, escape=F, 
   format="latex", linesep = line_sep 
 ) %>%
-  kable_styling(latex_options = c("scale_down")) %>%
-  kable_paper(full_width = T) %>%
+  kable_styling(
+    latex_options = c("scale_down")
+  ) %>%
+  kable_paper(full_width = F) %>%
   add_header_above(header) %>%
   collapse_rows(columns = 1:2, latex_hline = "major", valign = "middle") %>%
   save_kable(file_name)
 ```
 
-## Full table
+## Full tables
 
 ```{r}
-tab_full <- dcast(tab, dataname + model + generator ~ variable)
-col_names <- c(
-  "Model",
-  "Data",
-  "Generator",
-  "Cost ↓", 
-  "Unfaithfulness ↓", 
-  "Implausibility ↓", 
-  "Redundancy ↑",
+tab <- dt[
+    ,
+    .(
+      value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
+      val = mean(value),
+      std = sd(value)
+    ),
+    .(dataname, generator, model, variable, source)
+]
+
+tab$top_val = F
+tab$one_std_wachter = F
+tab$two_std_wachter = F
+
+# Measures to be minimized:
+min_measures <- c(
+  "distance",
+  "implausibility",
+  "unfaithfulness",
+  "distance_from_energy", 
+  "distance_from_energy_l2", 
+  "distance_from_targets",
+  "distance_from_targets_l2",
+  "set_size_penalty"
+)
+tab[variable %in% min_measures,top_val:=val==min(val),.(model, dataname, variable)]
+tab[variable %in% min_measures,top_val:=ifelse(rep(all(top_val),length(top_val)),F,top_val),.(model, dataname, variable)]
+tab[variable %in% min_measures,two_std_wachter:=val+2*std<val[generator=="Wachter"],.(model, dataname, variable)]
+tab[variable %in% min_measures,one_std_wachter:=val+1*std<val[generator=="Wachter"],.(model, dataname, variable)]
+
+# Measures to be maximized:
+max_measures <- c(
+  "validity",
+  "redundancy"
+)
+tab[variable %in% max_measures,top_val:=val==max(val),.(model, dataname, variable)]
+tab[variable %in% max_measures,top_val:=ifelse(rep(all(top_val),length(top_val)),F,top_val),.(model, dataname, variable)]
+tab[variable %in% max_measures,two_std_wachter:=val-2*std>val[generator=="Wachter"],.(model, dataname, variable)]
+tab[variable %in% max_measures,one_std_wachter:=val-1*std>val[generator=="Wachter"],.(model, dataname, variable)]
+
+# Add conditional formatting:
+tab$value <- cell_spec(tab$value, "latex", bold=tab$top_val)
+tab[one_std_wachter==T,value:=paste0(value,"*")]
+tab[one_std_wachter==F,value:=paste0(value,"\\hphantom{*}")]
+tab[two_std_wachter==T,value:=paste0(value,"*")]
+tab[two_std_wachter==F,value:=paste0(value,"\\hphantom{*}")]
+
+# Remove redundant columns:
+tab[,val:=NULL]
+tab[,std:=NULL]
+tab[,top_val:=NULL]
+tab[,two_std_wachter:=NULL]
+tab[,one_std_wachter:=NULL]
+
+# Measures:
+measures <- c(
+  "unfaithfulness",
+  "implausibility",
+  "set_size_penalty",
+  "distance",
+  "redundancy",
+  "validity"
+)
+measure_names <- c(
+  "Unfaithfulness ↓",
+  "Implausibility ↓",
   "Uncertainty ↓",
+  "Cost ↓",
+  "Redundancy ↑",
   "Validity ↑"
 )
-algin_cols <- c(rep('l',3),rep('c',ncol(tab_full)-3))
-kbl(
-  tab_full, caption = "All results for all datasets: sample averages +/- one standard deviation over all counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-full} \\newline", 
-  align = "c", col.names=col_names, booktabs = T, escape=F, 
-  format="latex"
-) %>%
-  kable_styling(latex_options = c("scale_down")) %>%
-  kable_paper(full_width = F) %>%
-  collapse_rows(columns = 1:3, latex_hline = "custom", valign = "top", custom_latex_hline = 1:2) %>%
-  save_kable("paper/contents/table_all.tex")
+tab <- tab[variable %in% measures]
+tab[,variable:=factor(variable, levels=measures)]
+```
+
+```{r}
+tab_valid <- dt_valid[
+    ,
+    .(
+      value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
+      val = mean(value),
+      std = sd(value)
+    ),
+    .(dataname, generator, model, variable, source)
+]
+
+tab_valid$top_val = F
+tab_valid$one_std_wachter = F
+tab_valid$two_std_wachter = F
+
+# Measures to be minimized:
+min_measures <- c(
+  "distance",
+  "implausibility",
+  "unfaithfulness",
+  "distance_from_energy", 
+  "distance_from_energy_l2", 
+  "distance_from_targets",
+  "distance_from_targets_l2",
+  "set_size_penalty"
+)
+tab_valid[variable %in% min_measures,top_val:=val==min(val),.(model, dataname, variable)]
+tab_valid[variable %in% min_measures,top_val:=ifelse(rep(all(top_val),length(top_val)),F,top_val),.(model, dataname, variable)]
+tab_valid[variable %in% min_measures,two_std_wachter:=val+2*std<val[generator=="Wachter"],.(model, dataname, variable)]
+tab_valid[variable %in% min_measures,one_std_wachter:=val+1*std<val[generator=="Wachter"],.(model, dataname, variable)]
+
+# Measures to be maximized:
+max_measures <- c(
+  "validity",
+  "redundancy"
+)
+tab_valid[variable %in% max_measures,top_val:=val==max(val),.(model, dataname, variable)]
+tab_valid[variable %in% max_measures,top_val:=ifelse(rep(all(top_val),length(top_val)),F,top_val),.(model, dataname, variable)]
+tab_valid[variable %in% max_measures,two_std_wachter:=val-2*std>val[generator=="Wachter"],.(model, dataname, variable)]
+tab_valid[variable %in% max_measures,one_std_wachter:=val-1*std>val[generator=="Wachter"],.(model, dataname, variable)]
+
+# Add conditional formatting:
+tab_valid$value <- cell_spec(tab_valid$value, "latex", bold=tab_valid$top_val)
+tab_valid[one_std_wachter==T,value:=paste0(value,"*")]
+tab_valid[one_std_wachter==F,value:=paste0(value,"\\hphantom{*}")]
+tab_valid[two_std_wachter==T,value:=paste0(value,"*")]
+tab_valid[two_std_wachter==F,value:=paste0(value,"\\hphantom{*}")]
+
+# Remove redundant columns:
+tab_valid[,val:=NULL]
+tab_valid[,std:=NULL]
+tab_valid[,top_val:=NULL]
+tab_valid[,two_std_wachter:=NULL]
+tab_valid[,one_std_wachter:=NULL]
+
+# Measures:
+measures <- c(
+  "unfaithfulness",
+  "implausibility",
+  "set_size_penalty",
+  "distance",
+  "redundancy",
+  "validity"
+)
+measure_names <- c(
+  "Unfaithfulness ↓",
+  "Implausibility ↓",
+  "Uncertainty ↓",
+  "Cost ↓",
+  "Redundancy ↑",
+  "Validity ↑"
+)
+tab_valid <- tab_valid[variable %in% measures]
+tab_valid[,variable:=factor(variable, levels=measures)]
+```
+
+### Tables (all)
+
+```{r}
+for (name in unique(tab$dataname)) {
+  data_indicator <- gsub(" ", "-", tolower(unique(name)))
+  # Choices:
+  tab_full <- dcast(tab[dataname==name], model + generator ~ variable)
+  col_names <- c(
+    "Model",
+    "Generator",
+    measure_names
+  )
+  algin_cols <- c(rep('l',3),rep('c',ncol(tab_full)-3))
+  file_name <- sprintf(
+    "paper/contents/table-%s.tex", 
+    data_indicator
+  )
+  cap <- sprintf(
+    "All results for %s dataset: sample averages +/- one standard deviation over all counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\\textit{Wachter}). \\label{tab:results-%s} \\newline",
+    name,
+    data_indicator
+  )
+  kbl(
+    tab_full, caption = cap, 
+    align = "c", col.names=col_names, booktabs = T, escape=F, 
+    format="latex"
+  ) %>%
+    kable_styling(latex_options = c("scale_down")) %>%
+    kable_paper(full_width = F) %>%
+    collapse_rows(columns = 1:2, latex_hline = "custom", valign = "top") %>%
+    save_kable(file_name)
+}
+
 ```
 
 ## Full table (valid only)
 
 ```{r}
-tab_full <- dcast(tab_valid, dataname + model + generator ~ variable)
-col_names <- c(
-  "Model",
-  "Data",
-  "Generator",
-  "Cost ↓", 
-  "Unfaithfulness ↓", 
-  "Implausibility ↓", 
-  "Redundancy ↑",
-  "Uncertainty ↓",
-  "Validity ↑"
-)
-algin_cols <- c(rep('l',3),rep('c',ncol(tab_full)-3))
-kbl(
-  tab_full, caption = "All results for all datasets: sample averages +/- one standard deviation over all valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). \\label{tab:results-full-valid} \\newline", 
-  align = "c", col.names=col_names, booktabs = T, escape=F, 
-  format="latex"
-) %>%
-  kable_styling(latex_options = c("scale_down")) %>%
-  kable_paper(full_width = F) %>%
-  collapse_rows(columns = 1:3, latex_hline = "custom", valign = "top", custom_latex_hline = 1:2) %>%
-  save_kable("paper/contents/table_all_valid.tex")
+for (name in unique(tab_valid$dataname)) {
+  data_indicator <- gsub(" ", "-", tolower(unique(name)))
+  # Choices:
+  tab_full <- dcast(tab_valid[dataname==name], model + generator ~ variable)
+  col_names <- c(
+    "Model",
+    "Generator",
+    measure_names
+  )
+  algin_cols <- c(rep('l',3),rep('c',ncol(tab_full)-3))
+  file_name <- sprintf(
+    "paper/contents/table-%s-valid.tex", 
+    data_indicator
+  )
+  cap <- sprintf(
+    "All results for %s dataset: sample averages +/- one standard deviation over all valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\\textit{Wachter}). \\label{tab:results-%s-valid} \\newline",
+    name,
+    data_indicator
+  )
+  kbl(
+    tab_full, caption = cap, 
+    align = "c", col.names=col_names, booktabs = T, escape=F, 
+    format="latex"
+  ) %>%
+    kable_styling(latex_options = c("scale_down")) %>%
+    kable_paper(full_width = F) %>%
+    collapse_rows(columns = 1:2, latex_hline = "custom", valign = "top") %>%
+    save_kable(file_name)
+}
 ```
 
 ## EBM
 
 ```{r}
-files <- list.files("artifacts/params/")
-dt <- lapply(files[grepl(".csv", files)], function(x) {
-    fread(file.path("artifacts/params/", x))
+files <- list.files(paste0(res_path,"params"))
+dt <- lapply(files[sapply(files, function(x) grepl("model_params.csv",x))], function(x) {
+    fread(file.path(paste0(res_path,"params"), x))
 })
 dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
 setcolorder(
@@ -463,7 +532,12 @@ setcolorder(
     "jem_sampling_steps", "sgld_batch_size", "lambda"
   )
 )
-dt[,dataname:=factor(dataname, levels=c("Linearly Separable", "Moons", "Circles", "MNIST", "GMSC"))]
+dataset_order = c(
+  "Linearly Separable", "Moons", "Circles", 
+  "California Housing", "GMSC", "German Credit",
+  "MNIST", "Fashion MNIST"
+)
+dt[,dataname:=factor(dataname, levels=dataset_order)]
 dt <- dt[order(dataname)]
 dt_ebm <- dt[,.(dataname, jem_sampling_steps, sgld_batch_size, lambda)]
 col_names <- c(
@@ -473,7 +547,7 @@ col_names <- c(
 kbl(
   dt_ebm, caption = "EBM hyperparemeter choices for our experiments. \\label{tab:ebmparams} \\newline", 
   align = "r", col.names=col_names, booktabs = T, escape=F, 
-  format="latex"
+  format="latex", linesep = ""
 ) %>%
   kable_styling(font_size = 8) %>%
   kable_paper(full_width = F) %>%
@@ -493,7 +567,7 @@ header <- c(" " = 2, "Network Architecture" = 4, "Training" = 2)
 kbl(
   dt_exp, caption = "Paremeter choices for our experiments. \\label{tab:params} \\newline", 
   align = "r", col.names=col_names, booktabs = T, escape=F, 
-  format="latex"
+  format="latex", linesep = ""
 ) %>%
   kable_styling(latex_options = c("scale_down")) %>%
   kable_paper(full_width = F) %>%
@@ -502,13 +576,12 @@ kbl(
 ```
 
 ```{r}
-files <- list.files("artifacts/params/generator")
-dt <- lapply(files, function(x) {
-    fread(file.path("artifacts/params/generator", x))
+dt <- lapply(files[sapply(files, function(x) grepl("generator_params.csv",x))], function(x) {
+    fread(file.path(paste0(res_path,"params"), x))
 })
 dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
-dt <- dt[,.(dataname,eta,λ1,λ3,λ3)]
-dt[,dataname:=factor(dataname, levels=c("Linearly Separable", "Moons", "Circles", "MNIST", "GMSC"))]
+dt <- dt[,.(dataname,eta,lambda_1,lambda_2,lambda_3)]
+dt[,dataname:=factor(dataname, levels=dataset_order)]
 dt <- dt[order(dataname)]
 col_names <- c(
   "Dataset",
@@ -517,7 +590,7 @@ col_names <- c(
 kbl(
   dt, caption = "Generator hyperparameters. \\label{tab:genparams} \\newline", 
   align = "r", col.names=col_names, booktabs = T, escape=F, 
-  format="latex"
+  format="latex", linesep = ""
 ) %>%
   kable_styling(font_size = 8) %>%
   kable_paper(full_width = F) %>%
@@ -525,12 +598,11 @@ kbl(
 ```
 
 ```{r}
-files <- list.files("artifacts/results/")
 dt <- lapply(files[grepl("_model_performance.csv", files)], function(x) {
-    fread(file.path("artifacts/results/", x))
+    fread(file.path(paste0(res_path,"params"), x))
 })
 dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
-dt[,dataname:=factor(dataname, levels=c("Linearly Separable", "Moons", "Circles", "MNIST", "GMSC"))]
+dt[,dataname:=factor(dataname, levels=dataset_order)]
 dt <- dt[order(dataname,mod_name)]
 setcolorder(
   dt, 
@@ -542,8 +614,8 @@ setcolorder(
 col_names <- c("Dataset", "Model", "Accuracy", "Precision", "F1-Score")
 kbl(
   dt, caption = "Various standard performance metrics for our different models grouped by dataset. \\label{tab:perf} \\newline", 
-  align = "r", col.names=col_names, booktabs = T, escape=F, 
-  format="latex", digits=2
+  align = "r", col.names=col_names, booktabs = T, escape=F,
+  format="latex", digits=2, linesep = ""
 ) %>%
   kable_styling(font_size = 8) %>%
   kable_paper(full_width = F) %>%

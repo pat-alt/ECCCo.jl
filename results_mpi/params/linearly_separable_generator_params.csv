@@ -1,0 +1,2 @@
+dataname,eta,lambda_1,lambda_1_Δ,lambda_2,lambda_2_Δ,lambda_3,lambda_3_Δ,n_individuals,opt
+Linearly Separable,0.01,0.25,0.25,0.75,0.75,0.75,0.75,25,Descent

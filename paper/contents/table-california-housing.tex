@@ -1,0 +1,91 @@
+\begin{table}
+
+\caption{All results for California Housing dataset: sample averages +/- one standard deviation over all counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\textit{Wachter}). \label{tab:results-california-housing} \newline}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{cccccccc}
+\toprule
+Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓ & Cost ↓ & Redundancy ↑ & Validity ↑\\
+\midrule
+ & ECCCo-L1 & 35.00 ± 0.07** & 1.02 ± 0.31\hphantom{*}\hphantom{*} & 0.12 ± 0.00\hphantom{*}\hphantom{*} & 0.45 ± 0.10\hphantom{*}\hphantom{*} & 0.01 ± 0.03\hphantom{*}\hphantom{*} & \textbf{1.00 ± 0.00}\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-L1 (no CP) & 41.86 ± 0.12** & 1.02 ± 0.31\hphantom{*}\hphantom{*} & 0.12 ± 0.00\hphantom{*}\hphantom{*} & 0.44 ± 0.11\hphantom{*}\hphantom{*} & 0.01 ± 0.03\hphantom{*}\hphantom{*} & \textbf{1.00 ± 0.00}\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-L1 (no EBM) & \textbf{30.29 ± 0.13}** & 1.02 ± 0.31\hphantom{*}\hphantom{*} & 0.12 ± 0.00\hphantom{*}\hphantom{*} & 0.44 ± 0.10\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & \textbf{1.00 ± 0.00}\hphantom{*}\hphantom{*}\\
+
+ & ECCCo & 65.50 ± 1.12** & 0.74 ± 0.18*\hphantom{*} & 0.16 ± 0.03\hphantom{*}\hphantom{*} & 1.53 ± 0.67\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & \textbf{1.00 ± 0.00}\hphantom{*}\hphantom{*}\\
+
+ & ECCCo+ & 84.16 ± 0.29** & 0.74 ± 0.30\hphantom{*}\hphantom{*} & 0.16 ± 0.05\hphantom{*}\hphantom{*} & 2.92 ± 1.11\hphantom{*}\hphantom{*} & 0.01 ± 0.03\hphantom{*}\hphantom{*} & 0.96 ± 0.20\hphantom{*}\hphantom{*}\\
+
+ & ECCCo (no CP) & 83.73 ± 0.29** & 0.74 ± 0.17*\hphantom{*} & 0.17 ± 0.04\hphantom{*}\hphantom{*} & 1.50 ± 0.66\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & \textbf{1.00 ± 0.00}\hphantom{*}\hphantom{*}\\
+
+ & ECCCo (no EBM) & 71.82 ± 0.18** & 1.02 ± 0.31\hphantom{*}\hphantom{*} & 0.12 ± 0.00\hphantom{*}\hphantom{*} & 0.44 ± 0.10\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & \textbf{1.00 ± 0.00}\hphantom{*}\hphantom{*}\\
+
+ & REVISE & 94.71 ± 1.61** & \textbf{0.68 ± 0.31}*\hphantom{*} & 0.29 ± 0.10\hphantom{*}\hphantom{*} & 3.09 ± 1.67\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & \textbf{1.00 ± 0.00}\hphantom{*}\hphantom{*}\\
+
+ & Schut & 84.61 ± 0.44** & 1.03 ± 0.27\hphantom{*}\hphantom{*} & \textbf{0.11 ± 0.00}** & 0.74 ± 0.60\hphantom{*}\hphantom{*} & \textbf{0.79 ± 0.14}** & \textbf{1.00 ± 0.00}\hphantom{*}\hphantom{*}\\
+
+\multirow[t]{-10}{*}{\centering\arraybackslash JEM} & Wachter & 110.44 ± 0.42\hphantom{*}\hphantom{*} & 1.02 ± 0.31\hphantom{*}\hphantom{*} & 0.12 ± 0.00\hphantom{*}\hphantom{*} & \textbf{0.44 ± 0.10}\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & \textbf{1.00 ± 0.00}\hphantom{*}\hphantom{*}\\
+\cmidrule{1-8}
+ & ECCCo-L1 & 35.24 ± 0.37** & 1.06 ± 0.52\hphantom{*}\hphantom{*} & 0.47 ± 0.27\hphantom{*}\hphantom{*} & 0.73 ± 0.18\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-L1 (no CP) & 41.76 ± 0.83** & 1.12 ± 0.48\hphantom{*}\hphantom{*} & 0.68 ± 0.22\hphantom{*}\hphantom{*} & \textbf{0.61 ± 0.15}\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-L1 (no EBM) & \textbf{30.26 ± 0.63}** & 1.07 ± 0.51\hphantom{*}\hphantom{*} & 0.48 ± 0.28\hphantom{*}\hphantom{*} & 0.71 ± 0.19\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo & 65.20 ± 7.42** & 0.73 ± 0.26*\hphantom{*} & \textbf{0.11 ± 0.02}** & 1.67 ± 0.87\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo+ & 81.01 ± 3.33** & 0.63 ± 0.20** & 0.12 ± 0.02** & 2.92 ± 1.18\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo (no CP) & 84.79 ± 0.49** & 0.73 ± 0.27*\hphantom{*} & 0.12 ± 0.03** & 1.61 ± 0.88\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo (no EBM) & 77.03 ± 5.57** & 1.07 ± 0.51\hphantom{*}\hphantom{*} & 0.48 ± 0.28\hphantom{*}\hphantom{*} & 0.71 ± 0.19\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & REVISE & 94.52 ± 0.61** & \textbf{0.54 ± 0.12}** & 0.21 ± 0.12** & 2.91 ± 1.29\hphantom{*}\hphantom{*} & 0.01 ± 0.03\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & Schut & 85.81 ± 4.65** & 1.21 ± 0.39\hphantom{*}\hphantom{*} & 0.73 ± 0.16\hphantom{*}\hphantom{*} & 0.93 ± 0.34\hphantom{*}\hphantom{*} & \textbf{0.83 ± 0.09}** & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+\multirow[t]{-10}{*}{\centering\arraybackslash JEM Ensemble} & Wachter & 107.85 ± 2.52\hphantom{*}\hphantom{*} & 1.12 ± 0.48\hphantom{*}\hphantom{*} & 0.68 ± 0.22\hphantom{*}\hphantom{*} & 0.62 ± 0.15\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+\cmidrule{1-8}
+ & ECCCo-L1 & 35.19 ± 0.09** & 0.99 ± 0.33\hphantom{*}\hphantom{*} & 0.15 ± 0.04\hphantom{*}\hphantom{*} & 0.88 ± 0.77\hphantom{*}\hphantom{*} & 0.01 ± 0.03\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-L1 (no CP) & 42.06 ± 0.12** & 0.99 ± 0.33\hphantom{*}\hphantom{*} & 0.16 ± 0.04\hphantom{*}\hphantom{*} & 0.85 ± 0.75\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-L1 (no EBM) & \textbf{30.52 ± 0.16}** & 0.98 ± 0.32\hphantom{*}\hphantom{*} & 0.15 ± 0.03\hphantom{*}\hphantom{*} & 0.86 ± 0.76\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo & 67.91 ± 1.63** & 3.41 ± 2.28\hphantom{*}\hphantom{*} & 0.14 ± 0.02\hphantom{*}\hphantom{*} & 5.11 ± 3.02\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo+ & 82.72 ± 1.12** & 2.71 ± 2.32\hphantom{*}\hphantom{*} & 0.17 ± 0.12\hphantom{*}\hphantom{*} & 4.75 ± 3.23\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo (no CP) & 88.72 ± 2.28** & 3.40 ± 2.28\hphantom{*}\hphantom{*} & 0.14 ± 0.03\hphantom{*}\hphantom{*} & 5.09 ± 3.04\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & ECCCo (no EBM) & 75.47 ± 1.60** & 0.98 ± 0.32\hphantom{*}\hphantom{*} & 0.15 ± 0.03\hphantom{*}\hphantom{*} & 0.86 ± 0.76\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & REVISE & 98.98 ± 0.23** & \textbf{0.64 ± 0.19}*\hphantom{*} & 0.21 ± 0.15\hphantom{*}\hphantom{*} & 2.55 ± 0.95\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+ & Schut & 87.66 ± 2.05** & 1.02 ± 0.31\hphantom{*}\hphantom{*} & \textbf{0.13 ± 0.00}** & 1.11 ± 0.68\hphantom{*}\hphantom{*} & \textbf{0.61 ± 0.19}** & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+
+\multirow[t]{-10}{*}{\centering\arraybackslash MLP} & Wachter & 114.38 ± 2.14\hphantom{*}\hphantom{*} & 0.98 ± 0.32\hphantom{*}\hphantom{*} & 0.16 ± 0.04\hphantom{*}\hphantom{*} & \textbf{0.84 ± 0.74}\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 1.00 ± 0.00\hphantom{*}\hphantom{*}\\
+\cmidrule{1-8}
+ & ECCCo-L1 & 35.18 ± 0.15** & 3.09 ± 9.23\hphantom{*}\hphantom{*} & 0.15 ± 0.12\hphantom{*}\hphantom{*} & 1.20 ± 0.99\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 0.96 ± 0.20\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-L1 (no CP) & 41.95 ± 0.20** & 3.11 ± 9.23\hphantom{*}\hphantom{*} & 0.16 ± 0.12\hphantom{*}\hphantom{*} & 1.19 ± 0.98\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 0.96 ± 0.20\hphantom{*}\hphantom{*}\\
+
+ & ECCCo-L1 (no EBM) & \textbf{30.38 ± 0.38}** & 3.09 ± 9.23\hphantom{*}\hphantom{*} & 0.15 ± 0.11\hphantom{*}\hphantom{*} & 1.18 ± 0.99\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 0.96 ± 0.20\hphantom{*}\hphantom{*}\\
+
+ & ECCCo & 66.76 ± 2.33** & 4.41 ± 9.03\hphantom{*}\hphantom{*} & 0.13 ± 0.11\hphantom{*}\hphantom{*} & 3.85 ± 2.32\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 0.96 ± 0.20\hphantom{*}\hphantom{*}\\
+
+ & ECCCo+ & 81.44 ± 1.53** & 4.42 ± 9.07\hphantom{*}\hphantom{*} & 0.19 ± 0.22\hphantom{*}\hphantom{*} & 4.85 ± 2.18\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & \textbf{1.00 ± 0.00}**\\
+
+ & ECCCo (no CP) & 88.12 ± 0.73** & 4.41 ± 9.03\hphantom{*}\hphantom{*} & 0.13 ± 0.11\hphantom{*}\hphantom{*} & 3.82 ± 2.33\hphantom{*}\hphantom{*} & 0.01 ± 0.03\hphantom{*}\hphantom{*} & 0.96 ± 0.20\hphantom{*}\hphantom{*}\\
+
+ & ECCCo (no EBM) & 76.38 ± 0.99** & 3.09 ± 9.23\hphantom{*}\hphantom{*} & 0.15 ± 0.11\hphantom{*}\hphantom{*} & 1.18 ± 0.99\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 0.96 ± 0.20\hphantom{*}\hphantom{*}\\
+
+ & REVISE & 97.27 ± 1.13** & \textbf{1.01 ± 1.07}*\hphantom{*} & 0.16 ± 0.07\hphantom{*}\hphantom{*} & 4.72 ± 9.79\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 0.96 ± 0.20\hphantom{*}\hphantom{*}\\
+
+ & Schut & 86.84 ± 1.62** & 3.13 ± 9.22\hphantom{*}\hphantom{*} & \textbf{0.13 ± 0.09}\hphantom{*}\hphantom{*} & 1.68 ± 1.38\hphantom{*}\hphantom{*} & \textbf{0.59 ± 0.26}** & \textbf{1.00 ± 0.00}**\\
+
+\multirow[t]{-10}{*}{\centering\arraybackslash MLP Ensemble} & Wachter & 112.34 ± 1.75\hphantom{*}\hphantom{*} & 3.09 ± 9.23\hphantom{*}\hphantom{*} & 0.16 ± 0.12\hphantom{*}\hphantom{*} & \textbf{1.16 ± 0.97}\hphantom{*}\hphantom{*} & 0.00 ± 0.00\hphantom{*}\hphantom{*} & 0.96 ± 0.20\hphantom{*}\hphantom{*}\\
+\bottomrule
+\end{tabular}}
+\end{table}

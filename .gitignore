@@ -1,6 +1,6 @@
 # Other:
 /artifacts/
-/.quarto/
+**/.quarto/
 /Manifest.toml
 /results*/
 **/.CondaPkg

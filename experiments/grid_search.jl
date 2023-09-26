@@ -71,6 +71,7 @@ const ECCCo_Δ_NAMES = [
     "ECCCo-Δ",
     "ECCCo-Δ (no CP)",
     "ECCCo-Δ (no EBM)",
+    "ECCCo-Δ (latent)",
 ]
 
 """
@@ -117,7 +118,7 @@ Return the best outcome from grid search results. The best outcome is defined as
 function best_absolute_outcome(
     outcomes::Dict; 
     generator=ECCCO_NAMES, 
-    measure::AbstractArray=["distance_from_targets_l2", "distance_from_energy_l2"], 
+    measure::AbstractArray=["distance_from_energy_l2"], 
     model::Union{Nothing,AbstractArray}=nothing,
     weights::Union{Nothing,AbstractArray}=nothing
 )
@@ -129,7 +130,7 @@ function best_absolute_outcome(
     for (params, outcome) in outcomes
 
         # Setup
-        evaluation = outcome.bmk.evaluation
+        evaluation = deepcopy(outcome.bmk.evaluation)
         exper = outcome.exper
         generator_dict = outcome.generator_dict
         model_dict = outcome.model_dict

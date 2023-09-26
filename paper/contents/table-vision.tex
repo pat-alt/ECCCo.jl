@@ -1,0 +1,33 @@
+\begin{table}
+
+\caption{Results for vision dataset. Formatting details are the same as in Table~\ref{tab:results-tabular}. \label{tab:results-vision} \newline}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{llcc}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{MNIST} \\
+\cmidrule(l{3pt}r{3pt}){3-4}
+Model & Generator & Unfaithfulness ↓ & Implausibility ↓\\
+\midrule
+ & ECCCo & 0.22 ± 0.01* & 0.42 ± 0.02\\
+
+ & ECCCo+ & 0.23 ± 0.01* & 0.32 ± 0.02*\\
+
+ & REVISE & 0.24 ± 0.01 & 0.30 ± 0.03*\\
+
+ & Schut & 0.25 ± 0.01 & 0.34 ± 0.03*\\
+
+\multirow{-5}{*}{\raggedright\arraybackslash MLP} & Wachter & 0.24 ± 0.01 & 0.37 ± 0.04\\
+\cmidrule{1-4}
+ & ECCCo & 0.24 ± 0.01 & 0.39 ± 0.03\\
+
+ & ECCCo+ & 0.24 ± 0.01 & 0.33 ± 0.02\\
+
+ & REVISE & 0.25 ± 0.01 & 0.30 ± 0.03*\\
+
+ & Schut & 0.25 ± 0.01 & 0.34 ± 0.03\\
+
+\multirow{-5}{*}{\raggedright\arraybackslash LeNet-5} & Wachter & 0.25 ± 0.01 & 0.35 ± 0.03\\
+\bottomrule
+\end{tabular}}
+\end{table}

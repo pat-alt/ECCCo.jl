@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=gmsc,german_credit output_path=results mpi grid_search n_individuals=25 > experiments/grid_search_tabular.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=gmsc,german_credit output_path=results mpi grid_search n_individuals=25 store_ce > experiments/grid_search_tabular.log

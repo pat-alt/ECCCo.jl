@@ -1,0 +1,105 @@
+\documentclass{article}
+
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2023
+
+
+% ready for submission
+\usepackage{neurips_2023}
+
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+% \usepackage[preprint]{neurips_2023}
+
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2023}
+
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2023}
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{import}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+
+% Bibliography
+\bibliographystyle{unsrtnat}
+\setcitestyle{numbers,square,comma}
+
+% Numbered Environments:
+\newtheorem{definition}{Definition}[section]
+\newtheorem{question}{Research Question}[section]
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+
+\title{ECCCos from the Black Box:\\
+Faithful Explanations through\\
+Energy-Constrained Conformal Counterfactuals}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+
+\author{%
+  Anonymous Author\thanks{See also: } \\
+  Faculty \\
+  University \\
+  Address \\
+  \texttt{email} \\
+  \And
+  Anonymous Author\thanks{See also: } \\
+  Faculty \\
+  University \\
+  Address \\
+  \texttt{email} \\
+}
+
+
+\begin{document}
+
+% Body of the paper
+\import{../}{body.tex}
+
+\begin{ack}
+
+Some of the members of TU Delft were partially funded by ICAI AI for Fintech Research, an ING — TU Delft
+collaboration.
+
+\end{ack}
+
+\bibliography{../bib}
+
+\import{../}{appendix.tex}
+
+\end{document}

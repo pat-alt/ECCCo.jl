@@ -48,6 +48,7 @@ function energy_delta(
     nmin::Int=25,
     return_conditionals=false,
     reg_strength=0.1,
+    decay::Real=0.1,
     kwargs...
 )
 
