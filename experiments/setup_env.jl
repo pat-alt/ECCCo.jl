@@ -163,13 +163,15 @@ DEFAULT_GENERATOR_TUNING = (
         Flux.Optimise.Descent(0.05),
         Flux.Optimise.Descent(0.01),
     ],
+    decay=[(0.0, 1), (0.1, 1), (0.5, 1),],
 )
 
 "Generator tuning parameters for large datasets."
 DEFAULT_GENERATOR_TUNING_LARGE = (
     Λ = [[0.1, 0.1, 0.1], [0.1, 0.1, 0.2], [0.2, 0.2, 0.2]],
-    reg_strength = [0.0, 0.1, 0.5],
+    reg_strength = [0.0],
     opt = [Flux.Optimise.Descent(0.01), Flux.Optimise.Descent(0.05)],
+    decay = [(0.0, 1), (0.1, 1), (0.5, 1),],
 )
 
 "Boolean flag to check if model tuning was specified."
