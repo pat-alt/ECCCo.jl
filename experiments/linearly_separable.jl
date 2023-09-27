@@ -20,6 +20,9 @@ params = (
     n_layers=3,
     activation=Flux.swish,
     epochs=100,
+    opt=Flux.Optimise.Descent(0.01),
+    Λ=[0.1, 0.1, 0.05],
+    reg_strength=0.0,
 )
 
 # Best grid search params:

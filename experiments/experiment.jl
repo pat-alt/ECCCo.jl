@@ -151,6 +151,9 @@ function pretrained_path(exper::Experiment)
     if isfile(joinpath(DEFAULT_OUTPUT_PATH, "$(exper.save_name)_models.jls"))
         @info "Found local pre-trained models in $(DEFAULT_OUTPUT_PATH) and using those."
         return DEFAULT_OUTPUT_PATH
+    elseif isfile("models/$(exper.save_name)_models.jls")
+        @info "Found local pre-trained models in models/ and using those."
+        return "models"
     else
         @info "Using artifacts. Models were pre-trained on `julia-$(LATEST_VERSION)` and may not work on other versions."
         Pkg.Artifacts.download_artifact(ARTIFACT_HASH, ARTIFACT_TOML)

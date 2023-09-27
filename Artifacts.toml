@@ -29,3 +29,11 @@ lazy = true
     [["results-paper-submission-1.8.5".download]]
     sha256 = "15c6d44aba4e9860ba2b55b70ce8a2f41216d190a5e951fd6907b8cb616ec215"
     url = "https://github.com/pat-alt/ECCCo.jl/releases/download/results-paper-submission-1.8.5/results-paper-submission-1.8.5.tar.gz"
+
+[results_aaai]
+git-tree-sha1 = "fed98225cbba644a27ec46fdbd4d8f096cc390fa"
+lazy = true
+
+    [[results_aaai.download]]
+    sha256 = "0d8491ce9bc5f94a8d6bf45c196cd9b6d6f19960a459f08038c22d370aacbb8f"
+    url = "https://github.com/pat-alt/ECCCo.jl/releases/download/results_aaai/results_aaai.tar.gz"

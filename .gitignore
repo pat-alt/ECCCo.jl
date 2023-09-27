@@ -5,6 +5,7 @@
 /results*/
 **/.CondaPkg
 /dev/rebuttal/www
+Artifacts.toml
 
 # Tex
 

@@ -580,15 +580,16 @@ dt <- lapply(files[sapply(files, function(x) grepl("generator_params.csv",x))], 
     fread(file.path(paste0(res_path,"params"), x))
 })
 dt <- Reduce(function(x,y) {rbind(x,y, fill=TRUE)}, dt)
-dt <- dt[,.(dataname,eta,lambda_1,lambda_2,lambda_3)]
+dt[is.na(reg_strength),reg_strength:=0]
+dt <- dt[,.(dataname,eta,lambda_1_Δ,lambda_2_Δ,lambda_3_Δ,reg_strength)]
 dt[,dataname:=factor(dataname, levels=dataset_order)]
 dt <- dt[order(dataname)]
 col_names <- c(
   "Dataset",
-  "$\\eta$", "$\\lambda_1$", "$\\lambda_2$", "$\\lambda_3$"
+  "$\\eta$", "$\\lambda_1$", "$\\lambda_2$", "$\\lambda_3$", "Ridge penalty"
 )
 kbl(
-  dt, caption = "Generator hyperparameters. \\label{tab:genparams} \\newline", 
+  dt, caption = "Generator hyperparameters: the optimiser step size ($\\eta$); penalty strengths where $\\lambda_1$ applies to all generators but \\textit{Schut} and the other parameter are specific to \\textit{ECCCo}; finally, the strength for the Ridge penalty on energy for \\textit{ECCCo}.\\label{tab:genparams} \\newline", 
   align = "r", col.names=col_names, booktabs = T, escape=F, 
   format="latex", linesep = ""
 ) %>%
