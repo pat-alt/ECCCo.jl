@@ -17,12 +17,12 @@ using Serialization
 Uploads results to github releases. If `deploy=true`, then the results will be uploaded to a github release. If `deploy=false`, then the results will be saved locally.
 """
 function generate_artifacts(
-    datafiles=DEFAULT_OUTPUT_PATH;
-    artifact_name=nothing,
-    root=".",
-    artifact_toml=LazyArtifacts.find_artifacts_toml("."),
-    deploy=true,
-    tag=nothing
+    datafiles = DEFAULT_OUTPUT_PATH;
+    artifact_name = nothing,
+    root = ".",
+    artifact_toml = LazyArtifacts.find_artifacts_toml("."),
+    deploy = true,
+    tag = nothing,
 )
 
     # Artifact name:
@@ -67,9 +67,9 @@ function generate_artifacts(
             artifact_toml,
             artifact_name,
             hash;
-            download_info=[(tarball_url, tarball_hash)],
-            lazy=true,
-            force=true
+            download_info = [(tarball_url, tarball_hash)],
+            lazy = true,
+            force = true,
         )
     end
 
@@ -89,7 +89,7 @@ function generate_artifacts(
     end
 end
 
-function get_git_remote_url(repo_path::String=".")
+function get_git_remote_url(repo_path::String = ".")
     repo = LibGit2.GitRepo(repo_path)
     origin = LibGit2.get(LibGit2.GitRemote, repo, "origin")
     return LibGit2.url(origin)

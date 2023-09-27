@@ -20,9 +20,10 @@ function _prepare_data(exper::Experiment)
     # JEM parameters:
     𝒟y = Categorical(ones(output_dim) ./ output_dim)
     sampler = ConditionalSampler(
-        𝒟x, 𝒟y,
-        input_size=(input_dim,),
-        batch_size=sampling_batch_size,
+        𝒟x,
+        𝒟y,
+        input_size = (input_dim,),
+        batch_size = sampling_batch_size,
     )
     return X, labels, n_obs, batch_size, sampler
 end
@@ -33,7 +34,7 @@ function meta_data(exper::Experiment)
 end
 
 function prepare_data(exper::Experiment)
-    X, labels, _, _,  sampler = _prepare_data(exper::Experiment)
+    X, labels, _, _, sampler = _prepare_data(exper::Experiment)
     return X, labels, sampler
 end
 

@@ -17,7 +17,8 @@ Base.@kwdef struct Experiment
     n_hidden::Int = 32
     n_layers::Int = 3
     activation::Function = Flux.relu
-    builder::Union{Nothing,MLJFlux.Builder} = default_builder(n_hidden=n_hidden, n_layers=n_layers, activation=activation)
+    builder::Union{Nothing,MLJFlux.Builder} =
+        default_builder(n_hidden = n_hidden, n_layers = n_layers, activation = activation)
     α::AbstractArray = [1.0, 1.0, 1e-1]
     n_ens::Int = 5
     use_ensembling::Bool = true
@@ -31,13 +32,14 @@ Base.@kwdef struct Experiment
     Λ::AbstractArray = [0.25, 0.75, 0.75]
     Λ_Δ::AbstractArray = Λ
     opt::Flux.Optimise.AbstractOptimiser = Flux.Optimise.Descent(0.01)
-    parallelizer::Union{Nothing, AbstractParallelizer} = PLZ
+    parallelizer::Union{Nothing,AbstractParallelizer} = PLZ
     nsamples::Union{Nothing,Int} = nothing
     nmin::Union{Nothing,Int} = nothing
     finaliser::Function = Flux.softmax
     loss::Function = Flux.Losses.crossentropy
     train_parallel::Bool = false
     reg_strength::Real = 0.1
+    decay::Tuple = (0.1, 5)
     niter_eccco::Union{Nothing,Int} = nothing
     model_tuning_params::NamedTuple = DEFAULT_MODEL_TUNING_SMALL
     use_tuned::Bool = true
@@ -48,9 +50,9 @@ end
 "A container to hold the results of an experiment."
 mutable struct ExperimentOutcome
     exper::Experiment
-    model_dict::Union{Nothing, Dict}
-    generator_dict::Union{Nothing, Dict}
-    bmk::Union{Nothing, Benchmark}
+    model_dict::Union{Nothing,Dict}
+    generator_dict::Union{Nothing,Dict}
+    bmk::Union{Nothing,Benchmark}
 end
 
 """
@@ -58,11 +60,16 @@ end
 
 Train the models specified by `exper` and store them in `outcome`.
 """
-function train_models!(outcome::ExperimentOutcome, exper::Experiment; save_models::Bool=true, save_meta::Bool=false)
-    model_dict = prepare_models(exper; save_models=save_models)
+function train_models!(
+    outcome::ExperimentOutcome,
+    exper::Experiment;
+    save_models::Bool = true,
+    save_meta::Bool = false,
+)
+    model_dict = prepare_models(exper; save_models = save_models)
     outcome.model_dict = model_dict
     if !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
-        meta_model_performance(outcome; save_output=save_meta)
+        meta_model_performance(outcome; save_output = save_meta)
     end
 end
 
@@ -82,10 +89,15 @@ end
 
 Run the experiment specified by `exper`.
 """
-function run_experiment(exper::Experiment; save_output::Bool=true, only_models::Bool=ONLY_MODELS)
-    
+function run_experiment(
+    exper::Experiment;
+    save_output::Bool = true,
+    only_models::Bool = ONLY_MODELS,
+)
+
     # Setup
-    if save_output && !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+    if save_output &&
+       !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
         @info "All results will be saved to $(exper.output_path)."
         isdir(exper.output_path) || mkdir(exper.output_path)
         @info "All parameter choices will be saved to $(exper.params_path)."
@@ -103,10 +115,10 @@ function run_experiment(exper::Experiment; save_output::Bool=true, only_models::
 
     # Model training:
     if only_models
-        train_models!(outcome, exper; save_models=save_output, save_meta=true)
+        train_models!(outcome, exper; save_models = save_output, save_meta = true)
         return outcome
     else
-        train_models!(outcome, exper; save_models=save_output)
+        train_models!(outcome, exper; save_models = save_output)
     end
 
     # Benchmark:
@@ -116,10 +128,17 @@ function run_experiment(exper::Experiment; save_output::Bool=true, only_models::
     end
 
     # Save data:
-    if save_output && !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
-        Serialization.serialize(joinpath(exper.output_path, "$(exper.save_name)_outcome.jls"), outcome)
-        Serialization.serialize(joinpath(exper.output_path, "$(exper.save_name)_bmk.jls"), outcome.bmk)
-        meta(outcome; save_output=true)
+    if save_output &&
+       !(is_multi_processed(exper) && MPI.Comm_rank(exper.parallelizer.comm) != 0)
+        Serialization.serialize(
+            joinpath(exper.output_path, "$(exper.save_name)_outcome.jls"),
+            outcome,
+        )
+        Serialization.serialize(
+            joinpath(exper.output_path, "$(exper.save_name)_bmk.jls"),
+            outcome.bmk,
+        )
+        meta(outcome; save_output = true)
     end
 
     # Final barrier:
@@ -136,14 +155,19 @@ end
 
 Overload the `run_experiment` function to allow for passing in `CounterfactualData` objects and other keyword arguments.
 """
-function run_experiment(counterfactual_data::CounterfactualData, test_data::CounterfactualData; save_output::Bool=true, kwargs...)
+function run_experiment(
+    counterfactual_data::CounterfactualData,
+    test_data::CounterfactualData;
+    save_output::Bool = true,
+    kwargs...,
+)
     # Parameters:
     exper = Experiment(;
-        counterfactual_data=counterfactual_data,
-        test_data=test_data,
-        kwargs...
+        counterfactual_data = counterfactual_data,
+        test_data = test_data,
+        kwargs...,
     )
-    return run_experiment(exper; save_output=save_output)
+    return run_experiment(exper; save_output = save_output)
 end
 
 # Pre-trained models:

@@ -6,7 +6,8 @@ using CounterfactualExplanations.Data
 using CounterfactualExplanations.DataPreprocessing: train_test_split
 using CounterfactualExplanations.Evaluation: benchmark, evaluate, Benchmark
 using CounterfactualExplanations.Generators: JSMADescent
-using CounterfactualExplanations.Models: load_mnist_mlp, load_fashion_mnist_mlp, train, probs
+using CounterfactualExplanations.Models:
+    load_mnist_mlp, load_fashion_mnist_mlp, train, probs
 using CounterfactualExplanations.Objectives
 using CounterfactualExplanations.Parallelization
 using CSV
@@ -20,7 +21,8 @@ using LazyArtifacts
 using Logging
 using Metalhead
 using MLJ: TunedModel, Grid, CV, fitted_params, report
-using MLJBase: multiclass_f1score, accuracy, multiclass_precision, table, machine, fit!, Supervised
+using MLJBase:
+    multiclass_f1score, accuracy, multiclass_precision, table, machine, fit!, Supervised
 using MLJEnsembles
 using MLJFlux
 using Random
@@ -58,7 +60,7 @@ end
 if "mpi" ∈ ARGS
     MPI.Init()
     const USE_MPI = true
-    plz = MPIParallelizer(MPI.COMM_WORLD; threaded=USE_THREADS)
+    plz = MPIParallelizer(MPI.COMM_WORLD; threaded = USE_THREADS)
     if MPI.Comm_rank(MPI.COMM_WORLD) != 0
         global_logger(NullLogger())
     else
@@ -83,7 +85,9 @@ const LATEST_ARTIFACT_PATH = joinpath(artifact_path(ARTIFACT_HASH), ARTIFACT_NAM
 time_stamped = false
 if any(contains.(ARGS, "output_path"))
     @assert sum(contains.(ARGS, "output_path")) == 1 "Only one output path can be specified."
-    _path = ARGS[findall(contains.(ARGS, "output_path"))][1] |> x -> replace(x, "output_path=" => "")
+    _path =
+        ARGS[findall(contains.(ARGS, "output_path"))][1] |>
+        x -> replace(x, "output_path=" => "")
 elseif isinteractive()
     @info "You are running experiments interactively. By default, results will be saved in a temporary directory."
     _path = tempdir()
@@ -98,16 +102,16 @@ const DEFAULT_OUTPUT_PATH = _path
 const TIME_STAMPED = time_stamped
 
 "Boolean flag to only train models."
-const ONLY_MODELS = "only_models" ∈ ARGS 
+const ONLY_MODELS = "only_models" ∈ ARGS
 
 "Boolean flag to retrain models."
-const RETRAIN = "retrain" ∈ ARGS || ONLY_MODELS 
+const RETRAIN = "retrain" ∈ ARGS || ONLY_MODELS
 
 "Default model performance measures."
 const MODEL_MEASURES = Dict(
     :f1score => multiclass_f1score,
     :acc => accuracy,
-    :precision => multiclass_precision
+    :precision => multiclass_precision,
 )
 
 "Default coverage rate."
@@ -122,7 +126,7 @@ const CE_MEASURES = [
     ECCCo.distance_from_targets_l2,
     CounterfactualExplanations.Evaluation.validity,
     CounterfactualExplanations.Evaluation.redundancy,
-    ECCCo.set_size_penalty
+    ECCCo.set_size_penalty,
 ]
 
 "Test set proportion."
@@ -134,7 +138,9 @@ const UPLOAD = "upload" ∈ ARGS
 n_ind_specified = false
 if any(contains.(ARGS, "n_individuals="))
     n_ind_specified = true
-    n_individuals = ARGS[findall(contains.(ARGS, "n_individuals="))][1] |> x -> replace(x, "n_individuals=" => "") |> x -> parse(Int, x)
+    n_individuals =
+        ARGS[findall(contains.(ARGS, "n_individuals="))][1] |>
+        x -> replace(x, "n_individuals=" => "") |> x -> parse(Int, x)
 else
     n_individuals = 100
 end
@@ -150,15 +156,10 @@ const GRID_SEARCH = "grid_search" ∈ ARGS
 
 "Generator tuning parameters."
 DEFAULT_GENERATOR_TUNING = (
-    Λ=[
-        [0.1, 0.1, 0.05],
-        [0.1, 0.1, 0.1],
-        [0.1, 0.1, 0.5],
-        [0.1, 0.1, 1.0],
-    ],
-    reg_strength=[0.0, 0.1, 0.25, 0.5, 1.0],
-    opt=[
-        Flux.Optimise.Descent(0.1), 
+    Λ = [[0.1, 0.1, 0.05], [0.1, 0.1, 0.1], [0.1, 0.1, 0.5], [0.1, 0.1, 1.0]],
+    reg_strength = [0.0, 0.1, 0.25, 0.5, 1.0],
+    opt = [
+        Flux.Optimise.Descent(0.1),
         Flux.Optimise.Descent(0.05),
         Flux.Optimise.Descent(0.01),
     ],
@@ -166,32 +167,19 @@ DEFAULT_GENERATOR_TUNING = (
 
 "Generator tuning parameters for large datasets."
 DEFAULT_GENERATOR_TUNING_LARGE = (
-    Λ=[
-        [0.1, 0.1, 0.1],
-        [0.1, 0.1, 0.2],
-        [0.2, 0.2, 0.2],
-    ],
-    reg_strength=[0.0, 0.1, 0.5],
-    opt=[
-        Flux.Optimise.Descent(0.01),
-        Flux.Optimise.Descent(0.05),
-    ],
+    Λ = [[0.1, 0.1, 0.1], [0.1, 0.1, 0.2], [0.2, 0.2, 0.2]],
+    reg_strength = [0.0, 0.1, 0.5],
+    opt = [Flux.Optimise.Descent(0.01), Flux.Optimise.Descent(0.05)],
 )
 
 "Boolean flag to check if model tuning was specified."
 const TUNE_MODEL = "tune_model" ∈ ARGS
 
 "Model tuning parameters for small datasets."
-DEFAULT_MODEL_TUNING_SMALL = (
-    n_hidden=[16, 32, 64],
-    n_layers=[1, 2, 3],
-)
+DEFAULT_MODEL_TUNING_SMALL = (n_hidden = [16, 32, 64], n_layers = [1, 2, 3])
 
 "Model tuning parameters for large datasets."
-DEFAULT_MODEL_TUNING_LARGE = (
-    n_hidden=[32, 64, 128, 512],
-    n_layers=[2, 3, 5],
-)
+DEFAULT_MODEL_TUNING_LARGE = (n_hidden = [32, 64, 128, 512], n_layers = [2, 3, 5])
 
 "Boolean flag to check if store counterfactual explanations was specified."
 STORE_CE = "store_ce" ∈ ARGS

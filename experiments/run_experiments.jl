@@ -1,11 +1,21 @@
 include("setup_env.jl");
 
 # User inputs:
-all_data_sets = ["linearly_separable", "moons", "circles", "mnist", "fmnist", "gmsc", "german_credit", "california_housing"]
+all_data_sets = [
+    "linearly_separable",
+    "moons",
+    "circles",
+    "mnist",
+    "fmnist",
+    "gmsc",
+    "german_credit",
+    "california_housing",
+]
 if "run-all" in ARGS
     datanames = all_data_sets
 elseif any(contains.(ARGS, "data="))
-    datanames = [ARGS[findall(contains.(ARGS, "data="))][1] |> x -> replace(x, "data=" => "")]
+    datanames =
+        [ARGS[findall(contains.(ARGS, "data="))][1] |> x -> replace(x, "data=" => "")]
     datanames = replace.(split(datanames[1], ","), " " => "")
 else
     @warn "No dataset specified, defaulting to all."

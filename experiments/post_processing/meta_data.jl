@@ -3,11 +3,20 @@
 
 Extract and save meta data about the experiment.
 """
-function meta(outcome::ExperimentOutcome; save_output::Bool=false, params_path::Union{Nothing,String}=nothing)
+function meta(
+    outcome::ExperimentOutcome;
+    save_output::Bool = false,
+    params_path::Union{Nothing,String} = nothing,
+)
 
-    model_params = meta_model(outcome; save_output=save_output, params_path=params_path)
-    model_performance = meta_model_performance(outcome; save_output=save_output, params_path=params_path)
-    generator_params = meta_generators(outcome; save_output=save_output, params_path=params_path)
+    model_params = meta_model(outcome; save_output = save_output, params_path = params_path)
+    model_performance = meta_model_performance(
+        outcome;
+        save_output = save_output,
+        params_path = params_path,
+    )
+    generator_params =
+        meta_generators(outcome; save_output = save_output, params_path = params_path)
 
     return model_params, model_performance, generator_params
 
@@ -18,7 +27,11 @@ end
 
 Extract and save meta data about the data and models in `outcome.model_dict`.
 """
-function meta_model(outcome::ExperimentOutcome; save_output::Bool=false, params_path::Union{Nothing,String}=nothing)
+function meta_model(
+    outcome::ExperimentOutcome;
+    save_output::Bool = false,
+    params_path::Union{Nothing,String} = nothing,
+)
 
     # Unpack:
     exper = outcome.exper
@@ -38,7 +51,7 @@ function meta_model(outcome::ExperimentOutcome; save_output::Bool=false, params_
             :n_ens => exper.n_ens,
             :lambda => string(exper.α[3]),
             :jem_sampling_steps => exper.sampling_steps,
-        )
+        ),
     )
 
     if save_output
@@ -52,7 +65,11 @@ function meta_model(outcome::ExperimentOutcome; save_output::Bool=false, params_
 
 end
 
-function meta_generators(outcome::ExperimentOutcome; save_output::Bool=false, params_path::Union{Nothing,String}=nothing)
+function meta_generators(
+    outcome::ExperimentOutcome;
+    save_output::Bool = false,
+    params_path::Union{Nothing,String} = nothing,
+)
 
     # Unpack:
     exper = outcome.exper
@@ -76,7 +93,7 @@ function meta_generators(outcome::ExperimentOutcome; save_output::Bool=false, pa
             :lambda_3_Δ => string(Λ_Δ[3]),
             :n_individuals => exper.n_individuals,
             :reg_strength => string(reg_strengh),
-        )
+        ),
     )
 
     if save_output
@@ -94,7 +111,12 @@ end
 
 Compute and save the model performance for the models in `outcome.model_dict`.
 """
-function meta_model_performance(outcome::ExperimentOutcome; measures::Union{Nothing,Dict}=nothing, save_output::Bool=false, params_path::Union{Nothing,String}=nothing)
+function meta_model_performance(
+    outcome::ExperimentOutcome;
+    measures::Union{Nothing,Dict} = nothing,
+    save_output::Bool = false,
+    params_path::Union{Nothing,String} = nothing,
+)
 
     # Unpack:
     exper = outcome.exper
@@ -105,7 +127,11 @@ function meta_model_performance(outcome::ExperimentOutcome; measures::Union{Noth
     model_performance = DataFrame()
     for (mod_name, model) in model_dict
         # Test performance:
-        _perf = CounterfactualExplanations.Models.model_evaluation(model, exper.test_data, measure=collect(values(measures)))
+        _perf = CounterfactualExplanations.Models.model_evaluation(
+            model,
+            exper.test_data,
+            measure = collect(values(measures)),
+        )
         _perf = DataFrame([[p] for p in _perf], collect(keys(measures)))
         _perf.mod_name .= mod_name
         _perf.dataname .= exper.dataname
@@ -127,4 +153,3 @@ function meta_model_performance(outcome::ExperimentOutcome; measures::Union{Noth
 
     return model_performance
 end
-
