@@ -75,7 +75,7 @@ function energy_delta(
     iter = total_steps(ce)
     ϕ = 1.0
     if iter % decay[2] == 0
-        ϕ = exp(-decay * total_steps(ce))
+        ϕ = exp(-decay[1] * total_steps(ce))
     end
 
     # Total loss:
