@@ -43,7 +43,7 @@ function grid_search(
             tuning_params...,
             kwargs...,
         )
-        _df_params = DataFrame(Dict(:id => counter, pairs(tuning_params)))
+        _df_params = DataFrame(merge(Dict(:id => counter), Dict(pairs(tuning_params))))
         _df_outcomes = DataFrame(Dict(:id => counter, :params => tuning_params, :outcome => outcome))
         push!(df_params, _df_params)
         push!(df_outcomes, _df_outcomes)
