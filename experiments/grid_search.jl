@@ -117,7 +117,7 @@ function best_rank_outcome(
     df_weights = DataFrame(variable = measure, weight = weights)
 
     ranks = []
-    for outcome in outcomes.df_outcomes.outcome
+    for outcome in outcomes[:df_outcomes].outcome
         _ranks =
             generator_rank(
                 outcome;
@@ -161,7 +161,7 @@ function best_absolute_outcome(
     df_weights = DataFrame(variable = measure, weight = weights)
 
     avg_values = []
-    for (params, outcome) in (outcomes.df_outcomes.params, outcomes.df_outcomes.outcome)
+    for (params, outcome) in (outcomes[:df_outcomes].params, outcomes[:df_outcomes].outcome)
 
         # Setup
         evaluation = deepcopy(outcome.bmk.evaluation)
