@@ -65,7 +65,7 @@ function default_generators(;
                 nmin = nmin,
                 niter = niter_eccco,
                 reg_strength = reg_strength,
-                decay=decay,
+                decay = decay,
             ),
             "ECCCo-Δ (no EBM)" => ECCCoGenerator(
                 λ = [λ₁_Δ, λ₂_Δ, 0.0],
@@ -76,7 +76,7 @@ function default_generators(;
                 nmin = nmin,
                 niter = niter_eccco,
                 reg_strength = reg_strength,
-                decay=decay,
+                decay = decay,
             ),
         )
     else
@@ -101,7 +101,7 @@ function default_generators(;
                 nmin = nmin,
                 niter = niter_eccco,
                 reg_strength = reg_strength,
-                decay=decay,
+                decay = decay,
             ),
         )
     end
@@ -119,7 +119,7 @@ function default_generators(;
                 nmin = nmin,
                 niter = niter_eccco,
                 reg_strength = reg_strength,
-                decay=decay,
+                decay = decay,
                 dim_reduction = dim_reduction,
             ),
         )

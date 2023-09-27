@@ -31,8 +31,8 @@ function grid_search(
 
     # Search:
     counter = 1
-    for tuning_params in grid
-        @info "Running experiment $(counter)/$(length(grid)) with tuning parameters: $(tuning_params)"
+    for params in grid
+        @info "Running experiment $(counter)/$(length(grid)) with tuning parameters: $(params)"
         outcome = run_experiment(
             counterfactual_data,
             test_data;
@@ -40,20 +40,22 @@ function grid_search(
             dataname = dataname,
             n_individuals = n_individuals,
             output_path = grid_search_path,
-            tuning_params...,
+            params...,
             kwargs...,
         )
-        _df_params = DataFrame(merge(Dict(:id => counter), Dict(pairs(tuning_params))))
-        _df_outcomes = DataFrame(Dict(:id => counter, :params => tuning_params, :outcome => outcome))
+
+        _df_params =
+            DataFrame(merge(Dict(:id => counter), Dict(params))) |>
+            x -> select(x, :id, Not(:id))
+        _df_outcomes =
+            DataFrame(Dict(:id => counter, :params => params, :outcome => outcome)) |>
+            x -> select(x, :id, Not(:id))
         push!(df_params, _df_params)
         push!(df_outcomes, _df_outcomes)
         counter += 1
     end
 
-    outcomes = Dict(
-        :df_params => vcat(df_params...),
-        :df_outcomes => vcat(df_outcomes...),
-    )
+    outcomes = Dict(:df_params => vcat(df_params...), :df_outcomes => vcat(df_outcomes...))
 
     # Save:
     if !(is_multi_processed(PLZ) && MPI.Comm_rank(PLZ.comm) != 0)
@@ -130,8 +132,8 @@ function best_rank_outcome(
     end
     best_index = argmin(ranks)
     best_outcome = (
-        params=outcomes.df_outcomes.params[best_index],
-        outcome=outcomes.df_outcomes.outcomes[best_index],
+        params = outcomes.df_outcomes.params[best_index],
+        outcome = outcomes.df_outcomes.outcomes[best_index],
     )
     return best_outcome
 end
