@@ -57,11 +57,11 @@ function grid_search(
         # Save:
         if !(is_multi_processed(PLZ) && MPI.Comm_rank(PLZ.comm) != 0)
             Serialization.serialize(
-                joinpath(storage_path, "$(params)_$(counter).jls"),
+                joinpath(storage_path, "params_$(counter).jls"),
                 df_params,
             )
             Serialization.serialize(
-                joinpath(storage_path, "$(outcomes)_$(counter).jls"),
+                joinpath(storage_path, "outcomes_$(counter).jls"),
                 df_outcomes,
             )
         end
@@ -75,8 +75,8 @@ function grid_search(
         df_params = []
         df_outcomes = []
         for i in 1:length(grid)
-            df_params = push!(df_params, Serialization.deserialize(joinpath(storage_path_params, "$(i).jls")))
-            df_outcomes = push!(df_outcomes; Serialization.deserialize(joinpath(storage_path_outcomes, "$(i).jls")))
+            push!(df_params, Serialization.deserialize(joinpath(storage_path, "params_$(i).jls")))
+            push!(df_outcomes, Serialization.deserialize(joinpath(storage_path, "outcomes_$(i).jls")))
         end
         outcomes = Dict(:df_params => vcat(df_params...), :df_outcomes => vcat(df_outcomes...))
 
