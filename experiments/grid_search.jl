@@ -132,8 +132,8 @@ function best_rank_outcome(
     end
     best_index = argmin(ranks)
     best_outcome = (
-        params = outcomes.df_outcomes.params[best_index],
-        outcome = outcomes.df_outcomes.outcomes[best_index],
+        params=outcomes[:df_outcomes].params[best_index],
+        outcome=outcomes[:df_outcomes].outcomes[best_index],
     )
     return best_outcome
 end
@@ -204,8 +204,8 @@ function best_absolute_outcome(
     end
     best_index = argmin(avg_values)
     best_outcome = (
-        params = outcomes.df_outcomes.params[best_index],
-        outcome = outcomes.df_outcomes.outcomes[best_index],
+        params=outcomes[:df_outcomes].params[best_index],
+        outcome=outcomes[:df_outcomes].outcomes[best_index],
     )
 end
 
