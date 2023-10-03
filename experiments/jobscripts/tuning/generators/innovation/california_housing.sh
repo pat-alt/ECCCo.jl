@@ -2,10 +2,10 @@
 
 #SBATCH --job-name="Grid-search California Housing (ECCCo)"
 #SBATCH --time=04:00:00
-#SBATCH --ntasks=48
+#SBATCH --ntasks=24
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=compute
-#SBATCH --mem-per-cpu=4GB
+#SBATCH --mem-per-cpu=8GB
 #SBATCH --account=innovation
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
