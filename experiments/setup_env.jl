@@ -196,7 +196,7 @@ DEFAULT_GENERATOR_TUNING = (
 "Generator tuning parameters for large datasets."
 DEFAULT_GENERATOR_TUNING_LARGE = (
     Λ = [[0.1, 0.1, 0.1], [0.1, 0.1, 0.2], [0.2, 0.2, 0.2]],
-    reg_strength = [0.0, 0.1, 0.25,],
+    reg_strength = [0.0,],
     opt = [
         Descent(0.01), 
         Descent(0.05),
