@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search California Housing (ECCCo)"
-#SBATCH --time=04:00:00
+#SBATCH --time=02:00:00
 #SBATCH --ntasks=100
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=compute
@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=california_housing output_path=results mpi grid_search n_individuals=25 store_ce > experiments/grid_search_california_housing.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=california_housing output_path=results mpi grid_search n_individuals=20 store_ce > experiments/grid_search_california_housing.log
