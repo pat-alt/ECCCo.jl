@@ -65,6 +65,7 @@ const N_IND = n_individuals
 "Boolean flag to check if number of individuals was specified."
 const N_IND_SPECIFIED = n_ind_specified
 
+# Number of tasks per process:
 if any(contains.(ARGS, "n_each="))
     n_each =
         ARGS[findall(contains.(ARGS, "n_each="))][1] |>
@@ -75,6 +76,18 @@ end
 
 "Number of objects to pass to each process."
 const N_EACH = n_each
+
+# Number of benchmark runs:
+if any(contains.(ARGS, "n_runs="))
+    n_runs =
+        ARGS[findall(contains.(ARGS, "n_runs="))][1] |>
+        x -> replace(x, "n_runs=" => "") |> x -> parse(Int, x)
+else
+    n_runs = 1
+end
+
+"Number of benchmark runs."
+const N_RUNS = n_runs
 
 # Parallelization:
 plz = nothing

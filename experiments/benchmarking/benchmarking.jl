@@ -175,6 +175,7 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
         converge_when = :generator_conditions,
         parallelizer = parallelizer,
         store_ce = exper.store_ce,
+        n_runs = exper.n_runs,
     )
     return bmk, generator_dict
 end
