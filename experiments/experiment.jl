@@ -139,7 +139,7 @@ function run_experiment(
             joinpath(exper.output_path, "$(exper.save_name)_bmk.jls"),
             outcome.bmk,
         )
-        meta(outcome; save_output = true)
+        all_meta(outcome; save_output = true)
     end
 
     # Final barrier:

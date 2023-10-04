@@ -23,7 +23,7 @@ function save_best(outcomes_file_path::String)
         joinpath(output_path, "$(exper.save_name)_models.jls"),
         outcome.model_dict,
     )
-    meta(outcome; save_output = true, params_path = params_path)
+    all_meta(outcome; save_output = true, params_path = params_path)
 end
 
 function bmk2csv(dataname::String)
