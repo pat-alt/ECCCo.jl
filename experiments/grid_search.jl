@@ -47,6 +47,7 @@ function grid_search(
             kwargs...,
         )
 
+        params = map(x -> typeof(x[2]) <: Vector ? x[1] => Tuple(x[2]) : x[1] => x[2], params)
         df_params =
             DataFrame(merge(Dict(:id => counter), Dict(params))) |>
             x -> select(x, :id, Not(:id))

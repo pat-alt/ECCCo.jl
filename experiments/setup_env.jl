@@ -16,6 +16,7 @@ using DataFrames
 using Distributions: Normal, Distribution, Categorical, Uniform
 using ECCCo
 using Flux
+using Flux.Optimise: Optimiser, Descent, Adam, ClipValue
 using JointEnergyModels
 using LazyArtifacts
 using Logging
@@ -171,19 +172,24 @@ DEFAULT_GENERATOR_TUNING = (
     Λ = [[0.1, 0.1, 0.05], [0.1, 0.1, 0.1], [0.1, 0.1, 0.5], [0.1, 0.1, 1.0]],
     reg_strength = [0.0, 0.1, 0.25, 0.5, 1.0],
     opt = [
-        Flux.Optimise.Descent(0.1),
-        Flux.Optimise.Descent(0.05),
-        Flux.Optimise.Descent(0.01),
+        Descent(0.01),
+        Descent(0.05),
+        Descent(0.1),
     ],
-    decay = [(0.0, 1), (0.1, 1), (0.5, 1)],
+    decay = [(0.0, 1), (0.01, 1), (0.1, 1)],
 )
 
 "Generator tuning parameters for large datasets."
 DEFAULT_GENERATOR_TUNING_LARGE = (
     Λ = [[0.1, 0.1, 0.1], [0.1, 0.1, 0.2], [0.2, 0.2, 0.2]],
-    reg_strength = [0.0],
-    opt = [Flux.Optimise.Descent(0.01), Flux.Optimise.Descent(0.05)],
-    decay = [(0.0, 1), (0.1, 1), (0.5, 1)],
+    reg_strength = [0.0, 0.1, 0.25,],
+    opt = [
+        Descent(0.01), 
+        Descent(0.05),
+        Optimiser(ClipValue(0.01), Descent(0.01)),
+        Optimiser(ClipValue(0.05), Descent(0.05)),
+    ],
+    decay = [(0.0, 1), (0.01, 1), (0.1, 1)],
 )
 
 "Boolean flag to check if model tuning was specified."
