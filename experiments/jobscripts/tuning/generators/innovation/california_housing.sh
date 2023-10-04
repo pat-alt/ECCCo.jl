@@ -11,4 +11,4 @@
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=california_housing output_path=results mpi grid_search n_individuals=20 n_each=8 store_ce > experiments/grid_search_califoenia_housing.log
+srun julia --project=experiments experiments/run_experiments.jl -- data=california_housing output_path=results mpi grid_search n_individuals=10 n_each=16 > experiments/grid_search_califoenia_housing.log
