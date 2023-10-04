@@ -1,9 +1,9 @@
 """
-    meta(exper::Experiment)
+    all_meta(exper::Experiment)
 
 Extract and save meta data about the experiment.
 """
-function meta(
+function all_meta(
     outcome::ExperimentOutcome;
     save_output::Bool = false,
     params_path::Union{Nothing,String} = nothing,
