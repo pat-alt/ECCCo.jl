@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name="Grid-search Linearly Separable (ECCCo)"
+#SBATCH --job-name="Grid-search Moons (ECCCo)"
 #SBATCH --time=01:00:00
 #SBATCH --ntasks=30
 #SBATCH --cpus-per-task=30
@@ -13,4 +13,4 @@ module load openmpi
 
 source experiments/slurm_header.sh
 
-srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=linearly_separable output_path=results mpi grid_search threaded n_individuals=100 > experiments/logs/grid_search_linearly_separable.log
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=moons output_path=results mpi grid_search threaded n_individuals=100 > experiments/logs/grid_search_moons.log
