@@ -202,9 +202,11 @@ DEFAULT_GENERATOR_TUNING_LARGE = (
     reg_strength=[0.0, 0.1,],
     opt = [
         Descent(0.01), 
+        Descent(0.05),
         Optimiser(ClipValue(0.01), Descent(0.01)),
+        Optimiser(ClipValue(0.05), Descent(0.05)),
     ],
-    decay = [(0.0, 1), (0.01, 1)],
+    decay = [(0.0, 1), (0.01, 1), (0.1, 1)],
 )
 
 "Boolean flag to check if model tuning was specified."

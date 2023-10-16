@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search California Housing (ECCCo)"
-#SBATCH --time=01:00:00
+#SBATCH --time=01:10:00
 #SBATCH --ntasks=10
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=general
