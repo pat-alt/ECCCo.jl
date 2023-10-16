@@ -11,7 +11,6 @@
 module use /opt/insy/modulefiles          # Use DAIC INSY software collection
 module load openmpi
 
-set -x
-export SRUN_CPUS_PER_TASK="$SLURM_CPUS_PER_TASK"
+source experiments/slurm_header.sh
 
 srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=linearly_separable output_path=results mpi grid_search n_individuals=10 threaded > experiments/grid_search_linearly_separable.log
