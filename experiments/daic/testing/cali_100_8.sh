@@ -5,7 +5,7 @@
 #SBATCH --ntasks=10
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=general
-#SBATCH --mem-per-cpu=8GB
+#SBATCH --mem-per-cpu=2GB
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
 module use /opt/insy/modulefiles          # Use DAIC INSY software collection
