@@ -109,6 +109,9 @@ if "mpi" ∈ ARGS
         @info "Multi-processing using MPI. Disabling logging on non-root processes."
         if USE_THREADS
             @info "Multi-threading using $(Threads.nthreads()) threads."
+            if Threads.threadid() != 1
+                global_logger(NullLogger())
+            end
         end
     end
 else
@@ -196,7 +199,7 @@ DEFAULT_GENERATOR_TUNING = (
 "Generator tuning parameters for large datasets."
 DEFAULT_GENERATOR_TUNING_LARGE = (
     Λ = [[0.1, 0.1, 0.1], [0.1, 0.1, 0.2], [0.2, 0.2, 0.2]],
-    reg_strength = [0.0,],
+    reg_strength=[0.0, 0.1,],
     opt = [
         Descent(0.01), 
         Descent(0.05),

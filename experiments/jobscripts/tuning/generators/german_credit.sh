@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name="Grid-search Circles (ECCCo)"
+#SBATCH --job-name="Grid-search German Credit (ECCCo)"
 #SBATCH --time=01:00:00
 #SBATCH --ntasks=30
 #SBATCH --cpus-per-task=30
@@ -13,4 +13,4 @@ module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
-srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=circles output_path=results mpi grid_search threaded n_individuals=100 > experiments/logs/grid_search_circles.log
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=german_credit output_path=results mpi grid_search threaded n_individuals=100 > experiments/logs/grid_search_german_credit.log
