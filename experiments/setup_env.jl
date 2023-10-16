@@ -71,7 +71,7 @@ if any(contains.(ARGS, "n_each="))
         ARGS[findall(contains.(ARGS, "n_each="))][1] |>
         x -> replace(x, "n_each=" => "") |> x -> parse(Int, x)
 else
-    n_each = 16
+    n_each = 32
 end
 
 "Number of objects to pass to each process."
