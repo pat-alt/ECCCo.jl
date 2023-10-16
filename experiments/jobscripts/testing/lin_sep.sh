@@ -9,7 +9,7 @@
 #SBATCH --account=research-eemcs-insy
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
-module load openmpi
+module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
