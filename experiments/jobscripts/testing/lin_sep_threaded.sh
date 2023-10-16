@@ -5,7 +5,7 @@
 #SBATCH --ntasks=14
 #SBATCH --cpus-per-task=14
 #SBATCH --partition=compute
-#SBATCH --mem-per-cpu=4GB
+#SBATCH --mem-per-cpu=1GB
 #SBATCH --account=research-eemcs-insy
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
