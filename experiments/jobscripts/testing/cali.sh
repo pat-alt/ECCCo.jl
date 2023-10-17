@@ -13,4 +13,4 @@ module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
-srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=california_housing output_path=results mpi grid_search n_individuals=10 n_each=nothing threaded > experiments/logs/grid_search_california_housing.log
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=california_housing output_path=results mpi grid_search n_individuals=10 n_each=70 threaded > experiments/logs/grid_search_california_housing.log
