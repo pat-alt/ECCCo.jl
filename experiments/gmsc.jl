@@ -3,6 +3,9 @@ dataname = "GMSC"
 counterfactual_data, test_data = train_test_split(load_gmsc(nothing); test_size = TEST_SIZE)
 nobs = size(counterfactual_data.X, 2)
 
+# Domain constraints:
+counterfactual_data.domain = extrema(counterfactual_data.X, dims=2)
+
 # VAE:
 using CounterfactualExplanations.GenerativeModels: VAE, train!
 X = counterfactual_data.X

@@ -6,6 +6,9 @@ counterfactual_data, test_data = train_test_split(
     test_size = TEST_SIZE,
 )
 
+# Domain constraints:
+counterfactual_data.domain = extrema(counterfactual_data.X, dims=2)
+
 # Model tuning:
 model_tuning_params = DEFAULT_MODEL_TUNING_SMALL
 
