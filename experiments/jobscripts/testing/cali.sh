@@ -9,8 +9,7 @@
 #SBATCH --account=research-eemcs-insy
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
-module use /opt/insy/modulefiles          # Use DAIC INSY software collection
-module load openmpi
+module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
