@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search Linearly Separable (ECCCo)"
-#SBATCH --time=00:20:00
-#SBATCH --ntasks=100
-#SBATCH --cpus-per-task=10
+#SBATCH --time=00:30:00
+#SBATCH --ntasks=10
+#SBATCH --cpus-per-task=5
 #SBATCH --partition=general
 #SBATCH --mem-per-cpu=2GB
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
