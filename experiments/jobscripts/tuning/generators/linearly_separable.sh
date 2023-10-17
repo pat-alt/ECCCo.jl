@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search Linearly Separable (ECCCo)"
-#SBATCH --time=00:45:00
+#SBATCH --time=00:35:00
 #SBATCH --ntasks=100
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
