@@ -13,4 +13,4 @@ module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
-srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=linearly_separable output_path=results mpi grid_search n_individuals=20 threaded > experiments/logs/grid_search_linearly_separable_threaded.log
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=linearly_separable output_path=results mpi grid_search n_individuals=20 threaded n_each=nothing > experiments/logs/grid_search_linearly_separable_threaded.log
