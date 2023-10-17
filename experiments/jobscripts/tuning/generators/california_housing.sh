@@ -2,8 +2,8 @@
 
 #SBATCH --job-name="Grid-search California Housing (ECCCo)"
 #SBATCH --time=01:00:00
-#SBATCH --ntasks=20
-#SBATCH --cpus-per-task=20
+#SBATCH --ntasks=50
+#SBATCH --cpus-per-task=8
 #SBATCH --partition=compute
 #SBATCH --mem-per-cpu=4GB
 #SBATCH --account=research-eemcs-insy
