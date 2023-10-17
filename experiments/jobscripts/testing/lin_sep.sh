@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search Linearly Separable (ECCCo)"
-#SBATCH --time=00:20:00
+#SBATCH --time=00:30:00
 #SBATCH --ntasks=100
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
@@ -13,5 +13,5 @@ module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
-srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=linearly_separable output_path=results mpi grid_search n_individuals=50 threaded n_each=nothing > experiments/logs/grid_search_linearly_separable.log
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=linearly_separable output_path=results mpi grid_search n_individuals=100 threaded n_each=nothing > experiments/logs/grid_search_linearly_separable.log
  
