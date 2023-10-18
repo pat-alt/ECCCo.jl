@@ -40,7 +40,6 @@ params = (
     opt = Flux.Optimise.Descent(0.05),
     Λ = [0.2, 0.2, 0.2],
     reg_strength = 0.5,
-    n_individuals = 25,
     dim_reduction = true,
 )
 

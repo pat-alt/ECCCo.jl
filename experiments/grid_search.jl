@@ -36,17 +36,25 @@ function grid_search(
     counter = 1
     for params in grid
         @info "Running experiment $(counter)/$(length(grid)) with tuning parameters: $(params)"
+
+        # Filter out keyword parameters that are tuned:
+        not_these = keys(kwargs)[findall([k in map(k -> k[1], params) for k in keys(kwargs)])]
+        not_these = (not_these..., :n_individuals)
+        kwargs = filter(x -> !(x[1] ∈ not_these), Base.Pairs(params, keys(kwargs)))
+
+        # Run experiment:
         outcome = run_experiment(
             counterfactual_data,
             test_data;
+            save_output = false,
+            dataname = dataname,
+            n_individuals = n_individuals,
+            output_path = grid_search_path,
             params...,
             kwargs...,
-            save_output=false,
-            dataname=dataname,
-            n_individuals=n_individuals,
-            output_path=grid_search_path
         )
 
+        # Collect:
         params = map(x -> typeof(x[2]) <: Vector ? x[1] => Tuple(x[2]) : x[1] => x[2], params)
         df_params =
             DataFrame(merge(Dict(:id => counter), Dict(params))) |>
