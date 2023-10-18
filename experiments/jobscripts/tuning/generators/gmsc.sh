@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search GMSC (ECCCo)"
-#SBATCH --time=01:10:00
+#SBATCH --time=01:30:00
 #SBATCH --ntasks=15
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
