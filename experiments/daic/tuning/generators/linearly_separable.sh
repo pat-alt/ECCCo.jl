@@ -2,7 +2,7 @@
 
 #SBATCH --job-name="Grid-search Linearly Separable (ECCCo)"
 #SBATCH --time=01:00:00
-#SBATCH --ntasks=10
+#SBATCH --ntasks=20
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=general
 #SBATCH --mem-per-cpu=2GB

@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search GMSC (ECCCo)"
-#SBATCH --time=01:00:00
-#SBATCH --ntasks=20
-#SBATCH --cpus-per-task=20
+#SBATCH --time=02:00:00
+#SBATCH --ntasks=30
+#SBATCH --cpus-per-task=10
 #SBATCH --partition=general
-#SBATCH --mem-per-cpu=2GB
+#SBATCH --mem-per-cpu=4GB
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
 module use /opt/insy/modulefiles          # Use DAIC INSY software collection

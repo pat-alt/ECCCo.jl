@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search Moons (ECCCo)"
-#SBATCH --time=01:00:00
-#SBATCH --ntasks=30
-#SBATCH --cpus-per-task=30
+#SBATCH --time=01:30:00
+#SBATCH --ntasks=20
+#SBATCH --cpus-per-task=10
 #SBATCH --partition=general
-#SBATCH --mem-per-cpu=1GB
+#SBATCH --mem-per-cpu=2GB
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
 module use /opt/insy/modulefiles          # Use DAIC INSY software collection
