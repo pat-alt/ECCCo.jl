@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search Circles (ECCCo)"
-#SBATCH --time=00:35:00
-#SBATCH --ntasks=100
+#SBATCH --time=01:00:00
+#SBATCH --ntasks=15
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
 #SBATCH --mem-per-cpu=2GB
