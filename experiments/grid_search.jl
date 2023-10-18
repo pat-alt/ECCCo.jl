@@ -39,12 +39,12 @@ function grid_search(
         outcome = run_experiment(
             counterfactual_data,
             test_data;
-            save_output = false,
-            dataname = dataname,
-            n_individuals = n_individuals,
-            output_path = grid_search_path,
             params...,
             kwargs...,
+            save_output=false,
+            dataname=dataname,
+            n_individuals=n_individuals,
+            output_path=grid_search_path
         )
 
         params = map(x -> typeof(x[2]) <: Vector ? x[1] => Tuple(x[2]) : x[1] => x[2], params)
