@@ -1,6 +1,8 @@
 using CounterfactualExplanations.Parallelization: ThreadsParallelizer
+using Distributions: Uniform
 using Flux
 using LinearAlgebra: norm
+using Statistics: mean, std
 
 function is_multi_processed(parallelizer::Union{Nothing,AbstractParallelizer})
     if isnothing(parallelizer) || isa(parallelizer, ThreadsParallelizer)

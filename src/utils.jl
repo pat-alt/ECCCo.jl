@@ -57,3 +57,17 @@ function ssim_dist(x, y)
     y = convert2mnist(y)
     return (1 - assess_ssim(x, y)) / 2
 end
+
+"""
+    prior_sampling_space(data::CounterfactualData; n_std=3)
+
+Define the prior sampling space for the data.
+"""
+function prior_sampling_space(data::CounterfactualData; n_std=3)
+    X = data.X
+    centers = mean(X, dims=2)
+    stds = std(X, dims=2)
+    lower_bound = minimum(centers .- n_std .* stds)[1]
+    upper_bound = maximum(centers .+ n_std .* stds)[1]
+    return Uniform(lower_bound, upper_bound)
+end

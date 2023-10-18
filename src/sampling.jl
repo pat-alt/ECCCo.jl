@@ -46,8 +46,10 @@ function EnergySampler(
 
     K = length(data.y_levels)
     input_size = size(selectdim(data.X, ndims(data.X), 1))
-    𝒟x = Uniform(extrema(data.X)...)
+    # Prior distribution:
+    𝒟x = prior_sampling_space(data)
     𝒟y = Categorical(ones(K) ./ K)
+    # Sampler:
     sampler = ConditionalSampler(𝒟x, 𝒟y; input_size = input_size)
     yidx = get_target_index(data.y_levels, y)
 

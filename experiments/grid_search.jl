@@ -212,10 +212,10 @@ function best_absolute_outcome(
         higher_is_better = [var ∈ ["validity", "redundancy"] for var in evaluation.variable]
         evaluation.value[higher_is_better] .= -evaluation.value[higher_is_better]
 
-        # Normalise to allow for comparison across measures:
-        evaluation =
-            groupby(evaluation, [:dataname, :variable]) |>
-            x -> transform(x, :value => standardize => :value)
+        # # Normalise to allow for comparison across measures:
+        # evaluation =
+        #     groupby(evaluation, [:dataname, :variable]) |>
+        #     x -> transform(x, :value => standardize => :value)
 
         # Reconstruct outcome with normalised values:
         bmk = CounterfactualExplanations.Evaluation.Benchmark(evaluation)
@@ -239,6 +239,8 @@ function best_absolute_outcome(
         params=outcomes[:df_outcomes].params[best_index],
         outcome=outcomes[:df_outcomes].outcome[best_index],
     )
+
+    return best_outcome
 end
 
 best_absolute_outcome_eccco(outcomes; kwrgs...) =

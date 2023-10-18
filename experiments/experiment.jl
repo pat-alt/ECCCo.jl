@@ -9,7 +9,7 @@ Base.@kwdef struct Experiment
     use_pretrained::Bool = !RETRAIN
     models::Union{Nothing,Dict} = nothing
     additional_models::Union{Nothing,Dict} = nothing
-    𝒟x::Distribution = Normal()
+    𝒟x::Distribution = ECCCo.prior_sampling_space(counterfactual_data)
     sampling_batch_size::Int = 50
     sampling_steps::Int = 50
     min_batch_size::Int = 128
