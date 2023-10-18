@@ -40,7 +40,7 @@ function grid_search(
         # Filter out keyword parameters that are tuned:
         not_these = keys(kwargs)[findall([k in map(k -> k[1], params) for k in keys(kwargs)])]
         not_these = (not_these..., :n_individuals)
-        kwargs = filter(x -> !(x[1] ∈ not_these), Base.Pairs(params, keys(kwargs)))
+        kwargs = filter(x -> !(x[1] ∈ not_these), kwargs)
 
         # Run experiment:
         outcome = run_experiment(
