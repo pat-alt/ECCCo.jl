@@ -193,7 +193,7 @@ function best_absolute_outcome(
         model_dict = outcome.model_dict
 
         # Discard outlier results:
-        if any(evaluation.value .> 1e6)
+        if any(abs(evaluation.value) .> 1e6)
             @warn "Discarding outlier results: $(params)."
             push!(avg_values, Inf)
             continue
