@@ -83,7 +83,7 @@ function meta_generators(
     generator_params = DataFrame(
         Dict(
             :opt => string(typeof(opt)),
-            :eta => opt.eta,
+            :eta => get_learning_rate(opt),
             :dataname => exper.dataname,
             :lambda_1 => string(Λ[1]),
             :lambda_2 => string(Λ[2]),

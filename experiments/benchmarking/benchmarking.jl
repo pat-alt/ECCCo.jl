@@ -20,7 +20,7 @@ function default_generators(;
         generator_dict = Dict(
             "Wachter" => WachterGenerator(λ = λ₁, opt = opt),
             "REVISE" => REVISEGenerator(λ = λ₁, opt = opt),
-            "Schut" => GreedyGenerator(η = opt.eta),
+            "Schut" => GreedyGenerator(η=get_learning_rate(opt)),
             "ECCCo" => ECCCoGenerator(
                 λ = Λ,
                 opt = opt,

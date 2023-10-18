@@ -38,7 +38,8 @@ function grid_search(
         @info "Running experiment $(counter)/$(length(grid)) with tuning parameters: $(params)"
 
         # Filter out keyword parameters that are tuned:
-        not_these = keys(kwargs)[findall([k in map(k -> k[1], params) for k in keys(kwargs)])]
+        _keys = [k[1] for k in kwargs]
+        not_these = _keys[findall([k in map(k -> k[1], params) for k in _keys])]
         not_these = (not_these..., :n_individuals)
         kwargs = filter(x -> !(x[1] ∈ not_these), kwargs)
 
