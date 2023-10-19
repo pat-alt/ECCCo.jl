@@ -15,7 +15,7 @@ function summarise_outcome(
     df =
         groupby(bmk(), [:dataname, :generator, :model, :variable]) |>
         x ->
-            combine(x, :value => mean => :mean, :value => std => :std) |>
+            combine(x, :value => mean => :mean, :value => std => :std_wg) |>
             x -> subset(x, :variable => ByRow(x -> x ∈ measure))
     if !isnothing(model)
         df = subset(df, :model => ByRow(x -> x ∈ model))
