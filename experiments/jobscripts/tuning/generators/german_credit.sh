@@ -2,7 +2,7 @@
 
 #SBATCH --job-name="Grid-search German Credit (ECCCo)"
 #SBATCH --time=01:30:00
-#SBATCH --ntasks=15
+#SBATCH --ntasks=30
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
 #SBATCH --mem-per-cpu=4GB
