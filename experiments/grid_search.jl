@@ -56,9 +56,9 @@ function grid_search(
         )
 
         # Collect:
-        params = map(x -> typeof(x[2]) <: Vector ? x[1] => Tuple(x[2]) : x[1] => x[2], params)
+        _params = map(x -> typeof(x[2]) <: Vector ? x[1] => Tuple(x[2]) : x[1] => x[2], params)
         df_params =
-            DataFrame(merge(Dict(:id => counter), Dict(params))) |>
+            DataFrame(merge(Dict(:id => counter), Dict(_params))) |>
             x -> select(x, :id, Not(:id))
         df_outcomes =
             DataFrame(Dict(:id => counter, :params => params, :outcome => outcome)) |>
@@ -192,11 +192,6 @@ function best_absolute_outcome(
         higher_is_better = [var ∈ ["validity", "redundancy"] for var in evaluation.variable]
         evaluation.value[higher_is_better] .= -evaluation.value[higher_is_better]
 
-        # # Normalise to allow for comparison across measures:
-        # evaluation =
-        #     groupby(evaluation, [:dataname, :variable]) |>
-        #     x -> transform(x, :value => standardize => :value)
-
         # Reconstruct outcome with normalised values:
         bmk = CounterfactualExplanations.Evaluation.Benchmark(evaluation)
         outcome = ExperimentOutcome(exper, model_dict, generator_dict, bmk)
@@ -230,11 +225,18 @@ best_absolute_outcome_eccco_Δ(outcomes; kwrgs...) =
     best_absolute_outcome(outcomes; generator = ECCCo_Δ_NAMES, kwrgs...)
 
 """
+    best_outcome(outcomes)
+
+The best outcome is chosen as follows: choose the outcome with the minium average unfaithfulness (`distance_from_energy_l2`) aggregated across all ECCCo generators (`ECCCo_Δ_NAMES`) for the weakest models (`MLP` and `MLP Ensemble`).
+"""
+best_outcome(outcomes; measure=["distance_from_energy_l2"]) = best_absolute_outcome(outcomes; generator=ECCCo_Δ_NAMES, measure=measure, model=["MLP", "MLP Ensemble"])
+
+"""
     append_best_params!(params::NamedTuple, dataname::String)
 
 Appends the best parameters from grid search results to the specified parameters.
 """
-function append_best_params!(params::NamedTuple, dataname::String)
+function append_best_params(params::NamedTuple, dataname::String)
     if !isfile(
         joinpath(
             DEFAULT_OUTPUT_PATH,
@@ -252,7 +254,10 @@ function append_best_params!(params::NamedTuple, dataname::String)
                 "$(replace(lowercase(dataname), " " => "_")).jls",
             ),
         )
-        best_params = best_absolute_outcome_eccco_Δ(grid_search_results).params
+        best_params = best_outcome(grid_search_results).params
         params = (; params..., best_params...)
+        
+        params = (; params..., (; Λ = typeof(params.Λ) <: Tuple ? collect(params.Λ) : params.Λ)...)
     end
+    return params
 end

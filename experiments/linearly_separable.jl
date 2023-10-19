@@ -29,7 +29,8 @@ params = (
 )
 
 # Best grid search params:
-append_best_params!(params, dataname)
+params = append_best_params(params, dataname)
+@info "Using the following parameters: $(params)"
 
 if GRID_SEARCH
     grid_search(
