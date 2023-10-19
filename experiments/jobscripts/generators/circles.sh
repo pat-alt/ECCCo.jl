@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name="Circles (ECCCo)"
-#SBATCH --time=00:35:00
-#SBATCH --ntasks=10
+#SBATCH --time=00:45:00
+#SBATCH --ntasks=30
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
 #SBATCH --mem-per-cpu=2GB
@@ -13,4 +13,4 @@ module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
-srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=circles output_path=results mpi threaded n_individuals=100 n_runs=5 > experiments/logs/circles.log
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=circles output_path=results mpi threaded n_individuals=100 n_runs=50 > experiments/logs/circles.log

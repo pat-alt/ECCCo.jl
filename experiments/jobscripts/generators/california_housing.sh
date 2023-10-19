@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="California Housing (ECCCo)"
-#SBATCH --time=00:30:00
+#SBATCH --time=01:30:00
 #SBATCH --ntasks=30
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
@@ -13,4 +13,4 @@ module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
-srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=california_housing output_path=results mpi threaded n_individuals=100 n_runs=5 > experiments/logs/california_housing.log
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=california_housing output_path=results mpi threaded n_individuals=100 n_runs=50 > experiments/logs/california_housing.log

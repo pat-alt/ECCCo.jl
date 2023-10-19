@@ -186,26 +186,22 @@ const GRID_SEARCH = "grid_search" ∈ ARGS
 
 "Generator tuning parameters."
 DEFAULT_GENERATOR_TUNING = (
-    Λ=[[0.1, 0.1, 0.1], [0.1, 0.1, 0.5],],
-    reg_strength = [0.0, 0.1, 1.0],
+    Λ=[[0.1, 0.1, 0.1], [0.1, 0.1, 0.2], [0.1, 0.1, 0.5],],
+    reg_strength = [0.0, 0.1, 0.5],
     opt = [
         Descent(0.01),
         Descent(0.05),
-        Optimiser(ClipValue(0.01), Descent(0.01)),
-        Optimiser(ClipValue(0.05), Descent(0.05)),
     ],
     decay = [(0.0, 1), (0.01, 1), (0.1, 1)],
 )
 
 "Generator tuning parameters for large datasets."
 DEFAULT_GENERATOR_TUNING_LARGE = (
-    Λ = [[0.1, 0.1, 0.1], [0.1, 0.1, 0.2],],
-    reg_strength=[0.0, 0.1,],
+    Λ=[[0.1, 0.1, 0.1], [0.1, 0.1, 0.2], [0.1, 0.1, 0.5],],
+    reg_strength=[0.0, 0.1, 0.5],
     opt = [
         Descent(0.01), 
         Descent(0.05),
-        Optimiser(ClipValue(0.01), Descent(0.01)),
-        Optimiser(ClipValue(0.05), Descent(0.05)),
     ],
     decay = [(0.0, 1), (0.01, 1), (0.1, 1)],
 )
