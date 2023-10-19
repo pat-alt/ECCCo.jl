@@ -56,9 +56,9 @@ function grid_search(
         )
 
         # Collect:
-        params = map(x -> typeof(x[2]) <: Vector ? x[1] => Tuple(x[2]) : x[1] => x[2], params)
+        _params = map(x -> typeof(x[2]) <: Vector ? x[1] => Tuple(x[2]) : x[1] => x[2], params)
         df_params =
-            DataFrame(merge(Dict(:id => counter), Dict(params))) |>
+            DataFrame(merge(Dict(:id => counter), Dict(_params))) |>
             x -> select(x, :id, Not(:id))
         df_outcomes =
             DataFrame(Dict(:id => counter, :params => params, :outcome => outcome)) |>
@@ -236,7 +236,7 @@ best_outcome(outcomes; measure=["distance_from_energy_l2"]) = best_absolute_outc
 
 Appends the best parameters from grid search results to the specified parameters.
 """
-function append_best_params!(params::NamedTuple, dataname::String)
+function append_best_params(params::NamedTuple, dataname::String)
     if !isfile(
         joinpath(
             DEFAULT_OUTPUT_PATH,
@@ -256,6 +256,8 @@ function append_best_params!(params::NamedTuple, dataname::String)
         )
         best_params = best_outcome(grid_search_results).params
         params = (; params..., best_params...)
-        @info "Best parameters: $(best_params)"
+        
+        params = (; params..., (; Λ = typeof(params.Λ) <: Tuple ? collect(params.Λ) : params.Λ)...)
     end
+    return params
 end
