@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="Circles (ECCCo)"
-#SBATCH --time=00:45:00
+#SBATCH --time=01:30:00
 #SBATCH --ntasks=30
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
