@@ -11,12 +11,23 @@ function summarise_outcome(
 
     bmk = outcome.bmk
     measure = isnothing(measure) ? unique(bmk().variable) : measure
-
+    df = bmk()
+    # If the :run column is missing (single runs), add it:
+    if !(:run ∈ names(df))
+        df.run .= 1
+    end
+    # Aggregate per run:
     df =
-        groupby(bmk(), [:dataname, :generator, :model, :variable]) |>
+        groupby(df, [:dataname, :generator, :model, :run, :variable]) |>
         x ->
-            combine(x, :value => mean => :mean, :value => std => :std_wg) |>
+            combine(x, :value => mean => :mean_group, :value => std => :std_group) |>
             x -> subset(x, :variable => ByRow(x -> x ∈ measure))
+    # Compute mean and std across runs:
+    df =
+        groupby(df, [:dataname, :generator, :model, :variable]) |>
+        x ->
+            combine(x, :mean_group => mean => :mean, :mean_group => std => :std) 
+    # Subset:
     if !isnothing(model)
         df = subset(df, :model => ByRow(x -> x ∈ model))
     end
