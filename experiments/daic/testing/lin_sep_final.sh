@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="Linearly Separable (ECCCo)"
-#SBATCH --time=01:10:00
+#SBATCH --time=00:30:00
 #SBATCH --ntasks=5
 #SBATCH --cpus-per-task=4
 #SBATCH --partition=general
