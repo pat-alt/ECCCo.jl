@@ -13,7 +13,7 @@ function summarise_outcome(
     measure = isnothing(measure) ? unique(bmk().variable) : measure
     df = bmk()
     # If the :run column is missing (single runs), add it:
-    if !(:run ∈ names(df))
+    if !("run" ∈ names(df))
         df.run .= 1
     end
     # Aggregate per run:

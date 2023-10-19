@@ -192,11 +192,6 @@ function best_absolute_outcome(
         higher_is_better = [var ∈ ["validity", "redundancy"] for var in evaluation.variable]
         evaluation.value[higher_is_better] .= -evaluation.value[higher_is_better]
 
-        # # Normalise to allow for comparison across measures:
-        # evaluation =
-        #     groupby(evaluation, [:dataname, :variable]) |>
-        #     x -> transform(x, :value => standardize => :value)
-
         # Reconstruct outcome with normalised values:
         bmk = CounterfactualExplanations.Evaluation.Benchmark(evaluation)
         outcome = ExperimentOutcome(exper, model_dict, generator_dict, bmk)
@@ -230,6 +225,13 @@ best_absolute_outcome_eccco_Δ(outcomes; kwrgs...) =
     best_absolute_outcome(outcomes; generator = ECCCo_Δ_NAMES, kwrgs...)
 
 """
+    best_outcome(outcomes)
+
+The best outcome is chosen as follows: choose the outcome with the minium average unfaithfulness (`distance_from_energy_l2`) aggregated across all ECCCo generators (`ECCCo_Δ_NAMES`) for the weakest models (`MLP` and `MLP Ensemble`).
+"""
+best_outcome(outcomes; measure=["distance_from_energy_l2"]) = best_absolute_outcome(outcomes; generator=ECCCo_Δ_NAMES, measure=measure, model=["MLP", "MLP Ensemble"])
+
+"""
     append_best_params!(params::NamedTuple, dataname::String)
 
 Appends the best parameters from grid search results to the specified parameters.
@@ -252,7 +254,8 @@ function append_best_params!(params::NamedTuple, dataname::String)
                 "$(replace(lowercase(dataname), " " => "_")).jls",
             ),
         )
-        best_params = best_absolute_outcome_eccco_Δ(grid_search_results).params
+        best_params = best_outcome(grid_search_results).params
         params = (; params..., best_params...)
+        @info "Best parameters: $(best_params)"
     end
 end
