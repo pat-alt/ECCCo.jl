@@ -90,30 +90,10 @@ function grid_search(
         end
         outcomes = Dict(:df_params => vcat(df_params...), :df_outcomes => vcat(df_outcomes...))
 
+        # Save:
         Serialization.serialize(
             joinpath(grid_search_path, "$(replace(lowercase(dataname), " " => "_")).jls"),
             outcomes,
-        )
-        Serialization.serialize(
-            joinpath(
-                grid_search_path,
-                "$(replace(lowercase(dataname), " " => "_"))_best.jls",
-            ),
-            best_absolute_outcome(outcomes),
-        )
-        Serialization.serialize(
-            joinpath(
-                grid_search_path,
-                "$(replace(lowercase(dataname), " " => "_"))_best_eccco.jls",
-            ),
-            best_absolute_outcome_eccco(outcomes),
-        )
-        Serialization.serialize(
-            joinpath(
-                grid_search_path,
-                "$(replace(lowercase(dataname), " " => "_"))_best_eccco_delta.jls",
-            ),
-            best_absolute_outcome_eccco_Δ(outcomes),
         )
     end
 
