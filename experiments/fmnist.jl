@@ -30,7 +30,7 @@ model_tuning_params = DEFAULT_MODEL_TUNING_LARGE
 
 # Tuning parameters:
 tuning_params = DEFAULT_GENERATOR_TUNING
-tuning_params = (; tuning_params..., Λ = [tuning_params.Λ[2:end]..., [0.1, 0.1, 3.0]])
+tuning_params = (; tuning_params..., Λ = [tuning_params.Λ[2:end]..., [0.01, 0.1, 3.0]])
 
 # Additional models:
 add_models = Dict("LeNet-5" => lenet5)

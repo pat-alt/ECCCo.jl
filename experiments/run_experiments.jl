@@ -52,12 +52,6 @@ if "german_credit" in datanames
     include("german_credit.jl")
 end
 
-# Credit Default
-if "credit_default" in datanames
-    @info "Running Credit Default experiment."
-    include("credit_default.jl")
-end
-
 # California Housing
 if "california_housing" in datanames
     @info "Running California Housing experiment."
