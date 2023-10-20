@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name="Fashion MNIST - Grid (ECCCo)"
-#SBATCH --time=02:00:00
-#SBATCH --ntasks=40
+#SBATCH --time=04:00:00
+#SBATCH --ntasks=10
 #SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
 #SBATCH --mem-per-cpu=8GB
