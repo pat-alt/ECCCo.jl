@@ -45,7 +45,7 @@ function generate_artifacts(
 
         # Try to detect where we should upload these weights to (or just override
         # as shown in the commented-out line)
-        origin_url = get_git_remote_url(root)
+        origin_url = replace(get_git_remote_url(root), ".git" => "")
         deploy_repo = "$(basename(dirname(origin_url)))/$(basename(origin_url))"
     end
 
