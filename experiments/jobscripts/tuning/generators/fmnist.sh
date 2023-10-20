@@ -13,4 +13,4 @@ module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
-srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=fmnist output_path=results mpi grid_search threaded n_individuals=25 n_each=32 > experiments/logs/grid_search_fmnist.log
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=fmnist output_path=results mpi grid_search threaded n_individuals=10 n_each=32 > experiments/logs/grid_search_fmnist.log
