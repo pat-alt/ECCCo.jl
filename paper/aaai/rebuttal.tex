@@ -184,6 +184,8 @@ Energy-Constrained Conformal Counterfactuals}
 
 \begin{document}
 
+We thank the reviewers for their thoughtful comments.
+
 \subsubsection{Experiment results: linguistic explanation.} 
 
 In Section 6, we will add the following linguistic explanation: 
@@ -192,7 +194,7 @@ In Section 6, we will add the following linguistic explanation:
 
 \subsubsection{Core innovation: more visualizations.} 
 
-Figure~\ref{fig:poc} shows the relationship between implausibility and the energy constraint for MNIST data. As expected, this relationship is positive and the size of the relationship depends positively on the model's generative property (the observed relationships are stronger for joint energy models). We will add such images for all datasets to the appendix. We note that our final benchmark results involve around 1.5 million counterfactuals per dataset (not including grid search).
+Figure~\ref{fig:poc} shows the relationship between implausibility and the energy constraint for MNIST data. As expected, this relationship is positive and the size of the relationship depends positively on the model's generative property (the observed relationships are stronger for joint energy models). We will add such images for all datasets to the appendix. Qur final benchmark results involve around 1.5 million counterfactuals per dataset.
 
 \begin{figure}
     \centering
@@ -230,6 +232,6 @@ Our joint energy models (JEM) are indeed explicitly trained to model $\mathcal{X
 
 \subsubsection{Add unreliable models.}
 
-We would argue that the simple multi-layer perceptrons (MLPs) are unreliable, especially compared to ensembles, joint energy models and convolutional neural networks for our image datasets. Simple neural networks are vulnerable to adversarial attacks, which makes them susceptible to implausible counterfactual explanations as we point out in Section 3. Our results support this notion, in that they demonstrate faithful model explanations only coincide with high plausibility if the model itself has been trained to be more reliable. Consistent with the idea proposed by the reviewer, we originally considered introducing `poisoned' VAEs as well, to illustrate what we identify as the key vulnerability of \textit{REVISE}: if the underlying VAE is trained on poisoned data, this will adversely affect counterfactual outcomes as well. We ultimately discarded this idea due to limited scope and because we decided that Section 3 sufficiently illustrates our thinking. 
+We would argue that the simple multi-layer perceptrons are unreliable, especially compared to ensembles, joint energy models and convolutional neural networks. Simple neural networks are vulnerable to adversarial attacks, which makes them susceptible to implausible counterfactual explanations as we point out in Section 3. Our results support this notion, in that the quality of counterfactuals produced by \textit{ECCCo} is higher for more reliable models. Consistent with the idea proposed by the reviewer, we originally considered introducing `poisoned' VAEs as well, to illustrate what we identify as the key vulnerability of \textit{REVISE}: if the underlying VAE is trained on poisoned data, this will adversely affect counterfactual outcomes as well. We ultimately discarded this idea due to limited scope and because we decided that Section 3 sufficiently illustrates our thinking. 
 
 \end{document}
