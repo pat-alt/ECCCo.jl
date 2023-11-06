@@ -12,34 +12,45 @@ include("$(pwd())/experiments/setup_env.jl")
 ## Counterfactual Path - MNIST
 
 ```{julia}
-outcome = Serialization.deserialize("results/moons_outcome.jls")
-data = outcome.exper.counterfactual_data
+data_name = "mnist"
+plt_order = ["MLP", "MLP Ensemble", "LeNet-5", "JEM", "JEM Ensemble"]
+models = Serialization.deserialize("models/$(data_name)_models.jls")
+data = eval(Meta.parse("load_$(data_name)()"))
+plt_order = plt_order[[x in collect(keys(models)) for x in plt_order]]
 ```
 
 ```{julia}
-factual = data.y_levels[2]
-target = data.y_levels[1]
-```
-
-```{julia}
+using Plots.PlotMeasures
 n_samp = 100
 n_rand = 500
-alpha = 0.2
+σ = 0.1
 plts = []
-for (mod_name, model) in outcome.model_dict
-    t = get_target_index(data.y_levels, target)
-    E(x) = -logits(model, x)[t, :]
-    x_samp = data.X[:,rand(findall(data.output_encoder.labels.==target),n_samp)]
-    x_rand = Float32.(randn(size(data.X,1), n_rand))
-    dist = map(eachcol(x_rand)) do x
-        mean(map(y -> norm(x.-y),eachcol(x_samp)))
+for (mod_name, model) in models
+    Δ = []
+    L = []
+    for i in 1:n_rand
+        factual = rand(data.y_levels)
+        target = rand(data.y_levels[data.y_levels .!= factual])
+        t = get_target_index(data.y_levels, target)
+        E(x) = -logits(model, x)[t, :]
+        x_samp = data.X[:,rand(findall(data.output_encoder.labels.==target),n_samp)]
+        x_rand = data.X[:,rand(findall(data.output_encoder.labels.==factual),1)]
+        x_rand .+= Float32.(randn(size(x_samp,1),1)) .* σ
+        δ = mean(map(y -> norm(x_rand.-y),eachcol(x_samp)))
+        push!(Δ,δ)
+        l = E(x_rand)[1]
+        push!(L,l)
     end
     plt = scatter(
-        E(x_rand), dist;
-        fillalpha=alpha, label="", title=mod_name, smooth=:true,
+        Δ, L;
+        label="", title=mod_name, smooth=:true,
         lc=:red, lw=2
     )
     push!(plts, plt)
 end
-plot(plts..., layout=(1,length(outcome.model_dict)), size=(1000,250))
+plot(
+    plts[sortperm(collect(keys(models)))[invperm(sortperm(plt_order))]]..., 
+    layout=(1,length(models)), size=(1200,1100/length(models)),
+    margin=5mm
+)
 ```
