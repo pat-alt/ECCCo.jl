@@ -14,6 +14,8 @@ include("$(pwd())/experiments/setup_env.jl")
 ```{julia}
 data_name = "mnist"
 plt_order = ["MLP", "MLP Ensemble", "LeNet-5", "JEM", "JEM Ensemble"]
+fixed_factual = 3
+fixed_target = 9
 models = Serialization.deserialize("models/$(data_name)_models.jls")
 data = eval(Meta.parse("load_$(data_name)()"))
 plt_order = plt_order[[x in collect(keys(models)) for x in plt_order]]
@@ -29,8 +31,8 @@ for (mod_name, model) in models
     Δ = []
     L = []
     for i in 1:n_rand
-        factual = rand(data.y_levels)
-        target = rand(data.y_levels[data.y_levels .!= factual])
+        factual = isnothing(fixed_factual) ? rand(data.y_levels) : fixed_factual
+        target = isnothing(fixed_target) ? rand(data.y_levels[data.y_levels .!= factual]) : fixed_target
         t = get_target_index(data.y_levels, target)
         E(x) = -logits(model, x)[t, :]
         x_samp = data.X[:,rand(findall(data.output_encoder.labels.==target),n_samp)]
@@ -48,9 +50,11 @@ for (mod_name, model) in models
     )
     push!(plts, plt)
 end
-plot(
+width = 1000
+plt = plot(
     plts[sortperm(collect(keys(models)))[invperm(sortperm(plt_order))]]..., 
-    layout=(1,length(models)), size=(1200,1100/length(models)),
-    margin=5mm
+    layout=(1,length(models)), size=(width,round(1.0width)/length(models)),
+    ticks=false
 )
+savefig(plt, "www/dist_energy.png")
 ```
