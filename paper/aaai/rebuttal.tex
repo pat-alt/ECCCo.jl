@@ -190,9 +190,9 @@ In Section 6, we will add the following linguistic explanation:
 
 `Our findings demonstrate that \textit{ECCCo} produces plausible counterfactuals if and only if the black-box model itself has learned plausible explanations for the data. Thus, \textit{ECCCo} avoids the risk of generating plausible but potentially misleading explanations for models that are highly susceptible to implausible explanations. Thus, \textit{ECCCo} can be instrumental in discerning unreliable from trustworthy models.'
 
-\subsubsection{Core innovation: more visualization.} 
+\subsubsection{Core innovation: more visualizations.} 
 
-Figure~\ref{fig:poc} shows the relationship between implausibility and the energy constraint for MNIST data. As expected, this relationship is positive and the size of the relationship depends positively on the model's generative property (the observed relationships are stronger for joint energy models). We will add such images for all datasets to the appendix.
+Figure~\ref{fig:poc} shows the relationship between implausibility and the energy constraint for MNIST data. As expected, this relationship is positive and the size of the relationship depends positively on the model's generative property (the observed relationships are stronger for joint energy models). We will add such images for all datasets to the appendix. We note that our final benchmark results involve around 1.5 million counterfactuals per dataset (not including grid search).
 
 \begin{figure}
     \centering
@@ -206,7 +206,7 @@ To facilitate comprehension, we will follow the reviewer's advice and add a syst
 
 \subsubsection{Why use an embedding?}
 
-For any type of surrogate model, there is a risk of introducing bias. In exceptional cases, it may be necessary to accept some degree of bias in favor of plausibility. Our discussion of the results for \textit{ECCCo+} in Section 6.3 demonstrates this tradeoff. The bias introduced through PCA can be explained intuitively: by constraining the counterfactual search to the space spanned by the first $n_z$ principal components, the search is sensitive only to the variation explained by those components. It is therefore an intuitive finding, that \textit{ECCCo+} tends to generate less noisy counterfactuals. We will highlight this rationale in Section 6.3.
+For any type of surrogate model, there is a risk of introducing bias. In exceptional cases, it may be necessary to accept some degree of bias in favor of plausibility. Our discussion of the results for \textit{ECCCo+} in Section 6.3 demonstrates this tradeoff. The bias introduced through PCA can be explained intuitively: by constraining the counterfactual search to the space spanned by the first $n_z$ principal components, the search is sensitive only to the variation explained by those components. It is an intuitive finding, that the generated counterfactuals are less noisy. We will highlight this rationale in Section 6.3.
 
 We think that the bias introduced by PCA may be acceptable, precisely because it `will not add any information on the input distribution' as the reviewer correctly points out. To maintain faithfulness, we want to avoid introducing additional information through surrogate models as much as possible. We will make this intuition clearer in Section 6.3.
 
