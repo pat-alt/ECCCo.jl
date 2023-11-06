@@ -3,8 +3,24 @@
 ## Weaknesses:
 
 1. Experiment results: need more comprehensive linguistic explanation of results
+
+Following the suggestion by the reviewer, we plan to add a the following linguistic explanation in a prominent place of Section 6: 
+
+"Overall, our findings demonstrate that \textit{ECCCo} produces plausible counterfactuals if and only if the black-box model itself has learned plausible explanations for the data. Thus, \textit{ECCCo} avoids the risk of generating plausible but potentially misleading explanations for models that are highly susceptible to implausible explanations. We therefore believe that \textit{ECCCo} can help researchers and practitioners to generate explanations they can trust and discern unreliable from trustworthy models."
+
+Elements of this explanation are already scattered across the paper, but we agree that it would be useful to highlight this notion also in Section 6.
+
 2. Core innovation: need more visualizations in 2D/3D space
+
+
+
 3. Structural clarity: add a flow chart
+
+Figure 2 shows our synthetic linearly separable data in the feature space, so the highlighted path corresponds to the actual counterfactual path of the sample. We will clarify this in the paper. 
+
+Adding a systematic flowchart is a great idea. Due to limited scope, may we suggest adding the following flowchart to the appendix? Alternatively, we may swap out Figure 2 for the flowchart. 
+
+
 
 # Reviewer 2
 
