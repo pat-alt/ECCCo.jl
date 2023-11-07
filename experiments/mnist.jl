@@ -62,6 +62,9 @@ params = (
     dim_reduction = true,
 )
 
+# Best grid search params:
+params = append_best_params(params, dataname)
+
 if GRID_SEARCH
     grid_search(
         counterfactual_data,
