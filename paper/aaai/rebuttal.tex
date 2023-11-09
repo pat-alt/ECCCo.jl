@@ -210,7 +210,7 @@ To facilitate comprehension, we will follow the reviewer's advice and add a syst
 
 \subsubsection{4. Why use an embedding?}
 
-There are two main reasons for using a low-dimensional latent embedding: firstly, to help with plausibility and, secondly, to reduce computational costs. The latter is not currently made explicit in the paper and we will add this in Section 5. The former is discussed in the context of the results for \textit{ECCCo+} in Section 6.3, but we will highlight the following rationale. 
+There are two main reasons for using a low-dimensional latent embedding: firstly, to help with plausibility and, secondly, to reduce computational costs. The latter is not currently made explicit in the paper and we will add this in Section 5. The former is discussed in the context of the results for \textit{ECCCo+} in Section 6.3, but we will highlight the following rationale:
 
 There is indeed a tradeoff between plausibility and faithfulness through the introduction of bias: plausibility is improved because counterfactuals are insensitive to variation captured by higher-order principal components. Intuitively, the generated counterfactuals are therefore less noisy. We think that the bias introduced by PCA may be acceptable, precisely because it `will not add any information on the input distribution' as the reviewer correctly points out. To maintain faithfulness, we want to avoid adding any information through surrogate models as much as possible.
 
