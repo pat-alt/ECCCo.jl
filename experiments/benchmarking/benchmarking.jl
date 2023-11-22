@@ -176,6 +176,7 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
         parallelizer = parallelizer,
         store_ce = exper.store_ce,
         n_runs = exper.n_runs,
+        vertical_splits = VERTICAL_SPLITS,
     )
     return bmk, generator_dict
 end

@@ -220,3 +220,17 @@ STORE_CE = "store_ce" ∈ ARGS
 
 "Boolean flag to chech if best outcome from grid search should be used."
 FROM_GRID_SEARCH = "from_grid" ∈ ARGS
+
+# Vertical splits for benchmarking:
+if any(contains.(ARGS, "vertical_splits"))
+    @assert sum(contains.(ARGS, "output_path")) == 1 "`vertical_splits` is specified more than once."
+    n_splits =
+        ARGS[findall(contains.(ARGS, "output_path"))][1] |>
+        x -> replace(x, "output_path=" => "") |>
+        x -> parse(Int, x)
+else
+    n_splits = nothing
+end
+
+"Number of vertical splits."
+VERTICAL_SPLITS = n_splits
