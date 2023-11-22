@@ -223,10 +223,11 @@ FROM_GRID_SEARCH = "from_grid" ∈ ARGS
 
 # Vertical splits for benchmarking:
 if any(contains.(ARGS, "vertical_splits"))
-    @assert sum(contains.(ARGS, "output_path")) == 1 "`vertical_splits` is specified more than once."
+    @assert sum(contains.(ARGS, "vertical_splits")) == 1 "`vertical_splits` is specified more than once."
     n_splits =
-        ARGS[findall(contains.(ARGS, "output_path"))][1] |>
-        x -> replace(x, "output_path=" => "") |>
+        ARGS[findall(contains.(ARGS, "vertical_splits"))][1] |>
+        x ->
+            replace(x, "vertical_splits=" => "") |>
         x -> parse(Int, x)
 else
     n_splits = nothing
