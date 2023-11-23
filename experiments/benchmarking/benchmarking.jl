@@ -163,6 +163,7 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
     end
 
     # Run benchmark:
+    storage_path = mkpath(joinpath(exper.output_path, "interim_$(dataname)"))
     bmk = benchmark(
         counterfactual_data;
         models = model_dict,
@@ -177,6 +178,7 @@ function run_benchmark(exper::Experiment, model_dict::Dict)
         store_ce = exper.store_ce,
         n_runs = exper.n_runs,
         vertical_splits = VERTICAL_SPLITS,
+        storage_path = storage_path
     )
     return bmk, generator_dict
 end
