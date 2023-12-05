@@ -13,4 +13,4 @@ module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
-srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=mnist output_path=results_testing mpi threaded n_individuals=20 n_runs=5 vertical_splits=20 > experiments/logs/testing_mnist.log
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=mnist output_path=results_testing mpi threaded n_individuals=50 n_runs=5 vertical_splits=50 > experiments/logs/testing_mnist.log
