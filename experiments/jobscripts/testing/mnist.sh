@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #SBATCH --job-name="MNIST (ECCCo)"
-#SBATCH --time=00:10:00
+#SBATCH --time=00:20:00
 #SBATCH --ntasks=30
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=16
 #SBATCH --partition=compute
 #SBATCH --mem-per-cpu=4GB
 #SBATCH --account=research-eemcs-insy
