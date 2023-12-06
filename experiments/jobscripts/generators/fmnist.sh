@@ -3,7 +3,7 @@
 #SBATCH --job-name="Fashion MNIST (ECCCo)"
 #SBATCH --time=02:00:00
 #SBATCH --ntasks=30
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=20
 #SBATCH --partition=compute
 #SBATCH --mem-per-cpu=4GB
 #SBATCH --account=research-eemcs-insy
