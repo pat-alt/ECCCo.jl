@@ -2,10 +2,10 @@
 
 #SBATCH --job-name="MNIST (ECCCo)"
 #SBATCH --time=02:00:00
-#SBATCH --ntasks=30
-#SBATCH --cpus-per-task=20
+#SBATCH --ntasks=10
+#SBATCH --cpus-per-task=5
 #SBATCH --partition=compute
-#SBATCH --mem-per-cpu=4GB
+#SBATCH --mem-per-cpu=8GB
 #SBATCH --account=research-eemcs-insy
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
