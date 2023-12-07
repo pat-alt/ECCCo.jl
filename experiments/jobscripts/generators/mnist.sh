@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="MNIST (ECCCo)"
-#SBATCH --time=02:00:00
+#SBATCH --time=03:00:00
 #SBATCH --ntasks=10
 #SBATCH --cpus-per-task=5
 #SBATCH --partition=compute
