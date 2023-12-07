@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="MNIST (ECCCo)"
-#SBATCH --time=0:020:00
+#SBATCH --time=03:00:00
 #SBATCH --ntasks=10
 #SBATCH --cpus-per-task=5
 #SBATCH --partition=compute
@@ -13,4 +13,4 @@ module load 2023r1 openmpi
 
 source experiments/slurm_header.sh
 
-srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=mnist output_path=results mpi threaded n_individuals=100 n_runs=5 vertical_splits=100 > experiments/logs/mnist.log
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=mnist output_path=results mpi threaded n_individuals=100 n_runs=10 vertical_splits=100 > experiments/logs/mnist.log
