@@ -1,14 +1,16 @@
 #!/bin/bash
 
 #SBATCH --job-name="Grid-search California Housing (ECCCo)"
-#SBATCH --time=04:00:00
-#SBATCH --ntasks=100
-#SBATCH --cpus-per-task=1
+#SBATCH --time=01:40:00
+#SBATCH --ntasks=30
+#SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
-#SBATCH --mem-per-cpu=8GB
+#SBATCH --mem-per-cpu=4GB
 #SBATCH --account=research-eemcs-insy
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=california_housing output_path=results mpi grid_search n_individuals=25 store_ce > experiments/grid_search_california_housing.log
+source experiments/slurm_header.sh
+
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=california_housing output_path=results mpi grid_search threaded n_individuals=100 > experiments/logs/grid_search_california_housing.log

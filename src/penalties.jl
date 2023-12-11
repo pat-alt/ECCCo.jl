@@ -12,8 +12,10 @@ using Statistics: mean
 Penalty for smooth conformal set size.
 """
 function set_size_penalty(
-    ce::AbstractCounterfactualExplanation; 
-    κ::Real=1.0, temp::Real=0.1, agg=mean
+    ce::AbstractCounterfactualExplanation;
+    κ::Real = 1.0,
+    temp::Real = 0.1,
+    agg = mean,
 )
 
     _loss = 0.0
@@ -21,15 +23,17 @@ function set_size_penalty(
     conf_model = ce.M.model
     fitresult = ce.M.fitresult
     X = CounterfactualExplanations.decode_state(ce)
-    _loss = map(eachslice(X, dims=ndims(X))) do x
-        x = ndims(x) == 1 ? x[:,:] : x
+    _loss = map(eachslice(X, dims = ndims(X))) do x
+        x = ndims(x) == 1 ? x[:, :] : x
         if target_probs(ce, x)[1] >= 0.5
             l = ConformalPrediction.ConformalTraining.smooth_size_loss(
-                conf_model, fitresult, x';
-                κ=κ,
-                temp=temp
+                conf_model,
+                fitresult,
+                x';
+                κ = κ,
+                temp = temp,
             )[1]
-        else 
+        else
             l = 0.0
         end
         return l
@@ -42,19 +46,22 @@ end
 
 function energy_delta(
     ce::AbstractCounterfactualExplanation;
-    n::Int=50, niter=500, from_buffer=true, agg=mean,
-    choose_lowest_energy=true,
-    choose_random=false,
-    nmin::Int=25,
-    return_conditionals=false,
-    reg_strength=0.1,
-    decay::Real=0.1,
-    kwargs...
+    n::Int = 50,
+    niter = 500,
+    from_buffer = true,
+    agg = mean,
+    choose_lowest_energy = true,
+    choose_random = false,
+    nmin::Int = 25,
+    return_conditionals = false,
+    reg_strength = 0.1,
+    decay::Tuple = (0.1, 1),
+    kwargs...,
 )
 
     xproposed = CounterfactualExplanations.decode_state(ce)     # current state
     t = get_target_index(ce.data.y_levels, ce.target)
-    E(x) = -logits(ce.M, x)[t,:]                                # negative logits for taraget class
+    E(x) = -logits(ce.M, x)[t, :]                                # negative logits for taraget class
 
     # Generative loss:
     gen_loss = E(xproposed)
@@ -64,7 +71,17 @@ function energy_delta(
     reg_loss = norm(E(xproposed))^2
     reg_loss = reduce((x, y) -> x + y, reg_loss) / length(reg_loss)                  # aggregate over samples
 
-    return gen_loss + reg_strength * reg_loss
+    # Decay:
+    iter = total_steps(ce)
+    ϕ = 1.0
+    if iter % decay[2] == 0
+        ϕ = exp(-decay[1] * total_steps(ce))
+    end
+
+    # Total loss:
+    ℒ = ϕ * (gen_loss + reg_strength * reg_loss)
+
+    return ℒ
 
 end
 
@@ -75,13 +92,16 @@ Computes the distance from the counterfactual to generated conditional samples.
 """
 function distance_from_energy(
     ce::AbstractCounterfactualExplanation;
-    n::Int=50, niter=500, from_buffer=true, agg=mean, 
-    choose_lowest_energy=true,
-    choose_random=false,
-    nmin::Int=25,
-    return_conditionals=false,
-    p::Int=1,
-    kwargs...
+    n::Int = 50,
+    niter = 500,
+    from_buffer = true,
+    agg = mean,
+    choose_lowest_energy = true,
+    choose_random = false,
+    nmin::Int = 25,
+    return_conditionals = false,
+    p::Int = 1,
+    kwargs...,
 )
 
     _loss = 0.0
@@ -93,24 +113,25 @@ function distance_from_energy(
     ignore_derivatives() do
         _dict = ce.params
         if !(:energy_sampler ∈ collect(keys(_dict)))
-            _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
+            _dict[:energy_sampler] =
+                ECCCo.EnergySampler(ce; niter = niter, nsamples = n, kwargs...)
         end
         eng_sampler = _dict[:energy_sampler]
         if choose_lowest_energy
             nmin = minimum([nmin, size(eng_sampler.buffer)[end]])
-            xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n=nmin)
+            xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n = nmin)
             push!(conditional_samples, xmin)
         elseif choose_random
-            push!(conditional_samples, rand(eng_sampler, n; from_buffer=from_buffer))
+            push!(conditional_samples, rand(eng_sampler, n; from_buffer = from_buffer))
         else
             push!(conditional_samples, eng_sampler.buffer)
         end
     end
 
     _loss = map(eachcol(conditional_samples[1])) do xsample
-        distance(ce; from=xsample, agg=agg, p=p)
+        distance(ce; from = xsample, agg = agg, p = p)
     end
-    _loss = reduce((x,y) -> x + y, _loss) / n       # aggregate over samples
+    _loss = reduce((x, y) -> x + y, _loss) / n       # aggregate over samples
 
     if return_conditionals
         return conditional_samples[1]
@@ -119,7 +140,8 @@ function distance_from_energy(
 
 end
 
-distance_from_energy_l2(ce::AbstractCounterfactualExplanation; kwrgs...) = distance_from_energy(ce; p=2, kwrgs...)
+distance_from_energy_l2(ce::AbstractCounterfactualExplanation; kwrgs...) =
+    distance_from_energy(ce; p = 2, kwrgs...)
 
 """
     distance_from_energy_cosine(ce::AbstractCounterfactualExplanation)
@@ -128,12 +150,15 @@ Computes the cosine distance from the counterfactual to generated conditional sa
 """
 function distance_from_energy_cosine(
     ce::AbstractCounterfactualExplanation;
-    n::Int=50, niter=500, from_buffer=true, agg=mean,
-    choose_lowest_energy=true,
-    choose_random=false,
-    nmin::Int=25,
-    return_conditionals=false,
-    kwargs...
+    n::Int = 50,
+    niter = 500,
+    from_buffer = true,
+    agg = mean,
+    choose_lowest_energy = true,
+    choose_random = false,
+    nmin::Int = 25,
+    return_conditionals = false,
+    kwargs...,
 )
 
     _loss = 0.0
@@ -145,15 +170,16 @@ function distance_from_energy_cosine(
     ignore_derivatives() do
         _dict = ce.params
         if !(:energy_sampler ∈ collect(keys(_dict)))
-            _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
+            _dict[:energy_sampler] =
+                ECCCo.EnergySampler(ce; niter = niter, nsamples = n, kwargs...)
         end
         eng_sampler = _dict[:energy_sampler]
         if choose_lowest_energy
             nmin = minimum([nmin, size(eng_sampler.buffer)[end]])
-            xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n=nmin)
+            xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n = nmin)
             push!(conditional_samples, xmin)
         elseif choose_random
-            push!(conditional_samples, rand(eng_sampler, n; from_buffer=from_buffer))
+            push!(conditional_samples, rand(eng_sampler, n; from_buffer = from_buffer))
         else
             push!(conditional_samples, eng_sampler.buffer)
         end
@@ -162,7 +188,7 @@ function distance_from_energy_cosine(
     _loss = map(eachcol(conditional_samples[1])) do xsample
         cos_dist(CounterfactualExplanations.counterfactual(ce), xsample)
     end
-    _loss = reduce((x,y) -> x + y, _loss) / n       # aggregate over samples
+    _loss = reduce((x, y) -> x + y, _loss) / n       # aggregate over samples
 
     if return_conditionals
         return conditional_samples[1]
@@ -178,12 +204,15 @@ Computes 1-SSIM from the counterfactual to generated conditional samples where S
 """
 function distance_from_energy_ssim(
     ce::AbstractCounterfactualExplanation;
-    n::Int=50, niter=500, from_buffer=true, agg=mean,
-    choose_lowest_energy=true,
-    choose_random=false,
-    nmin::Int=25,
-    return_conditionals=false,
-    kwargs...
+    n::Int = 50,
+    niter = 500,
+    from_buffer = true,
+    agg = mean,
+    choose_lowest_energy = true,
+    choose_random = false,
+    nmin::Int = 25,
+    return_conditionals = false,
+    kwargs...,
 )
 
     _loss = 0.0
@@ -195,15 +224,16 @@ function distance_from_energy_ssim(
     ignore_derivatives() do
         _dict = ce.params
         if !(:energy_sampler ∈ collect(keys(_dict)))
-            _dict[:energy_sampler] = ECCCo.EnergySampler(ce; niter=niter, nsamples=n, kwargs...)
+            _dict[:energy_sampler] =
+                ECCCo.EnergySampler(ce; niter = niter, nsamples = n, kwargs...)
         end
         eng_sampler = _dict[:energy_sampler]
         if choose_lowest_energy
             nmin = minimum([nmin, size(eng_sampler.buffer)[end]])
-            xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n=nmin)
+            xmin = ECCCo.get_lowest_energy_sample(eng_sampler; n = nmin)
             push!(conditional_samples, xmin)
         elseif choose_random
-            push!(conditional_samples, rand(eng_sampler, n; from_buffer=from_buffer))
+            push!(conditional_samples, rand(eng_sampler, n; from_buffer = from_buffer))
         else
             push!(conditional_samples, eng_sampler.buffer)
         end
@@ -228,14 +258,14 @@ Computes the distance from the counterfactual to the N-nearest neighbors of the 
 """
 function distance_from_targets(
     ce::AbstractCounterfactualExplanation;
-    agg=mean,
-    n_nearest_neighbors::Union{Int,Nothing}=100,
-    p::Int=1,
+    agg = mean,
+    n_nearest_neighbors::Union{Int,Nothing} = 100,
+    p::Int = 1,
 )
     target_idx = ce.data.output_encoder.labels .== ce.target
-    target_samples = ce.data.X[:,target_idx]
+    target_samples = ce.data.X[:, target_idx]
     x′ = CounterfactualExplanations.counterfactual(ce)
-    loss = map(eachslice(x′, dims=ndims(x′))) do x
+    loss = map(eachslice(x′, dims = ndims(x′))) do x
         Δ = map(eachcol(target_samples)) do xsample
             norm(x - xsample, p)
         end
@@ -250,7 +280,8 @@ function distance_from_targets(
 
 end
 
-distance_from_targets_l2(ce::AbstractCounterfactualExplanation; kwrgs...) = distance_from_targets(ce; p=2, kwrgs...)
+distance_from_targets_l2(ce::AbstractCounterfactualExplanation; kwrgs...) =
+    distance_from_targets(ce; p = 2, kwrgs...)
 
 
 
@@ -261,14 +292,14 @@ Computes the cosine distance from the counterfactual to the N-nearest neighbors 
 """
 function distance_from_targets_cosine(
     ce::AbstractCounterfactualExplanation;
-    agg=mean,
-    n_nearest_neighbors::Union{Int,Nothing}=100,
+    agg = mean,
+    n_nearest_neighbors::Union{Int,Nothing} = 100,
 )
 
     target_idx = ce.data.output_encoder.labels .== ce.target
-    target_samples = ce.data.X[:,target_idx]
+    target_samples = ce.data.X[:, target_idx]
     x′ = CounterfactualExplanations.counterfactual(ce)
-    loss = map(eachslice(x′, dims=ndims(x′))) do x
+    loss = map(eachslice(x′, dims = ndims(x′))) do x
         Δ = map(eachcol(target_samples)) do xsample
             cos_dist(x, xsample)
         end
@@ -290,13 +321,13 @@ Computes the distance (1-SSIM) from the counterfactual to the N-nearest neighbor
 """
 function distance_from_targets_ssim(
     ce::AbstractCounterfactualExplanation;
-    agg=mean,
-    n_nearest_neighbors::Union{Int,Nothing}=100,
+    agg = mean,
+    n_nearest_neighbors::Union{Int,Nothing} = 100,
 )
     target_idx = ce.data.output_encoder.labels .== ce.target
     target_samples = ce.data.X[:, target_idx]
     x′ = CounterfactualExplanations.counterfactual(ce)
-    loss = map(eachslice(x′, dims=ndims(x′))) do x
+    loss = map(eachslice(x′, dims = ndims(x′))) do x
         Δ = map(eachcol(target_samples)) do xsample
             ssim_dist(x, xsample)
         end
@@ -310,4 +341,3 @@ function distance_from_targets_ssim(
     return loss
 
 end
-

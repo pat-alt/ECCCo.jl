@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#SBATCH --job-name="MNIST (ECCCo)"
-#SBATCH --time=10:00:00
-#SBATCH --ntasks=1000
-#SBATCH --cpus-per-task=1
+#SBATCH --job-name="MNIST - Grid (ECCCo)"
+#SBATCH --time=02:00:00
+#SBATCH --ntasks=40
+#SBATCH --cpus-per-task=10
 #SBATCH --partition=general
 #SBATCH --mem-per-cpu=8GB
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
@@ -11,4 +11,6 @@
 module use /opt/insy/modulefiles          # Use DAIC INSY software collection
 module load openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=mnist output_path=results mpi > experiments/mnist.log
+source experiments/slurm_header.sh
+
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=mnist output_path=results mpi grid_search threaded n_individuals=25 n_each=32 > experiments/logs/grid_search_mnist.log

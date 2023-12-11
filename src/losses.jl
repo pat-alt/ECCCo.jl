@@ -6,7 +6,12 @@ using Statistics: mean
 
 A configurable classification loss function for Conformal Predictors.
 """
-function conformal_training_loss(ce::AbstractCounterfactualExplanation; temp::Real=0.1, agg=mean, kwargs...)
+function conformal_training_loss(
+    ce::AbstractCounterfactualExplanation;
+    temp::Real = 0.1,
+    agg = mean,
+    kwargs...,
+)
     conf_model = ce.M.model
     fitresult = ce.M.fitresult
     X = CounterfactualExplanations.decode_state(ce)
@@ -18,11 +23,15 @@ function conformal_training_loss(ce::AbstractCounterfactualExplanation; temp::Re
 
     n_classes = length(ce.data.y_levels)
     loss_mat = ones(n_classes, n_classes)
-    loss = map(eachslice(X, dims=ndims(X))) do x
-        x = ndims(x) == 1 ? x[:,:]' : x
+    loss = map(eachslice(X, dims = ndims(X))) do x
+        x = ndims(x) == 1 ? x[:, :]' : x
         ConformalPrediction.ConformalTraining.classification_loss(
-            conf_model, fitresult, x, y;
-            temp=temp, loss_matrix = loss_mat,
+            conf_model,
+            fitresult,
+            x,
+            y;
+            temp = temp,
+            loss_matrix = loss_mat,
         )
     end
     loss = agg(loss)[1]

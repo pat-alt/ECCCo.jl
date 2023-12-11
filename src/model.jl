@@ -8,7 +8,10 @@ using MLJFlux
 using MLUtils
 using Statistics
 
-const CompatibleAtomicModel = Union{<:MLJFlux.MLJFluxProbabilistic,MLJEnsembles.ProbabilisticEnsembleModel{<:MLJFlux.MLJFluxProbabilistic}}
+const CompatibleAtomicModel = Union{
+    <:MLJFlux.MLJFluxProbabilistic,
+    MLJEnsembles.ProbabilisticEnsembleModel{<:MLJFlux.MLJFluxProbabilistic},
+}
 
 """
     ConformalModel <: Models.AbstractDifferentiableModel
@@ -20,7 +23,8 @@ struct ConformalModel <: Models.AbstractDifferentiableModel
     fitresult::Any
     likelihood::Union{Nothing,Symbol}
     function ConformalModel(model, fitresult, likelihood)
-        if likelihood ∈ [:classification_binary, :classification_multi] || isnothing(likelihood)
+        if likelihood ∈ [:classification_binary, :classification_multi] ||
+           isnothing(likelihood)
             new(model, fitresult, likelihood)
         else
             throw(
@@ -38,10 +42,10 @@ end
 Private function that extracts the chains from a fitted model.
 """
 function _get_chains(fitresult)
-    
+
     chains = []
 
-    ignore_derivatives() do 
+    ignore_derivatives() do
         if fitresult isa MLJEnsembles.WrappedEnsemble
             _chains = map(res -> res[1], fitresult.ensemble)
         else
@@ -49,7 +53,7 @@ function _get_chains(fitresult)
         end
         push!(chains, _chains...)
     end
-    
+
     return chains
 end
 
@@ -103,7 +107,11 @@ end
 
 Outer constructor for `ConformalModel`. If `fitresult` is not specified, the model is not fitted and `likelihood` is inferred from the model. If `fitresult` is specified, `likelihood` is inferred from the output dimension of the model. If `likelihood` is not specified, it defaults to `:classification_binary`.
 """
-function ConformalModel(model, fitresult=nothing; likelihood::Union{Nothing,Symbol}=nothing)
+function ConformalModel(
+    model,
+    fitresult = nothing;
+    likelihood::Union{Nothing,Symbol} = nothing,
+)
 
     # Check if model is fitted and infer likelihood:
     if isnothing(fitresult)
@@ -152,13 +160,13 @@ In the binary case logits are fed through the sigmoid function instead of softma
 which follows from the derivation here: https://stats.stackexchange.com/questions/233658/softmax-vs-sigmoid-function-in-logistic-classifier
 """
 function Models.logits(M::ConformalModel, X::AbstractArray)
-    
+
     fitresult = M.fitresult
 
     function predict_logits(fitresult, x)
-        ŷ = MLUtils.stack(map(chain -> get_logits(chain,x),_get_chains(fitresult))) |> 
-            y -> mean(y, dims=ndims(y)) |>
-            y -> MLUtils.unstack(y, dims=ndims(y))[1]
+        ŷ =
+            MLUtils.stack(map(chain -> get_logits(chain, x), _get_chains(fitresult))) |>
+            y -> mean(y, dims = ndims(y)) |> y -> MLUtils.unstack(y, dims = ndims(y))[1]
         if ndims(ŷ) == 2
             ŷ = [ŷ]
         end

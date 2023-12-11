@@ -9,11 +9,11 @@ artifact_toml = LazyArtifacts.find_artifacts_toml(".")
 
 function generate_artifacts(
     datafiles;
-    artifact_name="artifacts-$VERSION",
-    root=".",
-    artifact_toml=joinpath(root, "Artifacts.toml"),
-    deploy=true,
-    tag=nothing,
+    artifact_name = "artifacts-$VERSION",
+    root = ".",
+    artifact_toml = joinpath(root, "Artifacts.toml"),
+    deploy = true,
+    tag = nothing,
 )
     if isnothing(tag)
         tag = replace(lowercase(artifact_name), " " => "-")
@@ -54,9 +54,9 @@ function generate_artifacts(
             artifact_toml,
             artifact_name,
             hash;
-            download_info=[(tarball_url, tarball_hash)],
-            lazy=true,
-            force=true,
+            download_info = [(tarball_url, tarball_hash)],
+            lazy = true,
+            force = true,
         )
     end
 
@@ -76,7 +76,7 @@ function generate_artifacts(
     end
 end
 
-function get_git_remote_url(repo_path::String=".")
+function get_git_remote_url(repo_path::String = ".")
     repo = LibGit2.GitRepo(repo_path)
     origin = LibGit2.get(LibGit2.GitRemote, repo, "origin")
     return LibGit2.url(origin)

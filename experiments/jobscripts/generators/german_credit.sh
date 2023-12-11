@@ -1,14 +1,16 @@
 #!/bin/bash
 
 #SBATCH --job-name="German Credit (ECCCo)"
-#SBATCH --time=1:00:00
-#SBATCH --ntasks=100
-#SBATCH --cpus-per-task=1
+#SBATCH --time=01:00:00
+#SBATCH --ntasks=30
+#SBATCH --cpus-per-task=10
 #SBATCH --partition=compute
-#SBATCH --mem-per-cpu=8GB
+#SBATCH --mem-per-cpu=4GB
 #SBATCH --account=research-eemcs-insy
 #SBATCH --mail-type=END     # Set mail type to 'END' to receive a mail when the job finishes. 
 
 module load 2023r1 openmpi
 
-srun julia --project=experiments experiments/run_experiments.jl -- data=german_credit output_path=results mpi > experiments/german_credit.log
+source experiments/slurm_header.sh
+
+srun julia --project=experiments --threads $SLURM_CPUS_PER_TASK experiments/run_experiments.jl -- data=german_credit output_path=results mpi threaded n_individuals=100 n_runs=50 > experiments/logs/german_credit.log

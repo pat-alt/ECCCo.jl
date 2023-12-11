@@ -5,7 +5,7 @@ using Images
 
 Helper function to add tiny noise to inputs.
 """
-function pre_process(x; noise::Float32=0.03f0)
+function pre_process(x; noise::Float32 = 0.03f0)
     ϵ = Float32.(randn(size(x)) * noise)
     x += ϵ
     return x
@@ -31,10 +31,7 @@ end
 Converts a vector to a 28x28 grey image.
 """
 function convert2mnist(x)
-    x = (x .+ 1) ./ 2 |>
-        x -> reshape(x, 28, 28) |>
-             permutedims |>
-             x -> Gray.(x)
+    x = (x .+ 1) ./ 2 |> x -> reshape(x, 28, 28) |> permutedims |> x -> Gray.(x)
     return x
 end
 
@@ -58,5 +55,19 @@ Computes 1-SSIM between two images.
 function ssim_dist(x, y)
     x = convert2mnist(x)
     y = convert2mnist(y)
-    return (1 - assess_ssim(x, y))/2
+    return (1 - assess_ssim(x, y)) / 2
+end
+
+"""
+    prior_sampling_space(data::CounterfactualData; n_std=3)
+
+Define the prior sampling space for the data.
+"""
+function prior_sampling_space(data::CounterfactualData; n_std=3)
+    X = data.X
+    centers = mean(X, dims=2)
+    stds = std(X, dims=2)
+    lower_bound = minimum(centers .- n_std .* stds)[1]
+    upper_bound = maximum(centers .+ n_std .* stds)[1]
+    return Uniform(lower_bound, upper_bound)
 end
