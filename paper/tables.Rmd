@@ -328,8 +328,7 @@ kbl(
 
 ```{r}
 # Aggregate by run:
-tab <- dt[
-    generator %in% generators,
+tab <- dt[,
     .(
       val_group = mean(value),
       std_group = sd(value)
@@ -338,8 +337,7 @@ tab <- dt[
 ]
 
 # Aggregate accross runs:
-tab <- tab[
-    generator %in% generators,
+tab <- tab[,
     .(
       value =  sprintf("%1.2f ± %1.2f", mean(val_group), sd(val_group)),
       val = mean(val_group),
@@ -415,8 +413,7 @@ tab[,variable:=factor(variable, levels=measures)]
 
 ```{r}
 # Aggregate by run:
-tab_valid <- dt_valid[
-    generator %in% generators,
+tab_valid <- dt_valid[,
     .(
       val_group = mean(value),
       std_group = sd(value)
@@ -425,8 +422,7 @@ tab_valid <- dt_valid[
 ]
 
 # Aggregate accross runs:
-tab_valid <- tab_valid[
-    generator %in% generators,
+tab_valid <- tab_valid[,
     .(
       value = sprintf("%1.2f ± %1.2f", mean(val_group), sd(val_group)),
       val = mean(val_group),
