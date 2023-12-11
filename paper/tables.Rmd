@@ -45,12 +45,28 @@ dt_valid <- dt[non_valid==FALSE]
 
 ```{r}
 generators <- unique(dt$generator)[sapply(unique(dt$generator), function(x) {!grepl("L1",x)})]
+
+# Aggregate by run:
 tab <- dt[
     generator %in% generators,
     .(
-      value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
-      val = mean(value),
-      std = sd(value)
+      val_group = mean(value),
+      std_group = sd(value)
+    ),
+    .(dataname, generator, model, variable, run, source)
+]
+
+# Aggregate accross runs:
+tab <- tab[
+    generator %in% generators,
+    .(
+      value = ifelse(
+        source != "vision",
+        sprintf("%1.2f ± %1.2f", mean(val_group), sd(val_group)),
+        sprintf("%1.3f ± %1.3f", mean(val_group), sd(val_group))
+      ),
+      val = mean(val_group),
+      std = sd(val_group)
     ),
     .(dataname, generator, model, variable, source)
 ]
@@ -102,12 +118,28 @@ tab[,one_std_wachter:=NULL]
 
 ```{r}
 generators <- unique(dt$generator)[sapply(unique(dt$generator), function(x) {!grepl("L1",x)})]
+
+# Aggregate by run:
 tab_valid <- dt_valid[
     generator %in% generators,
     .(
-      value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
-      val = mean(value),
-      std = sd(value)
+      val_group = mean(value),
+      std_group = sd(value)
+    ),
+    .(dataname, generator, model, variable, run, source)
+]
+
+# Aggregate accross runs:
+tab_valid <- tab_valid[
+    generator %in% generators,
+    .(
+      value = ifelse(
+        source != "vision",
+        sprintf("%1.2f ± %1.2f", mean(val_group), sd(val_group)),
+        sprintf("%1.3f ± %1.3f", mean(val_group), sd(val_group))
+      ),
+      val = mean(val_group),
+      std = sd(val_group)
     ),
     .(dataname, generator, model, variable, source)
 ]
@@ -182,7 +214,7 @@ chosen_model <- c(
   "JEM Ensemble"
 )
 
-tab_i <- tab
+tab_i <- tab_valid
 
 # Logic:
 tab_i <- tab_i[variable %in% measures]
@@ -247,7 +279,7 @@ chosen_model <- c(
   "LeNet-5"
 )
 
-tab_i <- tab
+tab_i <- tab_valid
 
 # Logic:
 tab_i <- tab_i[variable %in% measures]
@@ -295,12 +327,23 @@ kbl(
 ## Full tables
 
 ```{r}
+# Aggregate by run:
 tab <- dt[
-    ,
+    generator %in% generators,
     .(
-      value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
-      val = mean(value),
-      std = sd(value)
+      val_group = mean(value),
+      std_group = sd(value)
+    ),
+    .(dataname, generator, model, variable, run, source)
+]
+
+# Aggregate accross runs:
+tab <- tab[
+    generator %in% generators,
+    .(
+      value =  sprintf("%1.2f ± %1.2f", mean(val_group), sd(val_group)),
+      val = mean(val_group),
+      std = sd(val_group)
     ),
     .(dataname, generator, model, variable, source)
 ]
@@ -371,12 +414,23 @@ tab[,variable:=factor(variable, levels=measures)]
 ```
 
 ```{r}
+# Aggregate by run:
 tab_valid <- dt_valid[
-    ,
+    generator %in% generators,
     .(
-      value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
-      val = mean(value),
-      std = sd(value)
+      val_group = mean(value),
+      std_group = sd(value)
+    ),
+    .(dataname, generator, model, variable, run, source)
+]
+
+# Aggregate accross runs:
+tab_valid <- tab_valid[
+    generator %in% generators,
+    .(
+      value = sprintf("%1.2f ± %1.2f", mean(val_group), sd(val_group)),
+      val = mean(val_group),
+      std = sd(val_group)
     ),
     .(dataname, generator, model, variable, source)
 ]

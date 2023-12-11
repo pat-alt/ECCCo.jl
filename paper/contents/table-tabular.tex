@@ -9,33 +9,33 @@
 \cmidrule(l{3pt}r{3pt}){3-5} \cmidrule(l{3pt}r{3pt}){6-8}
 Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓ & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓\\
 \midrule
- & ECCCo & \textbf{67.91 ± 1.63}** & 3.41 ± 2.28\hphantom{*}\hphantom{*} & 0.14 ± 0.02\hphantom{*}\hphantom{*} & \textbf{80.15 ± 1.86}** & 2.03 ± 1.30\hphantom{*}\hphantom{*} & 0.18 ± 0.03*\hphantom{*}\\
+ & ECCCo & 3.81 ± 0.10*\hphantom{*} & 2.31 ± 0.09\hphantom{*}\hphantom{*} & \textbf{0.14 ± 0.01}** & 3.80 ± 0.07\hphantom{*}\hphantom{*} & 1.63 ± 0.07\hphantom{*}\hphantom{*} & \textbf{0.24 ± 0.01}**\\
 
- & ECCCo+ & 82.72 ± 1.12** & 2.71 ± 2.32\hphantom{*}\hphantom{*} & 0.17 ± 0.12\hphantom{*}\hphantom{*} & 98.25 ± 0.57\hphantom{*}\hphantom{*} & 1.64 ± 1.01\hphantom{*}\hphantom{*} & 0.20 ± 0.04\hphantom{*}\hphantom{*}\\
+ & ECCCo+ & 3.93 ± 0.10\hphantom{*}\hphantom{*} & 1.30 ± 0.08\hphantom{*}\hphantom{*} & 0.16 ± 0.01*\hphantom{*} & \textbf{3.74 ± 0.08}\hphantom{*}\hphantom{*} & 1.10 ± 0.05\hphantom{*}\hphantom{*} & 0.27 ± 0.01**\\
 
- & ECCCo (no CP) & 88.72 ± 2.28** & 3.40 ± 2.28\hphantom{*}\hphantom{*} & 0.14 ± 0.03\hphantom{*}\hphantom{*} & 82.52 ± 1.18*\hphantom{*} & 2.02 ± 1.30\hphantom{*}\hphantom{*} & 0.18 ± 0.03\hphantom{*}\hphantom{*}\\
+ & ECCCo (no CP) & \textbf{3.80 ± 0.11}*\hphantom{*} & 2.31 ± 0.09\hphantom{*}\hphantom{*} & 0.14 ± 0.01** & 3.81 ± 0.08\hphantom{*}\hphantom{*} & 1.62 ± 0.08\hphantom{*}\hphantom{*} & 0.24 ± 0.01**\\
 
- & ECCCo (no EBM) & 75.47 ± 1.60** & 0.98 ± 0.32\hphantom{*}\hphantom{*} & 0.15 ± 0.03\hphantom{*}\hphantom{*} & 92.86 ± 1.05\hphantom{*}\hphantom{*} & 1.00 ± 0.77\hphantom{*}\hphantom{*} & 0.20 ± 0.04\hphantom{*}\hphantom{*}\\
+ & ECCCo (no EBM) & 3.98 ± 0.08\hphantom{*}\hphantom{*} & 1.19 ± 0.09\hphantom{*}\hphantom{*} & 0.17 ± 0.01\hphantom{*}\hphantom{*} & 3.79 ± 0.07\hphantom{*}\hphantom{*} & 0.95 ± 0.08\hphantom{*}\hphantom{*} & 0.29 ± 0.01\hphantom{*}\hphantom{*}\\
 
- & REVISE & 98.98 ± 0.23** & \textbf{0.64 ± 0.19}*\hphantom{*} & 0.21 ± 0.15\hphantom{*}\hphantom{*} & 118.36 ± 1.68\hphantom{*}\hphantom{*} & \textbf{0.71 ± 0.37}\hphantom{*}\hphantom{*} & 0.28 ± 0.08\hphantom{*}\hphantom{*}\\
+ & REVISE & 3.88 ± 0.08*\hphantom{*} & \textbf{0.58 ± 0.03}** & 0.20 ± 0.04\hphantom{*}\hphantom{*} & 3.81 ± 0.08\hphantom{*}\hphantom{*} & \textbf{0.63 ± 0.03}** & 0.32 ± 0.05\hphantom{*}\hphantom{*}\\
 
- & Schut & 87.66 ± 2.05** & 1.02 ± 0.31\hphantom{*}\hphantom{*} & \textbf{0.13 ± 0.00}** & 114.37 ± 1.21\hphantom{*}\hphantom{*} & 1.32 ± 0.72\hphantom{*}\hphantom{*} & \textbf{0.16 ± 0.00}**\\
+ & Schut & 3.99 ± 0.08\hphantom{*}\hphantom{*} & 1.15 ± 0.09\hphantom{*}\hphantom{*} & 0.15 ± 0.01** & 3.83 ± 0.07\hphantom{*}\hphantom{*} & 1.07 ± 0.07\hphantom{*}\hphantom{*} & 0.30 ± 0.02\hphantom{*}\hphantom{*}\\
 
-\multirow{-7}{*}{\raggedright\arraybackslash MLP} & Wachter & 114.38 ± 2.14\hphantom{*}\hphantom{*} & 0.98 ± 0.32\hphantom{*}\hphantom{*} & 0.16 ± 0.04\hphantom{*}\hphantom{*} & 84.37 ± 0.99\hphantom{*}\hphantom{*} & 0.99 ± 0.77\hphantom{*}\hphantom{*} & 0.21 ± 0.05\hphantom{*}\hphantom{*}\\
+\multirow{-7}{*}{\raggedright\arraybackslash MLP} & Wachter & 3.98 ± 0.07\hphantom{*}\hphantom{*} & 1.19 ± 0.09\hphantom{*}\hphantom{*} & 0.17 ± 0.01\hphantom{*}\hphantom{*} & 3.82 ± 0.07\hphantom{*}\hphantom{*} & 0.94 ± 0.08\hphantom{*}\hphantom{*} & 0.30 ± 0.01\hphantom{*}\hphantom{*}\\
 \cmidrule{1-8}
- & ECCCo & \textbf{65.20 ± 7.42}** & 0.73 ± 0.26*\hphantom{*} & \textbf{0.11 ± 0.02}** & \textbf{76.30 ± 4.15}*\hphantom{*} & 0.78 ± 0.20\hphantom{*}\hphantom{*} & 0.24 ± 0.20\hphantom{*}\hphantom{*}\\
+ & ECCCo & 1.40 ± 0.08** & 0.69 ± 0.05** & 0.11 ± 0.00** & 1.20 ± 0.06*\hphantom{*} & 0.78 ± 0.07** & 0.38 ± 0.01\hphantom{*}\hphantom{*}\\
 
- & ECCCo+ & 81.01 ± 3.33** & 0.63 ± 0.20** & 0.12 ± 0.02** & 96.72 ± 7.19\hphantom{*}\hphantom{*} & 0.68 ± 0.12*\hphantom{*} & 0.21 ± 0.19\hphantom{*}\hphantom{*}\\
+ & ECCCo+ & \textbf{1.28 ± 0.08}** & 0.60 ± 0.04** & 0.11 ± 0.00** & \textbf{1.01 ± 0.07}** & 0.70 ± 0.07** & 0.37 ± 0.01\hphantom{*}\hphantom{*}\\
 
- & ECCCo (no CP) & 84.79 ± 0.49** & 0.73 ± 0.27*\hphantom{*} & 0.12 ± 0.03** & 82.18 ± 4.59\hphantom{*}\hphantom{*} & 0.78 ± 0.19\hphantom{*}\hphantom{*} & 0.22 ± 0.22\hphantom{*}\hphantom{*}\\
+ & ECCCo (no CP) & 1.39 ± 0.08** & 0.69 ± 0.05** & 0.11 ± 0.00** & 1.21 ± 0.07*\hphantom{*} & 0.77 ± 0.07** & 0.39 ± 0.01\hphantom{*}\hphantom{*}\\
 
- & ECCCo (no EBM) & 77.03 ± 5.57** & 1.07 ± 0.51\hphantom{*}\hphantom{*} & 0.48 ± 0.28\hphantom{*}\hphantom{*} & 87.72 ± 1.01\hphantom{*}\hphantom{*} & 0.87 ± 0.20\hphantom{*}\hphantom{*} & 0.13 ± 0.02\hphantom{*}\hphantom{*}\\
+ & ECCCo (no EBM) & 1.70 ± 0.09\hphantom{*}\hphantom{*} & 0.99 ± 0.08\hphantom{*}\hphantom{*} & 0.14 ± 0.00*\hphantom{*} & 1.31 ± 0.07\hphantom{*}\hphantom{*} & 0.97 ± 0.10\hphantom{*}\hphantom{*} & 0.32 ± 0.01**\\
 
- & REVISE & 94.52 ± 0.61** & \textbf{0.54 ± 0.12}** & 0.21 ± 0.12** & 111.55 ± 5.38\hphantom{*}\hphantom{*} & \textbf{0.66 ± 0.11}*\hphantom{*} & 0.23 ± 0.08\hphantom{*}\hphantom{*}\\
+ & REVISE & 1.39 ± 0.15** & \textbf{0.59 ± 0.04}** & 0.25 ± 0.07\hphantom{*}\hphantom{*} & 1.01 ± 0.07** & \textbf{0.63 ± 0.04}** & 0.33 ± 0.07\hphantom{*}\hphantom{*}\\
 
- & Schut & 85.81 ± 4.65** & 1.21 ± 0.39\hphantom{*}\hphantom{*} & 0.73 ± 0.16\hphantom{*}\hphantom{*} & 110.80 ± 5.99\hphantom{*}\hphantom{*} & 1.25 ± 0.22\hphantom{*}\hphantom{*} & \textbf{0.10 ± 0.01}**\\
+ & Schut & 1.59 ± 0.10*\hphantom{*} & 1.10 ± 0.06\hphantom{*}\hphantom{*} & \textbf{0.09 ± 0.00}** & 1.34 ± 0.07\hphantom{*}\hphantom{*} & 1.21 ± 0.10\hphantom{*}\hphantom{*} & \textbf{0.26 ± 0.01}**\\
 
-\multirow{-7}{*}{\raggedright\arraybackslash JEM Ensemble} & Wachter & 107.85 ± 2.52\hphantom{*}\hphantom{*} & 1.12 ± 0.48\hphantom{*}\hphantom{*} & 0.68 ± 0.22\hphantom{*}\hphantom{*} & 82.68 ± 3.58\hphantom{*}\hphantom{*} & 0.86 ± 0.20\hphantom{*}\hphantom{*} & 0.13 ± 0.02\hphantom{*}\hphantom{*}\\
+\multirow{-7}{*}{\raggedright\arraybackslash JEM Ensemble} & Wachter & 1.71 ± 0.09\hphantom{*}\hphantom{*} & 0.99 ± 0.08\hphantom{*}\hphantom{*} & 0.14 ± 0.00\hphantom{*}\hphantom{*} & 1.31 ± 0.08\hphantom{*}\hphantom{*} & 0.95 ± 0.10\hphantom{*}\hphantom{*} & 0.33 ± 0.01\hphantom{*}\hphantom{*}\\
 \bottomrule
 \end{tabular}}
 \end{table*}
