@@ -1,6 +1,6 @@
 \begin{table*}
 
-\caption{Results for tabular datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\textit{Wachter}). \label{tab:results-tabular} \newline}
+\caption{Results for tabular datasets: sample averages +/- one standard deviation across valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\textit{Wachter}). \label{tab:results-tabular} \newline}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{llcccccc}
@@ -9,19 +9,19 @@
 \cmidrule(l{3pt}r{3pt}){3-5} \cmidrule(l{3pt}r{3pt}){6-8}
 Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓ & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓\\
 \midrule
- & ECCCo & 3.81 ± 0.10*\hphantom{*} & 2.31 ± 0.09\hphantom{*}\hphantom{*} & \textbf{0.14 ± 0.01}** & 3.80 ± 0.07\hphantom{*}\hphantom{*} & 1.63 ± 0.07\hphantom{*}\hphantom{*} & \textbf{0.24 ± 0.01}**\\
+ & ECCCo & \textbf{3.69 ± 0.08}** & 1.94 ± 0.13\hphantom{*}\hphantom{*} & \textbf{0.09 ± 0.01}** & 3.84 ± 0.07** & 2.13 ± 0.08\hphantom{*}\hphantom{*} & \textbf{0.23 ± 0.01}**\\
 
- & ECCCo+ & 3.93 ± 0.10\hphantom{*}\hphantom{*} & 1.30 ± 0.08\hphantom{*}\hphantom{*} & 0.16 ± 0.01*\hphantom{*} & \textbf{3.74 ± 0.08}\hphantom{*}\hphantom{*} & 1.10 ± 0.05\hphantom{*}\hphantom{*} & 0.27 ± 0.01**\\
+ & ECCCo+ & 3.88 ± 0.07** & 1.20 ± 0.09\hphantom{*}\hphantom{*} & 0.15 ± 0.02\hphantom{*}\hphantom{*} & \textbf{3.79 ± 0.05}** & 1.81 ± 0.05\hphantom{*}\hphantom{*} & 0.30 ± 0.01*\hphantom{*}\\
 
- & ECCCo (no CP) & \textbf{3.80 ± 0.11}*\hphantom{*} & 2.31 ± 0.09\hphantom{*}\hphantom{*} & 0.14 ± 0.01** & 3.81 ± 0.08\hphantom{*}\hphantom{*} & 1.62 ± 0.08\hphantom{*}\hphantom{*} & 0.24 ± 0.01**\\
+ & ECCCo (no CP) & 3.70 ± 0.08** & 1.94 ± 0.13\hphantom{*}\hphantom{*} & 0.10 ± 0.01** & 3.85 ± 0.07** & 2.13 ± 0.08\hphantom{*}\hphantom{*} & 0.23 ± 0.01**\\
 
- & ECCCo (no EBM) & 3.98 ± 0.08\hphantom{*}\hphantom{*} & 1.19 ± 0.09\hphantom{*}\hphantom{*} & 0.17 ± 0.01\hphantom{*}\hphantom{*} & 3.79 ± 0.07\hphantom{*}\hphantom{*} & 0.95 ± 0.08\hphantom{*}\hphantom{*} & 0.29 ± 0.01\hphantom{*}\hphantom{*}\\
+ & ECCCo (no EBM) & 4.03 ± 0.07\hphantom{*}\hphantom{*} & 1.12 ± 0.12\hphantom{*}\hphantom{*} & 0.14 ± 0.01** & 4.08 ± 0.06\hphantom{*}\hphantom{*} & 0.97 ± 0.08\hphantom{*}\hphantom{*} & 0.31 ± 0.01*\hphantom{*}\\
 
- & REVISE & 3.88 ± 0.08*\hphantom{*} & \textbf{0.58 ± 0.03}** & 0.20 ± 0.04\hphantom{*}\hphantom{*} & 3.81 ± 0.08\hphantom{*}\hphantom{*} & \textbf{0.63 ± 0.03}** & 0.32 ± 0.05\hphantom{*}\hphantom{*}\\
+ & REVISE & 3.96 ± 0.07*\hphantom{*} & \textbf{0.58 ± 0.03}** & 0.17 ± 0.03\hphantom{*}\hphantom{*} & 4.09 ± 0.07\hphantom{*}\hphantom{*} & \textbf{0.63 ± 0.02}** & 0.33 ± 0.06\hphantom{*}\hphantom{*}\\
 
- & Schut & 3.99 ± 0.08\hphantom{*}\hphantom{*} & 1.15 ± 0.09\hphantom{*}\hphantom{*} & 0.15 ± 0.01** & 3.83 ± 0.07\hphantom{*}\hphantom{*} & 1.07 ± 0.07\hphantom{*}\hphantom{*} & 0.30 ± 0.02\hphantom{*}\hphantom{*}\\
+ & Schut & 4.00 ± 0.06\hphantom{*}\hphantom{*} & 1.15 ± 0.12\hphantom{*}\hphantom{*} & 0.10 ± 0.01** & 4.04 ± 0.08\hphantom{*}\hphantom{*} & 1.21 ± 0.08\hphantom{*}\hphantom{*} & 0.30 ± 0.01*\hphantom{*}\\
 
-\multirow{-7}{*}{\raggedright\arraybackslash MLP} & Wachter & 3.98 ± 0.07\hphantom{*}\hphantom{*} & 1.19 ± 0.09\hphantom{*}\hphantom{*} & 0.17 ± 0.01\hphantom{*}\hphantom{*} & 3.82 ± 0.07\hphantom{*}\hphantom{*} & 0.94 ± 0.08\hphantom{*}\hphantom{*} & 0.30 ± 0.01\hphantom{*}\hphantom{*}\\
+\multirow{-7}{*}{\raggedright\arraybackslash MLP Ensemble} & Wachter & 4.04 ± 0.07\hphantom{*}\hphantom{*} & 1.13 ± 0.12\hphantom{*}\hphantom{*} & 0.16 ± 0.01\hphantom{*}\hphantom{*} & 4.10 ± 0.07\hphantom{*}\hphantom{*} & 0.95 ± 0.08\hphantom{*}\hphantom{*} & 0.32 ± 0.01\hphantom{*}\hphantom{*}\\
 \cmidrule{1-8}
  & ECCCo & 1.40 ± 0.08** & 0.69 ± 0.05** & 0.11 ± 0.00** & 1.20 ± 0.06*\hphantom{*} & 0.78 ± 0.07** & 0.38 ± 0.01\hphantom{*}\hphantom{*}\\
 
