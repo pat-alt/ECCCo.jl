@@ -2385,9 +2385,9 @@ version = "1.11.1"
 
 [[deps.TaijaPlotting]]
 deps = ["CategoricalArrays", "ConformalPrediction", "CounterfactualExplanations", "DataAPI", "Distributions", "Flux", "LaplaceRedux", "LinearAlgebra", "MLJBase", "ManifoldLearning", "MultivariateStats", "NaturalSort", "NearestNeighborModels", "Plots"]
-git-tree-sha1 = "1202acdbf670f1682f0f5a3abdfcd8f5ce3e0df4"
+path = "../../TaijaPlotting.jl"
 uuid = "bd7198b4-c7d6-400c-9bab-9a24614b0240"
-version = "1.0.4"
+version = "1.0.5"
 
 [[deps.Tar]]
 deps = ["ArgTools", "SHA"]
