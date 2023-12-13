@@ -2,6 +2,7 @@
 using Pkg; Pkg.activate("experiments")
 include("$(pwd())/experiments/setup_env.jl")
 using TaijaPlotting
+Plots.theme(:wong)
 ```
 
 ## Data
