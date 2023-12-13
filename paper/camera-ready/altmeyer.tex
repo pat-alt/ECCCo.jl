@@ -97,7 +97,7 @@
 \newtheorem{definition}{Definition}[section]
 \newtheorem{question}{Research Question}[section]
 
-\setcounter{secnumdepth}{0} %May be changed to 1 or 2 if section numbers are desired.
+\setcounter{secnumdepth}{1} %May be changed to 1 or 2 if section numbers are desired.
 
 % The file aaai24.sty is the style file for AAAI Press
 % proceedings, working notes, and technical reports.
@@ -337,6 +337,48 @@ In the following, we will focus on the most relevant results highlighted in Tabl
 
 \subsection{Faithfulness}
 
+\begin{table*}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{llcccccc}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{3}{c}{California Housing} & \multicolumn{3}{c}{GMSC} \\
+\cmidrule(l{3pt}r{3pt}){3-5} \cmidrule(l{3pt}r{3pt}){6-8}
+Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓ & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓\\
+\midrule
+    & ECCCo & \textbf{3.69 ± 0.08}** & 1.94 ± 0.13\hphantom{*}\hphantom{*} & \textbf{0.09 ± 0.01}** & 3.84 ± 0.07** & 2.13 ± 0.08\hphantom{*}\hphantom{*} & \textbf{0.23 ± 0.01}**\\
+
+    & ECCCo+ & 3.88 ± 0.07** & 1.20 ± 0.09\hphantom{*}\hphantom{*} & 0.15 ± 0.02\hphantom{*}\hphantom{*} & \textbf{3.79 ± 0.05}** & 1.81 ± 0.05\hphantom{*}\hphantom{*} & 0.30 ± 0.01*\hphantom{*}\\
+
+    & ECCCo (no CP) & 3.70 ± 0.08** & 1.94 ± 0.13\hphantom{*}\hphantom{*} & 0.10 ± 0.01** & 3.85 ± 0.07** & 2.13 ± 0.08\hphantom{*}\hphantom{*} & 0.23 ± 0.01**\\
+
+    & ECCCo (no EBM) & 4.03 ± 0.07\hphantom{*}\hphantom{*} & 1.12 ± 0.12\hphantom{*}\hphantom{*} & 0.14 ± 0.01** & 4.08 ± 0.06\hphantom{*}\hphantom{*} & 0.97 ± 0.08\hphantom{*}\hphantom{*} & 0.31 ± 0.01*\hphantom{*}\\
+
+    & REVISE & 3.96 ± 0.07*\hphantom{*} & \textbf{0.58 ± 0.03}** & 0.17 ± 0.03\hphantom{*}\hphantom{*} & 4.09 ± 0.07\hphantom{*}\hphantom{*} & \textbf{0.63 ± 0.02}** & 0.33 ± 0.06\hphantom{*}\hphantom{*}\\
+
+    & Schut & 4.00 ± 0.06\hphantom{*}\hphantom{*} & 1.15 ± 0.12\hphantom{*}\hphantom{*} & 0.10 ± 0.01** & 4.04 ± 0.08\hphantom{*}\hphantom{*} & 1.21 ± 0.08\hphantom{*}\hphantom{*} & 0.30 ± 0.01*\hphantom{*}\\
+
+\multirow{-7}{*}{\raggedright\arraybackslash MLP Ensemble} & Wachter & 4.04 ± 0.07\hphantom{*}\hphantom{*} & 1.13 ± 0.12\hphantom{*}\hphantom{*} & 0.16 ± 0.01\hphantom{*}\hphantom{*} & 4.10 ± 0.07\hphantom{*}\hphantom{*} & 0.95 ± 0.08\hphantom{*}\hphantom{*} & 0.32 ± 0.01\hphantom{*}\hphantom{*}\\
+\cmidrule{1-8}
+    & ECCCo & 1.40 ± 0.08** & 0.69 ± 0.05** & 0.11 ± 0.00** & 1.20 ± 0.06*\hphantom{*} & 0.78 ± 0.07** & 0.38 ± 0.01\hphantom{*}\hphantom{*}\\
+
+    & ECCCo+ & \textbf{1.28 ± 0.08}** & 0.60 ± 0.04** & 0.11 ± 0.00** & \textbf{1.01 ± 0.07}** & 0.70 ± 0.07** & 0.37 ± 0.01\hphantom{*}\hphantom{*}\\
+
+    & ECCCo (no CP) & 1.39 ± 0.08** & 0.69 ± 0.05** & 0.11 ± 0.00** & 1.21 ± 0.07*\hphantom{*} & 0.77 ± 0.07** & 0.39 ± 0.01\hphantom{*}\hphantom{*}\\
+
+    & ECCCo (no EBM) & 1.70 ± 0.09\hphantom{*}\hphantom{*} & 0.99 ± 0.08\hphantom{*}\hphantom{*} & 0.14 ± 0.00*\hphantom{*} & 1.31 ± 0.07\hphantom{*}\hphantom{*} & 0.97 ± 0.10\hphantom{*}\hphantom{*} & 0.32 ± 0.01**\\
+
+    & REVISE & 1.39 ± 0.15** & \textbf{0.59 ± 0.04}** & 0.25 ± 0.07\hphantom{*}\hphantom{*} & 1.01 ± 0.07** & \textbf{0.63 ± 0.04}** & 0.33 ± 0.07\hphantom{*}\hphantom{*}\\
+
+    & Schut & 1.59 ± 0.10*\hphantom{*} & 1.10 ± 0.06\hphantom{*}\hphantom{*} & \textbf{0.09 ± 0.00}** & 1.34 ± 0.07\hphantom{*}\hphantom{*} & 1.21 ± 0.10\hphantom{*}\hphantom{*} & \textbf{0.26 ± 0.01}**\\
+
+\multirow{-7}{*}{\raggedright\arraybackslash JEM Ensemble} & Wachter & 1.71 ± 0.09\hphantom{*}\hphantom{*} & 0.99 ± 0.08\hphantom{*}\hphantom{*} & 0.14 ± 0.00\hphantom{*}\hphantom{*} & 1.31 ± 0.08\hphantom{*}\hphantom{*} & 0.95 ± 0.10\hphantom{*}\hphantom{*} & 0.33 ± 0.01\hphantom{*}\hphantom{*}\\
+\bottomrule
+\end{tabular}}
+\caption{Results for tabular datasets: sample averages +/- one standard deviation across valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\textit{Wachter}). \label{tab:results-tabular}}
+\end{table*}
+    
+
 Overall, we find strong empirical evidence suggesting that \textit{ECCCo} consistently achieves state-of-the-art faithfulness. Across all models and datasets highlighted here, all variations of \textit{ECCCo} consistently outperform all other generators with respect to faithfulness, in many cases substantially. This pattern is mostly robust across all other benchmark datasets (Tables~\ref{tab:results-linearly-separable} to~\ref{tab:results-fashion-mnist} in the technical appendix). 
 
 In particular, we note that the best results are generally obtained when using the full \textit{ECCCo} objective (Equation~\ref{eq:eccco}). In other words, constraining both energy and predictive uncertainty typically yields the most faithful counterfactuals. We expected the former to play a more significant role in this context and that is typically what we find across all datasets. For example, the results for \textit{GMSC} in Table~\ref{tab:results-tabular} indicate that faithfulness can be improved substantially by relying solely on the energy constraint (\textit{ECCCo (no CP)}). In some cases though, as for the \textit{California Housing} dataset, \textit{ECCCo (no EBM)} actually outperforms \textit{ECCCo (no CP)}. This indicates that predictive uncertainty minimization plays an important role in achieving faithfulness. 
@@ -356,6 +398,39 @@ In conclusion, we recommend in light of the findings here to use the full \texti
 \end{figure}
 
 % Sample UUID of factual: UUID("1ceb06f0-5949-11ee-0e9c-dd49ccfec8c3")
+
+\begin{table}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{llcc}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{MNIST} \\
+\cmidrule(l{3pt}r{3pt}){3-4}
+Model & Generator & Unfaithfulness ↓ & Implausibility ↓\\
+\midrule
+    & ECCCo & \textbf{0.243 ± 0.000}** & 0.420 ± 0.001\hphantom{*}\hphantom{*}\\
+
+    & ECCCo+ & 0.246 ± 0.000*\hphantom{*} & 0.306 ± 0.001**\\
+
+    & REVISE & 0.248 ± 0.000\hphantom{*}\hphantom{*} & \textbf{0.301 ± 0.004}**\\
+
+    & Schut & 0.247 ± 0.001\hphantom{*}\hphantom{*} & 0.303 ± 0.008**\\
+
+\multirow{-5}{*}{\raggedright\arraybackslash MLP} & Wachter & 0.247 ± 0.000\hphantom{*}\hphantom{*} & 0.344 ± 0.002\hphantom{*}\hphantom{*}\\
+\cmidrule{1-4}
+    & ECCCo & 0.248 ± 0.000** & 0.387 ± 0.002\hphantom{*}\hphantom{*}\\
+
+    & ECCCo+ & \textbf{0.248 ± 0.000}** & 0.310 ± 0.002**\\
+
+    & REVISE & 0.248 ± 0.000** & 0.301 ± 0.002**\\
+
+    & Schut & 0.250 ± 0.002\hphantom{*}\hphantom{*} & \textbf{0.289 ± 0.024}*\hphantom{*}\\
+
+\multirow{-5}{*}{\raggedright\arraybackslash LeNet-5} & Wachter & 0.249 ± 0.000\hphantom{*}\hphantom{*} & 0.335 ± 0.002\hphantom{*}\hphantom{*}\\
+\bottomrule
+\end{tabular}}
+\caption{Results for vision dataset. Formatting details are the same as in Table~\ref{tab:results-tabular}. \label{tab:results-vision}}
+\end{table}
 
 Overall, we find strong empirical evidence suggesting that \textit{ECCCo} can achieve near state-of-the-art plausibility without sacrificing faithfulness. Figure~\ref{fig:mnist-bmk} shows one such example taken from the \textit{MNIST} benchmark where the objective is to turn the factual three (far left) into a five. The underlying model is a LeNet-5 \textit{CNN}. The different images show the counterfactuals produced by the generators, of which all but the one produced by \textit{Schut} are valid. Both variations of \textit{ECCCo} produce plausible counterfactuals.
 
