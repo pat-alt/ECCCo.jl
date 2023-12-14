@@ -4,6 +4,8 @@ include("$(pwd())/experiments/setup_env.jl")
 include("$(pwd())/experiments/notebooks/setup.jl")
 ```
 
+This notebook can be used to recreate Figures 1 and 3 in the main paper.
+
 ## Motivation
 
 ### Wachter and JSMA
@@ -125,6 +127,8 @@ display(plt)
 savefig(plt, joinpath(output_images_path, "surrogate_gone_wrong.png"))
 ```
 
+The code below generates Figure 1 in the main paper.
+
 ```{julia}
 ces = zip([ce_wachter, ce_jsma, ce_strong])
 counterfactuals = reduce((x,y)->cat(x,y,dims=3),map(ce -> CounterfactualExplanations.counterfactual(ce[1]), ces))
@@ -148,6 +152,19 @@ savefig(plt, joinpath(paper_figpath, "mnist_motivation.png"))
 
 ## Comparison with ECCCo
 
+The code below generates Figure 3 in the main paper. This uses the results from this [release](https://github.com/pat-alt/ECCCo.jl/releases/tag/results-camera-ready).
+
 ```{julia}
-outcome = Serialization.deserialize("results_extra/mnist_outcome.jls")
+# Using results from: https://github.com/pat-alt/ECCCo.jl/releases/tag/results-camera-ready
+outcome = Serialization.deserialize("results/mnist_outcome.jls") # results from 
+factual = 3
+target = 5
+seed = 3333 
+plt, ces = compare_counterfactuals(
+    outcome; factual=factual, target=target,
+    seed = seed
+)
+savefig(plt, joinpath(paper_figpath, "mnist_benchmark.png"))
+CounterfactualExplanations.target_probs.(ces)
 ```
+

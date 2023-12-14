@@ -4,6 +4,8 @@ include("$(pwd())/experiments/setup_env.jl")
 include("$(pwd())/experiments/notebooks/setup.jl")
 ```
 
+This notebook can be used to recreate Figure 2 in the paper.
+
 ## Data
 
 ```{julia}
@@ -168,6 +170,8 @@ plt = Plots.plot(plts..., size=(500,520))
 display(plt)
 savefig(plt, joinpath(output_images_path, "poc.png"))
 ```
+
+The code below generates Figure 2 in the paper.
 
 ```{julia}
 using Colors
