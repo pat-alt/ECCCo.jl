@@ -248,37 +248,9 @@ Table~\ref{tab:genparams} summarises our hyperparameter choices for the counterf
 
 \subsection{Compute}
 
-To enable others to easily replicate our experiments, we have chosen to work with small neural network architectures and randomly undersampled the \textit{MNIST} dataset (maintaining class balance). All of our final benchmarks could then be run locally on a personal machine, but grid searches and the sheer number of datasets required us to move to high-performance computing clusters to conduct our experiments efficiently. 
+Research reported in this work was partially or completely facilitated by computational resources and support of the DelftBlue~\citep{DHPC2022} and the Delft AI Cluster (DAIC: https://doc.daic.tudelft.nl/) at TU Delft. 
 
-\subsubsection{Local runs}
-
-The longest runtimes we experienced for model training and counterfactual benchmarking for a single benchmark were on the order of 12-24 hours (\textit{MNIST} data). For the synthetic data, single benchmarks could be completed in less than an hour. We have summarised our system information below:
-
-\textbf{Software}:
-
-\begin{itemize}
-  \item System Version: macOS 13.3.1
-  \item Kernel Version: Darwin 22.4.0
-\end{itemize}
-
-\textbf{Hardware}:
-
-\begin{itemize}
-  \item Model Name: MacBook Pro
-  \item Model Identifier: MacBookPro16,1
-  \item Processor Name: 8-Core Intel Core i9
-  \item Processor Speed: 2.3 GHz
-  \item Number of Processors: 1
-  \item Total Number of Cores: 8
-  \item L2 Cache (per Core): 256 KB
-  \item L3 Cache: 16 MB
-  \item Hyper-Threading Technology: Enabled
-  \item Memory: 32 GB
-\end{itemize}
-
-\subsubsection{HPC}
-
-We used two large clusters, which we do not cite or mention by name at this point to not interfer with the double-blind review process. All of our grid searches were multi-processed on 100 CPUs at 4-8GB or memory each. 
+For grid search, we used 300 CPUs for tabular real-world datasets ($<$1.5 hours each), 150 CPUs for synthetic datasets ($\approx$1 hour each) and 100 CPUs for vision datasets ($<$4 hours each), where we ran a smaller grid search for the latter. To generate the final results reported in the tables we used 300 CPUs for all datasets ($<$1.5 hours each) except the vision datasets. For the latter, we used 50 CPUs for smaller final experiments and at longer run times ($\approx$5 hours each).
 
 \subsection{Results}\label{app:results}
 
