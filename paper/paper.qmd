@@ -1,0 +1,25 @@
+---
+title: "Faithful Model Explanations through Energy-Constrained Conformal Counterfactuals"
+authors:
+    - name: Patrick Altmeyer
+      orcid: 0000-0003-4726-8613
+      affiliation: Delft University of Technology
+    - name: Arie van Deursen
+      affiliation: Delft University of Technology
+    - name: Cynthia C. S. Liem
+      affiliation: Delft University of Technology
+format:
+    arxiv-pdf: 
+        include-in-header:
+        - text: |
+            \usepackage{listings}
+        keep-tex: true
+abstract: |
+    We present [`CounterfactualExplanations.jl`](https://github.com/JuliaTrustworthyAI/CounterfactualExplanations.jl): a package for generating Counterfactual Explanations (CE) and Algorithmic Recourse (AR) for black-box models in Julia. CE explain how inputs into a model need to change to yield specific model predictions. Explanations that involve realistic and actionable changes can be used to provide AR: a set of proposed actions for individuals to change an undesirable outcome for the better. In this article, we discuss the usefulness of CE for Explainable Artificial Intelligence and demonstrate the functionality of our package. The package is straightforward to use and designed with a focus on customization and extensibility. We envision it to one day be the go-to place for explaining arbitrary predictive models in Julia through a diverse suite of counterfactual generators.
+keywords:
+    - Julia
+    - Explainable Artificial Intelligence
+    - Counterfactual Explanations
+    - Algorithmic Recourse
+date: today
+---
