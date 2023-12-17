@@ -98,6 +98,7 @@ if typeof(jem.sampler) <: ConditionalSampler
     plt = Plots.plot(plts..., layout=(1, 2), size=(2*500, 400))
     display(plt)
 end
+savefig(plt, joinpath(output_images_path, "poc_conditional_samples.png"))
 ```
 
 ## Losses and Penalties

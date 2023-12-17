@@ -56,7 +56,7 @@ Our full training objective can be summarized as follows,
 
 where $L_{\text{reg}}(\theta)$ is a Ridge penalty (L2 norm) that regularises energy magnitudes for both observed and generated samples~\citep{du2019implicit}. We have used varying degrees of regularization depending on the dataset ($\lambda$ in Table~\ref{tab:ebmparams}). 
 
-Contrary to existing work, we have not typically used the entire minibatch of training data for the generative loss component but found that using a subset of the minibatch was often sufficient in attaining decent generative performance (Table~\ref{tab:ebmparams}). This has helped to reduce the computational burden for our models, which should make it easier for others to reproduce our findings. Figures~\ref{fig:mnist-gen} and~\ref{fig:moons-gen} show generated samples for our \textit{MNIST} and \textit{Moons} data, to provide a sense of their generative property.
+Contrary to existing work, we have not typically used the entire minibatch of training data for the generative loss component but found that using a subset of the minibatch was often sufficient in attaining decent generative performance (Table~\ref{tab:ebmparams}). This has helped to reduce the computational burden for our models, which should make it easier for others to reproduce our findings. Figures~\ref{fig:mnist-gen} and~\ref{fig:poc-gen} show generated samples for our \textit{MNIST} and \textit{Moons} data, to provide a sense of their generative property.
 
 \import{../contents/}{table_ebm_params.tex}
 
@@ -68,8 +68,8 @@ Contrary to existing work, we have not typically used the entire minibatch of tr
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\linewidth]{../www/moons_generated_JEM.png}
-  \caption{Conditionally generated samples (stars) for our \textit{Moons} data using a JEM.}\label{fig:moons-gen}
+  \includegraphics[width=0.5\linewidth]{../www/poc_conditional_samples.png}
+  \caption{Conditionally generated samples (stars) for our \textit{Linearly Separable} data using a JEM.}\label{fig:poc-gen}
 \end{figure}
 \subsubsection{Inference: Quantifying Models' Generative Property}
 
