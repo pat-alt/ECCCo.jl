@@ -1,6 +1,6 @@
 # ECCCo
 
-![](www/poc_gradient_fields.png)
+![](paper/camera-ready/figures/poc_gradient_fields.png)
 
 *Energy-Constrained Counterfactual Explanations.*
 

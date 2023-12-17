@@ -56,5 +56,5 @@ plt = plot(
     layout=(1,length(models)), size=(width,round(1.0width)/length(models)),
     ticks=false
 )
-savefig(plt, "www/dist_energy.png")
+savefig(plt, "paper/www/dist_energy.png")
 ```
