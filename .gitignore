@@ -218,3 +218,5 @@ sympy-plots-for-*.tex/
 
 # pythontex
 /.luarc.json
+
+/.quarto/

@@ -1,10 +1,8 @@
 # ECCCo
 
-![](www/poc_gradient_fields.png)
+![](paper/camera-ready/figures/poc_gradient_fields.png)
 
-*Energy-Constrained Counterfactual Explanations.*
-
-This work is currently undergoing peer review. This README is therefore only meant to provide reviewers access to the code base. The code base will be made public after the review process.
+This is the code base used for our [AAAI 2024](https://aaai.org/aaai-conference/2024) paper *Faithful Model Explanations through Energy-Constrained Counterfactual Explanations*. The pre-print version of the paper is available on [arXiv](https://arxiv.org/abs/2312.10648).
 
 ## Inspecting the Package Code
 
@@ -33,6 +31,7 @@ Next, you may need to activate, resolve and instantiate the environment in `expe
 ```
 
 After that is done, you can exit Julia and proceed below.
+
 ### Sequential
 
 The `experiments/` folder contains separate Julia scripts for each dataset and a [run_experiments.jl](experiments/run_experiments.jl) that calls the individual scripts. You can either run these scripts inside a Julia session or just use the command line to execute them as described in the following.
@@ -93,3 +92,10 @@ Multi-processing and multi-threading can be combined:
 ```shell
 mpiexecjl --project=experiments -n 4 julia experiments/run_experiments.jl -- data=linearly_separable threaded mpi
 ```
+
+## Reproducing Figures
+
+To recreate the exact figures shown in the main paper you can use two notebooks:
+
+- `experiments/notebooks/figure2.qmd`: Figure 2 (gradient fields)
+- `experiments/notebooks/figure1and3.qmd`: Figures 1 and 3 (MNIST examples)

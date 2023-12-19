@@ -1,0 +1,170 @@
+```{julia}
+using Pkg; Pkg.activate("experiments")
+include("$(pwd())/experiments/setup_env.jl")
+include("$(pwd())/experiments/notebooks/setup.jl")
+```
+
+This notebook can be used to recreate Figures 1 and 3 in the main paper.
+
+## Motivation
+
+### Wachter and JSMA
+
+```{julia}
+Random.seed!(2023)
+
+# Data:
+counterfactual_data = load_mnist()
+X, y = CounterfactualExplanations.DataPreprocessing.unpack_data(counterfactual_data)
+input_dim, n_obs = size(counterfactual_data.X)
+M = load_mnist_mlp()
+
+# Target:
+factual_label = 9
+x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
+target = 7
+factual = predict_label(M, counterfactual_data, x_factual)[1]
+γ = 0.90
+
+# Training params:
+T = 100
+```
+
+```{julia}
+# Search:
+generic_generator = WachterGenerator(opt=Flux.Adam(0.25))
+ce_wachter = generate_counterfactual(
+    x_factual, target, counterfactual_data, M, generic_generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+)
+greedy_generator = GreedyGenerator(η=2.0)
+ce_jsma = generate_counterfactual(
+    x_factual, target, counterfactual_data, M, greedy_generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+)
+```
+
+```{julia}
+p1 = Plots.plot(
+    convert2image(MNIST, reshape(x_factual,28,28)),
+    axis=([], false), 
+    size=(img_height, img_height),
+    title="Factual"
+)
+plts = [p1]
+
+ces = zip([ce_wachter,ce_jsma])
+counterfactuals = reduce((x,y)->cat(x,y,dims=3),map(ce -> CounterfactualExplanations.counterfactual(ce[1]), ces))
+phat = reduce((x,y) -> cat(x,y,dims=3), map(ce -> target_probs(ce[1]), ces))
+for x in zip(eachslice(counterfactuals; dims=3), eachslice(phat; dims=3), ["Wachter","JSMA"])
+    ce, _phat, _name = (x[1],x[2],x[3])
+    _title = "$(_name) (p=$(round(_phat[1]; digits=2)))"
+    plt = Plots.plot(
+        convert2image(MNIST, reshape(ce,28,28)),
+        axis=([], false), 
+        size=(img_height, img_height),
+        title=_title
+    )
+    plts = [plts..., plt]
+end
+plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
+display(plt)
+savefig(plt, joinpath(output_images_path, "you_may_not_like_it.png"))
+```
+
+#### REVISE
+
+```{julia}
+using CounterfactualExplanations.Models: load_mnist_vae
+vae = load_mnist_vae()
+vae_weak = load_mnist_vae(;strong=false)
+```
+
+```{julia}
+# Define generator:
+revise_generator = REVISEGenerator(
+    opt = Flux.Optimise.Adam(0.25),
+    λ=0.1,
+)
+# Generate recourse:
+counterfactual_data.generative_model = vae # assign generative model
+ce_strong = generate_counterfactual(
+    x_factual, target, counterfactual_data, M, revise_generator; 
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+    converge_when=:generator_conditions,
+)
+counterfactual_data_weak = deepcopy(counterfactual_data)
+counterfactual_data_weak.generative_model = vae_weak
+ce_weak = generate_counterfactual(
+    x_factual, target, counterfactual_data_weak, M, revise_generator;
+    decision_threshold=γ, max_iter=T,
+    initialization=:identity,
+    converge_when=:generator_conditions,
+)
+```
+
+```{julia}
+ces = zip([ce_strong,ce_weak])
+counterfactuals = reduce((x,y)->cat(x,y,dims=3),map(ce -> CounterfactualExplanations.counterfactual(ce[1]), ces))
+phat = reduce((x,y) -> cat(x,y,dims=3), map(ce -> target_probs(ce[1]), ces))
+plts = [p1]
+for x in zip(eachslice(counterfactuals; dims=3), eachslice(phat; dims=3), ["Strong VAE","Weak VAE"])
+    ce, _phat, _name = (x[1],x[2],x[3])
+    _title = "$(_name) (p=$(round(_phat[1]; digits=2)))"
+    plt = Plots.plot(
+        convert2image(MNIST, reshape(ce,28,28)),
+        axis=([], false), 
+        size=(img_height, img_height),
+        title=_title
+    )
+    plts = [plts..., plt]
+end
+plt = Plots.plot(plts...; size=(img_height*length(plts),img_height), layout=(1,length(plts)))
+display(plt)
+savefig(plt, joinpath(output_images_path, "surrogate_gone_wrong.png"))
+```
+
+The code below generates Figure 1 in the main paper.
+
+```{julia}
+ces = zip([ce_wachter, ce_jsma, ce_strong])
+counterfactuals = reduce((x,y)->cat(x,y,dims=3),map(ce -> CounterfactualExplanations.counterfactual(ce[1]), ces))
+phat = reduce((x,y) -> cat(x,y,dims=3), map(ce -> target_probs(ce[1]), ces))
+plts = [p1]
+for x in zip(eachslice(counterfactuals; dims=3), eachslice(phat; dims=3), ["Wachter","Schut","REVISE"])
+    ce, _phat, _name = (x[1],x[2],x[3])
+    _title = "$(_name) (p=$(round(_phat[1]; digits=2)))"
+    plt = Plots.plot(
+        convert2image(MNIST, reshape(ce,28,28)),
+        axis=([], false), 
+        size=(img_height, img_height),
+        title=_title
+    )
+    plts = [plts..., plt]
+end
+plt = Plots.plot(plts...; size=(0.8*panel_height*length(plts),0.8*panel_height), layout=(1,length(plts)), dpi=400)
+display(plt)
+savefig(plt, joinpath(paper_figpath, "mnist_motivation.png"))
+```
+
+## Comparison with ECCCo
+
+The code below generates Figure 3 in the main paper. This uses the results from this [release](https://github.com/pat-alt/ECCCo.jl/releases/tag/results-camera-ready).
+
+```{julia}
+# Using results from: https://github.com/pat-alt/ECCCo.jl/releases/tag/results-camera-ready
+outcome = Serialization.deserialize("results/mnist_outcome.jls") # results from 
+factual = 3
+target = 5
+seed = 3333 
+plt, ces = compare_counterfactuals(
+    outcome; factual=factual, target=target,
+    seed = seed
+)
+savefig(plt, joinpath(paper_figpath, "mnist_benchmark.png"))
+CounterfactualExplanations.target_probs.(ces)
+```
+

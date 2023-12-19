@@ -45,12 +45,28 @@ dt_valid <- dt[non_valid==FALSE]
 
 ```{r}
 generators <- unique(dt$generator)[sapply(unique(dt$generator), function(x) {!grepl("L1",x)})]
+
+# Aggregate by run:
 tab <- dt[
     generator %in% generators,
     .(
-      value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
-      val = mean(value),
-      std = sd(value)
+      val_group = mean(value),
+      std_group = sd(value)
+    ),
+    .(dataname, generator, model, variable, run, source)
+]
+
+# Aggregate accross runs:
+tab <- tab[
+    generator %in% generators,
+    .(
+      value = ifelse(
+        source != "vision",
+        sprintf("%1.2f ± %1.2f", mean(val_group), sd(val_group)),
+        sprintf("%1.3f ± %1.3f", mean(val_group), sd(val_group))
+      ),
+      val = mean(val_group),
+      std = sd(val_group)
     ),
     .(dataname, generator, model, variable, source)
 ]
@@ -102,12 +118,28 @@ tab[,one_std_wachter:=NULL]
 
 ```{r}
 generators <- unique(dt$generator)[sapply(unique(dt$generator), function(x) {!grepl("L1",x)})]
+
+# Aggregate by run:
 tab_valid <- dt_valid[
     generator %in% generators,
     .(
-      value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
-      val = mean(value),
-      std = sd(value)
+      val_group = mean(value),
+      std_group = sd(value)
+    ),
+    .(dataname, generator, model, variable, run, source)
+]
+
+# Aggregate accross runs:
+tab_valid <- tab_valid[
+    generator %in% generators,
+    .(
+      value = ifelse(
+        source != "vision",
+        sprintf("%1.2f ± %1.2f", mean(val_group), sd(val_group)),
+        sprintf("%1.3f ± %1.3f", mean(val_group), sd(val_group))
+      ),
+      val = mean(val_group),
+      std = sd(val_group)
     ),
     .(dataname, generator, model, variable, source)
 ]
@@ -178,11 +210,11 @@ chosen_data <- c(
   "GMSC"
 )
 chosen_model <- c(
-  "MLP",
+  "MLP Ensemble",
   "JEM Ensemble"
 )
 
-tab_i <- tab
+tab_i <- tab_valid
 
 # Logic:
 tab_i <- tab_i[variable %in% measures]
@@ -198,7 +230,7 @@ col_names <- c(
   rep(measure_names,length(chosen_data))
 )
 caption <- sprintf(
-  "Results for %s datasets: sample averages +/- one standard deviation across counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\\textit{Wachter}). \\label{tab:results-%s} \\newline",
+  "Results for %s datasets: sample averages +/- one standard deviation across valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\\textit{Wachter}). \\label{tab:results-%s} \\newline",
   chosen_source,
   chosen_source
 )
@@ -247,7 +279,7 @@ chosen_model <- c(
   "LeNet-5"
 )
 
-tab_i <- tab
+tab_i <- tab_valid
 
 # Logic:
 tab_i <- tab_i[variable %in% measures]
@@ -295,12 +327,21 @@ kbl(
 ## Full tables
 
 ```{r}
-tab <- dt[
-    ,
+# Aggregate by run:
+tab <- dt[,
     .(
-      value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
-      val = mean(value),
-      std = sd(value)
+      val_group = mean(value),
+      std_group = sd(value)
+    ),
+    .(dataname, generator, model, variable, run, source)
+]
+
+# Aggregate accross runs:
+tab <- tab[,
+    .(
+      value =  sprintf("%1.2f ± %1.2f", mean(val_group), sd(val_group)),
+      val = mean(val_group),
+      std = sd(val_group)
     ),
     .(dataname, generator, model, variable, source)
 ]
@@ -371,12 +412,21 @@ tab[,variable:=factor(variable, levels=measures)]
 ```
 
 ```{r}
-tab_valid <- dt_valid[
-    ,
+# Aggregate by run:
+tab_valid <- dt_valid[,
     .(
-      value=sprintf("%1.2f ± %1.2f", mean(value), sd(value)),
-      val = mean(value),
-      std = sd(value)
+      val_group = mean(value),
+      std_group = sd(value)
+    ),
+    .(dataname, generator, model, variable, run, source)
+]
+
+# Aggregate accross runs:
+tab_valid <- tab_valid[,
+    .(
+      value = sprintf("%1.2f ± %1.2f", mean(val_group), sd(val_group)),
+      val = mean(val_group),
+      std = sd(val_group)
     ),
     .(dataname, generator, model, variable, source)
 ]

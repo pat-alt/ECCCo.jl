@@ -1,5 +1,95 @@
 using Plots
 
+"""
+    compare_counterfactuals(outcome::ExperimentOutcome; factual::Int = missing, target::Int = missing, model::String = "LeNet-5", img_height = 125, seed = 966, pllr::Union{Nothing, AbstractParallelizer} = nothing)
+
+Generates counterfactuals for a specified model and all generators in the benchmark and plots them for specified or random factual and target labels and a random sample from the benchmark.
+"""
+function compare_counterfactuals(
+    outcome::ExperimentOutcome;
+    factual::Int, target::Int,
+    model::String="LeNet-5",
+    img_height=125,
+    seed=966,
+    pllr::Union{Nothing, AbstractParallelizer}=ThreadsParallelizer(),
+)
+    # Set seed:
+    if !isnothing(seed)
+        Random.seed!(seed)
+    end
+
+    # Set up:
+    generators = outcome.generator_dict
+    filter!(p -> p[1] != "ECCCo", generators)
+    generator_names = collect(keys(generators))
+    replace!(generator_names, "ECCCo-Δ" => "ECCCo")
+    replace!(generator_names, "ECCCo-Δ (latent)" => "ECCCo+")
+    n_generators = length(generators)
+    models = outcome.model_dict
+    M = models[model]
+    data = outcome.exper.counterfactual_data
+    factual_label = ismissing(factual) ? rand(data.y_levels) : factual
+    factual = select_factual(data, rand(findall(data.output_encoder.labels .== factual_label)))
+    target_label = ismissing(target) ? rand(data.y_levels[data.y_levels .!= factual_label]) : target
+
+    # Plot factual:
+    img = factual |> ECCCo.convert2mnist
+    p1 = Plots.plot(
+        img,
+        axis = ([], false),
+        size = (img_height, img_height),
+        title = "Factual",
+    )
+    plts = [p1]
+
+    # Generate counterfactuals:
+    factuals = fill(factual, n_generators)
+    ces = @with_parallelizer pllr begin
+        generate_counterfactual(
+            factuals,
+            target_label,
+            data,
+            M,
+            [gen for (name, gen) in generators];
+            initialization = :identity,
+            converge_when = :generator_conditions,
+        )
+    end
+
+    # Sort:
+    ces = ces[sortperm(generator_names)]
+    sort!(generator_names)
+
+    # Counterfactuals:
+    counterfactuals = []
+    for (i, generator) in enumerate(generator_names)
+        ce = ces[i]
+        img = CounterfactualExplanations.counterfactual(ce) |> ECCCo.convert2mnist
+        p = Plots.plot(
+            img,
+            axis = ([], false),
+            size = (img_height, img_height),
+            title = "$generator",
+        )
+        push!(plts, p)
+        push!(counterfactuals, ce)
+    end
+
+    plt = Plots.plot(
+        plts...,
+        layout = (1, n_generators + 1),
+        size = (img_height * (n_generators + 1), img_height),
+        dpi = 300,
+    )
+
+    return plt, ces
+end
+
+"""
+    choose_random_mnist(outcome::ExperimentOutcome; model::String = "LeNet-5", img_height = 125, seed = 966)
+
+Plots counterfactusl for a random sample from the benchmark.
+"""
 function choose_random_mnist(
     outcome::ExperimentOutcome;
     model::String = "LeNet-5",
@@ -71,6 +161,11 @@ function choose_random_mnist(
 
 end
 
+"""
+    plot_random_eccco(outcome::ExperimentOutcome; ce = nothing, generator = "ECCCo-Δ", img_height = 200, seed = 966)
+
+Plots counterfactuals for a random sample and specified generator from the benchmark.
+"""
 function plot_random_eccco(
     outcome::ExperimentOutcome;
     ce = nothing,
@@ -134,6 +229,11 @@ function plot_random_eccco(
     return plt, target, seed
 end
 
+"""
+    plot_all_mnist(gen, model, data = load_mnist_test(); img_height = 150, seed = 123, maxoutdim = 64)
+
+Plots counterfactuals for all factual and target labels for a specified model and generator.
+"""
 function plot_all_mnist(
     gen,
     model,
