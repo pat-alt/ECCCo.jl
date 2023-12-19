@@ -2,9 +2,7 @@
 
 ![](paper/camera-ready/figures/poc_gradient_fields.png)
 
-*Energy-Constrained Counterfactual Explanations.*
-
-This work is currently undergoing peer review. This README is therefore only meant to provide reviewers access to the code base. The code base will be made public after the review process.
+This is the code base used for our [AAAI 2024](https://aaai.org/aaai-conference/2024) paper *Faithful Model Explanations through Energy-Constrained Counterfactual Explanations*. The pre-print version of the paper is available on [arXiv](https://arxiv.org/abs/2312.10648).
 
 ## Inspecting the Package Code
 
