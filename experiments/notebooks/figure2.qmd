@@ -70,11 +70,13 @@ niter = 1000
 jem = mach.model.model.jem
 _batch_size = mach.model.model.batch_size
 X = Float32.(MLJBase.matrix(X))
+gen_samples = Dict{Any,Any}()
 if typeof(jem.sampler) <: ConditionalSampler
     
     plts = []
     for target in 1:2
         X̂ = generate_conditional_samples(jem, _batch_size, target; niter=niter) 
+        gen_samples[target] = X̂
         ex = extrema(hcat(X,X̂), dims=2)
         xlims = ex[1]
         ylims = ex[2]
@@ -280,4 +282,114 @@ plt = Plots.plot(plts...; size=(panel_height*length(plts),panel_height), layout=
 display(plt)
 savefig(plt, joinpath(paper_figpath, "poc_gradient_fields.png"))
 ```
+
+## Simple CE
+
+```{julia}
+Random.seed!(2024)
+M = fit_model(counterfactual_data, :Linear)
+gen = WachterGenerator(opt=Flux.Descent(0.001))
+factual_label =  levels(labels)[2]
+x_factual = reshape(X[:,rand(findall(predict_label(M, counterfactual_data).==factual_label))],input_dim,1)
+target =  levels(labels)[1]
+factual = predict_label(M, counterfactual_data, x_factual)[1]
+ce = generate_counterfactual(
+    x_factual, target, counterfactual_data, M, gen;
+    converge_when=:generator_conditions,
+)
+plt = plot(
+    ce, dpi=300, size=(500,500), 
+    cbar=false, axis=nothing, legend=false,
+    palette = col_pal,
+)
+savefig(plt, joinpath(output_images_path, "simple_ce.png"))
+```
+
+## True Density
+
+```{julia}
+using KernelDensity
+using StatsPlots
+
+target_cls_mask = counterfactual_data.output_encoder.labels .== 1
+X_target = counterfactual_data.X[:,target_cls_mask]
+
+x = X_target[1,:]
+y = X_target[2,:]
+
+k = kde((x, y))
+
+plt = contourf(
+    k,
+	c = :BuPu,
+	linewidth = 0,
+    size=(500,500),
+    dpi=300,
+    colorbar=false,
+    axis=nothing,
+    legend=false,
+    palette = col_pal,
+)
+
+scatter!(
+    counterfactual_data, alpha=0.3,
+    xlims = extrema(x),
+    ylims = extrema(y),
+)
+
+ce_path = hcat(path(ce)...)
+scatter!(
+    ce_path[1,:], ce_path[2,:], 
+    color=predict_label(M, counterfactual_data, ce_path), ms=10, alpha=0.5,
+    label=""
+)
+savefig(plt, joinpath(output_images_path, "density_true.png"))
+```
+
+## Posterior
+
+```{julia}
+x = gen_samples[target][1,:]
+y = gen_samples[target][2,:]
+
+k = kde(
+    (x, y); 
+    bandwidth=(0.1,0.1),
+    boundary=(extrema(X_target[1,:]),extrema(X_target[2,:]))
+)
+
+plt = contourf(
+    k,
+	c = :BuPu,
+	linewidth = 0,
+    size=(500,500),
+    dpi=300,
+    colorbar=false,
+    axis=nothing,
+    legend=false,
+    palette = col_pal,
+)
+
+scatter!(
+    counterfactual_data, alpha=0.3,
+    xlims = extrema(X_target[1,:]),
+    ylims = extrema(X_target[2,:]),
+)
+
+ce_path = hcat(path(ce)...)
+scatter!(
+    ce_path[1,:], ce_path[2,:], 
+    color=predict_label(M, counterfactual_data, ce_path), ms=10, alpha=0.5,
+    label=""
+)
+
+scatter!(
+    plt, gen_samples[1][1,:], gen_samples[1][2,:],
+    shape=:star5, ms=10, color=:yellow, alpha=0.5, label=""
+)
+
+savefig(plt, joinpath(output_images_path, "density_model.png"))
+```
+
+
 
