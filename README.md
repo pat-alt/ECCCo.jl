@@ -14,23 +14,14 @@ All results have been carefully reported either in the paper itself or in the su
 
 ## Reproducing the Results
 
-To reproduce the results, you need to install the package, which will automatically install all dependencies. Since the package is not publicly registered you will need to install it from source. To do so, start `Julia` from within this folder by executing `julia --project` from the command line and then enter `Pkg` mode by typing `]`. Then execute the following commands:
+This repo contains a small Julia package that will eventually be merged into [CounterfactualExplanations.jl](https://github.com/JuliaTrustworthyAI/CounterfactualExplanations.jl) and is therefore not registered on the general registry. You can install the package directly from here as follows:
 
 ```julia
-(ECCCo) pkg> resolve
-(ECCCo) pkg> instantiate
+using Pkg
+Pkg.add(url="https://github.com/pat-alt/ECCCo.jl")
 ```
 
-Next, you may need to activate, resolve and instantiate the environment in `experiments`:
-
-```julia
-(ECCCo) pkg> activate experiments/
-  Activating project at `~/code/ECCCo.jl/experiments`
-(experiments) pkg> resolve
-(experiments) pkg> instantiate
-```
-
-After that is done, you can exit Julia and proceed below.
+This will automatically set up the environment and install all the necessary dependencies.
 
 ### Sequential
 
