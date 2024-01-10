@@ -95,9 +95,11 @@
 
 % Numbered Environments:
 \newtheorem{definition}{Definition}[section]
+\renewcommand{\thedefinition}{\arabic{definition}}
 \newtheorem{question}{Research Question}[section]
+\renewcommand{\thequestion}{\arabic{question}}
 
-\setcounter{secnumdepth}{1} %May be changed to 1 or 2 if section numbers are desired.
+% \setcounter{secnumdepth}{1} %May be changed to 1 or 2 if section numbers are desired.
 
 % The file aaai24.sty is the style file for AAAI Press
 % proceedings, working notes, and technical reports.
@@ -123,7 +125,7 @@ Energy-Constrained Conformal Counterfactuals}
 }
 \affiliations{
     %Afiliations
-    \textsuperscript{\rm 1}Delft University of Technology,\\
+    \textsuperscript{\rm 1}Delft University of Technology,
     Faculty of Electrical Engineering, Mathematics and Computer Science\\
     \textsuperscript{\rm 2}ING Bank\\
     p.altmeyer@tudelft.nl
@@ -178,7 +180,7 @@ One straightforward way to do this is to use surrogate models for the task. \cit
 
 A competing approach towards plausibility that is also closely related to this work instead relies on the black-box model itself.~\citet{schut2021generating} show that to meet the plausibility objective we need not explicitly model the input distribution. Pointing to the undesirable engineering overhead induced by surrogate models, they propose to rely on the implicit minimization of predictive uncertainty instead. Their proposed methodology, which we will refer to as \textit{Schut}, solves Equation~\ref{eq:general} by greedily applying Jacobian-Based Saliency Map Attacks (JSMA) in the feature space with cross-entropy loss and no penalty at all. The authors demonstrate theoretically and empirically that their approach yields counterfactuals for which the model $M_{\theta}$ predicts the target label $\mathbf{y}^+$ with high confidence. Provided the model is well-specified, these counterfactuals are plausible. This idea hinges on the assumption that the black-box model provides well-calibrated predictive uncertainty estimates.
 
-\section{Why Fidelity is not Enough: A Motivational Example}\label{fidelity}
+\section{Why Fidelity Is Not Enough: A Motivational Example}\label{fidelity}
 
 As discussed in the introduction, any valid counterfactual also has full fidelity by construction: solutions to Equation~\ref{eq:general} are considered valid as soon as the label predicted by the model matches the target class. So while fidelity always applies, counterfactuals that address the various desiderata introduced above can look vastly different from each other. 
 
@@ -194,7 +196,7 @@ Since \textit{Wachter} is only concerned with closeness, the generated counterfa
 
 So which of the counterfactuals most faithfully explains the behaviour of our image classifier? Fidelity cannot help us to make that judgement, because all of these counterfactuals have full fidelity. Thus, fidelity is an insufficient evaluation metric to assess the faithfulness of CE. 
 
-\section{Faithful first, Plausible second}\label{faithfulness}
+\section{Faithful First, Plausible Second}\label{faithfulness}
 
 Considering the limitations of fidelity as demonstrated in the previous section, analogous to Definition~\ref{def:plausible}, we introduce a new notion of faithfulness in the context of CE:
 
@@ -205,7 +207,7 @@ Considering the limitations of fidelity as demonstrated in the previous section,
 
 In doing this, we merge in and nuance the concept of plausibility (Definition~\ref{def:plausible}) where the notion of `consistent with the data' becomes `consistent with what the model has learned about the data'.
 
-\subsection{Quantifying the Model's Generative Property}
+\subsection{Quantifying the Model’s Generative Property}
 
 To assess counterfactuals with respect to Definition~\ref{def:faithful}, we need a way to quantify the posterior conditional distribution $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$. To this end, we draw on ideas from energy-based modelling (EBM), a subdomain of machine learning that is concerned with generative or hybrid modelling~\citep{grathwohl2020your,du2019implicit}. In particular, note that if we fix $\mathbf{y}$ to our target value $\mathbf{y}^+$, we can conditionally draw from $p_{\theta}(\mathbf{x}|\mathbf{y}^+)$ by randomly initializing $\mathbf{x}_0$ and then using Stochastic Gradient Langevin Dynamics (SGLD) as follows, 
 
