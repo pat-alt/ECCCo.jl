@@ -1,8 +1,8 @@
 \begin{table*}
 
-\caption{Results for tabular datasets: sample averages +/- one standard deviation across valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\textit{Wachter}). \label{tab:results-tabular} \newline}
+\caption{Results for tabular datasets: sample averages +/- one standard deviation across valid counterfactuals. Model ensembling was used in both cases. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\textit{Wachter}). \label{tab:results-tabular} \newline}
 \centering
-\resizebox{\linewidth}{!}{
+\fontsize{9}{11}\selectfont
 \begin{tabular}[t]{llcccccc}
 \toprule
 \multicolumn{2}{c}{ } & \multicolumn{3}{c}{California Housing} & \multicolumn{3}{c}{GMSC} \\
@@ -21,7 +21,7 @@ Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓ & 
 
  & Schut & 4.00 ± 0.06\hphantom{*}\hphantom{*} & 1.15 ± 0.12\hphantom{*}\hphantom{*} & 0.10 ± 0.01** & 4.04 ± 0.08\hphantom{*}\hphantom{*} & 1.21 ± 0.08\hphantom{*}\hphantom{*} & 0.30 ± 0.01*\hphantom{*}\\
 
-\multirow{-7}{*}{\raggedright\arraybackslash MLP Ensemble} & Wachter & 4.04 ± 0.07\hphantom{*}\hphantom{*} & 1.13 ± 0.12\hphantom{*}\hphantom{*} & 0.16 ± 0.01\hphantom{*}\hphantom{*} & 4.10 ± 0.07\hphantom{*}\hphantom{*} & 0.95 ± 0.08\hphantom{*}\hphantom{*} & 0.32 ± 0.01\hphantom{*}\hphantom{*}\\
+\multirow{-7}{*}{\raggedright\arraybackslash MLP} & Wachter & 4.04 ± 0.07\hphantom{*}\hphantom{*} & 1.13 ± 0.12\hphantom{*}\hphantom{*} & 0.16 ± 0.01\hphantom{*}\hphantom{*} & 4.10 ± 0.07\hphantom{*}\hphantom{*} & 0.95 ± 0.08\hphantom{*}\hphantom{*} & 0.32 ± 0.01\hphantom{*}\hphantom{*}\\
 \cmidrule{1-8}
  & ECCCo & 1.40 ± 0.08** & 0.69 ± 0.05** & 0.11 ± 0.00** & 1.20 ± 0.06*\hphantom{*} & 0.78 ± 0.07** & 0.38 ± 0.01\hphantom{*}\hphantom{*}\\
 
@@ -35,7 +35,7 @@ Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓ & 
 
  & Schut & 1.59 ± 0.10*\hphantom{*} & 1.10 ± 0.06\hphantom{*}\hphantom{*} & \textbf{0.09 ± 0.00}** & 1.34 ± 0.07\hphantom{*}\hphantom{*} & 1.21 ± 0.10\hphantom{*}\hphantom{*} & \textbf{0.26 ± 0.01}**\\
 
-\multirow{-7}{*}{\raggedright\arraybackslash JEM Ensemble} & Wachter & 1.71 ± 0.09\hphantom{*}\hphantom{*} & 0.99 ± 0.08\hphantom{*}\hphantom{*} & 0.14 ± 0.00\hphantom{*}\hphantom{*} & 1.31 ± 0.08\hphantom{*}\hphantom{*} & 0.95 ± 0.10\hphantom{*}\hphantom{*} & 0.33 ± 0.01\hphantom{*}\hphantom{*}\\
+\multirow{-7}{*}{\raggedright\arraybackslash JEM} & Wachter & 1.71 ± 0.09\hphantom{*}\hphantom{*} & 0.99 ± 0.08\hphantom{*}\hphantom{*} & 0.14 ± 0.00\hphantom{*}\hphantom{*} & 1.31 ± 0.08\hphantom{*}\hphantom{*} & 0.95 ± 0.10\hphantom{*}\hphantom{*} & 0.33 ± 0.01\hphantom{*}\hphantom{*}\\
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table*}

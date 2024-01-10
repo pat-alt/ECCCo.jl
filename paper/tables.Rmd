@@ -224,13 +224,18 @@ tab_i <- tab_i[model %in% chosen_model]
 tab_i[,model:=factor(model,levels=chosen_model)]
 tab_i[,dataname:=factor(dataname,levels=chosen_data)]
 tab_i <- dcast(tab_i, model + generator ~ dataname + variable)
+
+# Change model names to reduce column space
+levels(tab_i$model)[match("MLP Ensemble",levels(tab_i$model))] <- "MLP"
+levels(tab_i$model)[match("JEM Ensemble",levels(tab_i$model))] <- "JEM"
+
 col_names <- c(
   "Model",
   "Generator",
   rep(measure_names,length(chosen_data))
 )
 caption <- sprintf(
-  "Results for %s datasets: sample averages +/- one standard deviation across valid counterfactuals. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\\textit{Wachter}). \\label{tab:results-%s} \\newline",
+  "Results for %s datasets: sample averages +/- one standard deviation across valid counterfactuals. Model ensembling was used in both cases. Best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\\textit{Wachter}). \\label{tab:results-%s} \\newline",
   chosen_source,
   chosen_source
 )
@@ -251,7 +256,7 @@ kbl(
   format="latex", linesep = line_sep, table.env="table*"
 ) %>%
   kable_styling(
-    latex_options = c("scale_down")
+    font_size = 9
   ) %>%
   kable_paper(full_width = F) %>%
   add_header_above(header) %>%
@@ -295,7 +300,7 @@ col_names <- c(
   rep(measure_names,length(chosen_data))
 )
 caption <- sprintf(
-  "Results for %s dataset. Formatting details are the same as in Table~\\ref{tab:results-tabular}. \\label{tab:results-%s} \\newline",
+  "Results for %s dataset. No model ensembling was used. Formatting details are the same as in Table~\\ref{tab:results-tabular}. \\label{tab:results-%s} \\newline",
   chosen_source,
   chosen_source
 )
@@ -316,7 +321,7 @@ kbl(
   format="latex", linesep = line_sep 
 ) %>%
   kable_styling(
-    latex_options = c("scale_down")
+    font_size = 9
   ) %>%
   kable_paper(full_width = F) %>%
   add_header_above(header) %>%

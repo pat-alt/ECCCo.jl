@@ -333,53 +333,54 @@ The second question is motivated by the intuition that faithfulness and plausibi
 
 To assess and benchmark the performance of our proposed generator against the state of the art, we generate multiple counterfactuals for different models and datasets. In particular, we compare \textit{ECCCo} and its variants to the following counterfactual generators that were introduced above: firstly, \textit{Schut}, which works under the premise of minimizing predictive uncertainty; secondly, \textit{REVISE}, which is state-of-the-art (SOTA) with respect to plausibility; and, finally, \textit{Wachter}, which serves as our baseline. In the case of \textit{ECCCo+}, we use principal component analysis (PCA) for dimensionality reduction: the latent space $\mathcal{Z}$ is spanned by the first $n_z$ principal components where we choose $n_z$ to be equal to the latent dimension of the VAE used by \textit{REVISE}.
 
-For the predictive modelling tasks, we use multi-layer perceptrons (\textit{MLP}), deep ensembles, joint energy models (\textit{JEM}) and convolutional neural networks (LeNet-5 \textit{CNN}~\citep{lecun1998gradient}). Both joint-energy modelling and ensembling have been associated with improved generative properties and adversarial robustness~\citep{grathwohl2020your,lakshminarayanan2016simple}, so we expect this to be positively correlated with the plausibility of \textit{ECCCo}. To account for stochasticity, we generate many counterfactuals for each target class, generator, model and dataset over multiple runs.
+For the predictive modelling tasks, we use multi-layer perceptrons (\textit{MLP}), deep ensembles, joint energy models (\textit{JEM}) and convolutional neural networks (LeNet-5 \textit{CNN}~\citep{lecun1998gradient}). Both joint-energy modelling and ensembling have been associated with improved generative properties and adversarial robustness~\citep{grathwohl2020your,lakshminarayanan2016simple}, so we expect this to enhance the plausibility of \textit{ECCCo}. To account for stochasticity, we generate many counterfactuals for each target class, generator, model and dataset over multiple runs.
 
 We perform benchmarks on eight datasets from different domains. From the credit and finance domain we include three tabular datasets: Give Me Some Credit (\textit{GMSC})~\citep{kaggle2011give}, \textit{German Credit}~\citep{hoffman1994german} and \textit{California Housing}~\citep{pace1997sparse}. All of these are commonly used in the related literature~\citep{karimi2020survey,altmeyer2023endogenous,pawelczyk2021carla}. Following related literature~\citep{schut2021generating,dhurandhar2018explanations} we also include two image datasets: \textit{MNIST}~\citep{lecun1998mnist} and \textit{Fashion MNIST}~\citep{xiao2017fashion}. 
 
-Full details concerning model training as well as detailed descriptions and results for all datasets can be found in the appendix. In the following, we will focus on the most relevant results highlighted in Tables~\ref{tab:results-tabular} and~\ref{tab:results-vision}. The tables show sample averages along with standard deviations across multiple runs for our key evaluation metrics for the \textit{California Housing} and \textit{GMSC} datasets (Table~\ref{tab:results-tabular}) and the \textit{MNIST} dataset (Table~\ref{tab:results-vision}). For each metric, the best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (Wachter). For the tabular datasets, we use the default Euclidian distance to measure unfaithfulness and implausibility as defined in Equations~\ref{eq:faith} and~\ref{eq:impl}, respectively. The third metric presented in Table~\ref{tab:results-tabular} quantifies the predictive uncertainty of the counterfactual as measured by Equation~\ref{eq:setsize}. For the vision datasets, we rely on measuring the structural dissimilarity between images for our unfaithfulness and implausibility metrics~\citep{wang2003multiscale}. 
+Full details concerning model training as well as detailed descriptions and results for all datasets can be found in the appendix. In the following, we focus on the most relevant results highlighted in Tables~\ref{tab:results-tabular} and~\ref{tab:results-vision}. They show sample averages along with standard deviations across multiple runs for our key evaluation metrics for the \textit{California Housing} and \textit{GMSC} datasets (Table~\ref{tab:results-tabular}) and the \textit{MNIST} dataset (Table~\ref{tab:results-vision}). For each metric, the best outcomes are in bold. Asterisks indicate that a given value is more than one (*) or two (**) standard deviations away from the baseline (\textit{Wachter}). For the tabular datasets, we use the Euclidian distance to measure unfaithfulness and implausibility as defined in Equations~\ref{eq:faith} and~\ref{eq:impl}, respectively. For the vision datasets, we rely on measuring the structural dissimilarity between images for our unfaithfulness and implausibility metrics~\citep{wang2003multiscale}. The third metric presented in Table~\ref{tab:results-tabular} quantifies the predictive uncertainty of the counterfactual as measured by Equation~\ref{eq:setsize}. 
 
 \subsection{Faithfulness}
 
 \begin{table*}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{llcccccc}
-\toprule
-\multicolumn{2}{c}{ } & \multicolumn{3}{c}{California Housing} & \multicolumn{3}{c}{GMSC} \\
-\cmidrule(l{3pt}r{3pt}){3-5} \cmidrule(l{3pt}r{3pt}){6-8}
-Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓ & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓\\
-\midrule
-    & ECCCo & \textbf{3.69 ± 0.08}** & 1.94 ± 0.13\hphantom{*}\hphantom{*} & \textbf{0.09 ± 0.01}** & 3.84 ± 0.07** & 2.13 ± 0.08\hphantom{*}\hphantom{*} & \textbf{0.23 ± 0.01}**\\
-
-    & ECCCo+ & 3.88 ± 0.07** & 1.20 ± 0.09\hphantom{*}\hphantom{*} & 0.15 ± 0.02\hphantom{*}\hphantom{*} & \textbf{3.79 ± 0.05}** & 1.81 ± 0.05\hphantom{*}\hphantom{*} & 0.30 ± 0.01*\hphantom{*}\\
-
-    & ECCCo (no CP) & 3.70 ± 0.08** & 1.94 ± 0.13\hphantom{*}\hphantom{*} & 0.10 ± 0.01** & 3.85 ± 0.07** & 2.13 ± 0.08\hphantom{*}\hphantom{*} & 0.23 ± 0.01**\\
-
-    & ECCCo (no EBM) & 4.03 ± 0.07\hphantom{*}\hphantom{*} & 1.12 ± 0.12\hphantom{*}\hphantom{*} & 0.14 ± 0.01** & 4.08 ± 0.06\hphantom{*}\hphantom{*} & 0.97 ± 0.08\hphantom{*}\hphantom{*} & 0.31 ± 0.01*\hphantom{*}\\
-
-    & REVISE & 3.96 ± 0.07*\hphantom{*} & \textbf{0.58 ± 0.03}** & 0.17 ± 0.03\hphantom{*}\hphantom{*} & 4.09 ± 0.07\hphantom{*}\hphantom{*} & \textbf{0.63 ± 0.02}** & 0.33 ± 0.06\hphantom{*}\hphantom{*}\\
-
-    & Schut & 4.00 ± 0.06\hphantom{*}\hphantom{*} & 1.15 ± 0.12\hphantom{*}\hphantom{*} & 0.10 ± 0.01** & 4.04 ± 0.08\hphantom{*}\hphantom{*} & 1.21 ± 0.08\hphantom{*}\hphantom{*} & 0.30 ± 0.01*\hphantom{*}\\
-
-\multirow{-7}{*}{\raggedright\arraybackslash MLP Ensemble} & Wachter & 4.04 ± 0.07\hphantom{*}\hphantom{*} & 1.13 ± 0.12\hphantom{*}\hphantom{*} & 0.16 ± 0.01\hphantom{*}\hphantom{*} & 4.10 ± 0.07\hphantom{*}\hphantom{*} & 0.95 ± 0.08\hphantom{*}\hphantom{*} & 0.32 ± 0.01\hphantom{*}\hphantom{*}\\
-\cmidrule{1-8}
-    & ECCCo & 1.40 ± 0.08** & 0.69 ± 0.05** & 0.11 ± 0.00** & 1.20 ± 0.06*\hphantom{*} & 0.78 ± 0.07** & 0.38 ± 0.01\hphantom{*}\hphantom{*}\\
-
-    & ECCCo+ & \textbf{1.28 ± 0.08}** & 0.60 ± 0.04** & 0.11 ± 0.00** & \textbf{1.01 ± 0.07}** & 0.70 ± 0.07** & 0.37 ± 0.01\hphantom{*}\hphantom{*}\\
-
-    & ECCCo (no CP) & 1.39 ± 0.08** & 0.69 ± 0.05** & 0.11 ± 0.00** & 1.21 ± 0.07*\hphantom{*} & 0.77 ± 0.07** & 0.39 ± 0.01\hphantom{*}\hphantom{*}\\
-
-    & ECCCo (no EBM) & 1.70 ± 0.09\hphantom{*}\hphantom{*} & 0.99 ± 0.08\hphantom{*}\hphantom{*} & 0.14 ± 0.00*\hphantom{*} & 1.31 ± 0.07\hphantom{*}\hphantom{*} & 0.97 ± 0.10\hphantom{*}\hphantom{*} & 0.32 ± 0.01**\\
-
-    & REVISE & 1.39 ± 0.15** & \textbf{0.59 ± 0.04}** & 0.25 ± 0.07\hphantom{*}\hphantom{*} & 1.01 ± 0.07** & \textbf{0.63 ± 0.04}** & 0.33 ± 0.07\hphantom{*}\hphantom{*}\\
-
-    & Schut & 1.59 ± 0.10*\hphantom{*} & 1.10 ± 0.06\hphantom{*}\hphantom{*} & \textbf{0.09 ± 0.00}** & 1.34 ± 0.07\hphantom{*}\hphantom{*} & 1.21 ± 0.10\hphantom{*}\hphantom{*} & \textbf{0.26 ± 0.01}**\\
-
-\multirow{-7}{*}{\raggedright\arraybackslash JEM Ensemble} & Wachter & 1.71 ± 0.09\hphantom{*}\hphantom{*} & 0.99 ± 0.08\hphantom{*}\hphantom{*} & 0.14 ± 0.00\hphantom{*}\hphantom{*} & 1.31 ± 0.08\hphantom{*}\hphantom{*} & 0.95 ± 0.10\hphantom{*}\hphantom{*} & 0.33 ± 0.01\hphantom{*}\hphantom{*}\\
-\bottomrule
-\end{tabular}}
-\caption{Results for tabular datasets: sample averages +/- one standard deviation across valid counterfactuals. The best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\textit{Wachter}). \label{tab:results-tabular}}
+  \setlength{\tabcolsep}{4pt}
+  \centering
+  \fontsize{9}{11}\selectfont
+  \begin{tabular}[t]{llcccccc}
+  \toprule
+  \multicolumn{2}{c}{ } & \multicolumn{3}{c}{California Housing} & \multicolumn{3}{c}{GMSC} \\
+  \cmidrule(l{3pt}r{3pt}){3-5} \cmidrule(l{3pt}r{3pt}){6-8}
+  Model & Generator & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓ & Unfaithfulness ↓ & Implausibility ↓ & Uncertainty ↓\\
+  \midrule
+   & ECCCo & \textbf{3.69 ± 0.08}** & 1.94 ± 0.13\hphantom{*}\hphantom{*} & \textbf{0.09 ± 0.01}** & 3.84 ± 0.07** & 2.13 ± 0.08\hphantom{*}\hphantom{*} & \textbf{0.23 ± 0.01}**\\
+  
+   & ECCCo+ & 3.88 ± 0.07** & 1.20 ± 0.09\hphantom{*}\hphantom{*} & 0.15 ± 0.02\hphantom{*}\hphantom{*} & \textbf{3.79 ± 0.05}** & 1.81 ± 0.05\hphantom{*}\hphantom{*} & 0.30 ± 0.01*\hphantom{*}\\
+  
+   & ECCCo (no CP) & 3.70 ± 0.08** & 1.94 ± 0.13\hphantom{*}\hphantom{*} & 0.10 ± 0.01** & 3.85 ± 0.07** & 2.13 ± 0.08\hphantom{*}\hphantom{*} & 0.23 ± 0.01**\\
+  
+   & ECCCo (no EBM) & 4.03 ± 0.07\hphantom{*}\hphantom{*} & 1.12 ± 0.12\hphantom{*}\hphantom{*} & 0.14 ± 0.01** & 4.08 ± 0.06\hphantom{*}\hphantom{*} & 0.97 ± 0.08\hphantom{*}\hphantom{*} & 0.31 ± 0.01*\hphantom{*}\\
+  
+   & REVISE & 3.96 ± 0.07*\hphantom{*} & \textbf{0.58 ± 0.03}** & 0.17 ± 0.03\hphantom{*}\hphantom{*} & 4.09 ± 0.07\hphantom{*}\hphantom{*} & \textbf{0.63 ± 0.02}** & 0.33 ± 0.06\hphantom{*}\hphantom{*}\\
+  
+   & Schut & 4.00 ± 0.06\hphantom{*}\hphantom{*} & 1.15 ± 0.12\hphantom{*}\hphantom{*} & 0.10 ± 0.01** & 4.04 ± 0.08\hphantom{*}\hphantom{*} & 1.21 ± 0.08\hphantom{*}\hphantom{*} & 0.30 ± 0.01*\hphantom{*}\\
+  
+  \multirow{-7}{*}{\raggedright\arraybackslash MLP} & Wachter & 4.04 ± 0.07\hphantom{*}\hphantom{*} & 1.13 ± 0.12\hphantom{*}\hphantom{*} & 0.16 ± 0.01\hphantom{*}\hphantom{*} & 4.10 ± 0.07\hphantom{*}\hphantom{*} & 0.95 ± 0.08\hphantom{*}\hphantom{*} & 0.32 ± 0.01\hphantom{*}\hphantom{*}\\
+  \cmidrule{1-8}
+   & ECCCo & 1.40 ± 0.08** & 0.69 ± 0.05** & 0.11 ± 0.00** & 1.20 ± 0.06*\hphantom{*} & 0.78 ± 0.07** & 0.38 ± 0.01\hphantom{*}\hphantom{*}\\
+  
+   & ECCCo+ & \textbf{1.28 ± 0.08}** & 0.60 ± 0.04** & 0.11 ± 0.00** & \textbf{1.01 ± 0.07}** & 0.70 ± 0.07** & 0.37 ± 0.01\hphantom{*}\hphantom{*}\\
+  
+   & ECCCo (no CP) & 1.39 ± 0.08** & 0.69 ± 0.05** & 0.11 ± 0.00** & 1.21 ± 0.07*\hphantom{*} & 0.77 ± 0.07** & 0.39 ± 0.01\hphantom{*}\hphantom{*}\\
+  
+   & ECCCo (no EBM) & 1.70 ± 0.09\hphantom{*}\hphantom{*} & 0.99 ± 0.08\hphantom{*}\hphantom{*} & 0.14 ± 0.00*\hphantom{*} & 1.31 ± 0.07\hphantom{*}\hphantom{*} & 0.97 ± 0.10\hphantom{*}\hphantom{*} & 0.32 ± 0.01**\\
+  
+   & REVISE & 1.39 ± 0.15** & \textbf{0.59 ± 0.04}** & 0.25 ± 0.07\hphantom{*}\hphantom{*} & 1.01 ± 0.07** & \textbf{0.63 ± 0.04}** & 0.33 ± 0.07\hphantom{*}\hphantom{*}\\
+  
+   & Schut & 1.59 ± 0.10*\hphantom{*} & 1.10 ± 0.06\hphantom{*}\hphantom{*} & \textbf{0.09 ± 0.00}** & 1.34 ± 0.07\hphantom{*}\hphantom{*} & 1.21 ± 0.10\hphantom{*}\hphantom{*} & \textbf{0.26 ± 0.01}**\\
+  
+  \multirow{-7}{*}{\raggedright\arraybackslash JEM} & Wachter & 1.71 ± 0.09\hphantom{*}\hphantom{*} & 0.99 ± 0.08\hphantom{*}\hphantom{*} & 0.14 ± 0.00\hphantom{*}\hphantom{*} & 1.31 ± 0.08\hphantom{*}\hphantom{*} & 0.95 ± 0.10\hphantom{*}\hphantom{*} & 0.33 ± 0.01\hphantom{*}\hphantom{*}\\
+  \bottomrule
+  \end{tabular}
+\caption{Results for tabular datasets: sample averages +/- one standard deviation across valid counterfactuals. Model ensembling was used in both cases. The best outcomes are highlighted in bold. Asterisks indicate that the given value is more than one (*) or two (**) standard deviations away from the baseline (\textit{Wachter}). \label{tab:results-tabular}}
 \end{table*}
     
 
@@ -387,7 +388,7 @@ Overall, we find strong empirical evidence suggesting that \textit{ECCCo} consis
 
 In particular, we note that the best results are generally obtained when using the full \textit{ECCCo} objective (Equation~\ref{eq:eccco}). In other words, constraining both energy and predictive uncertainty typically yields the most faithful counterfactuals. We expected the former to play a more significant role in this context and that is typically what we find across all datasets. The results in Table~\ref{tab:results-tabular} indicate that faithfulness can be improved substantially by relying solely on the energy constraint (\textit{ECCCo (no CP)}). In most cases, however, the full objective yields the most faithful counterfactuals. This indicates that predictive uncertainty minimization plays an important role in achieving faithfulness. 
 
-We also generally find that latent space search does not impede faithfulness for \textit{ECCCo}. In most cases \textit{ECCCo+} is either on par with \textit{ECCCo} or even outperforms it. There are some notable exceptions though. Cases in which \textit{ECCCo} achieves substantially better faithfulness without latent space search tend to involve more vulnerable models like the simple MLP for MNIST in Table~\ref{tab:results-vision}. We explain this finding as follows: even though dimensionality reduction through PCA in the case of \textit{ECCCo+} can be considered a relatively mild form of intervention, the first $n_z$ principal components fail to capture some of the variation in the data. More vulnerable models may be particularly sensitive to this residual variation in the data. 
+We also generally find that latent space search does not impede faithfulness for \textit{ECCCo}. In most cases \textit{ECCCo+} is either on par with \textit{ECCCo} or outperforms it. There are some notable exceptions though. Cases in which \textit{ECCCo} achieves substantially better faithfulness without latent space search tend to involve more vulnerable models like the MLP for MNIST in Table~\ref{tab:results-vision}. We explain this finding as follows: even though dimensionality reduction through PCA in the case of \textit{ECCCo+} can be considered a relatively mild form of intervention, the first $n_z$ principal components fail to capture some of the variation in the data. More vulnerable models may be particularly sensitive to this residual variation in the data. 
 
 Consistent with this finding, we also observe that \textit{REVISE} ranks higher for faithfulness, if the model itself has learned more plausible representations of the underlying data: \textit{REVISE} generates more faithful counterfactuals than the baseline for the \textit{JEM} Ensemble in Table~\ref{tab:results-tabular} and the LeNet-5 \textit{CNN} in Table~\ref{tab:results-vision}. This demonstrates that the two desiderata---faithfulness and plausibility---are not mutually exclusive.
 
@@ -400,36 +401,36 @@ Consistent with this finding, we also observe that \textit{REVISE} ranks higher 
 \end{figure}
 
 \begin{table}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{llcc}
-\toprule
-\multicolumn{2}{c}{ } & \multicolumn{2}{c}{MNIST} \\
-\cmidrule(l{3pt}r{3pt}){3-4}
-Model & Generator & Unfaithfulness ↓ & Implausibility ↓\\
-\midrule
-    & ECCCo & \textbf{0.243 ± 0.000}** & 0.420 ± 0.001\hphantom{*}\hphantom{*}\\
-
-    & ECCCo+ & 0.246 ± 0.000*\hphantom{*} & 0.306 ± 0.001**\\
-
-    & REVISE & 0.248 ± 0.000\hphantom{*}\hphantom{*} & \textbf{0.301 ± 0.004}**\\
-
-    & Schut & 0.247 ± 0.001\hphantom{*}\hphantom{*} & 0.303 ± 0.008**\\
-
-\multirow{-5}{*}{\raggedright\arraybackslash MLP} & Wachter & 0.247 ± 0.000\hphantom{*}\hphantom{*} & 0.344 ± 0.002\hphantom{*}\hphantom{*}\\
-\cmidrule{1-4}
-    & ECCCo & 0.248 ± 0.000** & 0.387 ± 0.002\hphantom{*}\hphantom{*}\\
-
-    & ECCCo+ & \textbf{0.248 ± 0.000}** & 0.310 ± 0.002**\\
-
-    & REVISE & 0.248 ± 0.000** & 0.301 ± 0.002**\\
-
-    & Schut & 0.250 ± 0.002\hphantom{*}\hphantom{*} & \textbf{0.289 ± 0.024}*\hphantom{*}\\
-
-\multirow{-5}{*}{\raggedright\arraybackslash LeNet-5} & Wachter & 0.249 ± 0.000\hphantom{*}\hphantom{*} & 0.335 ± 0.002\hphantom{*}\hphantom{*}\\
-\bottomrule
-\end{tabular}}
-\caption{Results for vision dataset. Formatting details are the same as in Table~\ref{tab:results-tabular}. \label{tab:results-vision}}
+  \centering
+  \fontsize{9}{11}\selectfont
+  \begin{tabular}[t]{llcc}
+  \toprule
+  \multicolumn{2}{c}{ } & \multicolumn{2}{c}{MNIST} \\
+  \cmidrule(l{3pt}r{3pt}){3-4}
+  Model & Generator & Unfaithfulness ↓ & Implausibility ↓\\
+  \midrule
+   & ECCCo & \textbf{0.243 ± 0.000}** & 0.420 ± 0.001\hphantom{*}\hphantom{*}\\
+  
+   & ECCCo+ & 0.246 ± 0.000*\hphantom{*} & 0.306 ± 0.001**\\
+  
+   & REVISE & 0.248 ± 0.000\hphantom{*}\hphantom{*} & \textbf{0.301 ± 0.004}**\\
+  
+   & Schut & 0.247 ± 0.001\hphantom{*}\hphantom{*} & 0.303 ± 0.008**\\
+  
+  \multirow{-5}{*}{\raggedright\arraybackslash MLP} & Wachter & 0.247 ± 0.000\hphantom{*}\hphantom{*} & 0.344 ± 0.002\hphantom{*}\hphantom{*}\\
+  \cmidrule{1-4}
+   & ECCCo & 0.248 ± 0.000** & 0.387 ± 0.002\hphantom{*}\hphantom{*}\\
+  
+   & ECCCo+ & \textbf{0.248 ± 0.000}** & 0.310 ± 0.002**\\
+  
+   & REVISE & 0.248 ± 0.000** & 0.301 ± 0.002**\\
+  
+   & Schut & 0.250 ± 0.002\hphantom{*}\hphantom{*} & \textbf{0.289 ± 0.024}*\hphantom{*}\\
+  
+  \multirow{-5}{*}{\raggedright\arraybackslash LeNet-5} & Wachter & 0.249 ± 0.000\hphantom{*}\hphantom{*} & 0.335 ± 0.002\hphantom{*}\hphantom{*}\\
+  \bottomrule
+  \end{tabular}
+\caption{Results for vision dataset. No model ensembling was used. Formatting details are the same as in Table~\ref{tab:results-tabular}. \label{tab:results-vision}}
 \end{table}
 
 Overall, we find strong empirical evidence suggesting that \textit{ECCCo} can achieve near state-of-the-art plausibility without sacrificing faithfulness. Figure~\ref{fig:mnist-bmk} shows one such example taken from the \textit{MNIST} benchmark where the objective is to turn the factual `three' (far left) into a `five'. The underlying model is a LeNet-5 \textit{CNN}. The different images show the counterfactuals produced by the generators, of which all but the one produced by \textit{Schut} are valid. Both variations of \textit{ECCCo} produce plausible counterfactuals.
@@ -450,7 +451,7 @@ Another commonly discussed desideratum is closeness~\citep{wachter2017counterfac
 
 Despite having taken considerable measures to study our methodology carefully, limitations can still be identified. 
 
-Firstly, we recognize that our proposed distance-based evaluation metrics for plausibility and faithfulness may not be universally applicable to all types of data. In any case, they depend on choosing a distance metric on a case-by-case basis, as we have done in this work. Arguably, commonly used metrics for measuring other desiderata such as closeness suffer from the same pitfall. We therefore think that future work on counterfactual explanations could benefit from defining universal evaluation metrics. 
+Firstly, we recognize that our proposed distance-based evaluation metrics for plausibility and faithfulness may not be universally applicable to all types of data. They depend on choosing a distance metric on a case-by-case basis, as we have done in this work. Arguably, commonly used metrics for measuring other desiderata such as closeness suffer from the same pitfall. We therefore think that future work could benefit from defining universal evaluation metrics. 
 
 Relatedly, we note that our proposed metric for measuring faithfulness depends on the availability of samples generated through SGLD, which in turn requires gradient access for models. This means it cannot be used to evaluate non-differentiable classifiers. Consequently, we also have not applied \textit{ECCCo} to some machine learning models commonly used for classification such as decision trees. Since \textit{ECCCo} itself does not rely on SGLD, its defining penalty functions are indeed applicable to gradient-free counterfactual generators. This is an interesting avenue for future research.
 
